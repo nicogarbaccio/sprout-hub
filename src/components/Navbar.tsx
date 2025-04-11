@@ -16,6 +16,7 @@ import {
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { NavbarLoading } from './Navbar.loading';
 
 export function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -27,12 +28,10 @@ export function Navbar() {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (status === 'authenticated' || status === 'unauthenticated') {
-      setMounted(false);
-      setTimeout(() => setMounted(true), 0);
-    }
-  }, [status]);
+  // Show loading skeleton while not mounted
+  if (!mounted) {
+    return <NavbarLoading />;
+  }
 
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
@@ -70,12 +69,12 @@ export function Navbar() {
   const renderAuthButton = () => {
     const buttonBaseClass = "text-white hover:text-white/90 hover:bg-white/10 border-white/20 h-[32px] flex items-center justify-center focus:outline-none focus-visible:outline-none focus-visible:ring-0 focus:ring-0 active:outline-none active:border-white/20 focus:border-white/20";
 
-    if (!mounted || status === 'loading') {
+    if (status === 'loading') {
       return (
         <Button
           variant="outline"
           size="sm"
-          className={`${buttonBaseClass} w-[72px] !border-white/20 !ring-0`}
+          className={`${buttonBaseClass} w-[32px] !border-white/20 !ring-0`}
           disabled
         >
           <Loader2 className="h-4 w-4 animate-spin" />

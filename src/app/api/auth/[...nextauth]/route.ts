@@ -51,7 +51,7 @@ export const authOptions: NextAuthOptions = {
         return {
           id: user.id,
           email: user.email,
-          name: user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : user.name,
+          name: user.username,
         };
       }
     }),
@@ -61,9 +61,53 @@ export const authOptions: NextAuthOptions = {
     error: '/auth/error',
   },
   callbacks: {
+    async signIn({ user, account, profile }) {
+      if (account?.provider === 'google') {
+        // Get or create username from email
+        const existingUser = await prisma.user.findUnique({
+          where: { email: user.email! }
+        });
+
+        if (existingUser) {
+          // Use existing username
+          user.name = existingUser.username;
+        } else {
+          // Create a new username from email
+          const baseUsername = user.email!.split('@')[0];
+          let username = baseUsername;
+          let counter = 1;
+
+          // Keep trying until we find an available username
+          while (true) {
+            const exists = await prisma.user.findUnique({
+              where: { username }
+            });
+            if (!exists) break;
+            username = `${baseUsername}${counter}`;
+            counter++;
+          }
+
+          // Update user with username
+          await prisma.user.update({
+            where: { email: user.email! },
+            data: { username }
+          });
+          user.name = username;
+        }
+      }
+      return true;
+    },
     async session({ session, token }: { session: any; token: any }) {
       if (token.sub) {
         session.user.id = token.sub;
+        // Fetch the latest user data from the database
+        const user = await prisma.user.findUnique({
+          where: { id: token.sub }
+        });
+        if (user) {
+          session.user.name = user.username;
+          session.user.email = user.email;
+        }
       }
       return session;
     },

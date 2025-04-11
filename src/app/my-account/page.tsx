@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { PasswordInput } from '@/components/ui/password-input';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,6 +18,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import MyAccountLoading from './loading';
 
 interface FormErrors {
   username?: string;
@@ -36,7 +38,7 @@ interface FormData {
 }
 
 export default function MyAccount() {
-  const { data: session, update } = useSession();
+  const { data: session, status, update } = useSession();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
@@ -49,15 +51,48 @@ export default function MyAccount() {
     confirmNewPassword: '',
   });
 
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.replace('/auth/signin');
+    }
+  }, [status, router]);
+
+  // Update form data when session changes
+  useEffect(() => {
+    if (session?.user) {
+      setFormData(prev => ({
+        ...prev,
+        username: session.user.name || '',
+        email: session.user.email || '',
+      }));
+    }
+  }, [session]);
+
+  // Show loading state while session is loading
+  if (status === 'loading') {
+    return <MyAccountLoading />;
+  }
+
+  // Don't render anything if not authenticated
+  if (status === 'unauthenticated') {
+    return null;
+  }
+
   const validateForm = (type: 'profile' | 'password'): boolean => {
     const newErrors: FormErrors = {};
 
     if (type === 'profile') {
-      if (formData.username && formData.username.trim().length < 3) {
-        newErrors.username = 'Username must be at least 3 characters';
+      // Only validate if the field has been changed
+      if (formData.username && formData.username !== session?.user?.name) {
+        if (formData.username.trim().length < 3) {
+          newErrors.username = 'Username must be at least 3 characters';
+        }
       }
-      if (formData.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email.trim())) {
-        newErrors.email = 'Invalid email address';
+      if (formData.email && formData.email !== session?.user?.email) {
+        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email.trim())) {
+          newErrors.email = 'Invalid email address';
+        }
       }
     } else if (type === 'password') {
       if (!formData.currentPassword) {
@@ -83,6 +118,16 @@ export default function MyAccount() {
     e.preventDefault();
     if (!validateForm('profile')) return;
 
+    // Check if any fields have actually changed
+    const hasChanges = 
+      (formData.username && formData.username !== session?.user?.name) ||
+      (formData.email && formData.email !== session?.user?.email);
+
+    if (!hasChanges) {
+      setSuccessMessage('No changes to update');
+      return;
+    }
+
     setIsLoading(true);
     setErrors({});
     setSuccessMessage('');
@@ -92,8 +137,9 @@ export default function MyAccount() {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          username: formData.username || undefined,
-          email: formData.email || undefined,
+          // Only send fields that have changed
+          ...(formData.username !== session?.user?.name && { username: formData.username }),
+          ...(formData.email !== session?.user?.email && { email: formData.email }),
         }),
       });
 
@@ -106,13 +152,6 @@ export default function MyAccount() {
       setSuccessMessage('Profile updated successfully');
       // Update the session to reflect changes
       await update();
-      
-      // Reset form
-      setFormData(prev => ({
-        ...prev,
-        username: '',
-        email: '',
-      }));
     } catch (err: any) {
       setErrors({
         general: err.message || 'Failed to update profile'
@@ -193,17 +232,30 @@ export default function MyAccount() {
   ) => (
     <div className="space-y-2">
       <Label htmlFor={field}>{label}</Label>
-      <Input
-        id={field}
-        type={type}
-        value={formData[field]}
-        onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
-        className={errors[field] ? 'border-red-500' : ''}
-        placeholder={placeholder}
-        aria-invalid={!!errors[field]}
-        aria-errormessage={`${field}-error`}
-        disabled={isLoading}
-      />
+      {type === 'password' ? (
+        <PasswordInput
+          id={field}
+          value={formData[field]}
+          onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
+          className={errors[field] ? 'border-red-500' : ''}
+          placeholder={placeholder}
+          aria-invalid={!!errors[field]}
+          aria-errormessage={`${field}-error`}
+          disabled={isLoading}
+        />
+      ) : (
+        <Input
+          id={field}
+          type={type}
+          value={formData[field]}
+          onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
+          className={errors[field] ? 'border-red-500' : ''}
+          placeholder={placeholder}
+          aria-invalid={!!errors[field]}
+          aria-errormessage={`${field}-error`}
+          disabled={isLoading}
+        />
+      )}
       {errors[field] && (
         <p className="text-sm text-red-500" id={`${field}-error`}>
           {errors[field]}

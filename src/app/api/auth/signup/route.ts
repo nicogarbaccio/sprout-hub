@@ -57,7 +57,7 @@ export async function POST(req: Request) {
         username: username || undefined,
         email,
         password: hashedPassword,
-        name: `${firstName} ${lastName}`,
+        name: username,
       }
     });
 

@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
+import { PasswordInput } from '@/components/ui/password-input';
 
 interface FormErrors {
   firstName?: string;
@@ -141,15 +142,26 @@ export default function SignUp() {
   ) => (
     <div className="space-y-2">
       <Label htmlFor={field}>{label}</Label>
-      <Input
-        id={field}
-        type={type}
-        value={formData[field]}
-        onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
-        className={errors[field] ? 'border-red-500' : ''}
-        aria-invalid={!!errors[field]}
-        aria-errormessage={`${field}-error`}
-      />
+      {type === 'password' ? (
+        <PasswordInput
+          id={field}
+          value={formData[field]}
+          onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
+          className={errors[field] ? 'border-red-500' : ''}
+          aria-invalid={!!errors[field]}
+          aria-errormessage={`${field}-error`}
+        />
+      ) : (
+        <Input
+          id={field}
+          type={type}
+          value={formData[field]}
+          onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
+          className={errors[field] ? 'border-red-500' : ''}
+          aria-invalid={!!errors[field]}
+          aria-errormessage={`${field}-error`}
+        />
+      )}
       {errors[field] && (
         <p className="text-sm text-red-500" id={`${field}-error`}>
           {errors[field]}
