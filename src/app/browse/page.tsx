@@ -7,6 +7,7 @@ import { plants as initialPlants } from '@/data/plants';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { useSession } from 'next-auth/react';
+import toast from 'react-hot-toast';
 
 interface CollectedPlant extends Plant {
   nickname?: string;
@@ -52,10 +53,14 @@ export default function BrowsePage() {
           : p
       ));
 
+      // Show success toast
+      toast.success(`${nickname || plant.name} added to your collection!`);
+
       // Navigate to My Plants page
       router.push('/my-plants');
     } catch (error) {
       console.error('Error adding plant to collection:', error);
+      toast.error('Failed to add plant to collection. Please try again.');
     }
   };
 
