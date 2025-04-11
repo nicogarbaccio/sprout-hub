@@ -2,9 +2,23 @@ import { Logo } from '@/components/Logo';
 import Link from 'next/link';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { UserIcon } from 'lucide-react';
+import { UserIcon, Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu';
 
 export function Navbar() {
+  const { theme, setTheme } = useTheme();
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
   return (
     <nav className="bg-green-600 py-4 px-6 mb-8 sticky top-0 z-50 shadow-md">
       <div className="container mx-auto flex items-center gap-6">
@@ -24,21 +38,46 @@ export function Navbar() {
           >
             My Plants
           </Link>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="rounded-full h-8 w-8 p-0"
-            asChild
-          >
-            <Link href="/account">
-              <Avatar>
-                <AvatarFallback className="bg-white/10 text-white">
-                  <UserIcon className="h-4 w-4" />
-                </AvatarFallback>
-              </Avatar>
-              <span className="sr-only">My Account</span>
-            </Link>
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full h-8 w-8 p-0"
+              >
+                <Avatar>
+                  <AvatarFallback className="bg-white/10 text-white">
+                    <UserIcon className="h-4 w-4" />
+                  </AvatarFallback>
+                </Avatar>
+                <span className="sr-only">Open user menu</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuItem asChild>
+                <Link href="/account" className="w-full cursor-pointer">
+                  My Account
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem 
+                onClick={toggleTheme}
+                className="cursor-pointer flex items-center"
+              >
+                {theme === 'light' ? (
+                  <>
+                    <Moon className="h-4 w-4 mr-2" />
+                    Switch to Dark Mode
+                  </>
+                ) : (
+                  <>
+                    <Sun className="h-4 w-4 mr-2" />
+                    Switch to Light Mode
+                  </>
+                )}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </nav>

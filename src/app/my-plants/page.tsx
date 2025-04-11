@@ -188,8 +188,8 @@ export default function MyPlantsPage() {
                   variant="outline"
                   size="sm"
                   className={`w-full text-white hover:text-white ${wateringStatus.needsWater 
-                    ? 'bg-red-500 hover:bg-red-600' 
-                    : 'bg-blue-500 hover:bg-blue-600'} border-0`}
+                    ? 'bg-red-500 hover:bg-red-600 dark:bg-red-500 dark:hover:bg-red-400' 
+                    : 'bg-blue-500 hover:bg-blue-600 dark:bg-blue-500 dark:hover:bg-blue-400'} border-0`}
                   onClick={() => setWaterModalPlant(plant)}
                 >
                   Water Plant

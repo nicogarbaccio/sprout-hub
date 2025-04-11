@@ -6,7 +6,7 @@ interface LogoProps {
 
 export function Logo({ className = '' }: LogoProps) {
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
+    <Link href="/" className={`flex items-center gap-2 hover:opacity-90 transition-opacity ${className}`}>
       <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -22,9 +22,7 @@ export function Logo({ className = '' }: LogoProps) {
           <path d="M10 15c0 2.761 2.239 5 5 5s5-2.239 5-5c0-5-5-10-5-10S10 10 10 15z" />
         </svg>
       </div>
-      <Link href="/" className="hover:opacity-90 transition-opacity">
-        <h1 className="text-2xl md:text-3xl font-bold">Sprout Hub</h1>
-      </Link>
-    </div>
+      <h1 className="text-2xl md:text-3xl font-bold">Sprout Hub</h1>
+    </Link>
   );
 } 
