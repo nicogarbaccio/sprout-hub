@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
+import { useSession } from 'next-auth/react';
 
 interface LogoProps {
   className?: string;
@@ -9,13 +10,18 @@ interface LogoProps {
 
 export function Logo({ className = '' }: LogoProps) {
   const router = useRouter();
+  const { data: session } = useSession();
 
   const handleLogoClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
-    const storedPlants = localStorage.getItem('collectedPlants');
-    const hasPlants = storedPlants && JSON.parse(storedPlants).length > 0;
-    router.push(hasPlants ? '/my-plants' : '/');
-  }, [router]);
+    if (session) {
+      const storedPlants = localStorage.getItem('collectedPlants');
+      const hasPlants = storedPlants && JSON.parse(storedPlants).length > 0;
+      router.push(hasPlants ? '/my-plants' : '/browse');
+    } else {
+      router.push('/');
+    }
+  }, [router, session]);
 
   return (
     <button 
