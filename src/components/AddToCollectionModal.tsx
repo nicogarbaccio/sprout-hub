@@ -35,7 +35,7 @@ export function AddToCollectionModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] dark:bg-gray-900 bg-background">
+      <DialogContent className="sm:max-w-[425px] bg-white dark:bg-gray-900">
         <DialogHeader>
           <DialogTitle className="text-foreground dark:text-gray-300">Add {plant.name} to My Plants</DialogTitle>
         </DialogHeader>
@@ -47,7 +47,7 @@ export function AddToCollectionModal({
               placeholder="e.g., Living Room Snake Plant"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
-              className="bg-background dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-800"
+              className="bg-white dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-800"
             />
           </div>
           <div className="space-y-2">
@@ -60,7 +60,7 @@ export function AddToCollectionModal({
               value={wateringFrequency}
               onChange={(e) => setWateringFrequency(Number(e.target.value))}
               required
-              className="bg-background dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-800"
+              className="bg-white dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-800"
             />
           </div>
           <DialogFooter className="gap-3">
