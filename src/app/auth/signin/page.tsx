@@ -8,39 +8,98 @@ import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 
+interface FormErrors {
+  email?: string;
+  password?: string;
+  general?: string;
+}
+
 export default function SignIn() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    // Email validation
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email.trim())) {
+      newErrors.email = 'Invalid email address';
+    }
+
+    // Password validation
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setErrors({});
+
+    if (!validateForm()) {
+      return;
+    }
+
     setIsLoading(true);
 
     try {
       const result = await signIn('credentials', {
-        email: formData.email,
+        email: formData.email.trim(),
         password: formData.password,
         redirect: false,
       });
 
       if (result?.error) {
-        setError('Invalid email or password');
+        setErrors({
+          general: 'Invalid email or password'
+        });
       } else {
         router.push('/my-plants');
       }
     } catch (err) {
-      setError('Something went wrong');
+      setErrors({
+        general: 'Something went wrong. Please try again.'
+      });
     } finally {
       setIsLoading(false);
     }
   };
+
+  const renderInput = (
+    field: keyof typeof formData,
+    label: string,
+    type: string = 'text'
+  ) => (
+    <div className="space-y-2">
+      <Label htmlFor={field}>{label}</Label>
+      <Input
+        id={field}
+        type={type}
+        value={formData[field]}
+        onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
+        className={errors[field] ? 'border-red-500' : ''}
+        aria-invalid={!!errors[field]}
+        aria-errormessage={`${field}-error`}
+        disabled={isLoading}
+      />
+      {errors[field] && (
+        <p className="text-sm text-red-500" id={`${field}-error`}>
+          {errors[field]}
+        </p>
+      )}
+    </div>
+  );
 
   return (
     <main className="container mx-auto px-4 py-16">
@@ -51,32 +110,14 @@ export default function SignIn() {
             Account created successfully! Please sign in.
           </div>
         )}
-        {error && (
+        {errors.general && (
           <div className="bg-red-50 border border-red-200 text-red-600 rounded-lg p-4 mb-6">
-            {error}
+            {errors.general}
           </div>
         )}
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              required
-            />
-          </div>
+          {renderInput('email', 'Email', 'email')}
+          {renderInput('password', 'Password', 'password')}
           <Button
             type="submit"
             className="w-full bg-green-600 hover:bg-green-700"
@@ -98,6 +139,7 @@ export default function SignIn() {
         <Button
           onClick={() => signIn('google', { callbackUrl: '/' })}
           className="w-full bg-white text-gray-900 hover:bg-gray-100 border border-gray-300"
+          disabled={isLoading}
         >
           <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
             <path

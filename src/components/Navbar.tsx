@@ -4,7 +4,7 @@ import { Logo } from '@/components/Logo';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { UserIcon, Moon, Sun, LogOut } from 'lucide-react';
+import { UserIcon, Moon, Sun, LogOut, Loader2 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import {
   DropdownMenu,
@@ -18,18 +18,94 @@ import { useEffect, useState } from 'react';
 
 export function Navbar() {
   const { theme, setTheme } = useTheme();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (status === 'authenticated' || status === 'unauthenticated') {
+      setMounted(false);
+      setTimeout(() => setMounted(true), 0);
+    }
+  }, [status]);
+
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
-  // Prevent hydration mismatch by not rendering theme-dependent content until mounted
+  const handleSignIn = async () => {
+    await signIn(undefined, { callbackUrl: window.location.href });
+  };
+
+  const handleSignOut = async () => {
+    await signOut({ callbackUrl: '/' });
+  };
+
+  const renderThemeButton = () => {
+    return (
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={toggleTheme}
+        className="ml-2 text-white hover:text-white/90 hover:bg-white/10 w-8 h-8"
+        title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+      >
+        {theme === 'light' ? (
+          <Moon className="h-4 w-4" />
+        ) : (
+          <Sun className="h-4 w-4" />
+        )}
+        <span className="sr-only">
+          {theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+        </span>
+      </Button>
+    );
+  };
+
+  const renderAuthButton = () => {
+    const buttonBaseClass = "text-white hover:text-white/90 hover:bg-white/10 border-white/20 w-[72px] h-[32px] flex items-center justify-center focus:outline-none focus-visible:outline-none focus-visible:ring-0 focus:ring-0 active:outline-none active:border-white/20 focus:border-white/20";
+
+    if (!mounted || status === 'loading') {
+      return (
+        <Button
+          variant="outline"
+          size="sm"
+          className={`${buttonBaseClass} !border-white/20 !ring-0`}
+          disabled
+        >
+          <Loader2 className="h-4 w-4 animate-spin" />
+        </Button>
+      );
+    }
+
+    if (session) {
+      return (
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleSignOut}
+          className={`${buttonBaseClass} !border-white/20 !ring-0`}
+        >
+          Sign Out
+        </Button>
+      );
+    }
+
+    return (
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={handleSignIn}
+        className={`${buttonBaseClass} !border-white/20 !ring-0`}
+      >
+        Sign In
+      </Button>
+    );
+  };
+
   if (!mounted) {
     return (
       <nav className="bg-green-600 py-4 px-6 mb-8 sticky top-0 z-50 shadow-md">
@@ -50,6 +126,22 @@ export function Navbar() {
             >
               My Plants
             </Link>
+            <Button
+              variant="outline"
+              size="sm"
+              className="text-white hover:text-white/90 hover:bg-white/10 border-white/20"
+              disabled
+            >
+              Sign In
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="ml-2 text-white hover:text-white/90 hover:bg-white/10 w-8 h-8"
+              disabled
+            >
+              <Moon className="h-4 w-4" />
+            </Button>
           </div>
         </div>
       </nav>
@@ -75,73 +167,8 @@ export function Navbar() {
           >
             My Plants
           </Link>
-          {session ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="rounded-full h-8 w-8 p-0"
-                >
-                  <Avatar>
-                    {session.user?.image ? (
-                      <AvatarImage src={session.user.image} alt={session.user.name ?? ''} />
-                    ) : (
-                      <AvatarFallback className="bg-white/10 text-white">
-                        {session.user?.name?.[0]?.toUpperCase() ?? <UserIcon className="h-4 w-4" />}
-                      </AvatarFallback>
-                    )}
-                  </Avatar>
-                  <span className="sr-only">Open user menu</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <div className="px-2 py-1.5 text-sm">
-                  <div className="font-medium">{session.user?.name}</div>
-                  <div className="text-muted-foreground">{session.user?.email}</div>
-                </div>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link href="/account" className="w-full cursor-pointer">
-                    My Account
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem 
-                  onClick={toggleTheme}
-                  className="cursor-pointer flex items-center"
-                >
-                  {theme === 'light' ? (
-                    <>
-                      <Moon className="h-4 w-4 mr-2" />
-                      Switch to Dark Mode
-                    </>
-                  ) : (
-                    <>
-                      <Sun className="h-4 w-4 mr-2" />
-                      Switch to Light Mode
-                    </>
-                  )}
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem 
-                  onClick={() => signOut()}
-                  className="cursor-pointer text-red-500 hover:text-red-600 flex items-center"
-                >
-                  <LogOut className="h-4 w-4 mr-2" />
-                  Sign Out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => signIn()}
-              className="text-white hover:text-white/90 hover:bg-white/10"
-            >
-              Sign In
-            </Button>
-          )}
+          {renderAuthButton()}
+          {renderThemeButton()}
         </div>
       </div>
     </nav>

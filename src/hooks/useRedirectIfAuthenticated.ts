@@ -9,13 +9,8 @@ export function useRedirectIfAuthenticated() {
   const router = useRouter();
 
   useEffect(() => {
-    if (session && typeof window !== 'undefined') {
-      const storedPlants = localStorage.getItem('collectedPlants');
-      if (storedPlants && JSON.parse(storedPlants).length > 0) {
-        router.push('/my-plants');
-      } else {
-        router.push('/browse');
-      }
+    if (session) {
+      router.push('/my-plants');
     }
   }, [session, router]);
 

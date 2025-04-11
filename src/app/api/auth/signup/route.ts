@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import { v4 as uuidv4 } from 'uuid';
-
-// This would typically be your database
-let users: any[] = [];
+import { prisma } from '@/lib/prisma';
 
 export async function POST(req: Request) {
   try {
@@ -18,7 +15,11 @@ export async function POST(req: Request) {
     }
 
     // Check if email is already registered
-    if (users.some(user => user.email === email)) {
+    const existingUser = await prisma.user.findUnique({
+      where: { email }
+    });
+
+    if (existingUser) {
       return NextResponse.json(
         { message: 'Email already registered' },
         { status: 400 }
@@ -29,16 +30,15 @@ export async function POST(req: Request) {
     const hashedPassword = await bcrypt.hash(password, 12);
 
     // Create new user
-    const newUser = {
-      id: uuidv4(),
-      firstName,
-      lastName,
-      email,
-      password: hashedPassword,
-    };
-
-    // Save user (in a real app, this would be a database operation)
-    users.push(newUser);
+    const user = await prisma.user.create({
+      data: {
+        firstName,
+        lastName,
+        email,
+        password: hashedPassword,
+        name: `${firstName} ${lastName}`,
+      }
+    });
 
     return NextResponse.json(
       { message: 'User registered successfully' },

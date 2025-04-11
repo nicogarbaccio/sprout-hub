@@ -6,10 +6,20 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
+import { signIn } from 'next-auth/react';
+
+interface FormErrors {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+  general?: string;
+}
 
 export default function SignUp() {
   const router = useRouter();
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -19,104 +29,140 @@ export default function SignUp() {
     confirmPassword: '',
   });
 
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    // First Name validation
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = 'First name is required';
+    } else if (formData.firstName.trim().length < 2) {
+      newErrors.firstName = 'First name must be at least 2 characters';
+    }
+
+    // Last Name validation
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = 'Last name is required';
+    } else if (formData.lastName.trim().length < 2) {
+      newErrors.lastName = 'Last name must be at least 2 characters';
+    }
+
+    // Email validation
+    if (!formData.email) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
+      newErrors.email = 'Invalid email address';
+    }
+
+    // Password validation
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+    } else if (formData.password.length < 8) {
+      newErrors.password = 'Password must be at least 8 characters';
+    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
+      newErrors.password = 'Password must contain at least one uppercase letter, one lowercase letter, and one number';
+    }
+
+    // Confirm Password validation
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = 'Please confirm your password';
+    } else if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    setIsLoading(true);
+    setErrors({});
 
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      setIsLoading(false);
+    if (!validateForm()) {
       return;
     }
+
+    setIsLoading(true);
 
     try {
       const response = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
+          firstName: formData.firstName.trim(),
+          lastName: formData.lastName.trim(),
+          email: formData.email.trim(),
           password: formData.password,
         }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const data = await response.json();
         throw new Error(data.message || 'Something went wrong');
       }
 
-      router.push('/auth/signin?registered=true');
+      // Sign in automatically after successful registration
+      const signInResult = await signIn('credentials', {
+        email: formData.email.trim(),
+        password: formData.password,
+        redirect: false,
+      });
+
+      if (signInResult?.error) {
+        throw new Error('Failed to sign in after registration');
+      }
+
+      router.push('/my-plants');
     } catch (err: any) {
-      setError(err.message);
+      setErrors({
+        general: err.message || 'An error occurred during registration'
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
+  const renderInput = (
+    field: keyof typeof formData,
+    label: string,
+    type: string = 'text'
+  ) => (
+    <div className="space-y-2">
+      <Label htmlFor={field}>{label}</Label>
+      <Input
+        id={field}
+        type={type}
+        value={formData[field]}
+        onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
+        className={errors[field] ? 'border-red-500' : ''}
+        aria-invalid={!!errors[field]}
+        aria-errormessage={`${field}-error`}
+      />
+      {errors[field] && (
+        <p className="text-sm text-red-500" id={`${field}-error`}>
+          {errors[field]}
+        </p>
+      )}
+    </div>
+  );
+
   return (
     <main className="container mx-auto px-4 py-16">
       <div className="max-w-md mx-auto">
         <h1 className="text-3xl font-bold text-center mb-8">Create Your Account</h1>
-        {error && (
+        {errors.general && (
           <div className="bg-red-50 border border-red-200 text-red-600 rounded-lg p-4 mb-6">
-            {error}
+            {errors.general}
           </div>
         )}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="firstName">First Name</Label>
-              <Input
-                id="firstName"
-                type="text"
-                value={formData.firstName}
-                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="lastName">Last Name</Label>
-              <Input
-                id="lastName"
-                type="text"
-                value={formData.lastName}
-                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                required
-              />
-            </div>
+            {renderInput('firstName', 'First Name')}
+            {renderInput('lastName', 'Last Name')}
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirm Password</Label>
-            <Input
-              id="confirmPassword"
-              type="password"
-              value={formData.confirmPassword}
-              onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-              required
-            />
-          </div>
+          {renderInput('email', 'Email', 'email')}
+          {renderInput('password', 'Password', 'password')}
+          {renderInput('confirmPassword', 'Confirm Password', 'password')}
           <Button
             type="submit"
             className="w-full bg-green-600 hover:bg-green-700"

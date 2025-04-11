@@ -35,22 +35,23 @@ export function AddToCollectionModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] dark:bg-gray-900 bg-background">
         <DialogHeader>
-          <DialogTitle>Add {plant.name} to My Plants</DialogTitle>
+          <DialogTitle className="text-foreground dark:text-gray-300">Add {plant.name} to My Plants</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="nickname">Nickname (optional)</Label>
+            <Label htmlFor="nickname" className="text-foreground dark:text-gray-400">Nickname (optional)</Label>
             <Input
               id="nickname"
               placeholder="e.g., Living Room Snake Plant"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
+              className="bg-background dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-800"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="watering">Water every X days</Label>
+            <Label htmlFor="watering" className="text-foreground dark:text-gray-400">Water every X days</Label>
             <Input
               id="watering"
               type="number"
@@ -59,13 +60,22 @@ export function AddToCollectionModal({
               value={wateringFrequency}
               onChange={(e) => setWateringFrequency(Number(e.target.value))}
               required
+              className="bg-background dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-800"
             />
           </div>
           <DialogFooter className="gap-3">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button 
+              type="button" 
+              variant="outline" 
+              onClick={onClose}
+              className="dark:bg-gray-800/50 dark:text-gray-300 dark:hover:bg-gray-800 dark:border-gray-800"
+            >
               Cancel
             </Button>
-            <Button type="submit" className="bg-green-600 hover:bg-green-700">
+            <Button 
+              type="submit" 
+              className="bg-green-600 hover:bg-green-700 dark:bg-green-600/90 dark:hover:bg-green-600 text-white dark:text-gray-100"
+            >
               Add to Collection
             </Button>
           </DialogFooter>

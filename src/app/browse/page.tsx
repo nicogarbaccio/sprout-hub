@@ -6,6 +6,7 @@ import { PlantCard } from '@/components/PlantCard';
 import { plants as initialPlants } from '@/data/plants';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
+import { useSession } from 'next-auth/react';
 
 interface CollectedPlant extends Plant {
   nickname?: string;
@@ -17,34 +18,45 @@ export default function BrowsePage() {
   const [plants, setPlants] = useState<Plant[]>(initialPlants);
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
+  const { data: session, status } = useSession();
 
-  const handleAddToCollection = (plantId: string, nickname: string, wateringFrequency: number) => {
-    // Update the plant's status in the catalog
-    setPlants(plants.map(plant =>
-      plant.id === plantId
-        ? { ...plant, addedToCollection: true, wateringFrequency }
-        : plant
-    ));
+  const handleAddToCollection = async (plantId: string, nickname: string, wateringFrequency: number) => {
+    if (!session) {
+      router.push('/auth/signin');
+      return;
+    }
 
     // Get the plant data
     const plant = plants.find(p => p.id === plantId);
     if (!plant) return;
 
-    // Create the collected plant entry
-    const collectedPlant: CollectedPlant = {
-      ...plant,
-      nickname,
-      wateringFrequency,
-      dateAdded: new Date(),
-      lastWatered: new Date(),
-    };
+    try {
+      const response = await fetch('/api/plants', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: plant.name,
+          species: plant.species,
+          nickname,
+          image: plant.image,
+          wateringFrequency,
+        }),
+      });
 
-    // Save to local storage (we'll replace this with a proper backend later)
-    const existingPlants = JSON.parse(localStorage.getItem('collectedPlants') || '[]');
-    localStorage.setItem('collectedPlants', JSON.stringify([...existingPlants, collectedPlant]));
+      if (!response.ok) throw new Error('Failed to add plant to collection');
 
-    // Optionally navigate to My Plants page
-    router.push('/my-plants');
+      // Update the plant's status in the catalog
+      setPlants(plants.map(p =>
+        p.id === plantId
+          ? { ...p, addedToCollection: true }
+          : p
+      ));
+
+      // Navigate to My Plants page
+      router.push('/my-plants');
+    } catch (error) {
+      console.error('Error adding plant to collection:', error);
+    }
   };
 
   const filteredPlants = useMemo(() => {

@@ -9,6 +9,8 @@ import Image from 'next/image';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { CalendarIcon } from '@radix-ui/react-icons';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 interface CollectedPlant extends Plant {
   nickname?: string;
@@ -29,11 +31,6 @@ function addDays(date: Date, days: number) {
   return result;
 }
 
-function formatDate(date: Date) {
-  if (isToday(date)) return 'Today';
-  return date.toLocaleDateString();
-}
-
 function getWateringStatus(lastWatered: Date, frequency: number) {
   const today = new Date();
   const nextWateringDate = addDays(lastWatered, frequency);
@@ -48,52 +45,102 @@ function getWateringStatus(lastWatered: Date, frequency: number) {
   };
 }
 
+function formatDate(date: Date) {
+  return new Date(date).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  });
+}
+
 export default function MyPlantsPage() {
+  const { data: session, status } = useSession({ required: true });
+  const router = useRouter();
   const [collectedPlants, setCollectedPlants] = useState<CollectedPlant[]>([]);
   const [waterModalPlant, setWaterModalPlant] = useState<CollectedPlant | null>(null);
   const [removeModalPlant, setRemoveModalPlant] = useState<CollectedPlant | null>(null);
   const [editWateringDate, setEditWateringDate] = useState<{ plant: CollectedPlant; date: Date } | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const storedPlants = localStorage.getItem('collectedPlants');
-    if (storedPlants) {
-      const plants = JSON.parse(storedPlants).map((plant: CollectedPlant) => ({
-        ...plant,
-        dateAdded: new Date(plant.dateAdded),
-        lastWatered: new Date(plant.lastWatered),
-      }));
-      setCollectedPlants(plants);
+    if (status === 'authenticated') {
+      fetchPlants();
     }
-  }, []);
+  }, [status]);
 
-  const handleWaterPlant = (plant: CollectedPlant) => {
-    const updatedPlants = collectedPlants.map(p =>
-      p.id === plant.id
-        ? { ...p, lastWatered: new Date() }
-        : p
-    );
-    setCollectedPlants(updatedPlants);
-    localStorage.setItem('collectedPlants', JSON.stringify(updatedPlants));
+  const fetchPlants = async () => {
+    try {
+      const response = await fetch('/api/plants');
+      if (!response.ok) throw new Error('Failed to fetch plants');
+      const plants = await response.json();
+      setCollectedPlants(plants.map((plant: any) => ({
+        ...plant,
+        dateAdded: new Date(plant.createdAt),
+        lastWatered: new Date(plant.lastWatered),
+      })));
+    } catch (error) {
+      console.error('Error fetching plants:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleWaterPlant = async (plant: CollectedPlant) => {
+    try {
+      const response = await fetch(`/api/plants/${plant.id}/water`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lastWatered: new Date() }),
+      });
+
+      if (!response.ok) throw new Error('Failed to update plant');
+      await fetchPlants();
+    } catch (error) {
+      console.error('Error updating plant:', error);
+    }
     setWaterModalPlant(null);
   };
 
-  const handleUpdateWateringDate = (plant: CollectedPlant, newDate: Date) => {
-    const updatedPlants = collectedPlants.map(p =>
-      p.id === plant.id
-        ? { ...p, lastWatered: newDate }
-        : p
-    );
-    setCollectedPlants(updatedPlants);
-    localStorage.setItem('collectedPlants', JSON.stringify(updatedPlants));
+  const handleUpdateWateringDate = async (plant: CollectedPlant, newDate: Date) => {
+    try {
+      const response = await fetch(`/api/plants/${plant.id}/water`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lastWatered: newDate }),
+      });
+
+      if (!response.ok) throw new Error('Failed to update plant');
+      await fetchPlants();
+    } catch (error) {
+      console.error('Error updating plant:', error);
+    }
     setEditWateringDate(null);
   };
 
-  const handleRemovePlant = (plant: CollectedPlant) => {
-    const updatedPlants = collectedPlants.filter(p => p.id !== plant.id);
-    setCollectedPlants(updatedPlants);
-    localStorage.setItem('collectedPlants', JSON.stringify(updatedPlants));
+  const handleRemovePlant = async (plant: CollectedPlant) => {
+    try {
+      const response = await fetch(`/api/plants/${plant.id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) throw new Error('Failed to delete plant');
+      await fetchPlants();
+    } catch (error) {
+      console.error('Error deleting plant:', error);
+    }
     setRemoveModalPlant(null);
   };
+
+  if (status === 'loading' || isLoading) {
+    return (
+      <main className="container mx-auto px-4 py-8">
+        <h2 className="text-2xl font-bold mb-4">My Plants</h2>
+        <div className="text-center py-12">
+          <p className="text-gray-500">Loading your plants...</p>
+        </div>
+      </main>
+    );
+  }
 
   if (collectedPlants.length === 0) {
     return (
@@ -101,7 +148,12 @@ export default function MyPlantsPage() {
         <h2 className="text-2xl font-bold mb-4">My Plants</h2>
         <div className="text-center py-12">
           <p className="text-gray-500">You haven't added any plants to your collection yet.</p>
-          <p className="text-gray-500">Browse plants on the homepage and click "Add to Collection" to get started!</p>
+          <Button
+            onClick={() => router.push('/browse')}
+            className="mt-4 bg-green-600 hover:bg-green-700"
+          >
+            Browse Plants
+          </Button>
         </div>
       </main>
     );
