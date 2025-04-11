@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 interface FormErrors {
-  email?: string;
+  usernameOrEmail?: string;
   password?: string;
   general?: string;
 }
@@ -20,18 +20,16 @@ export default function SignIn() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    email: '',
+    usernameOrEmail: '',
     password: '',
   });
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
 
-    // Email validation
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email.trim())) {
-      newErrors.email = 'Invalid email address';
+    // Username/Email validation
+    if (!formData.usernameOrEmail.trim()) {
+      newErrors.usernameOrEmail = 'Username or email is required';
     }
 
     // Password validation
@@ -55,14 +53,14 @@ export default function SignIn() {
 
     try {
       const result = await signIn('credentials', {
-        email: formData.email.trim(),
+        usernameOrEmail: formData.usernameOrEmail.trim(),
         password: formData.password,
         redirect: false,
       });
 
       if (result?.error) {
         setErrors({
-          general: 'Invalid email or password'
+          general: 'Invalid username/email or password'
         });
       } else {
         router.push('/my-plants');
@@ -116,7 +114,7 @@ export default function SignIn() {
           </div>
         )}
         <form onSubmit={handleSubmit} className="space-y-6">
-          {renderInput('email', 'Email', 'email')}
+          {renderInput('usernameOrEmail', 'Username or Email')}
           {renderInput('password', 'Password', 'password')}
           <Button
             type="submit"

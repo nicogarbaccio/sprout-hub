@@ -4,12 +4,32 @@ import { prisma } from '@/lib/prisma';
 
 export async function POST(req: Request) {
   try {
-    const { firstName, lastName, email, password } = await req.json();
+    const { firstName, lastName, username, email, password } = await req.json();
 
     // Validate input
-    if (!firstName || !lastName || !email || !password) {
+    if (!firstName || !lastName || !username || !email || !password) {
       return NextResponse.json(
         { message: 'All fields are required' },
+        { status: 400 }
+      );
+    }
+
+    // Validate username format
+    if (!/^[a-zA-Z0-9_-]{3,}$/.test(username)) {
+      return NextResponse.json(
+        { message: 'Username must be at least 3 characters and can only contain letters, numbers, underscores and hyphens' },
+        { status: 400 }
+      );
+    }
+
+    // Check if username is already taken
+    const existingUsername = await prisma.user.findUnique({
+      where: { username: username || undefined }
+    });
+
+    if (existingUsername) {
+      return NextResponse.json(
+        { message: 'Username is already taken' },
         { status: 400 }
       );
     }
@@ -34,6 +54,7 @@ export async function POST(req: Request) {
       data: {
         firstName,
         lastName,
+        username: username || undefined,
         email,
         password: hashedPassword,
         name: `${firstName} ${lastName}`,

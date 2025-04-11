@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest) {
   const isAuthenticated = !!token;
 
   // Define paths that require authentication
-  const protectedPaths = ['/my-plants'];
+  const protectedPaths = ['/my-plants', '/my-account'];
   const isProtectedPath = protectedPaths.some(path => 
     request.nextUrl.pathname.startsWith(path)
   );
@@ -23,5 +23,5 @@ export async function middleware(request: NextRequest) {
 
 // Configure paths that should be matched by the middleware
 export const config = {
-  matcher: ['/my-plants/:path*']
+  matcher: ['/my-plants/:path*', '/my-account/:path*']
 }; 

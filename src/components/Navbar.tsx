@@ -4,7 +4,7 @@ import { Logo } from '@/components/Logo';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { UserIcon, Moon, Sun, LogOut, Loader2 } from 'lucide-react';
+import { UserIcon, Moon, Sun, LogOut, Settings, Loader2 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import {
   DropdownMenu,
@@ -15,11 +15,13 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export function Navbar() {
   const { theme, setTheme } = useTheme();
   const { data: session, status } = useSession();
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -66,14 +68,14 @@ export function Navbar() {
   };
 
   const renderAuthButton = () => {
-    const buttonBaseClass = "text-white hover:text-white/90 hover:bg-white/10 border-white/20 w-[72px] h-[32px] flex items-center justify-center focus:outline-none focus-visible:outline-none focus-visible:ring-0 focus:ring-0 active:outline-none active:border-white/20 focus:border-white/20";
+    const buttonBaseClass = "text-white hover:text-white/90 hover:bg-white/10 border-white/20 h-[32px] flex items-center justify-center focus:outline-none focus-visible:outline-none focus-visible:ring-0 focus:ring-0 active:outline-none active:border-white/20 focus:border-white/20";
 
     if (!mounted || status === 'loading') {
       return (
         <Button
           variant="outline"
           size="sm"
-          className={`${buttonBaseClass} !border-white/20 !ring-0`}
+          className={`${buttonBaseClass} w-[72px] !border-white/20 !ring-0`}
           disabled
         >
           <Loader2 className="h-4 w-4 animate-spin" />
@@ -83,14 +85,33 @@ export function Navbar() {
 
     if (session) {
       return (
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleSignOut}
-          className={`${buttonBaseClass} !border-white/20 !ring-0`}
-        >
-          Sign Out
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="outline"
+              size="sm"
+              className={`${buttonBaseClass} px-2 !border-white/20 !ring-0`}
+            >
+              <Avatar className="h-6 w-6">
+                <AvatarImage src={session.user?.image || ''} />
+                <AvatarFallback>
+                  <UserIcon className="h-4 w-4" />
+                </AvatarFallback>
+              </Avatar>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-48">
+            <DropdownMenuItem onClick={() => router.push('/my-account')}>
+              <Settings className="mr-2 h-4 w-4" />
+              My Account
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={handleSignOut}>
+              <LogOut className="mr-2 h-4 w-4" />
+              Sign Out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       );
     }
 
@@ -99,7 +120,7 @@ export function Navbar() {
         variant="outline"
         size="sm"
         onClick={handleSignIn}
-        className={`${buttonBaseClass} !border-white/20 !ring-0`}
+        className={`${buttonBaseClass} w-[72px] !border-white/20 !ring-0`}
       >
         Sign In
       </Button>

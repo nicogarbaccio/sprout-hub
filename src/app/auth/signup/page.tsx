@@ -11,6 +11,7 @@ import { signIn } from 'next-auth/react';
 interface FormErrors {
   firstName?: string;
   lastName?: string;
+  username?: string;
   email?: string;
   password?: string;
   confirmPassword?: string;
@@ -24,6 +25,7 @@ export default function SignUp() {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
+    username: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -46,10 +48,19 @@ export default function SignUp() {
       newErrors.lastName = 'Last name must be at least 2 characters';
     }
 
+    // Username validation
+    if (!formData.username.trim()) {
+      newErrors.username = 'Username is required';
+    } else if (formData.username.trim().length < 3) {
+      newErrors.username = 'Username must be at least 3 characters';
+    } else if (!/^[a-zA-Z0-9_-]+$/.test(formData.username.trim())) {
+      newErrors.username = 'Username can only contain letters, numbers, underscores and hyphens';
+    }
+
     // Email validation
-    if (!formData.email) {
+    if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email.trim())) {
       newErrors.email = 'Invalid email address';
     }
 
@@ -90,6 +101,7 @@ export default function SignUp() {
         body: JSON.stringify({
           firstName: formData.firstName.trim(),
           lastName: formData.lastName.trim(),
+          username: formData.username.trim(),
           email: formData.email.trim(),
           password: formData.password,
         }),
@@ -103,7 +115,7 @@ export default function SignUp() {
 
       // Sign in automatically after successful registration
       const signInResult = await signIn('credentials', {
-        email: formData.email.trim(),
+        usernameOrEmail: formData.email.trim(),
         password: formData.password,
         redirect: false,
       });
@@ -160,6 +172,7 @@ export default function SignUp() {
             {renderInput('firstName', 'First Name')}
             {renderInput('lastName', 'Last Name')}
           </div>
+          {renderInput('username', 'Username')}
           {renderInput('email', 'Email', 'email')}
           {renderInput('password', 'Password', 'password')}
           {renderInput('confirmPassword', 'Confirm Password', 'password')}

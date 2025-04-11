@@ -25,16 +25,22 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_SECRET ?? "",
     }),
     CredentialsProvider({
-      name: "Email",
+      name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
+        usernameOrEmail: { label: "Username or Email", type: "text" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null;
+        if (!credentials?.usernameOrEmail || !credentials?.password) return null;
         
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email }
+        // Try to find user by username or email
+        const user = await prisma.user.findFirst({
+          where: {
+            OR: [
+              { email: credentials.usernameOrEmail },
+              { username: credentials.usernameOrEmail }
+            ]
+          }
         });
 
         if (!user || !user.password) return null;
