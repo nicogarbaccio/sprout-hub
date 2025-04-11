@@ -206,11 +206,12 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://nico.garbaccio@localhost:5432/sprout_hub"
+        "value": null
       }
     }
   },

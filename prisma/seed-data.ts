@@ -1,6 +1,4 @@
-import { Plant } from '@/types/plant';
-
-export const plants: Plant[] = [
+const plants = [
   {
     id: '1',
     name: 'Snake Plant',
@@ -111,4 +109,6 @@ export const plants: Plant[] = [
     description: 'Tropical fern with wavy fronds growing from a central rosette. Loves humidity and filtered light.',
     addedToCollection: false,
   }
-]; 
+];
+
+module.exports = { plants }; 

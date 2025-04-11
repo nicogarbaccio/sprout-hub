@@ -34,7 +34,7 @@ export function ConfirmActionModal({
 }: ConfirmActionModalProps) {
   return (
     <AlertDialog open={isOpen} onOpenChange={onClose}>
-      <AlertDialogContent>
+      <AlertDialogContent className="bg-white dark:bg-gray-900">
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>
@@ -47,7 +47,7 @@ export function ConfirmActionModal({
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={onConfirm}
-            className={variant === 'destructive' ? 'bg-red-500 hover:bg-red-600' : ''}
+            className={variant === 'destructive' ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600 text-white'}
           >
             {confirmText}
           </AlertDialogAction>

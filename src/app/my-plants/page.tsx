@@ -249,7 +249,7 @@ export default function MyPlantsPage() {
                 <Button
                   variant="destructive"
                   size="sm"
-                  className="w-full"
+                  className="w-full bg-red-500 hover:bg-red-600 text-white"
                   onClick={() => setRemoveModalPlant(plant)}
                 >
                   Remove
@@ -288,7 +288,7 @@ export default function MyPlantsPage() {
         title="Update Last Watering Date"
         description={
           <div className="flex flex-col items-center gap-4">
-            <p>Select the last watering date for {editWateringDate?.plant.nickname || editWateringDate?.plant.name}</p>
+            <span>Select the last watering date for {editWateringDate?.plant.nickname || editWateringDate?.plant.name}</span>
             <DatePicker
               selected={editWateringDate?.date}
               onChange={(date) => date && setEditWateringDate(prev => prev ? { ...prev, date } : null)}

@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Plant } from '@/types/plant';
 import { PlantCard } from '@/components/PlantCard';
-import { plants as initialPlants } from '@/data/plants';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { useSession } from 'next-auth/react';
@@ -16,10 +15,29 @@ interface CollectedPlant extends Plant {
 }
 
 export default function BrowsePage() {
-  const [plants, setPlants] = useState<Plant[]>(initialPlants);
+  const [plants, setPlants] = useState<Plant[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const { data: session, status } = useSession();
+
+  useEffect(() => {
+    const fetchPlants = async () => {
+      try {
+        const response = await fetch('/api/browse');
+        if (!response.ok) throw new Error('Failed to fetch plants');
+        const data = await response.json();
+        setPlants(data);
+      } catch (error) {
+        console.error('Error fetching plants:', error);
+        toast.error('Failed to load plants. Please try again.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPlants();
+  }, []);
 
   const handleAddToCollection = async (plantId: string, nickname: string, wateringFrequency: number) => {
     if (!session) {
@@ -76,6 +94,38 @@ export default function BrowsePage() {
       plant.lightRequirement.toLowerCase().includes(query)
     );
   }, [plants, searchQuery]);
+
+  if (isLoading) {
+    return (
+      <main className="container mx-auto px-4 py-8">
+        <div className="max-w-2xl mx-auto mb-8">
+          <Input
+            type="search"
+            placeholder="Search plants by name, species, care level, or light requirement..."
+            className="w-full"
+            disabled
+          />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[...Array(8)].map((_, i) => (
+            <div key={i} className="animate-pulse">
+              <div className="bg-gray-200 h-48 rounded-t-lg"></div>
+              <div className="p-4 space-y-3">
+                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                <div className="space-y-2">
+                  <div className="h-3 bg-gray-200 rounded w-1/4"></div>
+                  <div className="h-3 bg-gray-200 rounded w-1/3"></div>
+                  <div className="h-3 bg-gray-200 rounded w-1/4"></div>
+                </div>
+                <div className="h-3 bg-gray-200 rounded w-full"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="container mx-auto px-4 py-8">
