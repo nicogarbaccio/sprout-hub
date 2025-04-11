@@ -22,9 +22,9 @@ export function Navbar() {
   return (
     <nav className="bg-green-600 py-4 px-6 mb-8 sticky top-0 z-50 shadow-md">
       <div className="container mx-auto flex items-center gap-6">
-        <Link href="/" className="flex-shrink-0">
+        <div className="flex-shrink-0">
           <Logo className="text-white" />
-        </Link>
+        </div>
         <div className="flex-1 flex items-center justify-end gap-6">
           <Link 
             href="/browse"

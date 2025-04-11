@@ -1,12 +1,27 @@
-import Link from 'next/link';
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
 
 interface LogoProps {
   className?: string;
 }
 
 export function Logo({ className = '' }: LogoProps) {
+  const router = useRouter();
+
+  const handleLogoClick = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    const storedPlants = localStorage.getItem('collectedPlants');
+    const hasPlants = storedPlants && JSON.parse(storedPlants).length > 0;
+    router.push(hasPlants ? '/my-plants' : '/');
+  }, [router]);
+
   return (
-    <Link href="/" className={`flex items-center gap-2 hover:opacity-90 transition-opacity ${className}`}>
+    <button 
+      onClick={handleLogoClick}
+      className={`flex items-center gap-2 hover:opacity-90 transition-opacity cursor-pointer ${className}`}
+    >
       <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -23,6 +38,6 @@ export function Logo({ className = '' }: LogoProps) {
         </svg>
       </div>
       <h1 className="text-2xl md:text-3xl font-bold">Sprout Hub</h1>
-    </Link>
+    </button>
   );
 } 
