@@ -98,13 +98,16 @@ export default function BrowsePage() {
   if (isLoading) {
     return (
       <main className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto mb-8">
-          <Input
-            type="search"
-            placeholder="Search plants by name, species, care level, or light requirement..."
-            className="w-full"
-            disabled
-          />
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold mb-6 text-center">Browse Plants</h2>
+          <div className="mb-8">
+            <Input
+              type="search"
+              placeholder="Search plants by name, species, care level, or light requirement..."
+              className="w-full"
+              disabled
+            />
+          </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[...Array(8)].map((_, i) => (
@@ -129,13 +132,16 @@ export default function BrowsePage() {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <div className="max-w-2xl mx-auto mb-8">
-        <Input
-          type="search"
-          placeholder="Search plants by name, species, care level, or light requirement..."
-          className="w-full"
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
+      <div className="max-w-2xl mx-auto">
+        <h2 className="text-3xl font-bold mb-6 text-center">Browse Plants</h2>
+        <div className="mb-8">
+          <Input
+            type="search"
+            placeholder="Search plants by name, species, care level, or light requirement..."
+            className="w-full"
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {filteredPlants.map(plant => (

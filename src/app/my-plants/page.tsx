@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Plant } from '@/types/plant';
 import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ConfirmActionModal } from '@/components/ConfirmActionModal';
+import { Input } from '@/components/ui/input';
 import Image from 'next/image';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -57,6 +58,7 @@ export default function MyPlantsPage() {
   const { data: session, status } = useSession({ required: true });
   const router = useRouter();
   const [collectedPlants, setCollectedPlants] = useState<CollectedPlant[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [waterModalPlant, setWaterModalPlant] = useState<CollectedPlant | null>(null);
   const [removeModalPlant, setRemoveModalPlant] = useState<CollectedPlant | null>(null);
   const [editWateringDate, setEditWateringDate] = useState<{ plant: CollectedPlant; date: Date } | null>(null);
@@ -131,12 +133,52 @@ export default function MyPlantsPage() {
     setRemoveModalPlant(null);
   };
 
+  const filteredPlants = useMemo(() => {
+    if (!searchQuery.trim()) return collectedPlants;
+    
+    const query = searchQuery.toLowerCase();
+    return collectedPlants.filter(plant => 
+      plant.name.toLowerCase().includes(query) ||
+      plant.species.toLowerCase().includes(query) ||
+      (plant.nickname?.toLowerCase().includes(query) || false)
+    );
+  }, [collectedPlants, searchQuery]);
+
   if (status === 'loading' || isLoading) {
     return (
       <main className="container mx-auto px-4 py-8">
-        <h2 className="text-2xl font-bold mb-4">My Plants</h2>
-        <div className="text-center py-12">
-          <p className="text-gray-500">Loading your plants...</p>
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold mb-6 text-center">My Plants</h2>
+          <div className="mb-8">
+            <Input
+              type="search"
+              placeholder="Search your plants by name, species, or nickname..."
+              className="w-full"
+              disabled
+            />
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="animate-pulse">
+              <div className="bg-gray-200 dark:bg-gray-700 h-48 rounded-t-lg"></div>
+              <div className="border border-gray-200 dark:border-gray-700 rounded-b-lg p-4 space-y-4">
+                <div className="space-y-2">
+                  <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                </div>
+                <div className="space-y-3">
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-2/3"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                </div>
+                <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
+                  <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                  <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </main>
     );
@@ -145,15 +187,17 @@ export default function MyPlantsPage() {
   if (collectedPlants.length === 0) {
     return (
       <main className="container mx-auto px-4 py-8">
-        <h2 className="text-2xl font-bold mb-4">My Plants</h2>
-        <div className="text-center py-12">
-          <p className="text-gray-500">You haven't added any plants to your collection yet.</p>
-          <Button
-            onClick={() => router.push('/browse')}
-            className="mt-4 bg-green-600 hover:bg-green-700"
-          >
-            Browse Plants
-          </Button>
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold mb-6 text-center">My Plants</h2>
+          <div className="text-center py-12">
+            <p className="text-gray-500">You haven't added any plants to your collection yet.</p>
+            <Button
+              onClick={() => router.push('/browse')}
+              className="mt-4 bg-green-600 hover:bg-green-700"
+            >
+              Browse Plants
+            </Button>
+          </div>
         </div>
       </main>
     );
@@ -161,9 +205,19 @@ export default function MyPlantsPage() {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold mb-4">My Plants</h2>
+      <div className="max-w-2xl mx-auto">
+        <h2 className="text-3xl font-bold mb-6 text-center">My Plants</h2>
+        <div className="mb-8">
+          <Input
+            type="search"
+            placeholder="Search your plants by name, species, or nickname..."
+            className="w-full"
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {collectedPlants.map(plant => {
+        {filteredPlants.map(plant => {
           const wateringStatus = getWateringStatus(plant.lastWatered, plant.wateringFrequency);
           
           return (
