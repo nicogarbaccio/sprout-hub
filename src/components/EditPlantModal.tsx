@@ -28,11 +28,13 @@ export function EditPlantModal({
   onConfirm,
 }: EditPlantModalProps) {
   const [nickname, setNickname] = useState(currentNickname || '');
+  const [hasEditedNickname, setHasEditedNickname] = useState(false);
   const [wateringFrequency, setWateringFrequency] = useState(currentWateringFrequency);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onConfirm(plantId, nickname, wateringFrequency);
+    const nicknameToUpdate = hasEditedNickname ? nickname : currentNickname || '';
+    onConfirm(plantId, nicknameToUpdate, wateringFrequency);
     onClose();
   };
 
@@ -49,7 +51,10 @@ export function EditPlantModal({
               id="nickname"
               placeholder="e.g., Living Room Snake Plant"
               value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
+              onChange={(e) => {
+                setNickname(e.target.value);
+                setHasEditedNickname(true);
+              }}
               className="bg-white dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-800"
             />
           </div>
