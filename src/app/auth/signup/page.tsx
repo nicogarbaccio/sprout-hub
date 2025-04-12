@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { PasswordInput } from '@/components/ui/password-input';
+import SignUpLoading from './loading';
 
 interface FormErrors {
   firstName?: string;
@@ -21,6 +22,7 @@ interface FormErrors {
 
 export default function SignUp() {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -31,6 +33,15 @@ export default function SignUp() {
     password: '',
     confirmPassword: '',
   });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Don't render anything until mounted to prevent hydration mismatch
+  if (!mounted) {
+    return <SignUpLoading />;
+  }
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};

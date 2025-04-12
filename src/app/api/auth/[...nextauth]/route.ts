@@ -1,5 +1,4 @@
 import NextAuth, { DefaultSession, NextAuthOptions } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
@@ -20,10 +19,6 @@ export const authOptions: NextAuthOptions = {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID ?? "",
-      clientSecret: process.env.GOOGLE_SECRET ?? "",
-    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -61,42 +56,6 @@ export const authOptions: NextAuthOptions = {
     error: '/auth/error',
   },
   callbacks: {
-    async signIn({ user, account, profile }) {
-      if (account?.provider === 'google') {
-        // Get or create username from email
-        const existingUser = await prisma.user.findUnique({
-          where: { email: user.email! }
-        });
-
-        if (existingUser) {
-          // Use existing username
-          user.name = existingUser.username;
-        } else {
-          // Create a new username from email
-          const baseUsername = user.email!.split('@')[0];
-          let username = baseUsername;
-          let counter = 1;
-
-          // Keep trying until we find an available username
-          while (true) {
-            const exists = await prisma.user.findUnique({
-              where: { username }
-            });
-            if (!exists) break;
-            username = `${baseUsername}${counter}`;
-            counter++;
-          }
-
-          // Update user with username
-          await prisma.user.update({
-            where: { email: user.email! },
-            data: { username }
-          });
-          user.name = username;
-        }
-      }
-      return true;
-    },
     async session({ session, token }: { session: any; token: any }) {
       if (token.sub) {
         session.user.id = token.sub;
@@ -111,12 +70,9 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async jwt({ token, user, account }: { token: any; user: any; account: any }) {
+    async jwt({ token, user }: { token: any; user: any }) {
       if (user) {
         token.id = user.id;
-      }
-      if (account) {
-        token.provider = account.provider;
       }
       return token;
     },
