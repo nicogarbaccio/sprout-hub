@@ -7,11 +7,12 @@ import { Button } from '@/components/ui/button';
 import { ConfirmActionModal } from '@/components/ConfirmActionModal';
 import { Input } from '@/components/ui/input';
 import Image from 'next/image';
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
 import { CalendarIcon } from '@radix-ui/react-icons';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { EditPlantModal } from '@/components/EditPlantModal';
+import { Droplet, Pencil, Trash } from 'lucide-react';
+import { ClientDatePicker } from '@/components/ClientDatePicker';
 
 interface CollectedPlant extends Plant {
   nickname?: string;
@@ -46,7 +47,10 @@ function getWateringStatus(lastWatered: Date, frequency: number) {
   };
 }
 
-function formatDate(date: Date) {
+function formatDate(date: Date): string {
+  if (typeof window === 'undefined') {
+    return ''; // Return empty string during SSR
+  }
   return new Date(date).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
@@ -57,12 +61,18 @@ function formatDate(date: Date) {
 export default function MyPlantsPage() {
   const { data: session, status } = useSession({ required: true });
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
   const [collectedPlants, setCollectedPlants] = useState<CollectedPlant[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [waterModalPlant, setWaterModalPlant] = useState<CollectedPlant | null>(null);
   const [removeModalPlant, setRemoveModalPlant] = useState<CollectedPlant | null>(null);
   const [editWateringDate, setEditWateringDate] = useState<{ plant: CollectedPlant; date: Date } | null>(null);
+  const [editModalPlant, setEditModalPlant] = useState<CollectedPlant | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (status === 'authenticated') {
@@ -133,6 +143,21 @@ export default function MyPlantsPage() {
     setRemoveModalPlant(null);
   };
 
+  const handleEditPlant = async (plantId: string, nickname: string, wateringFrequency: number) => {
+    try {
+      const response = await fetch(`/api/plants/${plantId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nickname, wateringFrequency }),
+      });
+
+      if (!response.ok) throw new Error('Failed to update plant');
+      await fetchPlants();
+    } catch (error) {
+      console.error('Error updating plant:', error);
+    }
+  };
+
   const filteredPlants = useMemo(() => {
     if (!searchQuery.trim()) return collectedPlants;
     
@@ -144,7 +169,7 @@ export default function MyPlantsPage() {
     );
   }, [collectedPlants, searchQuery]);
 
-  if (status === 'loading' || isLoading) {
+  if (!mounted || status === 'loading' || isLoading) {
     return (
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
@@ -291,23 +316,30 @@ export default function MyPlantsPage() {
               </CardContent>
               <CardFooter className="p-4 border-t border-gray-100 flex flex-col gap-2">
                 <Button
-                  variant="outline"
-                  size="sm"
-                  className={`w-full text-white hover:text-white ${wateringStatus.needsWater 
-                    ? 'bg-red-500 hover:bg-red-600 dark:bg-red-500 dark:hover:bg-red-400' 
-                    : 'bg-blue-500 hover:bg-blue-600 dark:bg-blue-500 dark:hover:bg-blue-400'} border-0`}
                   onClick={() => setWaterModalPlant(plant)}
+                  className="bg-blue-600 hover:bg-blue-700 text-white w-full flex items-center justify-center gap-2"
                 >
-                  Water Plant
+                  <Droplet className="h-4 w-4" />
+                  Water
                 </Button>
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  className="w-full bg-red-500 hover:bg-red-600 text-white"
-                  onClick={() => setRemoveModalPlant(plant)}
-                >
-                  Remove
-                </Button>
+                <div className="flex justify-center gap-2 w-full">
+                  <Button
+                    onClick={() => setEditModalPlant(plant)}
+                    variant="outline"
+                    className="bg-amber-500 hover:bg-amber-600 text-white border-0 flex-1 flex items-center justify-center gap-2"
+                  >
+                    <Pencil className="h-4 w-4" />
+                    Edit
+                  </Button>
+                  <Button
+                    onClick={() => setRemoveModalPlant(plant)}
+                    variant="destructive"
+                    className="bg-red-600 hover:bg-red-700 text-white flex-1 flex items-center justify-center gap-2"
+                  >
+                    <Trash className="h-4 w-4" />
+                    Remove
+                  </Button>
+                </div>
               </CardFooter>
             </Card>
           );
@@ -343,16 +375,26 @@ export default function MyPlantsPage() {
         description={
           <div className="flex flex-col items-center gap-4">
             <span>Select the last watering date for {editWateringDate?.plant.nickname || editWateringDate?.plant.name}</span>
-            <DatePicker
-              selected={editWateringDate?.date}
-              onChange={(date) => date && setEditWateringDate(prev => prev ? { ...prev, date } : null)}
-              maxDate={new Date()}
-              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
-            />
+            {editWateringDate && (
+              <ClientDatePicker
+                selected={editWateringDate.date}
+                onChange={(date) => date && setEditWateringDate(prev => prev ? { ...prev, date } : null)}
+                maxDate={new Date()}
+              />
+            )}
           </div>
         }
         confirmText="Update Date"
         cancelText="Cancel"
+      />
+
+      <EditPlantModal
+        plantId={editModalPlant?.id || ''}
+        currentNickname={editModalPlant?.nickname || null}
+        currentWateringFrequency={editModalPlant?.wateringFrequency || 7}
+        isOpen={!!editModalPlant}
+        onClose={() => setEditModalPlant(null)}
+        onConfirm={handleEditPlant}
       />
     </main>
   );

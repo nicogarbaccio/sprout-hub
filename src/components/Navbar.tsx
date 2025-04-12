@@ -2,9 +2,9 @@
 
 import { Logo } from '@/components/Logo';
 import Link from 'next/link';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { UserIcon, Moon, Sun, LogOut, Settings, Loader2 } from 'lucide-react';
+import { UserIcon, Moon, LogOut, Settings } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import {
   DropdownMenu,
@@ -15,24 +15,26 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import React from 'react';
 
 // Separate component for theme toggle to isolate state
 function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <Button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
       variant="outline"
       size="icon"
       className="border-white/20 hover:bg-white/20"
     >
       <div className="h-4 w-4">
-        {theme === 'light' ? (
-          <Sun className="text-white" />
-        ) : (
-          <Moon className="text-white" />
-        )}
+        <Moon className="text-white" />
       </div>
     </Button>
   );
@@ -47,6 +49,9 @@ export function Navbar() {
 
   const buttonBaseClass = "text-white hover:text-white/90 hover:bg-white/10 border-white/20 h-[32px] flex items-center justify-center focus:outline-none focus-visible:outline-none focus-visible:ring-0 focus:ring-0 active:outline-none active:border-white/20 focus:border-white/20";
 
+  // Always render the authenticated state during loading
+  const isAuthenticated = status === 'loading' || !!session;
+
   return (
     <nav className="bg-green-600 py-4 px-6 mb-8 sticky top-0 z-50 shadow-md">
       <div className="container mx-auto flex items-center gap-6">
@@ -60,7 +65,7 @@ export function Navbar() {
           >
             Browse
           </Link>
-          {session && (
+          {isAuthenticated && (
             <Link 
               href="/my-plants"
               className="text-white font-semibold hover:text-white/90 transition-colors whitespace-nowrap flex-shrink-0"
@@ -68,7 +73,7 @@ export function Navbar() {
               My Plants
             </Link>
           )}
-          {session ? (
+          {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -77,7 +82,6 @@ export function Navbar() {
                   className={`${buttonBaseClass} px-2 !border-white/20 !ring-0`}
                 >
                   <Avatar className="h-6 w-6">
-                    <AvatarImage src={session.user?.image || ''} />
                     <AvatarFallback>
                       <UserIcon className="h-4 w-4" />
                     </AvatarFallback>
