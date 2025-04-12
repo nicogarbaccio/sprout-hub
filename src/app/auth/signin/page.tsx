@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { signIn } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,12 +18,33 @@ interface FormErrors {
 export default function SignIn() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [mounted, setMounted] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     usernameOrEmail: '',
     password: '',
   });
+
+  useEffect(() => {
+    setMounted(true);
+    if (searchParams?.get('registered') === 'true') {
+      setIsRegistered(true);
+    }
+  }, [searchParams]);
+
+  // Don't render anything until mounted to prevent hydration mismatch
+  if (!mounted) {
+    return (
+      <main className="container mx-auto px-4 py-16">
+        <div className="max-w-md mx-auto">
+          <h1 className="text-3xl font-bold text-center mb-8">Sign In to Sprout Hub</h1>
+          {/* Render a loading state or skeleton here if desired */}
+        </div>
+      </main>
+    );
+  }
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -116,7 +137,7 @@ export default function SignIn() {
     <main className="container mx-auto px-4 py-16">
       <div className="max-w-md mx-auto">
         <h1 className="text-3xl font-bold text-center mb-8">Sign In to Sprout Hub</h1>
-        {searchParams.get('registered') && (
+        {isRegistered && (
           <div className="bg-green-50 border border-green-200 text-green-600 rounded-lg p-4 mb-6">
             Account created successfully! Please sign in.
           </div>

@@ -68,10 +68,8 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
     --radius: 0.5rem;
-    --radius-sm: calc(var(--radius) - 4px);
-    --radius-md: calc(var(--radius) - 2px);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) + 4px);
+    --selection-light: 221.2 83.2% 90%;
+    --selection-dark: 142 76% 15%;
   }
 
   .dark {
@@ -94,6 +92,26 @@
     --border: 240 4% 16%;
     --input: 240 4% 16%;
     --ring: 142 76% 36%;
+  }
+
+  ::selection {
+    background-color: hsl(var(--selection-light));
+    color: hsl(var(--foreground));
+  }
+
+  ::-moz-selection {
+    background-color: hsl(var(--selection-light));
+    color: hsl(var(--foreground));
+  }
+
+  .dark ::selection {
+    background-color: hsl(var(--selection-dark));
+    color: hsl(var(--foreground));
+  }
+
+  .dark ::-moz-selection {
+    background-color: hsl(var(--selection-dark));
+    color: hsl(var(--foreground));
   }
 }
 

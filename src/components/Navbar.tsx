@@ -14,24 +14,12 @@ import {
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { useSession, signIn, signOut } from 'next-auth/react';
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { NavbarLoading } from './Navbar.loading';
 
 export function Navbar() {
   const { theme, setTheme } = useTheme();
   const { data: session, status } = useSession();
-  const [mounted, setMounted] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Show loading skeleton while not mounted
-  if (!mounted) {
-    return <NavbarLoading />;
-  }
 
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
@@ -125,48 +113,6 @@ export function Navbar() {
       </Button>
     );
   };
-
-  if (!mounted) {
-    return (
-      <nav className="bg-green-600 py-4 px-6 mb-8 sticky top-0 z-50 shadow-md">
-        <div className="container mx-auto flex items-center gap-6">
-          <div className="flex-shrink-0">
-            <Logo className="text-white" />
-          </div>
-          <div className="flex-1 flex items-center justify-end gap-6">
-            <Link 
-              href="/browse"
-              className="text-white font-semibold hover:text-white/90 transition-colors whitespace-nowrap flex-shrink-0"
-            >
-              Browse
-            </Link>
-            <Link 
-              href="/my-plants"
-              className="text-white font-semibold hover:text-white/90 transition-colors whitespace-nowrap flex-shrink-0"
-            >
-              My Plants
-            </Link>
-            <Button
-              variant="outline"
-              size="sm"
-              className="text-white hover:text-white/90 hover:bg-white/10 border-white/20"
-              disabled
-            >
-              Sign In
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="ml-2 text-white hover:text-white/90 hover:bg-white/10 w-8 h-8"
-              disabled
-            >
-              <Moon className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </nav>
-    );
-  }
 
   return (
     <nav className="bg-green-600 py-4 px-6 mb-8 sticky top-0 z-50 shadow-md">
