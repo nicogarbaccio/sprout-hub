@@ -140,13 +140,24 @@ export function EditPlantModal({
                 </div>
               )}
             </div>
-            <Input
+            <input
               id="image"
               type="file"
               accept="image/*"
               onChange={handleImageChange}
               disabled={isUploading}
-              className="bg-gray-100 hover:bg-gray-200 transition-colors dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-800 file:bg-gray-200 file:hover:bg-gray-300 file:transition-colors dark:file:bg-gray-700 dark:file:hover:bg-gray-600 file:border-0 file:mr-4 file:px-4 file:py-2 file:cursor-pointer cursor-default pointer-events-none [&::file-selector-button]:pointer-events-auto file:my-1 h-auto py-1"
+              className="block w-full text-sm text-gray-600 dark:text-gray-400
+                file:mr-4 file:py-2.5 file:px-6
+                file:rounded-l-full file:border-0
+                file:text-sm file:font-medium
+                file:bg-gray-100 file:text-gray-700
+                dark:file:bg-gray-700 dark:file:text-gray-300
+                hover:file:bg-gray-200
+                dark:hover:file:bg-gray-600
+                file:transition-colors
+                rounded-full border border-gray-200 dark:border-gray-700
+                cursor-pointer
+                focus:outline-none"
             />
             {isUploading && (
               <p className="text-sm text-gray-500">Uploading image...</p>

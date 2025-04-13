@@ -1,0 +1,10 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Be aware of potential hydration errors and aim to avoid them at all times.
+
+- You can @ files here
+- You can use markdown but dont have to

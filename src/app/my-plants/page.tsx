@@ -85,11 +85,28 @@ export default function MyPlantsPage() {
       const response = await fetch('/api/plants');
       if (!response.ok) throw new Error('Failed to fetch plants');
       const plants = await response.json();
-      setCollectedPlants(plants.map((plant: any) => ({
-        ...plant,
-        dateAdded: new Date(plant.createdAt),
-        lastWatered: new Date(plant.lastWatered),
-      })));
+      
+      // Ensure consistent date handling
+      const parsedPlants = plants.map((plant: any) => {
+        const dateAdded = new Date(plant.createdAt);
+        const lastWatered = new Date(plant.lastWatered);
+        
+        // Ensure valid dates
+        if (isNaN(dateAdded.getTime())) {
+          throw new Error('Invalid dateAdded');
+        }
+        if (isNaN(lastWatered.getTime())) {
+          throw new Error('Invalid lastWatered');
+        }
+        
+        return {
+          ...plant,
+          dateAdded,
+          lastWatered,
+        };
+      });
+      
+      setCollectedPlants(parsedPlants);
     } catch (error) {
       console.error('Error fetching plants:', error);
     } finally {
@@ -287,7 +304,12 @@ export default function MyPlantsPage() {
                       variant="ghost"
                       size="sm"
                       className="h-6 w-6 p-0 hover:bg-gray-100 rounded-full"
-                      onClick={() => setEditWateringDate({ plant, date: plant.lastWatered })}
+                      onClick={() => {
+                        const lastWateredDate = plant.lastWatered instanceof Date 
+                          ? plant.lastWatered 
+                          : new Date(plant.lastWatered);
+                        setEditWateringDate({ plant, date: lastWateredDate });
+                      }}
                     >
                       <CalendarIcon className="h-3 w-3 text-gray-500" />
                     </Button>
@@ -374,21 +396,25 @@ export default function MyPlantsPage() {
       />
 
       <ConfirmActionModal
-        isOpen={!!editWateringDate}
+        isOpen={!!editWateringDate && mounted}
         onClose={() => setEditWateringDate(null)}
         onConfirm={() => editWateringDate && handleUpdateWateringDate(editWateringDate.plant, editWateringDate.date)}
         title="Update Last Watering Date"
         description={
-          <div className="flex flex-col items-center gap-4">
-            <span>Select the last watering date for {editWateringDate?.plant.nickname || editWateringDate?.plant.name}</span>
-            {editWateringDate && (
+          mounted && editWateringDate ? (
+            <div className="flex flex-col items-center gap-4">
+              <span>Select the last watering date for {editWateringDate.plant.nickname || editWateringDate.plant.name}</span>
               <ClientDatePicker
                 selected={editWateringDate.date}
                 onChange={(date) => date && setEditWateringDate(prev => prev ? { ...prev, date } : null)}
                 maxDate={new Date()}
               />
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center gap-4">
+              <span>Loading...</span>
+            </div>
+          )
         }
         confirmText="Update Date"
         cancelText="Cancel"
