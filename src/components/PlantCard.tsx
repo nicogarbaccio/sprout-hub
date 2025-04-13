@@ -8,15 +8,24 @@ import { AddToCollectionModal } from '@/components/AddToCollectionModal';
 interface PlantCardProps {
   plant: Plant;
   onAddToCollection: (plantId: string, nickname: string, wateringFrequency: number) => void;
+  isSignedIn: boolean;
 }
 
-export function PlantCard({ plant, onAddToCollection }: PlantCardProps) {
+export function PlantCard({ plant, onAddToCollection, isSignedIn }: PlantCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleButtonClick = () => {
+    if (!isSignedIn) {
+      onAddToCollection(plant.id, '', plant.wateringFrequency);
+      return;
+    }
+    setIsModalOpen(true);
+  };
 
   return (
     <>
       <Card className="overflow-hidden border border-gray-200 rounded-lg">
-        <div className="relative h-48 w-full">
+        <div className="relative h-48 w-full bg-gray-100">
           <Image
             src={plant.image}
             alt={plant.name}
@@ -45,21 +54,27 @@ export function PlantCard({ plant, onAddToCollection }: PlantCardProps) {
         </CardContent>
         <CardFooter className="p-4 border-t border-gray-100 flex justify-center">
           <Button
-            onClick={() => setIsModalOpen(true)}
+            onClick={handleButtonClick}
             disabled={plant.addedToCollection}
-            className={`w-full max-w-[200px] ${plant.addedToCollection ? 'bg-gray-100 hover:bg-gray-200' : 'bg-green-600 hover:bg-green-700 text-white'}`}
+            className={`w-full max-w-[200px] ${plant.addedToCollection ? 'bg-gray-100 hover:bg-gray-200' : 'bg-green-800 hover:bg-green-700 text-white'}`}
           >
-            {plant.addedToCollection ? 'In Collection' : 'Add to Collection'}
+            {plant.addedToCollection 
+              ? 'In Collection' 
+              : isSignedIn
+                ? 'Add to Collection' 
+                : 'Sign In to Add to Collection'}
           </Button>
         </CardFooter>
       </Card>
 
-      <AddToCollectionModal
-        plant={plant}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onConfirm={onAddToCollection}
-      />
+      {isSignedIn && (
+        <AddToCollectionModal
+          plant={plant}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onConfirm={onAddToCollection}
+        />
+      )}
     </>
   );
 } 

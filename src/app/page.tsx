@@ -22,7 +22,7 @@ export default function Home() {
         <div className="flex justify-center gap-4">
           <Button
             onClick={() => router.push('/browse')}
-            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
+            className="bg-green-800 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
           >
             Browse Plants
           </Button>

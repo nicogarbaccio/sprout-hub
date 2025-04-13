@@ -7,6 +7,17 @@ import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { SignInModal } from '@/components/SignInModal';
+import { Card, CardFooter } from "@/components/ui/card";
 
 interface CollectedPlant extends Plant {
   nickname?: string;
@@ -18,6 +29,7 @@ export default function BrowsePage() {
   const [plants, setPlants] = useState<Plant[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [showSignInModal, setShowSignInModal] = useState(false);
   const router = useRouter();
   const { data: session, status } = useSession();
 
@@ -41,7 +53,7 @@ export default function BrowsePage() {
 
   const handleAddToCollection = async (plantId: string, nickname: string, wateringFrequency: number) => {
     if (!session) {
-      router.push('/auth/signin');
+      setShowSignInModal(true);
       return;
     }
 
@@ -99,7 +111,7 @@ export default function BrowsePage() {
     return (
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold mb-6 text-center">Browse Plants</h2>
+          <h2 className="text-3xl font-bold mb-6 text-center text-green-800">Browse Plants</h2>
           <div className="mb-8">
             <Input
               type="search"
@@ -133,7 +145,7 @@ export default function BrowsePage() {
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="max-w-2xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-center">Browse Plants</h2>
+        <h2 className="text-3xl font-bold mb-6 text-center text-green-800">Browse Plants</h2>
         <div className="mb-8">
           <Input
             type="search"
@@ -149,9 +161,16 @@ export default function BrowsePage() {
             key={plant.id}
             plant={plant}
             onAddToCollection={handleAddToCollection}
+            isSignedIn={!!session}
           />
         ))}
       </div>
+
+      <SignInModal
+        isOpen={showSignInModal}
+        onClose={() => setShowSignInModal(false)}
+        callbackUrl="/browse"
+      />
     </main>
   );
 } 

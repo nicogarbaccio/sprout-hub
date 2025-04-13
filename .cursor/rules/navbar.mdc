@@ -1,0 +1,9 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+If ever you make changes that touch the navbar, make sure that the icons, links, and buttons in the navbar NEVER flicker or change. They should always stay static unless they are actually changed by the user. 
+
+[Navbar.tsx](mdc:src/components/Navbar.tsx)

@@ -190,7 +190,7 @@ export default function MyPlantsPage() {
     return (
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold mb-6 text-center">My Plants</h2>
+          <h2 className="text-3xl font-bold mb-6 text-center text-green-800">My Plants</h2>
           <div className="mb-8">
             <Input
               type="search"
@@ -230,7 +230,7 @@ export default function MyPlantsPage() {
     return (
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold mb-6 text-center">My Plants</h2>
+          <h2 className="text-3xl font-bold mb-6 text-center text-green-800">My Plants</h2>
           <div className="text-center py-12">
             <p className="text-gray-500">You haven't added any plants to your collection yet.</p>
             <Button
@@ -248,7 +248,7 @@ export default function MyPlantsPage() {
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="max-w-2xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-center">My Plants</h2>
+        <h2 className="text-3xl font-bold mb-6 text-center text-green-800">My Plants</h2>
         <div className="mb-8">
           <Input
             type="search"
@@ -263,8 +263,8 @@ export default function MyPlantsPage() {
           const wateringStatus = getWateringStatus(plant.lastWatered, plant.wateringFrequency);
           
           return (
-            <Card key={plant.id} className="overflow-hidden">
-              <div className="relative h-48 w-full bg-gray-100 dark:bg-gray-800">
+            <Card key={plant.id} className="overflow-hidden border border-gray-200">
+              <div className="relative h-48 w-full bg-gray-100">
                 {plant.image ? (
                   <Image
                     src={plant.image}

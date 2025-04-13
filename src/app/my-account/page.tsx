@@ -265,92 +265,94 @@ export default function MyAccount() {
   );
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <div className="max-w-2xl mx-auto space-y-8">
-        <h1 className="text-3xl font-bold">My Account</h1>
-        
-        {successMessage && (
-          <div className="bg-green-50 border border-green-200 text-green-600 rounded-lg p-4">
-            {successMessage}
+    <main className="min-h-screen bg-white">
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-2xl mx-auto space-y-8">
+          <h1 className="text-3xl font-bold text-green-800">My Account</h1>
+          
+          {successMessage && (
+            <div className="p-4 bg-green-50 text-green-800 rounded-lg">
+              {successMessage}
+            </div>
+          )}
+          
+          {errors.general && (
+            <div className="p-4 bg-red-50 text-red-800 rounded-lg">
+              {errors.general}
+            </div>
+          )}
+
+          <div className="bg-white rounded-lg shadow-sm border border-green-800 p-6 space-y-6">
+            <h2 className="text-xl font-semibold text-green-800">Profile Information</h2>
+            <form onSubmit={handleUpdateProfile} className="space-y-4">
+              {renderInput('username', 'Username')}
+              {renderInput('email', 'Email', 'email')}
+              <Button 
+                type="submit" 
+                disabled={isLoading}
+                className="w-full bg-green-800 hover:bg-green-700 text-white"
+              >
+                Update Profile
+              </Button>
+            </form>
           </div>
-        )}
-        
-        {errors.general && (
-          <div className="bg-red-50 border border-red-200 text-red-600 rounded-lg p-4">
-            {errors.general}
+
+          <div className="bg-white rounded-lg shadow-sm border border-green-800 p-6 space-y-6">
+            <h2 className="text-xl font-semibold text-green-800">Change Password</h2>
+            <form onSubmit={handleUpdatePassword} className="space-y-4">
+              {renderInput('currentPassword', 'Current Password', 'password')}
+              {renderInput('newPassword', 'New Password', 'password')}
+              {renderInput('confirmNewPassword', 'Confirm New Password', 'password')}
+              <Button 
+                type="submit" 
+                disabled={isLoading}
+                className="w-full bg-green-800 hover:bg-green-700 text-white"
+              >
+                Update Password
+              </Button>
+            </form>
           </div>
-        )}
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 space-y-6">
-          <h2 className="text-xl font-semibold">Update Profile</h2>
-          <form onSubmit={handleUpdateProfile} className="space-y-4">
-            {renderInput('username', 'Username', 'text', 'Enter new username')}
-            {renderInput('email', 'Email', 'email', 'Enter new email')}
-            <Button
-              type="submit"
-              className="w-full bg-green-600 hover:bg-green-700"
-              disabled={isLoading}
-            >
-              {isLoading ? 'Updating...' : 'Update Profile'}
-            </Button>
-          </form>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 space-y-6">
-          <h2 className="text-xl font-semibold">Change Password</h2>
-          <form onSubmit={handleUpdatePassword} className="space-y-4">
-            {renderInput('currentPassword', 'Current Password', 'password')}
-            {renderInput('newPassword', 'New Password', 'password')}
-            {renderInput('confirmNewPassword', 'Confirm New Password', 'password')}
-            <Button
-              type="submit"
-              className="w-full bg-green-600 hover:bg-green-700"
-              disabled={isLoading}
-            >
-              {isLoading ? 'Updating...' : 'Update Password'}
-            </Button>
-          </form>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 space-y-6">
-          <h2 className="text-xl font-semibold">Account Actions</h2>
-          <div className="space-y-4">
-            <Button
-              onClick={() => signOut({ callbackUrl: '/' })}
-              className="w-full bg-gray-600 hover:bg-gray-700"
-              disabled={isLoading}
-            >
-              Sign Out
-            </Button>
-
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button
-                  className="w-full bg-red-600 hover:bg-red-700"
-                  disabled={isLoading}
-                >
-                  Delete Account
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete your
-                    account and remove all your data from our servers.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction
-                    onClick={handleDeleteAccount}
-                    className="bg-red-600 hover:bg-red-700"
+          <div className="bg-white rounded-lg shadow-sm border border-green-800 p-6 space-y-6">
+            <h2 className="text-xl font-semibold text-green-800">Account Actions</h2>
+            <div className="space-y-4">
+              <Button
+                variant="outline"
+                onClick={() => signOut({ callbackUrl: '/' })}
+                className="w-full border-green-800 text-green-800 hover:bg-green-800 hover:text-white"
+              >
+                Sign Out
+              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="w-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
                   >
                     Delete Account
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-white">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete Account</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Are you sure you want to delete your account? This action cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel className="border-green-800 text-green-800 hover:bg-green-800 hover:text-white">
+                      Cancel
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={handleDeleteAccount}
+                      className="bg-red-500 hover:bg-red-600 text-white"
+                    >
+                      Delete Account
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
           </div>
         </div>
       </div>

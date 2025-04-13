@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { SharedLayout } from "@/components/SharedLayout";
-import { ThemeProvider } from "@/lib/theme";
 import { SessionProvider } from "@/components/SessionProvider";
 import "./globals.css";
 
@@ -18,12 +17,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={inter.className} suppressHydrationWarning>
+    <html lang="en">
+      <body className={inter.className}>
         <SessionProvider>
-          <ThemeProvider>
-            <SharedLayout>{children}</SharedLayout>
-          </ThemeProvider>
+          <SharedLayout>{children}</SharedLayout>
         </SessionProvider>
       </body>
     </html>

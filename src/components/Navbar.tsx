@@ -1,117 +1,29 @@
-'use client';
-
 import { Logo } from '@/components/Logo';
+import { AccountMenu } from '@/components/AccountMenu';
 import Link from 'next/link';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { UserIcon, Moon, LogOut, Settings } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu';
-import { useSession, signIn, signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import React from 'react';
-
-// Separate component for theme toggle to isolate state
-function ThemeToggle() {
-  const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  return (
-    <Button
-      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-      variant="outline"
-      size="icon"
-      className="border-white/20 hover:bg-white/20"
-    >
-      <div className="h-4 w-4">
-        <Moon className="text-white" />
-      </div>
-    </Button>
-  );
-}
+// Remove unused imports if they are no longer needed after removing AuthAvatar
+// import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+// import { Button } from '@/components/ui/button';
+// import { UserIcon } from 'lucide-react';
+// Remove AuthAvatar import
+// import { AuthAvatar } from './AuthAvatar';
 
 export function Navbar() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-
-  const handleSignIn = () => signIn(undefined, { callbackUrl: window.location.href });
-  const handleSignOut = () => signOut({ callbackUrl: '/?signedOut=true' });
-
-  const buttonBaseClass = "text-white hover:text-white/90 hover:bg-white/10 border-white/20 h-[32px] flex items-center justify-center focus:outline-none focus-visible:outline-none focus-visible:ring-0 focus:ring-0 active:outline-none active:border-white/20 focus:border-white/20";
-
-  // Always render the authenticated state during loading
-  const isAuthenticated = status === 'loading' || !!session;
-
   return (
-    <nav className="bg-green-600 py-4 px-6 mb-8 sticky top-0 z-50 shadow-md">
-      <div className="container mx-auto flex items-center gap-6">
-        <div className="flex-shrink-0">
-          <Logo className="text-white" />
-        </div>
-        <div className="flex-1 flex items-center justify-end gap-6">
+    <nav className="bg-white border-b-2 border-green-800 py-4 px-6 sticky top-0 z-50 shadow-sm">
+      <div className="container mx-auto flex justify-between items-center">
+        <Logo className="text-green-800" />
+        <div className="flex items-center gap-6">
           <Link 
-            href="/browse"
-            className="text-white font-semibold hover:text-white/90 transition-colors whitespace-nowrap flex-shrink-0"
+            href="/browse" 
+            className="text-green-800 hover:text-green-600 transition-colors"
           >
             Browse
           </Link>
-          {isAuthenticated && (
-            <Link 
-              href="/my-plants"
-              className="text-white font-semibold hover:text-white/90 transition-colors whitespace-nowrap flex-shrink-0"
-            >
-              My Plants
-            </Link>
-          )}
-          {isAuthenticated ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className={`${buttonBaseClass} px-2 !border-white/20 !ring-0`}
-                >
-                  <Avatar className="h-6 w-6">
-                    <AvatarFallback>
-                      <UserIcon className="h-4 w-4" />
-                    </AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem onClick={() => router.push('/my-account')}>
-                  <Settings className="mr-2 h-4 w-4" />
-                  My Account
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleSignOut}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Sign Out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleSignIn}
-              className={`${buttonBaseClass} w-[72px] !border-white/20 !ring-0`}
-            >
-              Sign In
-            </Button>
-          )}
-          <ThemeToggle />
+          <AccountMenu />
         </div>
+        {/* Remove AuthAvatar component instance */}
+        {/* <AuthAvatar /> */}
       </div>
     </nav>
   );

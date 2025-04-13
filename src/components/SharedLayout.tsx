@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Navbar } from '@/components/Navbar';
 import { Toaster } from 'react-hot-toast';
 import { AuthStateListener } from '@/components/AuthStateListener';
+import { Navbar } from '@/components/Navbar';
 
 export function SharedLayout({ children }: { children: React.ReactNode }) {
   return (
