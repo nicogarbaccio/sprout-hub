@@ -247,13 +247,19 @@ export default function MyPlantsPage() {
           
           return (
             <Card key={plant.id} className="overflow-hidden">
-              <div className="relative h-48 w-full">
-                <Image
-                  src={plant.image}
-                  alt={plant.name}
-                  fill
-                  className="object-cover"
-                />
+              <div className="relative h-48 w-full bg-gray-100 dark:bg-gray-800">
+                {plant.image ? (
+                  <Image
+                    src={plant.image}
+                    alt={plant.name}
+                    fill
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-full">
+                    <p className="text-gray-500">No image available</p>
+                  </div>
+                )}
                 {wateringStatus.needsWater && (
                   <div className="absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
                     Needs Water!
@@ -392,6 +398,7 @@ export default function MyPlantsPage() {
         plantId={editModalPlant?.id || ''}
         currentNickname={editModalPlant?.nickname || null}
         currentWateringFrequency={editModalPlant?.wateringFrequency || 7}
+        currentImage={editModalPlant?.image || ''}
         isOpen={!!editModalPlant}
         onClose={() => setEditModalPlant(null)}
         onConfirm={handleEditPlant}
