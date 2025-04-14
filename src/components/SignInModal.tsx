@@ -126,12 +126,12 @@ export function SignInModal({ isOpen, onClose, callbackUrl = '/my-plants' }: Sig
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px] bg-white">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-center text-green-800">
+          <DialogTitle className="text-2xl font-bold text-center text-foreground">
             Sign In to Sprout Hub
           </DialogTitle>
         </DialogHeader>
         {errors.general && (
-          <div className="bg-red-50 border border-red-200 text-red-600 rounded-lg p-4 mb-6">
+          <div className="bg-destructive/10 border border-destructive/20 text-destructive rounded-lg p-4 mb-6">
             {errors.general}
           </div>
         )}
@@ -140,7 +140,7 @@ export function SignInModal({ isOpen, onClose, callbackUrl = '/my-plants' }: Sig
           {renderInput('password', 'Password', 'password')}
           <Button
             type="submit"
-            className="w-full bg-green-600 hover:bg-green-700 text-white"
+            variant="default"
             disabled={isLoading}
           >
             {isLoading ? 'Signing in...' : 'Sign In'}
@@ -148,15 +148,15 @@ export function SignInModal({ isOpen, onClose, callbackUrl = '/my-plants' }: Sig
         </form>
 
         <div className="flex items-center my-4">
-          <div className="flex-grow h-px bg-gray-300"></div>
-          <div className="flex-grow h-px bg-gray-300"></div>
+          <div className="flex-grow h-px bg-border"></div>
+          <div className="flex-grow h-px bg-border"></div>
         </div>
 
-        <p className="text-center text-sm text-gray-600">
+        <p className="text-center text-sm text-muted-foreground">
           Don't have an account?{' '}
           <Link 
             href={`/auth/signup?callbackUrl=${encodeURIComponent(callbackUrl)}`}
-            className="text-green-600 hover:text-green-700 font-medium"
+            className="text-primary hover:text-primary/90 font-medium"
           >
             Sign Up
           </Link>

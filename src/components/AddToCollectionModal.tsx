@@ -68,13 +68,12 @@ export function AddToCollectionModal({
               type="button" 
               variant="outline" 
               onClick={onClose}
-              className="dark:bg-gray-800/50 dark:text-gray-300 dark:hover:bg-gray-800 dark:border-gray-800"
             >
               Cancel
             </Button>
             <Button 
               type="submit" 
-              className="bg-green-600 hover:bg-green-700 dark:bg-green-600/90 dark:hover:bg-green-600 text-white dark:text-gray-100"
+              variant="default"
             >
               Add to Collection
             </Button>

@@ -9,6 +9,7 @@ import { PasswordInput } from '@/components/ui/password-input';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import SignInLoading from './loading';
+import { cn } from '@/lib/utils';
 
 interface FormErrors {
   usernameOrEmail?: string;
@@ -102,7 +103,9 @@ export default function SignIn() {
           id={field}
           value={formData[field]}
           onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
-          className={errors[field] ? 'border-red-500' : ''}
+          className={cn(
+            errors[field] ? 'border-red-500' : ''
+          )}
           aria-invalid={!!errors[field]}
           aria-errormessage={`${field}-error`}
           disabled={isLoading}
@@ -113,7 +116,9 @@ export default function SignIn() {
           type={type}
           value={formData[field]}
           onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
-          className={errors[field] ? 'border-red-500' : ''}
+          className={cn(
+            errors[field] ? 'border-red-500' : ''
+          )}
           aria-invalid={!!errors[field]}
           aria-errormessage={`${field}-error`}
           disabled={isLoading}
@@ -130,37 +135,39 @@ export default function SignIn() {
   return (
     <main className="container mx-auto px-4 py-16">
       <div className="max-w-md mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-8">Sign In to Sprout Hub</h1>
+        <h1 className="text-3xl font-bold text-center mb-8 text-foreground">Sign In to Sprout Hub</h1>
         {isRegistered && (
-          <div className="bg-green-50 border border-green-200 text-green-600 rounded-lg p-4 mb-6">
+          <div className="bg-primary/10 border border-primary/20 text-primary rounded-lg p-4 mb-6">
             Account created successfully! Please sign in.
           </div>
         )}
         {errors.general && (
-          <div className="bg-red-50 border border-red-200 text-red-600 rounded-lg p-4 mb-6">
+          <div className="bg-destructive/10 border border-destructive/20 text-destructive rounded-lg p-4 mb-6">
             {errors.general}
           </div>
         )}
         <form onSubmit={handleSubmit} className="space-y-6">
           {renderInput('usernameOrEmail', 'Username or Email')}
           {renderInput('password', 'Password', 'password')}
-          <Button
-            type="submit"
-            className="w-full bg-green-600 hover:bg-green-700"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Signing in...' : 'Sign In'}
-          </Button>
+          <div className="flex justify-center">
+            <Button
+              type="submit"
+              variant="default"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Signing in...' : 'Sign In'}
+            </Button>
+          </div>
         </form>
 
         <div className="flex items-center my-4">
-          <div className="flex-grow h-px bg-gray-300"></div>
-          <div className="flex-grow h-px bg-gray-300"></div>
+          <div className="flex-grow h-px bg-border"></div>
+          <div className="flex-grow h-px bg-border"></div>
         </div>
 
-        <p className="text-center mt-6 text-sm text-gray-600">
+        <p className="text-center mt-6 text-sm text-muted-foreground">
           Don't have an account?{' '}
-          <Link href="/auth/signup" className="text-green-600 hover:text-green-700 font-medium">
+          <Link href="/auth/signup" className="text-[hsl(142,76%,36%)] hover:text-[hsl(142,76%,32%)] font-bold">
             Sign Up
           </Link>
         </p>

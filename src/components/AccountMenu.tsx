@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -11,15 +11,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { UserIcon } from 'lucide-react';
+import { UserIcon, Leaf, User, LogOut } from 'lucide-react';
 
 export function AccountMenu() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  // Show loading state while session is loading
-  if (status === 'loading') {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted || status === 'loading') {
     return (
       <div className="w-10 h-10 rounded-full bg-gray-200 animate-pulse" />
     );
@@ -29,72 +32,60 @@ export function AccountMenu() {
     await signOut({ callbackUrl: '/?signedOut=true' });
   };
 
+  if (!session) {
+    return (
+      <Button
+        variant="default"
+        onClick={() => router.push('/auth/signin')}
+        className="bg-green-800 hover:bg-green-700 text-white font-medium px-4 py-2 rounded-md transition-colors"
+      >
+        Sign In
+      </Button>
+    );
+  }
+
+  const userInitials = session.user?.name
+    ?.split(' ')
+    .map(n => n[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2) || 'U';
+
   return (
-    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+    <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          className="relative h-10 w-10 rounded-full"
-          aria-label="Account menu"
-        >
+        <Button variant="ghost" className="relative h-10 w-10 rounded-full bg-green-800 hover:bg-green-700">
           <Avatar className="h-10 w-10">
-            {session?.user ? (
-              <AvatarFallback className="bg-green-100 text-green-800">
-                {session.user.name?.[0]?.toUpperCase() || 'U'}
-              </AvatarFallback>
-            ) : (
-              <AvatarFallback className="bg-gray-100">
-                <UserIcon className="h-5 w-5 text-gray-500" />
-              </AvatarFallback>
-            )}
+            <AvatarFallback className="text-white">{userInitials}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
+        className="w-56 !bg-white [&>*]:!bg-white [&>*]:!text-green-800 border border-green-800/40 !shadow-none !ring-0 !ring-offset-0 !ring-transparent !ring-offset-transparent !text-green-800" 
         align="end" 
-        className="w-56 bg-white border-green-800 dark:bg-white dark:text-green-800"
+        forceMount
       >
-        {session?.user ? (
-          <>
-            <DropdownMenuItem
-              onClick={() => {
-                router.push('/my-plants');
-                setIsOpen(false);
-              }}
-              className="text-green-800 hover:bg-green-800 hover:text-white focus:bg-green-800 focus:text-white dark:text-green-800 dark:hover:bg-green-800 dark:hover:text-white dark:focus:bg-green-800 dark:focus:text-white"
-            >
-              My Plants
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => {
-                router.push('/my-account');
-                setIsOpen(false);
-              }}
-              className="text-green-800 hover:bg-green-800 hover:text-white focus:bg-green-800 focus:text-white dark:text-green-800 dark:hover:bg-green-800 dark:hover:text-white dark:focus:bg-green-800 dark:focus:text-white"
-            >
-              My Account
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => {
-                handleSignOut();
-                setIsOpen(false);
-              }}
-              className="text-green-800 hover:bg-green-800 hover:text-white focus:bg-green-800 focus:text-white dark:text-green-800 dark:hover:bg-green-800 dark:hover:text-white dark:focus:bg-green-800 dark:focus:text-white"
-            >
-              Sign Out
-            </DropdownMenuItem>
-          </>
-        ) : (
-          <DropdownMenuItem
-            onClick={() => {
-              router.push('/auth/signin');
-              setIsOpen(false);
-            }}
-            className="text-green-800 hover:bg-green-800 hover:text-white focus:bg-green-800 focus:text-white dark:text-green-800 dark:hover:bg-green-800 dark:hover:text-white dark:focus:bg-green-800 dark:focus:text-white"
-          >
-            Sign In
-          </DropdownMenuItem>
-        )}
+        <DropdownMenuItem 
+          onClick={() => router.push('/my-plants')}
+          className="!text-green-800 hover:!bg-green-800 hover:!text-white focus:!bg-green-800 focus:!text-white flex items-center gap-2"
+        >
+          <Leaf className="w-4 h-4" />
+          My Plants
+        </DropdownMenuItem>
+        <DropdownMenuItem 
+          onClick={() => router.push('/my-account')}
+          className="!text-green-800 hover:!bg-green-800 hover:!text-white focus:!bg-green-800 focus:!text-white flex items-center gap-2"
+        >
+          <User className="w-4 h-4" />
+          My Account
+        </DropdownMenuItem>
+        <DropdownMenuItem 
+          onClick={handleSignOut}
+          className="!text-green-800 hover:!bg-green-800 hover:!text-white focus:!bg-green-800 focus:!text-white flex items-center gap-2"
+        >
+          <LogOut className="w-4 h-4" />
+          Sign Out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

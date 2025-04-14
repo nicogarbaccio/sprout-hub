@@ -52,11 +52,11 @@ export function PlantCard({ plant, onAddToCollection, isSignedIn }: PlantCardPro
           </div>
           <p className="text-sm text-gray-600 mt-2 line-clamp-2">{plant.description}</p>
         </CardContent>
-        <CardFooter className="p-4 border-t border-gray-100 flex justify-center">
+        <CardFooter className="p-4 border-t border-border flex justify-center">
           <Button
             onClick={handleButtonClick}
             disabled={plant.addedToCollection}
-            className={`w-full max-w-[200px] ${plant.addedToCollection ? 'bg-gray-100 hover:bg-gray-200' : 'bg-green-800 hover:bg-green-700 text-white'}`}
+            variant={plant.addedToCollection ? "secondary" : "default"}
           >
             {plant.addedToCollection 
               ? 'In Collection' 

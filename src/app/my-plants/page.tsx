@@ -13,24 +13,12 @@ import { useRouter } from 'next/navigation';
 import { EditPlantModal } from '@/components/EditPlantModal';
 import { Droplet, Pencil, Trash } from 'lucide-react';
 import { ClientDatePicker } from '@/components/ClientDatePicker';
+import { UpdateWateringDateModal } from '@/components/UpdateWateringDateModal';
 
 interface CollectedPlant extends Plant {
   nickname?: string;
   dateAdded: Date;
   lastWatered: Date;
-}
-
-function isToday(date: Date) {
-  const today = new Date();
-  return date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear();
-}
-
-function addDays(date: Date, days: number) {
-  const result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
 }
 
 function getWateringStatus(lastWatered: Date, frequency: number) {
@@ -43,19 +31,32 @@ function getWateringStatus(lastWatered: Date, frequency: number) {
     daysUntil: daysUntilWatering,
     needsWater: daysUntilWatering <= 0,
     isWarning: daysUntilWatering > 0 && daysUntilWatering <= 3,
-    justWatered: isToday(lastWatered)
+    justWatered: daysUntilWatering > 3
   };
 }
 
 function formatDate(date: Date): string {
-  if (typeof window === 'undefined') {
-    return ''; // Return empty string during SSR
+  if (!(date instanceof Date) || isNaN(date.getTime())) {
+    return 'Invalid date';
   }
-  return new Date(date).toLocaleDateString('en-US', {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
     month: 'short',
-    day: 'numeric',
-    year: 'numeric'
+    day: 'numeric'
   });
+}
+
+function addDays(date: Date, days: number): Date {
+  const result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+}
+
+function isToday(date: Date): boolean {
+  const today = new Date();
+  return date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear();
 }
 
 export default function MyPlantsPage() {
@@ -128,6 +129,13 @@ export default function MyPlantsPage() {
       console.error('Error updating plant:', error);
     }
     setWaterModalPlant(null);
+  };
+
+  const handleEditWateringDate = (plant: CollectedPlant) => {
+    const lastWateredDate = plant.lastWatered instanceof Date 
+      ? plant.lastWatered 
+      : new Date(plant.lastWatered);
+    setEditWateringDate({ plant, date: lastWateredDate });
   };
 
   const handleUpdateWateringDate = async (plant: CollectedPlant, newDate: Date) => {
@@ -342,10 +350,11 @@ export default function MyPlantsPage() {
                   </p>
                 )}
               </CardContent>
-              <CardFooter className="p-4 border-t border-gray-100 flex flex-col gap-2">
+              <CardFooter className="p-4 border-t border-border flex flex-col gap-2">
                 <Button
                   onClick={() => setWaterModalPlant(plant)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white w-full flex items-center justify-center gap-2"
+                  variant="water"
+                  className="w-full flex items-center justify-center gap-2"
                 >
                   <Droplet className="h-4 w-4" />
                   Water
@@ -353,8 +362,8 @@ export default function MyPlantsPage() {
                 <div className="flex justify-center gap-2 w-full">
                   <Button
                     onClick={() => setEditModalPlant(plant)}
-                    variant="outline"
-                    className="bg-amber-500 hover:bg-amber-600 text-white border-0 flex-1 flex items-center justify-center gap-2"
+                    variant="edit"
+                    className="flex-1 flex items-center justify-center gap-2"
                   >
                     <Pencil className="h-4 w-4" />
                     Edit
@@ -362,7 +371,7 @@ export default function MyPlantsPage() {
                   <Button
                     onClick={() => setRemoveModalPlant(plant)}
                     variant="destructive"
-                    className="bg-red-600 hover:bg-red-700 text-white flex-1 flex items-center justify-center gap-2"
+                    className="flex-1 flex items-center justify-center gap-2"
                   >
                     <Trash className="h-4 w-4" />
                     Remove
@@ -395,30 +404,14 @@ export default function MyPlantsPage() {
         variant="destructive"
       />
 
-      <ConfirmActionModal
-        isOpen={!!editWateringDate && mounted}
-        onClose={() => setEditWateringDate(null)}
-        onConfirm={() => editWateringDate && handleUpdateWateringDate(editWateringDate.plant, editWateringDate.date)}
-        title="Update Last Watering Date"
-        description={
-          mounted && editWateringDate ? (
-            <div className="flex flex-col items-center gap-4">
-              <span>Select the last watering date for {editWateringDate.plant.nickname || editWateringDate.plant.name}</span>
-              <ClientDatePicker
-                selected={editWateringDate.date}
-                onChange={(date) => date && setEditWateringDate(prev => prev ? { ...prev, date } : null)}
-                maxDate={new Date()}
-              />
-            </div>
-          ) : (
-            <div className="flex flex-col items-center gap-4">
-              <span>Loading...</span>
-            </div>
-          )
-        }
-        confirmText="Update Date"
-        cancelText="Cancel"
-      />
+      {editWateringDate && (
+        <UpdateWateringDateModal
+          plant={editWateringDate.plant}
+          isOpen={true}
+          onClose={() => setEditWateringDate(null)}
+          onConfirm={handleUpdateWateringDate}
+        />
+      )}
 
       <EditPlantModal
         plantId={editModalPlant?.id || ''}

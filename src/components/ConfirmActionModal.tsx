@@ -10,6 +10,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface ConfirmActionModalProps {
   isOpen: boolean;
@@ -20,6 +21,7 @@ interface ConfirmActionModalProps {
   confirmText?: string;
   cancelText?: string;
   variant?: 'default' | 'destructive';
+  confirmButtonClassName?: string;
 }
 
 export function ConfirmActionModal({
@@ -30,24 +32,28 @@ export function ConfirmActionModal({
   description,
   confirmText = "Continue",
   cancelText = "Cancel",
-  variant = 'default'
+  variant = 'default',
+  confirmButtonClassName
 }: ConfirmActionModalProps) {
   return (
     <AlertDialog open={isOpen} onOpenChange={onClose}>
-      <AlertDialogContent className="bg-white dark:bg-gray-900">
+      <AlertDialogContent className="sm:max-w-[425px] bg-white">
         <AlertDialogHeader>
-          <AlertDialogTitle>{title}</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogTitle className="text-foreground">{title}</AlertDialogTitle>
+          <AlertDialogDescription className="text-muted-foreground">
             {description}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        <AlertDialogFooter className="mt-4 flex justify-end gap-3">
           <AlertDialogCancel onClick={onClose}>
             {cancelText}
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={onConfirm}
-            className={variant === 'destructive' ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600 text-white'}
+            className={cn(
+              variant === 'destructive' ? 'bg-destructive hover:bg-destructive/90' : '',
+              confirmButtonClassName
+            )}
           >
             {confirmText}
           </AlertDialogAction>

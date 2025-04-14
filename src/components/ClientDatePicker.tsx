@@ -17,10 +17,18 @@ export function ClientDatePicker({ selected, onChange, maxDate }: ClientDatePick
   useEffect(() => {
     setMounted(true);
     // Initialize the date state after mounting to ensure client-side only
-    const parsedDate = selected instanceof Date ? selected : new Date(selected);
-    setSelectedDate(parsedDate);
+    try {
+      const parsedDate = selected instanceof Date ? selected : new Date(selected);
+      if (!isNaN(parsedDate.getTime())) {
+        setSelectedDate(parsedDate);
+      }
+    } catch (error) {
+      console.error('Error parsing date:', error);
+      setSelectedDate(new Date());
+    }
   }, [selected]);
 
+  // Return a placeholder during SSR and before mounting
   if (!mounted) {
     return (
       <div className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background">
@@ -30,14 +38,22 @@ export function ClientDatePicker({ selected, onChange, maxDate }: ClientDatePick
   }
 
   return (
-    <DatePicker
-      selected={selectedDate}
-      onChange={(date) => {
-        setSelectedDate(date);
-        onChange(date);
-      }}
-      maxDate={maxDate instanceof Date ? maxDate : new Date(maxDate)}
-      className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
-    />
+    <div className="w-full">
+      <DatePicker
+        selected={selectedDate}
+        onChange={(date) => {
+          if (date) {
+            setSelectedDate(date);
+            onChange(date);
+          }
+        }}
+        maxDate={maxDate instanceof Date ? maxDate : new Date(maxDate)}
+        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
+        dateFormat="MMMM d, yyyy"
+        showYearDropdown
+        scrollableYearDropdown
+        yearDropdownItemNumber={10}
+      />
+    </div>
   );
 } 

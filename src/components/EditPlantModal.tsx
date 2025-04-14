@@ -93,13 +93,13 @@ export function EditPlantModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] bg-white dark:bg-gray-900">
+      <DialogContent className="sm:max-w-[425px] bg-white">
         <DialogHeader>
-          <DialogTitle className="text-foreground dark:text-gray-300">Edit Plant Details</DialogTitle>
+          <DialogTitle className="text-gray-900">Edit Plant Details</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="nickname" className="text-foreground dark:text-gray-400">Nickname (optional)</Label>
+            <Label htmlFor="nickname" className="text-gray-700">Nickname (optional)</Label>
             <Input
               id="nickname"
               placeholder="e.g., Living Room Snake Plant"
@@ -108,11 +108,11 @@ export function EditPlantModal({
                 setNickname(e.target.value);
                 setHasEditedNickname(true);
               }}
-              className="bg-white dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-800"
+              className="bg-white text-gray-900 border-gray-200"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="watering" className="text-foreground dark:text-gray-400">Water every (X) days</Label>
+            <Label htmlFor="watering" className="text-gray-700">Water every (X) days</Label>
             <Input
               id="watering"
               type="number"
@@ -121,12 +121,12 @@ export function EditPlantModal({
               value={wateringFrequency}
               onChange={(e) => setWateringFrequency(Number(e.target.value))}
               required
-              className="bg-white dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-800"
+              className="bg-white text-gray-900 border-gray-200"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="image" className="text-foreground dark:text-gray-400">Plant Photo</Label>
-            <div className="relative h-48 w-full mb-4 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800">
+            <Label htmlFor="image" className="text-gray-700">Plant Photo</Label>
+            <div className="relative h-48 w-full mb-4 rounded-lg overflow-hidden bg-gray-100">
               {previewImage ? (
                 <Image
                   src={previewImage}
@@ -146,16 +146,14 @@ export function EditPlantModal({
               accept="image/*"
               onChange={handleImageChange}
               disabled={isUploading}
-              className="block w-full text-sm text-gray-600 dark:text-gray-400
+              className="block w-full text-sm text-gray-600
                 file:mr-4 file:py-2.5 file:px-6
                 file:rounded-l-full file:border-0
                 file:text-sm file:font-medium
                 file:bg-gray-100 file:text-gray-700
-                dark:file:bg-gray-700 dark:file:text-gray-300
                 hover:file:bg-gray-200
-                dark:hover:file:bg-gray-600
                 file:transition-colors
-                rounded-full border border-gray-200 dark:border-gray-700
+                rounded-full border border-gray-200
                 cursor-pointer
                 focus:outline-none"
             />

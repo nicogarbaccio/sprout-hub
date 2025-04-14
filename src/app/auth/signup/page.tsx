@@ -184,9 +184,9 @@ export default function SignUp() {
   return (
     <main className="container mx-auto px-4 py-16">
       <div className="max-w-md mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-8">Create Your Account</h1>
+        <h1 className="text-3xl font-bold text-center mb-8 text-foreground">Create Your Account</h1>
         {errors.general && (
-          <div className="bg-red-50 border border-red-200 text-red-600 rounded-lg p-4 mb-6">
+          <div className="bg-destructive/10 border border-destructive/20 text-destructive rounded-lg p-4 mb-6">
             {errors.general}
           </div>
         )}
@@ -199,17 +199,19 @@ export default function SignUp() {
           {renderInput('email', 'Email', 'email')}
           {renderInput('password', 'Password', 'password')}
           {renderInput('confirmPassword', 'Confirm Password', 'password')}
-          <Button
-            type="submit"
-            className="w-full bg-green-600 hover:bg-green-700"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Creating Account...' : 'Create Account'}
-          </Button>
+          <div className="flex justify-center">
+            <Button
+              type="submit"
+              variant="default"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Creating Account...' : 'Create Account'}
+            </Button>
+          </div>
         </form>
-        <p className="text-center mt-6 text-sm text-gray-600">
+        <p className="text-center mt-6 text-sm text-muted-foreground">
           Already have an account?{' '}
-          <Link href="/auth/signin" className="text-green-600 hover:text-green-700 font-medium">
+          <Link href="/auth/signin" className="text-[hsl(142,76%,36%)] hover:text-[hsl(142,76%,32%)] font-bold">
             Sign In
           </Link>
         </p>

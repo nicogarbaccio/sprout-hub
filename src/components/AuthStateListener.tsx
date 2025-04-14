@@ -10,6 +10,9 @@ export function AuthStateListener() {
   const { data: session, status } = useSession();
 
   useEffect(() => {
+    // Only run this effect on the client side
+    if (typeof window === 'undefined') return;
+
     // Get the previous auth state from localStorage
     const prevAuthState = localStorage.getItem(AUTH_STATE_KEY);
 
