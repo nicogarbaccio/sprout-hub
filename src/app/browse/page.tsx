@@ -113,7 +113,7 @@ export default function BrowsePage() {
             <Input
               type="search"
               placeholder="Search plants by name, species, care level, or light requirement..."
-              className="w-full"
+              className="w-full text-gray-400"
               disabled
             />
           </div>
@@ -147,7 +147,7 @@ export default function BrowsePage() {
           <Input
             type="search"
             placeholder="Search plants by name, species, care level, or light requirement..."
-            className="w-full"
+            className="w-full text-gray-400"
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>

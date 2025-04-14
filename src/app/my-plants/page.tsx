@@ -203,7 +203,7 @@ export default function MyPlantsPage() {
             <Input
               type="search"
               placeholder="Search your plants by name, species, or nickname..."
-              className="w-full"
+              className="w-full text-gray-400"
               disabled
             />
           </div>
@@ -261,7 +261,7 @@ export default function MyPlantsPage() {
           <Input
             type="search"
             placeholder="Search your plants by name, species, or nickname..."
-            className="w-full"
+            className="w-full text-gray-400"
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
