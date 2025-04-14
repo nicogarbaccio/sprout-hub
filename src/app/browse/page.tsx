@@ -97,14 +97,11 @@ export default function BrowsePage() {
   const filteredPlants = useMemo(() => {
     if (!searchQuery.trim()) return plants;
     
-    const query = searchQuery.toLowerCase();
-    return plants.filter(plant => 
-      plant.name.toLowerCase().includes(query) ||
-      plant.species.toLowerCase().includes(query) ||
-      plant.description.toLowerCase().includes(query) ||
-      plant.careLevel.toLowerCase().includes(query) ||
-      plant.lightRequirement.toLowerCase().includes(query)
-    );
+    const query = searchQuery.toLowerCase().trim();
+    return plants.filter(plant => {
+      const plantName = plant.name.toLowerCase();
+      return plantName.startsWith(query);
+    });
   }, [plants, searchQuery]);
 
   if (isLoading) {

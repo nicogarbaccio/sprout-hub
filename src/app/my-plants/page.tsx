@@ -178,11 +178,11 @@ export default function MyPlantsPage() {
   const filteredPlants = useMemo(() => {
     if (!searchQuery.trim()) return collectedPlants;
     
-    const query = searchQuery.toLowerCase();
+    const query = searchQuery.toLowerCase().trim();
     return collectedPlants.filter(plant => 
-      plant.name.toLowerCase().includes(query) ||
-      plant.species.toLowerCase().includes(query) ||
-      (plant.nickname?.toLowerCase().includes(query) || false)
+      plant.name.toLowerCase().startsWith(query) ||
+      plant.species.toLowerCase().startsWith(query) ||
+      (plant.nickname?.toLowerCase().startsWith(query) || false)
     );
   }, [collectedPlants, searchQuery]);
 
