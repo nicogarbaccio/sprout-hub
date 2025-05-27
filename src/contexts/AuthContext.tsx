@@ -8,7 +8,7 @@ interface AuthContextType {
   session: Session | null;
   loading: boolean;
   signUp: (email: string, password: string, firstName: string, lastName: string, username: string) => Promise<{ error: any }>;
-  signIn: (email: string, password: string) => Promise<{ error: any }>;
+  signIn: (emailOrUsername: string, password: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
 }
 
@@ -60,7 +60,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return { error };
   };
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (emailOrUsername: string, password: string) => {
+    let email = emailOrUsername;
+    
+    // Check if the input is an email (contains @)
+    if (!emailOrUsername.includes('@')) {
+      // It's a username, so we need to look up the email
+      const { data: profiles, error: profileError } = await supabase
+        .from('profiles')
+        .select('email')
+        .eq('username', emailOrUsername)
+        .single();
+      
+      if (profileError || !profiles?.email) {
+        return { error: { message: 'Username not found' } };
+      }
+      
+      email = profiles.email;
+    }
+
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,

@@ -30,7 +30,7 @@ const Auth = () => {
 
   // Sign in form state
   const [signInData, setSignInData] = useState({
-    email: '',
+    emailOrUsername: '',
     password: '',
   });
 
@@ -89,7 +89,7 @@ const Auth = () => {
     e.preventDefault();
     setIsLoading(true);
     
-    const { error } = await signIn(signInData.email, signInData.password);
+    const { error } = await signIn(signInData.emailOrUsername, signInData.password);
     
     if (error) {
       toast({
@@ -124,13 +124,13 @@ const Auth = () => {
             <TabsContent value="signin">
               <form onSubmit={handleSignIn} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signin-email">Email</Label>
+                  <Label htmlFor="signin-email">Email or Username</Label>
                   <Input
                     id="signin-email"
-                    type="email"
-                    placeholder="Enter your email"
-                    value={signInData.email}
-                    onChange={(e) => setSignInData({ ...signInData, email: e.target.value })}
+                    type="text"
+                    placeholder="Enter your email or username"
+                    value={signInData.emailOrUsername}
+                    onChange={(e) => setSignInData({ ...signInData, emailOrUsername: e.target.value })}
                     required
                   />
                 </div>
