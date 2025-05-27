@@ -8,6 +8,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import PlantCatalogPage from "./pages/PlantCatalog";
+import PlantDetails from "./pages/PlantDetails";
 import MyPlants from "./pages/MyPlants";
 import NotFound from "./pages/NotFound";
 

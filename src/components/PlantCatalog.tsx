@@ -1,5 +1,5 @@
-
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Search, Filter } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -7,6 +7,7 @@ import PlantCard from './PlantCard';
 
 const PlantCatalog = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   // Expanded plant data with more varieties
   const plants = [
@@ -114,8 +115,8 @@ const PlantCatalog = () => {
   );
 
   const handleViewDetails = (plantName: string) => {
-    console.log(`Viewing details for ${plantName}`);
-    // TODO: Implement plant details modal or navigate to details page
+    const plantPath = plantName.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/plant-details/${plantPath}`);
   };
 
   const handleAddToCollection = (plantName: string) => {
