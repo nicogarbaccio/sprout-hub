@@ -66,17 +66,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Check if the input is an email (contains @)
     if (!emailOrUsername.includes('@')) {
       // It's a username, so we need to look up the email
-      const { data: profiles, error: profileError } = await supabase
+      const { data: profile, error: profileError } = await supabase
         .from('profiles')
         .select('email')
         .eq('username', emailOrUsername)
         .single();
       
-      if (profileError || !profiles?.email) {
-        return { error: { message: 'Username not found' } };
+      if (profileError || !profile?.email) {
+        return { error: { message: 'Username not found. Please check your username and try again.' } };
       }
       
-      email = profiles.email;
+      email = profile.email;
     }
 
     const { error } = await supabase.auth.signInWithPassword({
