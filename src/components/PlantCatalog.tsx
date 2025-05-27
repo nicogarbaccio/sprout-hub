@@ -8,7 +8,7 @@ import PlantCard from './PlantCard';
 const PlantCatalog = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Sample plant data
+  // Expanded plant data with more varieties
   const plants = [
     {
       name: 'Peace Lily',
@@ -41,6 +41,70 @@ const PlantCatalog = () => {
       wateringFrequency: 'Weekly',
       lightRequirement: 'Bright Indirect Light',
       careLevel: 'Hard' as const
+    },
+    {
+      name: 'Pothos',
+      botanicalName: 'Epipremnum aureum',
+      image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop',
+      wateringFrequency: 'Weekly',
+      lightRequirement: 'Low to Bright Light',
+      careLevel: 'Easy' as const
+    },
+    {
+      name: 'Rubber Plant',
+      botanicalName: 'Ficus elastica',
+      image: 'https://images.unsplash.com/photo-1463320726281-696a485928c7?w=400&h=300&fit=crop',
+      wateringFrequency: 'Bi-weekly',
+      lightRequirement: 'Bright Indirect Light',
+      careLevel: 'Medium' as const
+    },
+    {
+      name: 'ZZ Plant',
+      botanicalName: 'Zamioculcas zamiifolia',
+      image: 'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400&h=300&fit=crop',
+      wateringFrequency: 'Monthly',
+      lightRequirement: 'Low to Medium Light',
+      careLevel: 'Easy' as const
+    },
+    {
+      name: 'Boston Fern',
+      botanicalName: 'Nephrolepis exaltata',
+      image: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&h=300&fit=crop',
+      wateringFrequency: 'Twice weekly',
+      lightRequirement: 'Bright Indirect Light',
+      careLevel: 'Medium' as const
+    },
+    {
+      name: 'Aloe Vera',
+      botanicalName: 'Aloe barbadensis',
+      image: 'https://images.unsplash.com/photo-1509587584298-0f3b3a3a1797?w=400&h=300&fit=crop',
+      wateringFrequency: 'Bi-weekly',
+      lightRequirement: 'Bright Direct Light',
+      careLevel: 'Easy' as const
+    },
+    {
+      name: 'Philodendron',
+      botanicalName: 'Philodendron hederaceum',
+      image: 'https://images.unsplash.com/photo-1594736797933-d0cc5d8b7ac0?w=400&h=300&fit=crop',
+      wateringFrequency: 'Weekly',
+      lightRequirement: 'Medium to Bright Light',
+      careLevel: 'Easy' as const
+    },
+    {
+      name: 'Bird of Paradise',
+      botanicalName: 'Strelitzia nicolai',
+      image: 'https://images.unsplash.com/photo-1502911679107-2b54f5c0292c?w=400&h=300&fit=crop',
+      wateringFrequency: 'Weekly',
+      lightRequirement: 'Bright Indirect Light',
+      careLevel: 'Hard' as const
+    },
+    {
+      name: 'Spider Plant',
+      botanicalName: 'Chlorophytum comosum',
+      image: 'https://images.unsplash.com/photo-1572688484438-313a6e50c333?w=400&h=300&fit=crop',
+      wateringFrequency: 'Weekly',
+      lightRequirement: 'Bright Indirect Light',
+      careLevel: 'Easy' as const
     }
   ];
 

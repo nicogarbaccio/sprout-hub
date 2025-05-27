@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Navigation = () => {
   const { user, signOut } = useAuth();
@@ -24,26 +24,32 @@ const Navigation = () => {
     <nav className="bg-white shadow-sm border-b border-plant-secondary/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-plant-primary rounded-full flex items-center justify-center">
               <Droplets className="w-4 h-4 text-white" />
             </div>
             <span className="text-xl font-semibold text-plant-primary font-poppins">SproutHub</span>
-          </div>
+          </Link>
           
           <div className="hidden md:flex items-center space-x-8">
-            <Button variant="ghost" className="text-plant-text hover:text-plant-primary flex items-center space-x-2">
-              <Home className="w-4 h-4" />
-              <span>Home</span>
-            </Button>
-            <Button variant="ghost" className="text-plant-text hover:text-plant-primary flex items-center space-x-2">
-              <BookOpen className="w-4 h-4" />
-              <span>Plant Catalog</span>
-            </Button>
-            <Button variant="ghost" className="text-plant-text hover:text-plant-primary flex items-center space-x-2">
-              <Droplets className="w-4 h-4" />
-              <span>My Plants</span>
-            </Button>
+            <Link to="/">
+              <Button variant="ghost" className="text-plant-text hover:text-plant-primary flex items-center space-x-2">
+                <Home className="w-4 h-4" />
+                <span>Home</span>
+              </Button>
+            </Link>
+            <Link to="/plant-catalog">
+              <Button variant="ghost" className="text-plant-text hover:text-plant-primary flex items-center space-x-2">
+                <BookOpen className="w-4 h-4" />
+                <span>Plant Catalog</span>
+              </Button>
+            </Link>
+            <Link to="/my-plants">
+              <Button variant="ghost" className="text-plant-text hover:text-plant-primary flex items-center space-x-2">
+                <Droplets className="w-4 h-4" />
+                <span>My Plants</span>
+              </Button>
+            </Link>
             <Button variant="ghost" className="text-plant-text hover:text-plant-primary">
               <Search className="w-4 h-4" />
             </Button>
