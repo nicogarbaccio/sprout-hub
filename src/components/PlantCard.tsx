@@ -1,6 +1,6 @@
 
 import { Button } from '@/components/ui/button';
-import { Droplets, Sun, Clock, Plus } from 'lucide-react';
+import { Droplets, Sun, Clock, Plus, Eye } from 'lucide-react';
 
 interface PlantCardProps {
   name: string;
@@ -10,6 +10,7 @@ interface PlantCardProps {
   lightRequirement: string;
   careLevel: 'Easy' | 'Medium' | 'Hard';
   onAddToCollection?: () => void;
+  onViewDetails?: () => void;
 }
 
 const PlantCard = ({ 
@@ -19,7 +20,8 @@ const PlantCard = ({
   wateringFrequency, 
   lightRequirement, 
   careLevel,
-  onAddToCollection 
+  onAddToCollection,
+  onViewDetails 
 }: PlantCardProps) => {
   const getCareColor = (level: string) => {
     switch (level) {
@@ -60,13 +62,24 @@ const PlantCard = ({
           </div>
         </div>
         
-        <Button 
-          onClick={onAddToCollection}
-          className="w-full bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl font-medium"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Add to Collection
-        </Button>
+        <div className="space-y-2">
+          <Button 
+            onClick={onViewDetails}
+            variant="outline"
+            className="w-full border-plant-primary text-plant-primary hover:bg-plant-primary hover:text-white rounded-xl font-medium"
+          >
+            <Eye className="w-4 h-4 mr-2" />
+            View Details
+          </Button>
+          
+          <Button 
+            onClick={onAddToCollection}
+            className="w-full bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl font-medium"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Add to Collection
+          </Button>
+        </div>
       </div>
     </div>
   );

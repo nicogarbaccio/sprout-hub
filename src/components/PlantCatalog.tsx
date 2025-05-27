@@ -113,6 +113,16 @@ const PlantCatalog = () => {
     plant.botanicalName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleViewDetails = (plantName: string) => {
+    console.log(`Viewing details for ${plantName}`);
+    // TODO: Implement plant details modal or navigate to details page
+  };
+
+  const handleAddToCollection = (plantName: string) => {
+    console.log(`Adding ${plantName} to collection`);
+    // TODO: Implement add to collection functionality
+  };
+
   return (
     <section className="py-20 bg-plant-neutral">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -146,7 +156,8 @@ const PlantCatalog = () => {
             <PlantCard
               key={index}
               {...plant}
-              onAddToCollection={() => console.log(`Adding ${plant.name} to collection`)}
+              onAddToCollection={() => handleAddToCollection(plant.name)}
+              onViewDetails={() => handleViewDetails(plant.name)}
             />
           ))}
         </div>
