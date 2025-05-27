@@ -44,12 +44,14 @@ const Navigation = () => {
                 <span>Plant Catalog</span>
               </Button>
             </Link>
-            <Link to="/my-plants">
-              <Button variant="ghost" className="text-plant-text hover:text-plant-primary flex items-center space-x-2">
-                <Droplets className="w-4 h-4" />
-                <span>My Plants</span>
-              </Button>
-            </Link>
+            {user && (
+              <Link to="/my-plants">
+                <Button variant="ghost" className="text-plant-text hover:text-plant-primary flex items-center space-x-2">
+                  <Droplets className="w-4 h-4" />
+                  <span>My Plants</span>
+                </Button>
+              </Link>
+            )}
             <Button variant="ghost" className="text-plant-text hover:text-plant-primary">
               <Search className="w-4 h-4" />
             </Button>
