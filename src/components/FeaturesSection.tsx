@@ -43,7 +43,7 @@ const FeaturesSection = () => {
             Everything you need to grow
           </h2>
           <p className="text-lg text-plant-text/70 max-w-2xl mx-auto font-poppins">
-            From beginners to expert gardeners, PlantPal provides all the tools and knowledge 
+            From beginners to expert gardeners, SproutHub provides all the tools and knowledge 
             you need to keep your plants thriving.
           </p>
         </div>

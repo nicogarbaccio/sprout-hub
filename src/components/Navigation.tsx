@@ -11,7 +11,7 @@ const Navigation = () => {
             <div className="w-8 h-8 bg-plant-primary rounded-full flex items-center justify-center">
               <Droplets className="w-4 h-4 text-white" />
             </div>
-            <span className="text-xl font-semibold text-plant-primary font-poppins">PlantPal</span>
+            <span className="text-xl font-semibold text-plant-primary font-poppins">SproutHub</span>
           </div>
           
           <div className="hidden md:flex items-center space-x-8">

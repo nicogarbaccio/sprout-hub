@@ -14,7 +14,7 @@ const HeroSection = () => {
             </h1>
             <p className="text-lg text-plant-text/70 mb-8 font-poppins">
               Never forget to water your plants again. Track care schedules, browse plant guides, 
-              and build your perfect indoor garden with PlantPal.
+              and build your perfect indoor garden with SproutHub.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button className="bg-plant-primary hover:bg-plant-primary/90 text-white px-8 py-3 rounded-xl font-medium text-lg">
