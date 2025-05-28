@@ -436,7 +436,7 @@ const PlantCatalog = () => {
           
           {/* Search and Filter Controls */}
           <div className="max-w-4xl mx-auto space-y-4">
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-3">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-plant-text/40 w-4 h-4" />
                 <Input
@@ -449,7 +449,7 @@ const PlantCatalog = () => {
               </div>
               <Collapsible open={isFilterOpen} onOpenChange={setIsFilterOpen}>
                 <CollapsibleTrigger asChild>
-                  <Button variant="outline" className="border-plant-secondary/30 hover:bg-plant-secondary/10 rounded-xl">
+                  <Button variant="outline" className="border-plant-secondary/30 hover:bg-plant-secondary/10 rounded-xl w-full sm:w-auto">
                     <Filter className="w-4 h-4 mr-2" />
                     Filters
                     {hasActiveFilters && (
@@ -460,65 +460,67 @@ const PlantCatalog = () => {
                   </Button>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-4">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-white rounded-xl border border-plant-secondary/30">
-                    <div>
-                      <label className="text-sm font-medium text-plant-text mb-2 block">Category</label>
-                      <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                        <SelectTrigger className="border-plant-secondary/30">
-                          <SelectValue placeholder="All Categories" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white border border-plant-secondary/30 shadow-lg">
-                          <SelectItem value="all">All Categories</SelectItem>
-                          {categories.map(category => (
-                            <SelectItem key={category} value={category}>{category}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                  <div className="p-4 bg-white rounded-xl border border-plant-secondary/30 shadow-lg">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-plant-text block">Category</label>
+                        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                          <SelectTrigger className="border-plant-secondary/30 w-full">
+                            <SelectValue placeholder="All Categories" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white border border-plant-secondary/30 shadow-lg z-50">
+                            <SelectItem value="all">All Categories</SelectItem>
+                            {categories.map(category => (
+                              <SelectItem key={category} value={category}>{category}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-plant-text block">Care Level</label>
+                        <Select value={selectedCareLevel} onValueChange={setSelectedCareLevel}>
+                          <SelectTrigger className="border-plant-secondary/30 w-full">
+                            <SelectValue placeholder="All Levels" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white border border-plant-secondary/30 shadow-lg z-50">
+                            <SelectItem value="all">All Levels</SelectItem>
+                            {careLevels.map(level => (
+                              <SelectItem key={level} value={level}>{level}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div className="space-y-2 sm:col-span-2 lg:col-span-1">
+                        <label className="text-sm font-medium text-plant-text block">Light Requirement</label>
+                        <Select value={selectedLightRequirement} onValueChange={setSelectedLightRequirement}>
+                          <SelectTrigger className="border-plant-secondary/30 w-full">
+                            <SelectValue placeholder="All Light Types" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white border border-plant-secondary/30 shadow-lg z-50">
+                            <SelectItem value="all">All Light Types</SelectItem>
+                            {lightRequirements.map(light => (
+                              <SelectItem key={light} value={light}>{light}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
                     </div>
                     
-                    <div>
-                      <label className="text-sm font-medium text-plant-text mb-2 block">Care Level</label>
-                      <Select value={selectedCareLevel} onValueChange={setSelectedCareLevel}>
-                        <SelectTrigger className="border-plant-secondary/30">
-                          <SelectValue placeholder="All Levels" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white border border-plant-secondary/30 shadow-lg">
-                          <SelectItem value="all">All Levels</SelectItem>
-                          {careLevels.map(level => (
-                            <SelectItem key={level} value={level}>{level}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    
-                    <div>
-                      <label className="text-sm font-medium text-plant-text mb-2 block">Light Requirement</label>
-                      <Select value={selectedLightRequirement} onValueChange={setSelectedLightRequirement}>
-                        <SelectTrigger className="border-plant-secondary/30">
-                          <SelectValue placeholder="All Light Types" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white border border-plant-secondary/30 shadow-lg">
-                          <SelectItem value="all">All Light Types</SelectItem>
-                          {lightRequirements.map(light => (
-                            <SelectItem key={light} value={light}>{light}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
+                    {hasActiveFilters && (
+                      <div className="mt-4 flex justify-center">
+                        <Button 
+                          variant="ghost" 
+                          onClick={clearAllFilters}
+                          className="text-plant-text/70 hover:text-plant-text"
+                        >
+                          <X className="w-4 h-4 mr-2" />
+                          Clear All Filters
+                        </Button>
+                      </div>
+                    )}
                   </div>
-                  
-                  {hasActiveFilters && (
-                    <div className="mt-4 flex justify-center">
-                      <Button 
-                        variant="ghost" 
-                        onClick={clearAllFilters}
-                        className="text-plant-text/70 hover:text-plant-text"
-                      >
-                        <X className="w-4 h-4 mr-2" />
-                        Clear All Filters
-                      </Button>
-                    </div>
-                  )}
                 </CollapsibleContent>
               </Collapsible>
             </div>
