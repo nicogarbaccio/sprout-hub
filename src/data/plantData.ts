@@ -8,6 +8,12 @@ export interface Plant {
   lightRequirement: string;
   careLevel: 'Easy' | 'Medium' | 'Hard';
   category: string;
+  description?: string;
+  toxicity?: string;
+  temperature?: string;
+  humidity?: string;
+  careInstructions?: string[];
+  commonProblems?: string[];
 }
 
 export const plants: Plant[] = [
