@@ -4,6 +4,7 @@ import { Plus, Edit } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import MyPlantCard from './MyPlantCard';
 import EditPlantDialog from './EditPlantDialog';
+import AddPlantDialog from './AddPlantDialog';
 import { useUserPlants } from '@/hooks/useUserPlants';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -12,6 +13,7 @@ const MyPlantsCollection = () => {
   const { plants, loading, fetchPlants, waterPlant } = useUserPlants();
   const [editingPlant, setEditingPlant] = useState<any>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
   if (!user) {
     return null;
@@ -51,6 +53,14 @@ const MyPlantsCollection = () => {
 
   const handleUpdatePlant = () => {
     fetchPlants();
+  };
+
+  const handleAddPlant = () => {
+    setIsAddDialogOpen(true);
+  };
+
+  const handleCloseAddDialog = () => {
+    setIsAddDialogOpen(false);
   };
 
   const formatDate = (dateString: string) => {
@@ -102,7 +112,10 @@ const MyPlantsCollection = () => {
             </div>
           </div>
           
-          <Button className="bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl mt-4 md:mt-0">
+          <Button 
+            onClick={handleAddPlant}
+            className="bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl mt-4 md:mt-0"
+          >
             <Plus className="w-4 h-4 mr-2" />
             Add New Plant
           </Button>
@@ -115,7 +128,10 @@ const MyPlantsCollection = () => {
             </div>
             <h3 className="text-xl font-semibold text-plant-text mb-2 font-poppins">Start Your Plant Journey</h3>
             <p className="text-plant-text/60 mb-6">Add your first plant to begin tracking its care and growth.</p>
-            <Button className="bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl">
+            <Button 
+              onClick={handleAddPlant}
+              className="bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl"
+            >
               Add Your First Plant
             </Button>
           </div>
@@ -144,6 +160,11 @@ const MyPlantsCollection = () => {
           isOpen={isEditDialogOpen}
           onClose={handleCloseEditDialog}
           onUpdate={handleUpdatePlant}
+        />
+
+        <AddPlantDialog
+          isOpen={isAddDialogOpen}
+          onClose={handleCloseAddDialog}
         />
       </div>
     </section>

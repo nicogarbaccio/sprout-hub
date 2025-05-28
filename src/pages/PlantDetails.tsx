@@ -1,13 +1,15 @@
-
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Droplets, Sun, Thermometer, Clock, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Navigation from '@/components/Navigation';
+import AddPlantDialog from '@/components/AddPlantDialog';
+import { useState } from 'react';
 
 const PlantDetails = () => {
   const { plantName } = useParams();
   const navigate = useNavigate();
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
   // Plant data (in a real app, this would come from a database or API)
   const plantsData = {
@@ -98,8 +100,13 @@ const PlantDetails = () => {
   };
 
   const handleAddToCollection = () => {
-    console.log(`Adding ${plant?.name} to collection`);
-    // TODO: Implement add to collection functionality
+    if (plant) {
+      setIsAddDialogOpen(true);
+    }
+  };
+
+  const handleCloseAddDialog = () => {
+    setIsAddDialogOpen(false);
   };
 
   if (!plant) {
@@ -240,6 +247,19 @@ const PlantDetails = () => {
           </div>
         </div>
       </div>
+
+      <AddPlantDialog
+        isOpen={isAddDialogOpen}
+        onClose={handleCloseAddDialog}
+        plantData={{
+          name: plant.name,
+          botanicalName: plant.botanicalName,
+          image: plant.image,
+          wateringFrequency: plant.wateringFrequency,
+          lightRequirement: plant.lightRequirement,
+          careLevel: plant.careLevel
+        }}
+      />
     </div>
   );
 };

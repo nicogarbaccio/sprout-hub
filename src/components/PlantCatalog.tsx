@@ -4,9 +4,12 @@ import { Search, Filter } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import PlantCard from './PlantCard';
+import AddPlantDialog from './AddPlantDialog';
 
 const PlantCatalog = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [selectedPlantData, setSelectedPlantData] = useState(null);
   const navigate = useNavigate();
 
   // Expanded plant data with more varieties
@@ -119,9 +122,14 @@ const PlantCatalog = () => {
     navigate(`/plant-details/${plantPath}`);
   };
 
-  const handleAddToCollection = (plantName: string) => {
-    console.log(`Adding ${plantName} to collection`);
-    // TODO: Implement add to collection functionality
+  const handleAddToCollection = (plant: any) => {
+    setSelectedPlantData(plant);
+    setIsAddDialogOpen(true);
+  };
+
+  const handleCloseAddDialog = () => {
+    setIsAddDialogOpen(false);
+    setSelectedPlantData(null);
   };
 
   return (
@@ -157,7 +165,7 @@ const PlantCatalog = () => {
             <PlantCard
               key={index}
               {...plant}
-              onAddToCollection={() => handleAddToCollection(plant.name)}
+              onAddToCollection={() => handleAddToCollection(plant)}
               onViewDetails={() => handleViewDetails(plant.name)}
             />
           ))}
@@ -168,6 +176,12 @@ const PlantCatalog = () => {
             <p className="text-plant-text/60 text-lg">No plants found matching your search.</p>
           </div>
         )}
+
+        <AddPlantDialog
+          isOpen={isAddDialogOpen}
+          onClose={handleCloseAddDialog}
+          plantData={selectedPlantData}
+        />
       </div>
     </section>
   );
