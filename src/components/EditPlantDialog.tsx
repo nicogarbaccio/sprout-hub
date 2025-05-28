@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -23,6 +24,7 @@ interface Plant {
   nickname: string;
   plant_type: string;
   image?: string;
+  suggested_watering_days?: number;
 }
 
 interface EditPlantDialogProps {
@@ -37,6 +39,7 @@ const EditPlantDialog = ({ plant, isOpen, onClose, onUpdate }: EditPlantDialogPr
   const [nickname, setNickname] = useState('');
   const [plantType, setPlantType] = useState('');
   const [image, setImage] = useState('');
+  const [suggestedWateringDays, setSuggestedWateringDays] = useState<number>(7);
   const [wateringRecords, setWateringRecords] = useState<WateringRecord[]>([]);
   const [newWateringDate, setNewWateringDate] = useState<Date>();
   const [newWateringNotes, setNewWateringNotes] = useState('');
@@ -47,6 +50,7 @@ const EditPlantDialog = ({ plant, isOpen, onClose, onUpdate }: EditPlantDialogPr
       setNickname(plant.nickname);
       setPlantType(plant.plant_type);
       setImage(plant.image || '');
+      setSuggestedWateringDays(plant.suggested_watering_days || 7);
       loadWateringRecords(plant.id);
     }
   }, [plant]);
@@ -82,6 +86,7 @@ const EditPlantDialog = ({ plant, isOpen, onClose, onUpdate }: EditPlantDialogPr
           nickname,
           plant_type: plantType,
           image: image || null,
+          suggested_watering_days: suggestedWateringDays,
           updated_at: new Date().toISOString(),
         })
         .eq('id', plant.id);
@@ -205,6 +210,22 @@ const EditPlantDialog = ({ plant, isOpen, onClose, onUpdate }: EditPlantDialogPr
                 onChange={(e) => setImage(e.target.value)}
                 placeholder="Enter image URL"
               />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="wateringSchedule">Watering Schedule (days)</Label>
+              <Input
+                id="wateringSchedule"
+                type="number"
+                min="1"
+                max="365"
+                value={suggestedWateringDays}
+                onChange={(e) => setSuggestedWateringDays(parseInt(e.target.value) || 7)}
+                placeholder="Enter days between watering"
+              />
+              <p className="text-xs text-muted-foreground">
+                How often should this plant be watered (in days)
+              </p>
             </div>
           </div>
 

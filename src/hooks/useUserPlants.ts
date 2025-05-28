@@ -9,6 +9,7 @@ export interface UserPlant {
   nickname: string;
   plant_type: string;
   image?: string;
+  suggested_watering_days?: number;
   latest_watering?: string;
   days_since_watering?: number;
   created_at: string;
@@ -49,7 +50,7 @@ export const useUserPlants = () => {
     }
   };
 
-  const addPlant = async (plantData: { nickname: string; plant_type: string; image?: string }) => {
+  const addPlant = async (plantData: { nickname: string; plant_type: string; image?: string; suggested_watering_days?: number }) => {
     if (!user) return false;
 
     try {

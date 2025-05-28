@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Plus, Edit } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -33,12 +32,14 @@ const MyPlantsCollection = () => {
 
   const overdueCount = plants.filter(plant => {
     if (!plant.days_since_watering) return false;
-    return plant.days_since_watering > 7; // Consider overdue if not watered for more than 7 days
+    const wateringSchedule = plant.suggested_watering_days || 7;
+    return plant.days_since_watering > wateringSchedule;
   }).length;
 
   const dueToday = plants.filter(plant => {
     if (!plant.days_since_watering) return false;
-    return plant.days_since_watering >= 7; // Due if 7+ days since last watering
+    const wateringSchedule = plant.suggested_watering_days || 7;
+    return plant.days_since_watering >= wateringSchedule;
   }).length;
 
   const handleEditPlant = (plant: any) => {
@@ -71,20 +72,20 @@ const MyPlantsCollection = () => {
     });
   };
 
-  const getNextWateringDate = (lastWatered: string | undefined, daysAgo: number | undefined) => {
+  const getNextWateringDate = (lastWatered: string | undefined, daysAgo: number | undefined, wateringSchedule: number) => {
     if (!lastWatered || daysAgo === undefined) {
       return 'Not scheduled';
     }
     
     const lastWateredDate = new Date(lastWatered);
     const nextWatering = new Date(lastWateredDate);
-    nextWatering.setDate(nextWatering.getDate() + 7); // Assume 7-day watering cycle
+    nextWatering.setDate(nextWatering.getDate() + wateringSchedule);
     
     return formatDate(nextWatering.toISOString());
   };
 
-  const isOverdue = (daysAgo: number | undefined) => {
-    return daysAgo !== undefined && daysAgo > 7;
+  const isOverdue = (daysAgo: number | undefined, wateringSchedule: number) => {
+    return daysAgo !== undefined && daysAgo > wateringSchedule;
   };
 
   return (
@@ -137,21 +138,24 @@ const MyPlantsCollection = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {plants.map((plant) => (
-              <MyPlantCard
-                key={plant.id}
-                id={plant.id}
-                name={plant.nickname}
-                plantType={plant.plant_type}
-                image={plant.image || 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=400&h=300&fit=crop'}
-                lastWatered={plant.latest_watering ? formatDate(plant.latest_watering) : 'Never'}
-                nextWateringDue={getNextWateringDate(plant.latest_watering, plant.days_since_watering)}
-                isOverdue={isOverdue(plant.days_since_watering)}
-                daysUntilWatering={plant.days_since_watering ? (7 - plant.days_since_watering) : 0}
-                onWater={() => waterPlant(plant.id)}
-                onEdit={() => handleEditPlant(plant)}
-              />
-            ))}
+            {plants.map((plant) => {
+              const wateringSchedule = plant.suggested_watering_days || 7;
+              return (
+                <MyPlantCard
+                  key={plant.id}
+                  id={plant.id}
+                  name={plant.nickname}
+                  plantType={plant.plant_type}
+                  image={plant.image || 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=400&h=300&fit=crop'}
+                  lastWatered={plant.latest_watering ? formatDate(plant.latest_watering) : 'Never'}
+                  nextWateringDue={getNextWateringDate(plant.latest_watering, plant.days_since_watering, wateringSchedule)}
+                  isOverdue={isOverdue(plant.days_since_watering, wateringSchedule)}
+                  daysUntilWatering={plant.days_since_watering ? (wateringSchedule - plant.days_since_watering) : 0}
+                  onWater={() => waterPlant(plant.id)}
+                  onEdit={() => handleEditPlant(plant)}
+                />
+              );
+            })}
           </div>
         )}
 
