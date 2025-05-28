@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Droplets, Calendar, Camera } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -31,13 +32,11 @@ const HeroSection = () => {
             <div className="bg-white rounded-3xl shadow-xl p-8 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-plant-secondary/5 to-plant-primary/5 rounded-3xl"></div>
               <div className="relative">
-                <div className="w-full h-64 bg-plant-neutral/30 rounded-2xl mb-6 overflow-hidden flex items-center justify-center">
-                  <img
-                    src="https://res.cloudinary.com/dadjnq0wy/image/upload/v1748463498/hero_dfdsqi.png"
-                    alt="Beautiful plants collection"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
+                <img
+                  src="https://res.cloudinary.com/dadjnq0wy/image/upload/v1748463498/hero_dfdsqi.png"
+                  alt="Beautiful plants collection"
+                  className="w-full h-64 object-cover rounded-2xl mb-6"
+                />
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
                     <div className="w-10 h-10 bg-plant-secondary/20 rounded-full flex items-center justify-center">
