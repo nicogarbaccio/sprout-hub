@@ -46,6 +46,7 @@ export type Database = {
           image: string | null
           nickname: string
           plant_type: string
+          suggested_watering_days: number | null
           updated_at: string
           user_id: string
         }
@@ -55,6 +56,7 @@ export type Database = {
           image?: string | null
           nickname: string
           plant_type: string
+          suggested_watering_days?: number | null
           updated_at?: string
           user_id: string
         }
@@ -64,6 +66,7 @@ export type Database = {
           image?: string | null
           nickname?: string
           plant_type?: string
+          suggested_watering_days?: number | null
           updated_at?: string
           user_id?: string
         }
