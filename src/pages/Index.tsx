@@ -4,15 +4,18 @@ import HeroSection from '@/components/HeroSection';
 import FeaturesSection from '@/components/FeaturesSection';
 import PlantCatalog from '@/components/PlantCatalog';
 import MyPlantsCollection from '@/components/MyPlantsCollection';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Index = () => {
+  const { user } = useAuth();
+
   return (
     <div className="min-h-screen bg-white font-poppins">
       <Navigation />
       <HeroSection />
       <FeaturesSection />
       <PlantCatalog />
-      <MyPlantsCollection />
+      {user && <MyPlantsCollection />}
       
       {/* Footer */}
       <footer className="bg-plant-primary text-white py-12">
