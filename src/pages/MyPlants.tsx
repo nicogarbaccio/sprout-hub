@@ -1,9 +1,9 @@
-
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Navigation from '@/components/Navigation';
-import MyPlantsCollection from '@/components/MyPlantsCollection';
-import { useAuth } from '@/contexts/AuthContext';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Navigation from "@/components/Navigation";
+import MyPlantsCollection from "@/components/MyPlantsCollection";
+import { useAuth } from "@/contexts/AuthContext";
+import Footer from "@/components/Footer";
 
 const MyPlants = () => {
   const { user, loading } = useAuth();
@@ -11,7 +11,7 @@ const MyPlants = () => {
 
   useEffect(() => {
     if (!loading && !user) {
-      navigate('/auth');
+      navigate("/auth");
     }
   }, [user, loading, navigate]);
 
@@ -33,6 +33,7 @@ const MyPlants = () => {
       <div className="pt-16">
         <MyPlantsCollection />
       </div>
+      <Footer />
     </div>
   );
 };

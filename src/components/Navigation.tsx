@@ -1,15 +1,15 @@
-import { Search, Droplets, Home, BookOpen, User, LogOut } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Search, Droplets, Home, BookOpen, User, LogOut } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate, Link } from 'react-router-dom';
-import SproutHubLogo from '@/components/SproutHubLogo';
+} from "@/components/ui/dropdown-menu";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate, Link } from "react-router-dom";
+import SproutHubLogo from "@/components/SproutHubLogo";
 
 const Navigation = () => {
   const { user, signOut } = useAuth();
@@ -17,7 +17,7 @@ const Navigation = () => {
 
   const handleSignOut = async () => {
     await signOut();
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -27,41 +27,42 @@ const Navigation = () => {
           <Link to="/">
             <SproutHubLogo size="sm" />
           </Link>
-          
+
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/">
-              <Button variant="ghost" className="text-plant-text hover:text-plant-primary flex items-center space-x-2">
-                <Home className="w-4 h-4" />
-                <span>Home</span>
-              </Button>
-            </Link>
             <Link to="/plant-catalog">
-              <Button variant="ghost" className="text-plant-text hover:text-plant-primary flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                className="text-plant-text hover:text-plant-primary flex items-center space-x-2"
+              >
                 <BookOpen className="w-4 h-4" />
                 <span>Plant Catalog</span>
               </Button>
             </Link>
             {user && (
               <Link to="/my-plants">
-                <Button variant="ghost" className="text-plant-text hover:text-plant-primary flex items-center space-x-2">
+                <Button
+                  variant="ghost"
+                  className="text-plant-text hover:text-plant-primary flex items-center space-x-2"
+                >
                   <Droplets className="w-4 h-4" />
                   <span>My Plants</span>
                 </Button>
               </Link>
             )}
-            <Button variant="ghost" className="text-plant-text hover:text-plant-primary">
-              <Search className="w-4 h-4" />
-            </Button>
-            
+
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="text-plant-text hover:text-plant-primary">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-plant-text hover:text-plant-primary"
+                  >
                     <User className="w-4 h-4" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => navigate('/profile')}>
+                  <DropdownMenuItem onClick={() => navigate("/profile")}>
                     <User className="w-4 h-4 mr-2" />
                     Profile
                   </DropdownMenuItem>
@@ -73,8 +74,8 @@ const Navigation = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button 
-                onClick={() => navigate('/auth')} 
+              <Button
+                onClick={() => navigate("/auth")}
                 className="bg-plant-primary hover:bg-plant-primary/90"
               >
                 Sign In

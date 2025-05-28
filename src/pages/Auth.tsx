@@ -1,14 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Droplets, Eye, EyeOff } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
-import { useToast } from '@/hooks/use-toast';
-import Navigation from '@/components/Navigation';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Droplets, Eye, EyeOff } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,29 +27,29 @@ const Auth = () => {
 
   // Sign up form state
   const [signUpData, setSignUpData] = useState({
-    firstName: '',
-    lastName: '',
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   // Sign in form state
   const [signInData, setSignInData] = useState({
-    emailOrUsername: '',
-    password: '',
+    emailOrUsername: "",
+    password: "",
   });
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate("/");
     }
   }, [user, navigate]);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (signUpData.password !== signUpData.confirmPassword) {
       toast({
         title: "Passwords don't match",
@@ -88,9 +95,12 @@ const Auth = () => {
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    const { error } = await signIn(signInData.emailOrUsername, signInData.password);
-    
+
+    const { error } = await signIn(
+      signInData.emailOrUsername,
+      signInData.password
+    );
+
     if (error) {
       toast({
         title: "Sign in failed",
@@ -111,10 +121,14 @@ const Auth = () => {
               <div className="w-8 h-8 bg-plant-primary rounded-full flex items-center justify-center">
                 <Droplets className="w-4 h-4 text-white" />
               </div>
-              <span className="text-xl font-semibold text-plant-primary font-poppins">SproutHub</span>
+              <span className="text-xl font-semibold text-plant-primary font-poppins">
+                SproutHub
+              </span>
             </div>
             <CardTitle>Welcome to SproutHub</CardTitle>
-            <CardDescription>Your personal plant care assistant</CardDescription>
+            <CardDescription>
+              Your personal plant care assistant
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="signin" className="w-full">
@@ -122,7 +136,7 @@ const Auth = () => {
                 <TabsTrigger value="signin">Sign In</TabsTrigger>
                 <TabsTrigger value="signup">Sign Up</TabsTrigger>
               </TabsList>
-              
+
               <TabsContent value="signin">
                 <form onSubmit={handleSignIn} className="space-y-4">
                   <div className="space-y-2">
@@ -132,7 +146,12 @@ const Auth = () => {
                       type="text"
                       placeholder="Enter your email or username"
                       value={signInData.emailOrUsername}
-                      onChange={(e) => setSignInData({ ...signInData, emailOrUsername: e.target.value })}
+                      onChange={(e) =>
+                        setSignInData({
+                          ...signInData,
+                          emailOrUsername: e.target.value,
+                        })
+                      }
                       required
                     />
                   </div>
@@ -144,7 +163,12 @@ const Auth = () => {
                         type={showPassword ? "text" : "password"}
                         placeholder="Enter your password"
                         value={signInData.password}
-                        onChange={(e) => setSignInData({ ...signInData, password: e.target.value })}
+                        onChange={(e) =>
+                          setSignInData({
+                            ...signInData,
+                            password: e.target.value,
+                          })
+                        }
                         required
                       />
                       <Button
@@ -154,16 +178,24 @@ const Auth = () => {
                         className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                         onClick={() => setShowPassword(!showPassword)}
                       >
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        {showPassword ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
                       </Button>
                     </div>
                   </div>
-                  <Button type="submit" className="w-full bg-plant-primary hover:bg-plant-primary/90" disabled={isLoading}>
+                  <Button
+                    type="submit"
+                    className="w-full bg-plant-primary hover:bg-plant-primary/90"
+                    disabled={isLoading}
+                  >
                     {isLoading ? "Signing in..." : "Sign In"}
                   </Button>
                 </form>
               </TabsContent>
-              
+
               <TabsContent value="signup">
                 <form onSubmit={handleSignUp} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
@@ -173,7 +205,12 @@ const Auth = () => {
                         id="firstName"
                         placeholder="First name"
                         value={signUpData.firstName}
-                        onChange={(e) => setSignUpData({ ...signUpData, firstName: e.target.value })}
+                        onChange={(e) =>
+                          setSignUpData({
+                            ...signUpData,
+                            firstName: e.target.value,
+                          })
+                        }
                         required
                       />
                     </div>
@@ -183,7 +220,12 @@ const Auth = () => {
                         id="lastName"
                         placeholder="Last name"
                         value={signUpData.lastName}
-                        onChange={(e) => setSignUpData({ ...signUpData, lastName: e.target.value })}
+                        onChange={(e) =>
+                          setSignUpData({
+                            ...signUpData,
+                            lastName: e.target.value,
+                          })
+                        }
                         required
                       />
                     </div>
@@ -194,7 +236,12 @@ const Auth = () => {
                       id="username"
                       placeholder="Choose a username"
                       value={signUpData.username}
-                      onChange={(e) => setSignUpData({ ...signUpData, username: e.target.value })}
+                      onChange={(e) =>
+                        setSignUpData({
+                          ...signUpData,
+                          username: e.target.value,
+                        })
+                      }
                       required
                     />
                   </div>
@@ -205,7 +252,9 @@ const Auth = () => {
                       type="email"
                       placeholder="Enter your email"
                       value={signUpData.email}
-                      onChange={(e) => setSignUpData({ ...signUpData, email: e.target.value })}
+                      onChange={(e) =>
+                        setSignUpData({ ...signUpData, email: e.target.value })
+                      }
                       required
                     />
                   </div>
@@ -217,7 +266,12 @@ const Auth = () => {
                         type={showPassword ? "text" : "password"}
                         placeholder="Create a password"
                         value={signUpData.password}
-                        onChange={(e) => setSignUpData({ ...signUpData, password: e.target.value })}
+                        onChange={(e) =>
+                          setSignUpData({
+                            ...signUpData,
+                            password: e.target.value,
+                          })
+                        }
                         required
                       />
                       <Button
@@ -227,7 +281,11 @@ const Auth = () => {
                         className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                         onClick={() => setShowPassword(!showPassword)}
                       >
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        {showPassword ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
                       </Button>
                     </div>
                   </div>
@@ -239,7 +297,12 @@ const Auth = () => {
                         type={showConfirmPassword ? "text" : "password"}
                         placeholder="Confirm your password"
                         value={signUpData.confirmPassword}
-                        onChange={(e) => setSignUpData({ ...signUpData, confirmPassword: e.target.value })}
+                        onChange={(e) =>
+                          setSignUpData({
+                            ...signUpData,
+                            confirmPassword: e.target.value,
+                          })
+                        }
                         required
                       />
                       <Button
@@ -247,13 +310,23 @@ const Auth = () => {
                         variant="ghost"
                         size="sm"
                         className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
                       >
-                        {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        {showConfirmPassword ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
                       </Button>
                     </div>
                   </div>
-                  <Button type="submit" className="w-full bg-plant-primary hover:bg-plant-primary/90" disabled={isLoading}>
+                  <Button
+                    type="submit"
+                    className="w-full bg-plant-primary hover:bg-plant-primary/90"
+                    disabled={isLoading}
+                  >
                     {isLoading ? "Creating account..." : "Sign Up"}
                   </Button>
                 </form>
@@ -262,6 +335,7 @@ const Auth = () => {
           </CardContent>
         </Card>
       </div>
+      <Footer />
     </div>
   );
 };
