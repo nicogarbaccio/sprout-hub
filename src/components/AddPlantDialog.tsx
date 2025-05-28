@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -34,6 +33,8 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
     notes: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [customDays, setCustomDays] = useState<string>('');
+  const [isCustomSelected, setIsCustomSelected] = useState(false);
 
   // Reset form when dialog opens/closes or plant data changes
   useEffect(() => {
@@ -47,6 +48,17 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
           watering_schedule_days: plantData.suggestedWateringDays || 7,
           notes: `Botanical name: ${plantData.botanicalName}\nWatering: ${plantData.wateringFrequency}\nLight: ${plantData.lightRequirement}\nCare level: ${plantData.careLevel}`
         });
+        
+        // Check if the suggested days match any preset option
+        const suggestedDays = plantData.suggestedWateringDays || 7;
+        const presetOptions = [3, 7, 10, 14, 21, 30];
+        if (!presetOptions.includes(suggestedDays)) {
+          setIsCustomSelected(true);
+          setCustomDays(suggestedDays.toString());
+        } else {
+          setIsCustomSelected(false);
+          setCustomDays('');
+        }
       } else {
         // Reset for manual addition
         setFormData({
@@ -56,6 +68,8 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
           watering_schedule_days: 7,
           notes: ''
         });
+        setIsCustomSelected(false);
+        setCustomDays('');
       }
     }
   }, [isOpen, plantData]);
@@ -72,7 +86,8 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
     const success = await addPlant({
       nickname: formData.nickname.trim(),
       plant_type: formData.plant_type.trim(),
-      image: formData.image.trim() || undefined
+      image: formData.image.trim() || undefined,
+      suggested_watering_days: formData.watering_schedule_days
     });
 
     if (success) {
@@ -87,6 +102,25 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
       ...prev,
       [field]: value
     }));
+  };
+
+  const handleWateringScheduleChange = (value: string) => {
+    if (value === 'custom') {
+      setIsCustomSelected(true);
+      // Keep current custom value or default to 7
+      const days = customDays ? parseInt(customDays) : 7;
+      handleInputChange('watering_schedule_days', days);
+    } else {
+      setIsCustomSelected(false);
+      setCustomDays('');
+      handleInputChange('watering_schedule_days', parseInt(value));
+    }
+  };
+
+  const handleCustomDaysChange = (value: string) => {
+    setCustomDays(value);
+    const days = parseInt(value) || 1;
+    handleInputChange('watering_schedule_days', Math.max(1, Math.min(365, days)));
   };
 
   const commonPlantTypes = [
@@ -112,6 +146,12 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
     { value: 21, label: 'Every 3 weeks' },
     { value: 30, label: 'Monthly (30 days)' }
   ];
+
+  // Determine the current select value
+  const getCurrentSelectValue = () => {
+    if (isCustomSelected) return 'custom';
+    return formData.watering_schedule_days.toString();
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -160,8 +200,8 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
           <div className="space-y-2">
             <Label htmlFor="watering_schedule" className="text-plant-text">Watering Schedule</Label>
             <Select 
-              value={formData.watering_schedule_days.toString()} 
-              onValueChange={(value) => handleInputChange('watering_schedule_days', parseInt(value))}
+              value={getCurrentSelectValue()} 
+              onValueChange={handleWateringScheduleChange}
             >
               <SelectTrigger className="border-plant-secondary/30 focus:border-plant-primary">
                 <SelectValue placeholder="Select watering frequency" />
@@ -172,8 +212,28 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
                     {option.label}
                   </SelectItem>
                 ))}
+                <SelectItem value="custom">Custom</SelectItem>
               </SelectContent>
             </Select>
+            
+            {isCustomSelected && (
+              <div className="space-y-1">
+                <Label htmlFor="custom_days" className="text-plant-text text-sm">Custom days</Label>
+                <Input
+                  id="custom_days"
+                  type="number"
+                  min="1"
+                  max="365"
+                  value={customDays}
+                  onChange={(e) => handleCustomDaysChange(e.target.value)}
+                  placeholder="Enter days between watering"
+                  className="border-plant-secondary/30 focus:border-plant-primary"
+                />
+                <p className="text-xs text-muted-foreground">
+                  Enter a number between 1 and 365 days
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="space-y-2">
