@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Droplets, Calendar, Camera } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -32,8 +33,8 @@ const HeroSection = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-plant-secondary/5 to-plant-primary/5 rounded-3xl"></div>
               <div className="relative">
                 <img
-                  src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=600&h=400&fit=crop&crop=center"
-                  alt="Beautiful orange flowers"
+                  src="https://res.cloudinary.com/dadjnq0wy/image/upload/v1748463498/hero_dfdsqi.png"
+                  alt="Beautiful plants collection"
                   className="w-full h-64 object-cover rounded-2xl mb-6"
                 />
                 <div className="space-y-4">
