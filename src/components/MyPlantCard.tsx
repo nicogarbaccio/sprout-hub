@@ -38,7 +38,7 @@ const MyPlantCard = ({
   const getStatusText = () => {
     if (hasUnknownWateringDate) return 'Unknown schedule';
     if (isOverdue) return `Overdue by ${Math.abs(daysUntilWatering)} days`;
-    if (daysUntilWatering === 0) return 'Water today';
+    if (daysUntilWatering === 0) return 'Just watered';
     if (daysUntilWatering === 1) return 'Water tomorrow';
     if (daysUntilWatering < 0) return `Overdue by ${Math.abs(daysUntilWatering)} days`;
     return `Water in ${daysUntilWatering} days`;
