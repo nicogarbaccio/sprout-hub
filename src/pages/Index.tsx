@@ -14,7 +14,7 @@ const Index = () => {
       <Navigation />
       <HeroSection />
       <FeaturesSection />
-      <PlantCatalog />
+      <PlantCatalog isHomepage={true} />
       {user && <MyPlantsCollection />}
       
       {/* Footer */}
