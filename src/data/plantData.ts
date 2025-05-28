@@ -6,7 +6,11 @@ import { succulents } from './plants/succulents';
 import { hangingTrailingPlants } from './plants/hanging-trailing';
 import { treesLargePlants } from './plants/trees-large';
 import { otherPlants } from './plants/other-categories';
-import { getUniqueCategories, getUniqueCareLevels, getUniqueLightRequirements } from './utils';
+import { 
+  getUniqueCategories as getUniqueCategoriesUtil, 
+  getUniqueCareLevels as getUniqueCareLevelsUtil, 
+  getUniqueLightRequirements as getUniqueLightRequirementsUtil 
+} from './utils';
 
 // Re-export the Plant interface for backward compatibility
 export type { Plant };
@@ -22,6 +26,6 @@ export const plants: Plant[] = [
 ];
 
 // Re-export utility functions with plants array applied
-export const getUniqueCategories = () => getUniqueCategories(plants);
-export const getUniqueCareLevels = () => getUniqueCareLevels(plants);
-export const getUniqueLightRequirements = () => getUniqueLightRequirements(plants);
+export const getUniqueCategories = () => getUniqueCategoriesUtil(plants);
+export const getUniqueCareLevels = () => getUniqueCareLevelsUtil(plants);
+export const getUniqueLightRequirements = () => getUniqueLightRequirementsUtil(plants);
