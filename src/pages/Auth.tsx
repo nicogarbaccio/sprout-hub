@@ -70,8 +70,12 @@ const Auth = () => {
           <CardContent>
             <Tabs defaultValue="signin" className="w-full">
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="signin">Sign In</TabsTrigger>
-                <TabsTrigger value="signup">Sign Up</TabsTrigger>
+                <TabsTrigger data-testid="sign-in-trigger" value="signin">
+                  Sign In
+                </TabsTrigger>
+                <TabsTrigger data-testid="sign-up-trigger" value="signup">
+                  Sign Up
+                </TabsTrigger>
               </TabsList>
               <TabsContent value="signin">
                 <SignInForm

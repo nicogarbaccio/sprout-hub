@@ -58,6 +58,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           required
+          data-testid="sign-in-email"
         />
       </div>
       <div className="space-y-2">
@@ -72,6 +73,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
               setFormData({ ...formData, password: e.target.value })
             }
             required
+            data-testid="sign-in-password"
           />
           <Button
             type="button"
@@ -92,6 +94,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
         type="submit"
         className="w-full bg-plant-primary hover:bg-plant-primary/90"
         disabled={isLoading}
+        data-testid="sign-in-button"
       >
         {isLoading ? "Signing in..." : "Sign In"}
       </Button>

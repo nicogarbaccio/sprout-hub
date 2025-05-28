@@ -1,8 +1,12 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SignUpFormFields } from "./SignUpFormFields";
-import { validateSignUpForm, hasValidationErrors, type FormData, type ValidationErrors } from "@/utils/auth-validation";
+import {
+  validateSignUpForm,
+  hasValidationErrors,
+  type FormData,
+  type ValidationErrors,
+} from "@/utils/auth-validation";
 
 /**
  * Props for SignUpForm component.
@@ -48,10 +52,10 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const validationErrors = validateSignUpForm(formData);
     setErrors(validationErrors);
-    
+
     if (hasValidationErrors(validationErrors)) {
       return;
     }
@@ -64,7 +68,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         formData.lastName,
         formData.username
       )) || {};
-    
+
     if (error) {
       toast({
         title: "Sign up failed",
@@ -81,7 +85,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
 
   const handleInputChange = (field: string, value: string) => {
     setFormData({ ...formData, [field]: value });
-    
+
     // Clear errors when user starts typing
     if (errors[field as keyof ValidationErrors]) {
       setErrors({ ...errors, [field]: "" });
@@ -99,6 +103,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         type="submit"
         className="w-full bg-plant-primary hover:bg-plant-primary/90"
         disabled={isLoading}
+        data-testid="sign-up-button"
       >
         {isLoading ? "Creating account..." : "Sign Up"}
       </Button>
