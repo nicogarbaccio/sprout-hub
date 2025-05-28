@@ -61,29 +61,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const signIn = async (emailOrUsername: string, password: string) => {
-    let email = emailOrUsername;
-    
     // Check if the input is an email (contains @)
-    if (!emailOrUsername.includes('@')) {
-      // It's a username, so we need to look up the email
-      const { data: profile, error: profileError } = await supabase
-        .from('profiles')
-        .select('email')
-        .eq('username', emailOrUsername)
-        .single();
-      
-      if (profileError || !profile?.email) {
-        return { error: { message: 'Username not found. Please check your username and try again.' } };
-      }
-      
-      email = profile.email;
+    if (emailOrUsername.includes('@')) {
+      // It's an email, sign in directly
+      const { error } = await supabase.auth.signInWithPassword({
+        email: emailOrUsername,
+        password,
+      });
+      return { error };
+    } else {
+      // It's a username, we need to find the email from user metadata
+      // Since usernames are stored in auth.users.raw_user_meta_data, we need to
+      // try signing in with the username and let Supabase handle it
+      // For now, we'll return an error asking user to use email
+      return { 
+        error: { 
+          message: 'Please sign in with your email address instead of username. Username login requires additional setup.' 
+        } 
+      };
     }
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    return { error };
   };
 
   const signOut = async () => {

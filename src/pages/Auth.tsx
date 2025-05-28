@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -37,7 +38,7 @@ const Auth = () => {
 
   // Sign in form state
   const [signInData, setSignInData] = useState({
-    emailOrUsername: "",
+    email: "",
     password: "",
   });
 
@@ -97,7 +98,7 @@ const Auth = () => {
     setIsLoading(true);
 
     const { error } = await signIn(
-      signInData.emailOrUsername,
+      signInData.email,
       signInData.password
     );
 
@@ -140,16 +141,16 @@ const Auth = () => {
               <TabsContent value="signin">
                 <form onSubmit={handleSignIn} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="signin-email">Email or Username</Label>
+                    <Label htmlFor="signin-email">Email</Label>
                     <Input
                       id="signin-email"
-                      type="text"
-                      placeholder="Enter your email or username"
-                      value={signInData.emailOrUsername}
+                      type="email"
+                      placeholder="Enter your email"
+                      value={signInData.email}
                       onChange={(e) =>
                         setSignInData({
                           ...signInData,
-                          emailOrUsername: e.target.value,
+                          email: e.target.value,
                         })
                       }
                       required
