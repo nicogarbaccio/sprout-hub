@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,25 +43,53 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
     password: "",
     confirmPassword: "",
   });
+  const [errors, setErrors] = useState({
+    password: "",
+    confirmPassword: "",
+    username: "",
+    email: "",
+  });
+
+  const validateForm = () => {
+    const newErrors = {
+      password: "",
+      confirmPassword: "",
+      username: "",
+      email: "",
+    };
+
+    // Password validation
+    if (formData.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters long";
+    }
+
+    // Confirm password validation
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Passwords don't match";
+    }
+
+    // Username validation (basic)
+    if (formData.username.length < 3) {
+      newErrors.username = "Username must be at least 3 characters long";
+    }
+
+    // Email validation (basic)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    setErrors(newErrors);
+    return Object.values(newErrors).every(error => error === "");
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      toast({
-        title: "Passwords don't match",
-        description: "Please make sure your passwords match",
-        variant: "destructive",
-      });
+    
+    if (!validateForm()) {
       return;
     }
-    if (formData.password.length < 6) {
-      toast({
-        title: "Password too short",
-        description: "Password must be at least 6 characters long",
-        variant: "destructive",
-      });
-      return;
-    }
+
     const { error } =
       (await onSignUp(
         formData.email,
@@ -69,6 +98,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         formData.lastName,
         formData.username
       )) || {};
+    
     if (error) {
       toast({
         title: "Sign up failed",
@@ -83,6 +113,15 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
     }
   };
 
+  const handleInputChange = (field: string, value: string) => {
+    setFormData({ ...formData, [field]: value });
+    
+    // Clear errors when user starts typing
+    if (errors[field as keyof typeof errors]) {
+      setErrors({ ...errors, [field]: "" });
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
@@ -92,9 +131,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             id="firstName"
             placeholder="First name"
             value={formData.firstName}
-            onChange={(e) =>
-              setFormData({ ...formData, firstName: e.target.value })
-            }
+            onChange={(e) => handleInputChange("firstName", e.target.value)}
             required
           />
         </div>
@@ -104,9 +141,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             id="lastName"
             placeholder="Last name"
             value={formData.lastName}
-            onChange={(e) =>
-              setFormData({ ...formData, lastName: e.target.value })
-            }
+            onChange={(e) => handleInputChange("lastName", e.target.value)}
             required
           />
         </div>
@@ -117,11 +152,13 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           id="username"
           placeholder="Choose a username"
           value={formData.username}
-          onChange={(e) =>
-            setFormData({ ...formData, username: e.target.value })
-          }
+          onChange={(e) => handleInputChange("username", e.target.value)}
+          className={errors.username ? "border-red-500" : ""}
           required
         />
+        {errors.username && (
+          <p className="text-sm text-red-500">{errors.username}</p>
+        )}
       </div>
       <div className="space-y-2">
         <Label htmlFor="signup-email">Email</Label>
@@ -130,9 +167,13 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           type="email"
           placeholder="Enter your email"
           value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          onChange={(e) => handleInputChange("email", e.target.value)}
+          className={errors.email ? "border-red-500" : ""}
           required
         />
+        {errors.email && (
+          <p className="text-sm text-red-500">{errors.email}</p>
+        )}
       </div>
       <div className="space-y-2">
         <Label htmlFor="signup-password">Password</Label>
@@ -142,9 +183,8 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             type={showPassword ? "text" : "password"}
             placeholder="Create a password"
             value={formData.password}
-            onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
-            }
+            onChange={(e) => handleInputChange("password", e.target.value)}
+            className={errors.password ? "border-red-500" : ""}
             required
           />
           <Button
@@ -161,6 +201,9 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             )}
           </Button>
         </div>
+        {errors.password && (
+          <p className="text-sm text-red-500">{errors.password}</p>
+        )}
       </div>
       <div className="space-y-2">
         <Label htmlFor="confirmPassword">Confirm Password</Label>
@@ -170,9 +213,8 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             type={showConfirmPassword ? "text" : "password"}
             placeholder="Confirm your password"
             value={formData.confirmPassword}
-            onChange={(e) =>
-              setFormData({ ...formData, confirmPassword: e.target.value })
-            }
+            onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
+            className={errors.confirmPassword ? "border-red-500" : ""}
             required
           />
           <Button
@@ -189,6 +231,9 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             )}
           </Button>
         </div>
+        {errors.confirmPassword && (
+          <p className="text-sm text-red-500">{errors.confirmPassword}</p>
+        )}
       </div>
       <Button
         type="submit"

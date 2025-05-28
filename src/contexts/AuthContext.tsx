@@ -8,7 +8,7 @@ interface AuthContextType {
   session: Session | null;
   loading: boolean;
   signUp: (email: string, password: string, firstName: string, lastName: string, username: string) => Promise<{ error: any }>;
-  signIn: (emailOrUsername: string, password: string) => Promise<{ error: any }>;
+  signIn: (email: string, password: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
 }
 
@@ -46,40 +46,72 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const signUp = async (email: string, password: string, firstName: string, lastName: string, username: string) => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          first_name: firstName,
-          last_name: lastName,
-          username: username,
-        },
-      },
-    });
-    return { error };
-  };
+    try {
+      // Check if username already exists
+      const { data: existingProfile, error: profileError } = await supabase
+        .from('profiles')
+        .select('username')
+        .eq('username', username)
+        .single();
 
-  const signIn = async (emailOrUsername: string, password: string) => {
-    // Check if the input is an email (contains @)
-    if (emailOrUsername.includes('@')) {
-      // It's an email, sign in directly
-      const { error } = await supabase.auth.signInWithPassword({
-        email: emailOrUsername,
+      if (existingProfile) {
+        return { 
+          error: { 
+            message: 'Username already exists. Please choose a different username.' 
+          } 
+        };
+      }
+
+      // If profileError is not "PGRST116" (no rows found), it's a real error
+      if (profileError && profileError.code !== 'PGRST116') {
+        return { 
+          error: { 
+            message: 'Error checking username availability. Please try again.' 
+          } 
+        };
+      }
+
+      // Attempt to sign up
+      const { error } = await supabase.auth.signUp({
+        email,
         password,
+        options: {
+          data: {
+            first_name: firstName,
+            last_name: lastName,
+            username: username,
+          },
+        },
       });
-      return { error };
-    } else {
-      // It's a username, we need to find the email from user metadata
-      // Since usernames are stored in auth.users.raw_user_meta_data, we need to
-      // try signing in with the username and let Supabase handle it
-      // For now, we'll return an error asking user to use email
+
+      if (error) {
+        // Handle specific Supabase auth errors
+        if (error.message.includes('User already registered')) {
+          return { 
+            error: { 
+              message: 'An account with this email already exists. Please sign in instead.' 
+            } 
+          };
+        }
+        return { error };
+      }
+
+      return { error: null };
+    } catch (err) {
       return { 
         error: { 
-          message: 'Please sign in with your email address instead of username. Username login requires additional setup.' 
+          message: 'An unexpected error occurred. Please try again.' 
         } 
       };
     }
+  };
+
+  const signIn = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    return { error };
   };
 
   const signOut = async () => {
