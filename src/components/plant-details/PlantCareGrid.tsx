@@ -3,6 +3,7 @@ import { Droplets, Sun, Thermometer, Clock } from 'lucide-react';
 
 interface PlantCareGridProps {
   wateringFrequency: string;
+  suggestedWateringDays: number;
   lightRequirement: string;
   temperature: string;
   humidity: string;
@@ -10,6 +11,7 @@ interface PlantCareGridProps {
 
 const PlantCareGrid = ({ 
   wateringFrequency, 
+  suggestedWateringDays,
   lightRequirement, 
   temperature, 
   humidity 
@@ -21,6 +23,7 @@ const PlantCareGrid = ({
         <div>
           <p className="text-sm text-plant-text/60">Watering</p>
           <p className="text-sm font-medium text-plant-text">{wateringFrequency}</p>
+          <p className="text-xs text-plant-text/50">Every {suggestedWateringDays} days</p>
         </div>
       </div>
       

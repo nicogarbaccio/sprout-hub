@@ -7,13 +7,13 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useUserPlants } from '@/hooks/useUserPlants';
-import { X } from 'lucide-react';
 
 interface PlantData {
   name: string;
   botanicalName: string;
   image: string;
   wateringFrequency: string;
+  suggestedWateringDays?: number;
   lightRequirement: string;
   careLevel: string;
 }
@@ -30,6 +30,7 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
     nickname: '',
     plant_type: '',
     image: '',
+    watering_schedule_days: 7,
     notes: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -43,6 +44,7 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
           nickname: plantData.name,
           plant_type: plantData.name,
           image: plantData.image,
+          watering_schedule_days: plantData.suggestedWateringDays || 7,
           notes: `Botanical name: ${plantData.botanicalName}\nWatering: ${plantData.wateringFrequency}\nLight: ${plantData.lightRequirement}\nCare level: ${plantData.careLevel}`
         });
       } else {
@@ -51,6 +53,7 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
           nickname: '',
           plant_type: '',
           image: '',
+          watering_schedule_days: 7,
           notes: ''
         });
       }
@@ -79,7 +82,7 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
     setIsSubmitting(false);
   };
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: string, value: string | number) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -99,6 +102,15 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
     'Philodendron',
     'Bird of Paradise',
     'Spider Plant'
+  ];
+
+  const wateringOptions = [
+    { value: 3, label: 'Every 3 days' },
+    { value: 7, label: 'Weekly (7 days)' },
+    { value: 10, label: 'Every 10 days' },
+    { value: 14, label: 'Bi-weekly (14 days)' },
+    { value: 21, label: 'Every 3 weeks' },
+    { value: 30, label: 'Monthly (30 days)' }
   ];
 
   return (
@@ -143,6 +155,25 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
               placeholder="Or type custom plant type"
               className="border-plant-secondary/30 focus:border-plant-primary mt-2"
             />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="watering_schedule" className="text-plant-text">Watering Schedule</Label>
+            <Select 
+              value={formData.watering_schedule_days.toString()} 
+              onValueChange={(value) => handleInputChange('watering_schedule_days', parseInt(value))}
+            >
+              <SelectTrigger className="border-plant-secondary/30 focus:border-plant-primary">
+                <SelectValue placeholder="Select watering frequency" />
+              </SelectTrigger>
+              <SelectContent>
+                {wateringOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value.toString()}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">

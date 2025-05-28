@@ -21,6 +21,7 @@ const PlantDetails = () => {
       botanicalName: 'Spathiphyllum wallisii',
       image: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=600&h=400&fit=crop',
       wateringFrequency: 'Weekly',
+      suggestedWateringDays: 7,
       lightRequirement: 'Low to Medium Light',
       careLevel: 'Easy',
       description: 'The Peace Lily is an elegant houseplant known for its glossy green leaves and distinctive white flowers. It\'s perfect for beginners and thrives in lower light conditions.',
@@ -45,6 +46,7 @@ const PlantDetails = () => {
       botanicalName: 'Monstera deliciosa',
       image: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=600&h=400&fit=crop',
       wateringFrequency: 'Bi-weekly',
+      suggestedWateringDays: 14,
       lightRequirement: 'Bright Indirect Light',
       careLevel: 'Medium',
       description: 'Known for its dramatic split leaves, the Monstera Deliciosa is a stunning tropical plant that makes a bold statement in any room.',
@@ -69,6 +71,7 @@ const PlantDetails = () => {
       botanicalName: 'Sansevieria trifasciata',
       image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&h=400&fit=crop',
       wateringFrequency: 'Monthly',
+      suggestedWateringDays: 30,
       lightRequirement: 'Low Light',
       careLevel: 'Easy',
       description: 'The Snake Plant is virtually indestructible and perfect for beginners. Its upright, sword-like leaves add architectural interest to any space.',
@@ -139,6 +142,7 @@ const PlantDetails = () => {
 
               <PlantCareGrid
                 wateringFrequency={plant.wateringFrequency}
+                suggestedWateringDays={plant.suggestedWateringDays}
                 lightRequirement={plant.lightRequirement}
                 temperature={plant.temperature}
                 humidity={plant.humidity}
@@ -161,6 +165,7 @@ const PlantDetails = () => {
           botanicalName: plant.botanicalName,
           image: plant.image,
           wateringFrequency: plant.wateringFrequency,
+          suggestedWateringDays: plant.suggestedWateringDays,
           lightRequirement: plant.lightRequirement,
           careLevel: plant.careLevel
         }}

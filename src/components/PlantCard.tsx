@@ -7,6 +7,7 @@ interface PlantCardProps {
   botanicalName: string;
   image: string;
   wateringFrequency: string;
+  suggestedWateringDays?: number;
   lightRequirement: string;
   careLevel: 'Easy' | 'Medium' | 'Hard';
   onAddToCollection?: () => void;
@@ -18,6 +19,7 @@ const PlantCard = ({
   botanicalName, 
   image, 
   wateringFrequency, 
+  suggestedWateringDays,
   lightRequirement, 
   careLevel,
   onAddToCollection,
@@ -54,7 +56,14 @@ const PlantCard = ({
         <div className="space-y-3 mb-4">
           <div className="flex items-center space-x-2">
             <Droplets className="w-4 h-4 text-plant-primary" />
-            <span className="text-sm text-plant-text">{wateringFrequency}</span>
+            <div>
+              <span className="text-sm text-plant-text">{wateringFrequency}</span>
+              {suggestedWateringDays && (
+                <span className="text-xs text-plant-text/50 ml-1">
+                  (Every {suggestedWateringDays} days)
+                </span>
+              )}
+            </div>
           </div>
           <div className="flex items-center space-x-2">
             <Sun className="w-4 h-4 text-plant-primary" />
