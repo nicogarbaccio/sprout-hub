@@ -1,73 +1,104 @@
-# Welcome to your Lovable project
+# SproutHub Bloom Tracker
 
-## Project info
+A modern, full-stack plant care and collection tracker built with Vite, React, TypeScript, Tailwind CSS, and shadcn-ui.
 
-**URL**: https://lovable.dev/projects/4c7968ff-0953-46d0-afc8-480203742706
+## 🌱 Project Overview
+SproutHub Bloom Tracker helps you manage your indoor garden, track plant care schedules, browse a rich plant catalog, and build your personal collection. Designed for plant lovers who want a beautiful, responsive, and easy-to-use experience.
 
-## How can I edit this code?
+## 🚀 Features
+- **Plant Catalog:** Browse and search a curated library of plants with care guides.
+- **My Plants:** Track your own collection, log watering and care events.
+- **Smart Reminders:** Never forget to water or care for your plants.
+- **Responsive UI:** Mobile-first, accessible, and visually appealing.
+- **Authentication:** Secure sign-in and sign-up flows.
+- **Modern UI:** Built with shadcn-ui and Tailwind CSS for a delightful user experience.
 
-There are several ways of editing your application.
+## 🛠️ Tech Stack
+- [Vite](https://vitejs.dev/) (build tool)
+- [React](https://react.dev/) (UI library)
+- [TypeScript](https://www.typescriptlang.org/) (type safety)
+- [Tailwind CSS](https://tailwindcss.com/) (utility-first CSS)
+- [shadcn-ui](https://ui.shadcn.com/) (UI components)
+- [Supabase](https://supabase.com/) (backend/auth, if configured)
 
-**Use Lovable**
+## 📦 Getting Started
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/4c7968ff-0953-46d0-afc8-480203742706) and start prompting.
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v18+ recommended)
+- [npm](https://www.npmjs.com/) or [bun](https://bun.sh/) or [yarn](https://yarnpkg.com/)
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
+### Installation
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# Clone the repository
 git clone <YOUR_GIT_URL>
+cd sprouthub-bloom-tracker
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+# Install dependencies
+npm install
+# or
+yarn install
+# or
+bun install
 ```
 
-**Edit a file directly in GitHub**
+### Running the Development Server
+```sh
+npm run dev
+# or
+yarn dev
+# or
+bun run dev
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Visit [http://localhost:5173](http://localhost:5173) to view the app.
 
-**Use GitHub Codespaces**
+## 🧪 Testing
+- Unit tests: Coming soon (Jest + React Testing Library)
+- E2E tests: Coming soon (Playwright or Cypress)
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🖌️ Code Style & Linting
+- ESLint and Prettier are configured for code quality and consistency.
+- Run `npm run lint` to check for lint errors.
 
-## What technologies are used for this project?
+## 🏗️ Project Structure
+```
+src/
+  components/      # Reusable UI and feature components
+  contexts/        # React context providers
+  data/            # Static data and mock data
+  hooks/           # Custom React hooks
+  integrations/    # API and service integrations (e.g., Supabase)
+  lib/             # Utility functions and helpers
+  pages/           # Top-level route components
+  supabase/        # Supabase config and migrations (if used)
+public/            # Static assets
+```
 
-This project is built with:
+## 🌍 Deployment
+You can deploy this app to any static hosting provider (Vercel, Netlify, etc.) or your own infrastructure.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+1. Build the app:
+   ```sh
+   npm run build
+   # or
+yarn build
+   # or
+bun run build
+   ```
+2. Deploy the contents of the `dist/` directory.
 
-## How can I deploy this project?
+## 🤝 Contributing
+Contributions are welcome! Please open issues or pull requests for bug fixes, features, or improvements.
 
-Simply open [Lovable](https://lovable.dev/projects/4c7968ff-0953-46d0-afc8-480203742706) and click on Share -> Publish.
+1. Fork the repo
+2. Create your feature branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -m 'feat: add your feature'`)
+4. Push to the branch (`git push origin feature/your-feature`)
+5. Open a pull request
 
-## Can I connect a custom domain to my Lovable project?
+## 📄 License
+MIT
 
-Yes, you can!
+---
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+*Happy growing with SproutHub!* 🌿
