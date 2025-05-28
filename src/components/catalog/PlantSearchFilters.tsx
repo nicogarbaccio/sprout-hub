@@ -42,10 +42,10 @@ const PlantSearchFilters = ({
   clearAllFilters
 }: PlantSearchFiltersProps) => {
   return (
-    <div className="max-w-6xl mx-auto space-y-6 mb-8">
-      {/* Search and Filter Toggle Row */}
-      <div className="flex flex-col lg:flex-row gap-4">
-        <div className="relative flex-1 max-w-md lg:max-w-lg">
+    <div className="max-w-4xl mx-auto space-y-6 mb-8">
+      {/* Search Bar - Centered */}
+      <div className="flex justify-center">
+        <div className="relative w-full max-w-md">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-plant-text/40 w-4 h-4" />
           <Input
             type="text"
@@ -55,12 +55,15 @@ const PlantSearchFilters = ({
             className="pl-10 border-plant-secondary/30 focus:border-plant-primary rounded-xl h-11"
           />
         </div>
-        
+      </div>
+
+      {/* Filter Toggle - Centered */}
+      <div className="flex justify-center">
         <Collapsible open={isFilterOpen} onOpenChange={setIsFilterOpen}>
           <CollapsibleTrigger asChild>
             <Button 
               variant="outline" 
-              className="border-plant-secondary/30 hover:bg-plant-secondary/10 rounded-xl h-11 px-6 w-full lg:w-auto"
+              className="border-plant-secondary/30 hover:bg-plant-secondary/10 rounded-xl h-11 px-6"
             >
               <Filter className="w-4 h-4 mr-2" />
               Filters
@@ -72,10 +75,11 @@ const PlantSearchFilters = ({
             </Button>
           </CollapsibleTrigger>
           
-          <CollapsibleContent className="mt-6">
+          {/* Filters Panel - Appears Below */}
+          <CollapsibleContent className="mt-6 w-full">
             <div className="p-6 bg-white rounded-xl border border-plant-secondary/30 shadow-lg">
               {/* Filter Controls */}
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
                 <div className="space-y-3">
                   <label className="text-sm font-medium text-plant-text block">Category</label>
                   <Select value={selectedCategory} onValueChange={setSelectedCategory}>
@@ -106,7 +110,7 @@ const PlantSearchFilters = ({
                   </Select>
                 </div>
                 
-                <div className="space-y-3 md:col-span-2 xl:col-span-1">
+                <div className="space-y-3">
                   <label className="text-sm font-medium text-plant-text block">Light Requirement</label>
                   <Select value={selectedLightRequirement} onValueChange={setSelectedLightRequirement}>
                     <SelectTrigger className="border-plant-secondary/30 w-full h-11">
