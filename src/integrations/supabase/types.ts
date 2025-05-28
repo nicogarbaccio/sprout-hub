@@ -39,9 +39,91 @@ export type Database = {
         }
         Relationships: []
       }
+      user_plants: {
+        Row: {
+          created_at: string
+          id: string
+          image: string | null
+          nickname: string
+          plant_type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image?: string | null
+          nickname: string
+          plant_type: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image?: string | null
+          nickname?: string
+          plant_type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      watering_records: {
+        Row: {
+          created_at: string
+          id: string
+          notes: string | null
+          plant_id: string
+          watered_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          plant_id: string
+          watered_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          plant_id?: string
+          watered_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "watering_records_plant_id_fkey"
+            columns: ["plant_id"]
+            isOneToOne: false
+            referencedRelation: "plants_with_watering_info"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "watering_records_plant_id_fkey"
+            columns: ["plant_id"]
+            isOneToOne: false
+            referencedRelation: "user_plants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
-      [_ in never]: never
+      plants_with_watering_info: {
+        Row: {
+          created_at: string | null
+          days_since_watering: number | null
+          id: string | null
+          image: string | null
+          latest_watering: string | null
+          nickname: string | null
+          plant_type: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never

@@ -1,6 +1,6 @@
 
 import { Button } from '@/components/ui/button';
-import { Droplets, Calendar, AlertTriangle, Camera } from 'lucide-react';
+import { Droplets, AlertTriangle, Edit } from 'lucide-react';
 
 interface MyPlantCardProps {
   id: string;
@@ -36,6 +36,7 @@ const MyPlantCard = ({
     if (isOverdue) return `Overdue by ${Math.abs(daysUntilWatering)} days`;
     if (daysUntilWatering === 0) return 'Water today';
     if (daysUntilWatering === 1) return 'Water tomorrow';
+    if (daysUntilWatering < 0) return `Overdue by ${Math.abs(daysUntilWatering)} days`;
     return `Water in ${daysUntilWatering} days`;
   };
 
@@ -59,7 +60,7 @@ const MyPlantCard = ({
           className="absolute bottom-3 right-3 bg-white/90 hover:bg-white"
           onClick={onEdit}
         >
-          <Camera className="w-4 h-4" />
+          <Edit className="w-4 h-4" />
         </Button>
       </div>
       
