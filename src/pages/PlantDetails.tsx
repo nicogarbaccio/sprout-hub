@@ -1,10 +1,13 @@
+
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Droplets, Sun, Thermometer, Clock, Plus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import AddPlantDialog from '@/components/AddPlantDialog';
-import { useState } from 'react';
+import PlantDetailsHeader from '@/components/plant-details/PlantDetailsHeader';
+import PlantImageSection from '@/components/plant-details/PlantImageSection';
+import PlantInfoSection from '@/components/plant-details/PlantInfoSection';
+import PlantCareGrid from '@/components/plant-details/PlantCareGrid';
+import PlantCareCards from '@/components/plant-details/PlantCareCards';
 
 const PlantDetails = () => {
   const { plantName } = useParams();
@@ -90,15 +93,6 @@ const PlantDetails = () => {
   const plantKey = plantName?.toLowerCase().replace(/\s+/g, '-');
   const plant = plantKey ? plantsData[plantKey as keyof typeof plantsData] : null;
 
-  const getCareColor = (level: string) => {
-    switch (level) {
-      case 'Easy': return 'bg-green-100 text-green-700';
-      case 'Medium': return 'bg-yellow-100 text-yellow-700';
-      case 'Hard': return 'bg-red-100 text-red-700';
-      default: return 'bg-gray-100 text-gray-700';
-    }
-  };
-
   const handleAddToCollection = () => {
     if (plant) {
       setIsAddDialogOpen(true);
@@ -116,10 +110,7 @@ const PlantDetails = () => {
         <div className="pt-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto py-12 text-center">
             <h1 className="text-2xl font-bold text-plant-text mb-4">Plant Not Found</h1>
-            <Button onClick={() => navigate('/plant-catalog')} variant="outline">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Catalog
-            </Button>
+            <PlantDetailsHeader onBackClick={() => navigate('/plant-catalog')} />
           </div>
         </div>
       </div>
@@ -131,120 +122,34 @@ const PlantDetails = () => {
       <Navigation />
       <div className="pt-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <Button 
-            onClick={() => navigate('/plant-catalog')} 
-            variant="outline" 
-            className="mb-6"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Catalog
-          </Button>
+          <PlantDetailsHeader onBackClick={() => navigate('/plant-catalog')} />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-            <div>
-              <img 
-                src={plant.image} 
-                alt={plant.name}
-                className="w-full h-96 object-cover rounded-2xl shadow-lg"
-              />
-            </div>
+            <PlantImageSection image={plant.image} name={plant.name} />
             
             <div className="space-y-6">
-              <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <h1 className="text-3xl font-bold text-plant-text font-poppins">{plant.name}</h1>
-                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${getCareColor(plant.careLevel)}`}>
-                    {plant.careLevel}
-                  </span>
-                </div>
-                <p className="text-lg text-plant-text/60 italic mb-4">{plant.botanicalName}</p>
-                <p className="text-plant-text leading-relaxed">{plant.description}</p>
-              </div>
+              <PlantInfoSection
+                name={plant.name}
+                botanicalName={plant.botanicalName}
+                description={plant.description}
+                careLevel={plant.careLevel}
+                toxicity={plant.toxicity}
+                onAddToCollection={handleAddToCollection}
+              />
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center space-x-3 p-3 bg-plant-neutral rounded-lg">
-                  <Droplets className="w-5 h-5 text-plant-primary" />
-                  <div>
-                    <p className="text-sm text-plant-text/60">Watering</p>
-                    <p className="text-sm font-medium text-plant-text">{plant.wateringFrequency}</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-3 p-3 bg-plant-neutral rounded-lg">
-                  <Sun className="w-5 h-5 text-plant-primary" />
-                  <div>
-                    <p className="text-sm text-plant-text/60">Light</p>
-                    <p className="text-sm font-medium text-plant-text">{plant.lightRequirement}</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-3 p-3 bg-plant-neutral rounded-lg">
-                  <Thermometer className="w-5 h-5 text-plant-primary" />
-                  <div>
-                    <p className="text-sm text-plant-text/60">Temperature</p>
-                    <p className="text-sm font-medium text-plant-text">{plant.temperature}</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-3 p-3 bg-plant-neutral rounded-lg">
-                  <Clock className="w-5 h-5 text-plant-primary" />
-                  <div>
-                    <p className="text-sm text-plant-text/60">Humidity</p>
-                    <p className="text-sm font-medium text-plant-text">{plant.humidity}</p>
-                  </div>
-                </div>
-              </div>
-
-              <Button 
-                onClick={handleAddToCollection}
-                className="w-full bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl font-medium py-3"
-                size="lg"
-              >
-                <Plus className="w-5 h-5 mr-2" />
-                Add to My Collection
-              </Button>
-              
-              <div className="p-3 bg-red-50 rounded-lg border border-red-200">
-                <p className="text-sm text-red-700">
-                  <strong>Pet Safety:</strong> {plant.toxicity}
-                </p>
-              </div>
+              <PlantCareGrid
+                wateringFrequency={plant.wateringFrequency}
+                lightRequirement={plant.lightRequirement}
+                temperature={plant.temperature}
+                humidity={plant.humidity}
+              />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-plant-text">Care Instructions</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {plant.careInstructions.map((instruction, index) => (
-                    <li key={index} className="flex items-start space-x-2">
-                      <span className="w-2 h-2 bg-plant-primary rounded-full mt-2 flex-shrink-0"></span>
-                      <span className="text-plant-text text-sm">{instruction}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-plant-text">Common Problems</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {plant.commonProblems.map((problem, index) => (
-                    <li key={index} className="text-plant-text text-sm">
-                      <span className="font-medium">{problem.split(':')[0]}:</span>
-                      <span className="text-plant-text/70"> {problem.split(':')[1]}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
+          <PlantCareCards
+            careInstructions={plant.careInstructions}
+            commonProblems={plant.commonProblems}
+          />
         </div>
       </div>
 
