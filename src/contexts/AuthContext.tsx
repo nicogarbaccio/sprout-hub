@@ -47,23 +47,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signUp = async (email: string, password: string, firstName: string, lastName: string, username: string) => {
     try {
-      // Check if username already exists
-      const { data: existingProfile, error: profileError } = await supabase
+      // First check if username already exists
+      const { data: existingUser, error: checkError } = await supabase
         .from('profiles')
         .select('username')
         .eq('username', username)
-        .single();
+        .maybeSingle();
 
-      if (existingProfile) {
-        return { 
-          error: { 
-            message: 'Username already exists. Please choose a different username.' 
-          } 
-        };
-      }
-
-      // If profileError is not "PGRST116" (no rows found), it's a real error
-      if (profileError && profileError.code !== 'PGRST116') {
+      if (checkError && checkError.code !== 'PGRST116') {
+        console.error('Error checking username:', checkError);
         return { 
           error: { 
             message: 'Error checking username availability. Please try again.' 
@@ -71,8 +63,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         };
       }
 
-      // Attempt to sign up
-      const { error } = await supabase.auth.signUp({
+      if (existingUser) {
+        return { 
+          error: { 
+            message: 'Username already exists. Please choose a different username.' 
+          } 
+        };
+      }
+
+      // Check if email already exists by attempting to sign up
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -86,7 +86,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       if (error) {
         // Handle specific Supabase auth errors
-        if (error.message.includes('User already registered')) {
+        if (error.message.includes('User already registered') || error.message.includes('already been registered')) {
           return { 
             error: { 
               message: 'An account with this email already exists. Please sign in instead.' 
@@ -96,8 +96,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return { error };
       }
 
+      // If signup was successful but user is null, it means email confirmation is required
+      if (data.user && !data.user.email_confirmed_at) {
+        return { error: null };
+      }
+
       return { error: null };
     } catch (err) {
+      console.error('Signup error:', err);
       return { 
         error: { 
           message: 'An unexpected error occurred. Please try again.' 
