@@ -11,7 +11,7 @@ import type { ToastProps } from "@/components/ui/toast";
 export interface SignInFormProps {
   isLoading: boolean;
   onSignIn: (
-    emailOrUsername: string,
+    email: string,
     password: string
   ) => Promise<{ error?: { message: string } } | void>;
   toast: (args: {
@@ -31,14 +31,13 @@ export const SignInForm: React.FC<SignInFormProps> = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    emailOrUsername: "",
+    email: "",
     password: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { error } =
-      (await onSignIn(formData.emailOrUsername, formData.password)) || {};
+    const { error } = (await onSignIn(formData.email, formData.password)) || {};
     if (error) {
       toast({
         title: "Sign in failed",
@@ -51,15 +50,13 @@ export const SignInForm: React.FC<SignInFormProps> = ({
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-2">
-        <Label htmlFor="signin-email">Email or Username</Label>
+        <Label htmlFor="signin-email">Email</Label>
         <Input
           id="signin-email"
-          type="text"
-          placeholder="Enter your email or username"
-          value={formData.emailOrUsername}
-          onChange={(e) =>
-            setFormData({ ...formData, emailOrUsername: e.target.value })
-          }
+          type="email"
+          placeholder="Enter your email"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           required
         />
       </div>
