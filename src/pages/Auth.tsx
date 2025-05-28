@@ -15,6 +15,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SignInForm from "@/components/auth/SignInForm";
 import SignUpForm from "@/components/auth/SignUpForm";
+import SproutHubLogo from "@/components/SproutHubLogo";
 
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -55,14 +56,8 @@ const Auth = () => {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="flex items-center justify-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-plant-primary rounded-full flex items-center justify-center">
-                <Droplets className="w-4 h-4 text-white" />
-              </div>
-              <span className="text-xl font-semibold text-plant-primary font-poppins">
-                SproutHub
-              </span>
+              <SproutHubLogo size="md" />
             </div>
-            <CardTitle>Welcome to SproutHub</CardTitle>
             <CardDescription>
               Your personal plant care assistant
             </CardDescription>
