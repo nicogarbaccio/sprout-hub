@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -5,6 +6,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { CalendarIcon, AlertTriangle } from 'lucide-react';
+import { format } from 'date-fns';
 import { useUserPlants } from '@/hooks/useUserPlants';
 
 interface PlantData {
@@ -32,6 +37,7 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
     watering_schedule_days: 7,
     notes: ''
   });
+  const [lastWateredDate, setLastWateredDate] = useState<Date | undefined>(new Date());
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [customDays, setCustomDays] = useState<string>('');
   const [isCustomSelected, setIsCustomSelected] = useState(false);
@@ -71,6 +77,9 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
         setIsCustomSelected(false);
         setCustomDays('');
       }
+      
+      // Reset last watered date to today
+      setLastWateredDate(new Date());
     }
   }, [isOpen, plantData]);
 
@@ -87,7 +96,8 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
       nickname: formData.nickname.trim(),
       plant_type: formData.plant_type.trim(),
       image: formData.image.trim() || undefined,
-      suggested_watering_days: formData.watering_schedule_days
+      suggested_watering_days: formData.watering_schedule_days,
+      last_watered_date: lastWateredDate?.toISOString()
     });
 
     if (success) {
@@ -155,7 +165,7 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-plant-text font-poppins">
             {plantData ? `Add ${plantData.name} to Collection` : 'Add New Plant'}
@@ -195,6 +205,46 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
               placeholder="Or type custom plant type"
               className="border-plant-secondary/30 focus:border-plant-primary mt-2"
             />
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-plant-text">Last Watered</Label>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start text-left font-normal border-plant-secondary/30 focus:border-plant-primary"
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {lastWateredDate ? format(lastWateredDate, "PPP") : "Select date"}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={lastWateredDate}
+                  onSelect={setLastWateredDate}
+                  initialFocus
+                />
+                <div className="p-3 border-t">
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    onClick={() => setLastWateredDate(undefined)}
+                  >
+                    Clear Date
+                  </Button>
+                </div>
+              </PopoverContent>
+            </Popover>
+            {!lastWateredDate && (
+              <div className="flex items-center gap-2 p-2 bg-yellow-50 border border-yellow-200 rounded-md">
+                <AlertTriangle className="h-4 w-4 text-yellow-600" />
+                <p className="text-sm text-yellow-700">
+                  No last watering date set - watering schedule calculations may be inaccurate
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="space-y-2">

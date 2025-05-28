@@ -31,16 +31,18 @@ const MyPlantsCollection = () => {
   }
 
   const overdueCount = plants.filter(plant => {
-    if (!plant.days_since_watering) return false;
+    if (!plant.days_since_watering || !plant.latest_watering) return false;
     const wateringSchedule = plant.suggested_watering_days || 7;
     return plant.days_since_watering > wateringSchedule;
   }).length;
 
   const dueToday = plants.filter(plant => {
-    if (!plant.days_since_watering) return false;
+    if (!plant.days_since_watering || !plant.latest_watering) return false;
     const wateringSchedule = plant.suggested_watering_days || 7;
     return plant.days_since_watering >= wateringSchedule;
   }).length;
+
+  const unknownWateringCount = plants.filter(plant => !plant.latest_watering).length;
 
   const handleEditPlant = (plant: any) => {
     setEditingPlant(plant);
@@ -74,7 +76,7 @@ const MyPlantsCollection = () => {
 
   const getNextWateringDate = (lastWatered: string | undefined, daysAgo: number | undefined, wateringSchedule: number) => {
     if (!lastWatered || daysAgo === undefined) {
-      return 'Not scheduled';
+      return 'Unknown';
     }
     
     const lastWateredDate = new Date(lastWatered);
@@ -84,8 +86,8 @@ const MyPlantsCollection = () => {
     return formatDate(nextWatering.toISOString());
   };
 
-  const isOverdue = (daysAgo: number | undefined, wateringSchedule: number) => {
-    return daysAgo !== undefined && daysAgo > wateringSchedule;
+  const isOverdue = (daysAgo: number | undefined, wateringSchedule: number, hasLastWatered: boolean) => {
+    return hasLastWatered && daysAgo !== undefined && daysAgo > wateringSchedule;
   };
 
   return (
@@ -108,6 +110,11 @@ const MyPlantsCollection = () => {
               {dueToday > 0 && (
                 <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">
                   {dueToday} due today
+                </span>
+              )}
+              {unknownWateringCount > 0 && (
+                <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
+                  {unknownWateringCount} unknown schedule
                 </span>
               )}
             </div>
@@ -140,6 +147,7 @@ const MyPlantsCollection = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {plants.map((plant) => {
               const wateringSchedule = plant.suggested_watering_days || 7;
+              const hasLastWatered = !!plant.latest_watering;
               return (
                 <MyPlantCard
                   key={plant.id}
@@ -147,10 +155,11 @@ const MyPlantsCollection = () => {
                   name={plant.nickname}
                   plantType={plant.plant_type}
                   image={plant.image || 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=400&h=300&fit=crop'}
-                  lastWatered={plant.latest_watering ? formatDate(plant.latest_watering) : 'Never'}
+                  lastWatered={plant.latest_watering ? formatDate(plant.latest_watering) : 'Unknown'}
                   nextWateringDue={getNextWateringDate(plant.latest_watering, plant.days_since_watering, wateringSchedule)}
-                  isOverdue={isOverdue(plant.days_since_watering, wateringSchedule)}
+                  isOverdue={isOverdue(plant.days_since_watering, wateringSchedule, hasLastWatered)}
                   daysUntilWatering={plant.days_since_watering ? (wateringSchedule - plant.days_since_watering) : 0}
+                  hasUnknownWateringDate={!hasLastWatered}
                   onWater={() => waterPlant(plant.id)}
                   onEdit={() => handleEditPlant(plant)}
                 />

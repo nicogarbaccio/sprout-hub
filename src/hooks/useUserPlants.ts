@@ -50,18 +50,46 @@ export const useUserPlants = () => {
     }
   };
 
-  const addPlant = async (plantData: { nickname: string; plant_type: string; image?: string; suggested_watering_days?: number }) => {
+  const addPlant = async (plantData: { 
+    nickname: string; 
+    plant_type: string; 
+    image?: string; 
+    suggested_watering_days?: number;
+    last_watered_date?: string;
+  }) => {
     if (!user) return false;
 
     try {
-      const { error } = await supabase
+      // First, insert the plant
+      const { data: plantResult, error: plantError } = await supabase
         .from('user_plants')
         .insert({
-          ...plantData,
+          nickname: plantData.nickname,
+          plant_type: plantData.plant_type,
+          image: plantData.image,
+          suggested_watering_days: plantData.suggested_watering_days,
           user_id: user.id,
-        });
+        })
+        .select()
+        .single();
 
-      if (error) throw error;
+      if (plantError) throw plantError;
+
+      // If a last watered date was provided, create a watering record
+      if (plantData.last_watered_date && plantResult) {
+        const { error: wateringError } = await supabase
+          .from('watering_records')
+          .insert({
+            plant_id: plantResult.id,
+            watered_at: plantData.last_watered_date,
+            notes: 'Initial watering record from plant creation',
+          });
+
+        if (wateringError) {
+          console.error('Error creating initial watering record:', wateringError);
+          // Don't fail the plant creation if watering record fails
+        }
+      }
 
       toast({
         title: 'Success',
