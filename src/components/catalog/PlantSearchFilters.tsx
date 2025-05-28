@@ -43,27 +43,24 @@ const PlantSearchFilters = ({
 }: PlantSearchFiltersProps) => {
   return (
     <div className="max-w-4xl mx-auto space-y-6 mb-8">
-      {/* Search Bar - Centered */}
-      <div className="flex justify-center">
-        <div className="relative w-full max-w-md">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-plant-text/40 w-4 h-4" />
-          <Input
-            type="text"
-            placeholder="Search plants..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 border-plant-secondary/30 focus:border-plant-primary rounded-xl h-11"
-          />
-        </div>
-      </div>
-
-      {/* Filter Toggle - Centered */}
-      <div className="flex justify-center">
-        <Collapsible open={isFilterOpen} onOpenChange={setIsFilterOpen}>
+      <Collapsible open={isFilterOpen} onOpenChange={setIsFilterOpen}>
+        {/* Search Bar and Filter Button Row */}
+        <div className="flex justify-center gap-4">
+          <div className="relative w-full max-w-md">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-plant-text/40 w-4 h-4" />
+            <Input
+              type="text"
+              placeholder="Search plants..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 border-plant-secondary/30 focus:border-plant-primary rounded-xl h-11"
+            />
+          </div>
+          
           <CollapsibleTrigger asChild>
             <Button 
               variant="outline" 
-              className="border-plant-secondary/30 hover:bg-plant-secondary/10 rounded-xl h-11 px-6"
+              className="border-plant-secondary/30 hover:bg-plant-secondary/10 rounded-xl h-11 px-6 flex-shrink-0"
             >
               <Filter className="w-4 h-4 mr-2" />
               Filters
@@ -74,12 +71,14 @@ const PlantSearchFilters = ({
               )}
             </Button>
           </CollapsibleTrigger>
-          
-          {/* Filters Panel - Appears Below */}
-          <CollapsibleContent className="mt-6 w-full">
-            <div className="p-6 bg-white rounded-xl border border-plant-secondary/30 shadow-lg">
+        </div>
+        
+        {/* Filters Panel - Appears Below and Centered */}
+        <CollapsibleContent className="mt-6">
+          <div className="flex justify-center">
+            <div className="p-6 bg-white rounded-xl border border-plant-secondary/30 shadow-lg w-full max-w-3xl">
               {/* Filter Controls */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-3">
                   <label className="text-sm font-medium text-plant-text block">Category</label>
                   <Select value={selectedCategory} onValueChange={setSelectedCategory}>
@@ -140,9 +139,9 @@ const PlantSearchFilters = ({
                 </div>
               )}
             </div>
-          </CollapsibleContent>
-        </Collapsible>
-      </div>
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
     </div>
   );
 };
