@@ -5,7 +5,7 @@ export const floweringPlants: Plant[] = [
   {
     name: 'Peace Lily',
     botanicalName: 'Spathiphyllum wallisii',
-    image: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539320/peace-lily_u9evw6.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Low to Medium Light',
