@@ -91,7 +91,7 @@ const PlantCard = ({
           <Button
             onClick={onViewDetails}
             variant="outline"
-            className="w-full border-plant-primary text-plant-primary hover:bg-plant-primary hover:text-white rounded-xl font-medium"
+            className="w-full border-plant-secondary text-plant-secondary hover:bg-plant-secondary hover:text-white rounded-xl font-medium"
           >
             <Eye className="w-4 h-4 mr-2" />
             View Details
