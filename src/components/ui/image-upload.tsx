@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Upload, X, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 interface ImageUploadProps {
   value: string;
@@ -21,20 +22,17 @@ const ImageUpload = ({ value, onChange, label = "Image", placeholder = "Enter im
   const uploadToCloudinary = async (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'ml_default'); // Will be replaced with actual preset from secrets
     
     try {
-      // Get the cloud name from our edge function
-      const response = await fetch('/api/upload-image', {
-        method: 'POST',
+      const { data, error } = await supabase.functions.invoke('upload-image', {
         body: formData,
       });
 
-      if (!response.ok) {
+      if (error) {
+        console.error('Supabase function error:', error);
         throw new Error('Upload failed');
       }
 
-      const data = await response.json();
       return data.secure_url;
     } catch (error) {
       console.error('Cloudinary upload error:', error);
