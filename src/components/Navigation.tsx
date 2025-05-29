@@ -29,6 +29,7 @@ import SproutHubLogo from "@/components/SproutHubLogo";
 import * as React from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useProfile } from "@/hooks/useProfile";
+import { toast } from "@/hooks/use-toast";
 
 const Navigation = () => {
   const { user, signOut } = useAuth();
@@ -44,9 +45,19 @@ const Navigation = () => {
       console.log("Attempting to sign out...");
       await signOut();
       console.log("Sign out successful, navigating to home...");
+      toast({
+        title: "Signed out successfully",
+        description: "You have been signed out of your account.",
+        variant: "default",
+      });
       navigate("/");
     } catch (error) {
       console.error("Sign out error:", error);
+      toast({
+        title: "Sign out failed",
+        description: "There was an error signing you out. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 

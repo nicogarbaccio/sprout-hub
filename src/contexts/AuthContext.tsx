@@ -141,14 +141,63 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const signOut = async () => {
     try {
       console.log("AuthContext: Starting sign out process...");
+
+      // Check if we have an active session
+      const {
+        data: { session: currentSession },
+      } = await supabase.auth.getSession();
+
+      if (!currentSession) {
+        console.log(
+          "AuthContext: No active session found, clearing local state..."
+        );
+        // If no session exists, just clear the local state
+        setSession(null);
+        setUser(null);
+        return;
+      }
+
+      console.log(
+        "AuthContext: Active session found, proceeding with sign out..."
+      );
       const { error } = await supabase.auth.signOut();
+
       if (error) {
         console.error("AuthContext: Sign out error:", error);
+
+        // Handle the specific AuthSessionMissingError
+        if (
+          error.message?.includes("Auth session missing") ||
+          error.name === "AuthSessionMissingError"
+        ) {
+          console.log(
+            "AuthContext: Session already missing, clearing local state..."
+          );
+          setSession(null);
+          setUser(null);
+          return;
+        }
+
         throw error;
       }
+
       console.log("AuthContext: Sign out completed successfully");
     } catch (error) {
       console.error("AuthContext: Sign out failed:", error);
+
+      // Handle AuthSessionMissingError gracefully
+      if (
+        error.message?.includes("Auth session missing") ||
+        error.name === "AuthSessionMissingError"
+      ) {
+        console.log(
+          "AuthContext: Treating AuthSessionMissingError as successful sign out"
+        );
+        setSession(null);
+        setUser(null);
+        return;
+      }
+
       throw error;
     }
   };
