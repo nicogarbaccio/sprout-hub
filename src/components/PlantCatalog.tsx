@@ -17,9 +17,13 @@ import {
 
 interface PlantCatalogProps {
   isHomepage?: boolean;
+  isDashboard?: boolean;
 }
 
-const PlantCatalog = ({ isHomepage = false }: PlantCatalogProps) => {
+const PlantCatalog = ({
+  isHomepage = false,
+  isDashboard = false,
+}: PlantCatalogProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [selectedPlantData, setSelectedPlantData] = useState<Plant | null>(
@@ -96,9 +100,22 @@ const PlantCatalog = ({ isHomepage = false }: PlantCatalogProps) => {
   };
 
   return (
-    <section className="py-20 bg-plant-neutral">
+    <section
+      className={`py-20 ${isDashboard ? "bg-white" : "bg-plant-neutral"}`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <PlantCatalogHeader />
+        {isDashboard ? (
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-plant-text mb-4 font-poppins">
+              Discover New Plants
+            </h2>
+            <p className="text-plant-text/60 text-lg max-w-2xl mx-auto">
+              Browse our plant catalog to find your next green companion
+            </p>
+          </div>
+        ) : (
+          <PlantCatalogHeader />
+        )}
 
         {!isHomepage && (
           <>

@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
 	darkMode: ["class"],
@@ -28,6 +29,7 @@ export default {
 				'plant-neutral': '#F5F7F5',
 				'plant-warning': '#FF9F43',
 				'plant-text': '#2D3436',
+				'plant-water': '#0FA3B1',
 
 				// Keep existing shadcn colors
 				border: 'hsl(var(--border))',
@@ -114,5 +116,5 @@ export default {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [tailwindcssAnimate],
 } satisfies Config;

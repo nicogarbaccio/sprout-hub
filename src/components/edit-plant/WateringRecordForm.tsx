@@ -1,13 +1,16 @@
-
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { CalendarIcon, Plus } from 'lucide-react';
-import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { CalendarIcon, Plus } from "lucide-react";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 interface WateringRecordFormProps {
   onAddWatering: (date: Date, notes: string) => Promise<void>;
@@ -15,20 +18,20 @@ interface WateringRecordFormProps {
 
 const WateringRecordForm = ({ onAddWatering }: WateringRecordFormProps) => {
   const [newWateringDate, setNewWateringDate] = useState<Date>();
-  const [newWateringNotes, setNewWateringNotes] = useState('');
+  const [newWateringNotes, setNewWateringNotes] = useState("");
 
   const handleAddWatering = async () => {
     if (!newWateringDate) return;
-    
+
     await onAddWatering(newWateringDate, newWateringNotes);
     setNewWateringDate(undefined);
-    setNewWateringNotes('');
+    setNewWateringNotes("");
   };
 
   return (
     <div className="p-4 border rounded-lg space-y-3">
       <h4 className="font-medium">Add Watering Record</h4>
-      
+
       <div className="space-y-2">
         <Label>Date Watered</Label>
         <Popover>
@@ -66,10 +69,10 @@ const WateringRecordForm = ({ onAddWatering }: WateringRecordFormProps) => {
         />
       </div>
 
-      <Button 
+      <Button
         onClick={handleAddWatering}
         disabled={!newWateringDate}
-        className="w-full"
+        className="w-full bg-plant-water text-white hover:bg-plant-water/90 hover:text-white"
       >
         <Plus className="w-4 h-4 mr-2" />
         Add Watering Record
