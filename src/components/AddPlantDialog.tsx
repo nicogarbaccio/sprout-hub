@@ -261,7 +261,11 @@ const AddPlantDialog = ({
                   )}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="p-0 w-[--radix-popover-trigger-width] min-w-[250px]">
+              <PopoverContent
+                className="p-0 w-[--radix-popover-trigger-width] min-w-[250px]"
+                sideOffset={4}
+                style={{ maxHeight: "300px" }}
+              >
                 <Command className="border-none shadow-none">
                   <CommandInput
                     placeholder="Search or type plant type"
@@ -269,7 +273,9 @@ const AddPlantDialog = ({
                     onValueChange={setPlantTypeSearch}
                     autoFocus
                   />
-                  <CommandList className="max-h-60 overflow-y-auto">
+                  <CommandList
+                    style={{ maxHeight: "240px", overflowY: "auto" }}
+                  >
                     <CommandEmpty>No plants found.</CommandEmpty>
                     <CommandGroup heading="Common Plants">
                       {filteredPlantNames.length === 0 && plantTypeSearch
