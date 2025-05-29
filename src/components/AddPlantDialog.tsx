@@ -1,16 +1,40 @@
-import { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { CalendarIcon, AlertTriangle } from 'lucide-react';
-import { format } from 'date-fns';
-import { useUserPlants } from '@/hooks/useUserPlants';
-import ImageUpload from '@/components/ui/image-upload';
+import { useState, useEffect } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { CalendarIcon, AlertTriangle } from "lucide-react";
+import { format } from "date-fns";
+import { useUserPlants } from "@/hooks/useUserPlants";
+import ImageUpload from "@/components/ui/image-upload";
+import {
+  Command,
+  CommandInput,
+  CommandList,
+  CommandItem,
+  CommandGroup,
+  CommandEmpty,
+} from "@/components/ui/command";
+import { plants as allPlants } from "@/data/plantData";
 
 interface PlantData {
   name: string;
@@ -28,19 +52,29 @@ interface AddPlantDialogProps {
   plantData?: PlantData | null;
 }
 
-const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => {
+const AddPlantDialog = ({
+  isOpen,
+  onClose,
+  plantData,
+}: AddPlantDialogProps) => {
   const { addPlant } = useUserPlants();
   const [formData, setFormData] = useState({
-    nickname: '',
-    plant_type: '',
-    image: '',
+    nickname: "",
+    plant_type: "",
+    image: "",
     watering_schedule_days: 7,
-    notes: ''
+    notes: "",
   });
-  const [lastWateredDate, setLastWateredDate] = useState<Date | undefined>(new Date());
+  const [lastWateredDate, setLastWateredDate] = useState<Date | undefined>(
+    new Date()
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [customDays, setCustomDays] = useState<string>('');
+  const [customDays, setCustomDays] = useState<string>("");
   const [isCustomSelected, setIsCustomSelected] = useState(false);
+  const [isCustomPlantType, setIsCustomPlantType] = useState(false);
+  const [customPlantType, setCustomPlantType] = useState("");
+  const [plantTypeSearch, setPlantTypeSearch] = useState("");
+  const [isPlantTypePopoverOpen, setIsPlantTypePopoverOpen] = useState(false);
 
   // Reset form when dialog opens/closes or plant data changes
   useEffect(() => {
@@ -52,9 +86,10 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
           plant_type: plantData.name,
           image: plantData.image,
           watering_schedule_days: plantData.suggestedWateringDays || 7,
-          notes: `Botanical name: ${plantData.botanicalName}\nWatering: ${plantData.wateringFrequency}\nLight: ${plantData.lightRequirement}\nCare level: ${plantData.careLevel}`
+          notes: `Botanical name: ${plantData.botanicalName}\nWatering: ${plantData.wateringFrequency}\nLight: ${plantData.lightRequirement}\nCare level: ${plantData.careLevel}`,
         });
-        
+        setIsCustomPlantType(false);
+        setCustomPlantType("");
         // Check if the suggested days match any preset option
         const suggestedDays = plantData.suggestedWateringDays || 7;
         const presetOptions = [3, 7, 10, 14, 21, 30];
@@ -63,21 +98,23 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
           setCustomDays(suggestedDays.toString());
         } else {
           setIsCustomSelected(false);
-          setCustomDays('');
+          setCustomDays("");
         }
       } else {
         // Reset for manual addition
         setFormData({
-          nickname: '',
-          plant_type: '',
-          image: '',
+          nickname: "",
+          plant_type: "",
+          image: "",
           watering_schedule_days: 7,
-          notes: ''
+          notes: "",
         });
+        setIsCustomPlantType(false);
+        setCustomPlantType("");
         setIsCustomSelected(false);
-        setCustomDays('');
+        setCustomDays("");
       }
-      
+
       // Reset last watered date to today
       setLastWateredDate(new Date());
     }
@@ -85,81 +122,94 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.nickname.trim() || !formData.plant_type.trim()) {
       return;
     }
 
     setIsSubmitting(true);
-    
+
     const success = await addPlant({
       nickname: formData.nickname.trim(),
       plant_type: formData.plant_type.trim(),
       image: formData.image.trim() || undefined,
       suggested_watering_days: formData.watering_schedule_days,
-      last_watered_date: lastWateredDate?.toISOString()
+      last_watered_date: lastWateredDate?.toISOString(),
     });
 
     if (success) {
       onClose();
     }
-    
+
     setIsSubmitting(false);
   };
 
   const handleInputChange = (field: string, value: string | number) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
   const handleWateringScheduleChange = (value: string) => {
-    if (value === 'custom') {
+    if (value === "custom") {
       setIsCustomSelected(true);
       // Keep current custom value or default to 7
       const days = customDays ? parseInt(customDays) : 7;
-      handleInputChange('watering_schedule_days', days);
+      handleInputChange("watering_schedule_days", days);
     } else {
       setIsCustomSelected(false);
-      setCustomDays('');
-      handleInputChange('watering_schedule_days', parseInt(value));
+      setCustomDays("");
+      handleInputChange("watering_schedule_days", parseInt(value));
     }
   };
 
   const handleCustomDaysChange = (value: string) => {
     setCustomDays(value);
     const days = parseInt(value) || 1;
-    handleInputChange('watering_schedule_days', Math.max(1, Math.min(365, days)));
+    handleInputChange(
+      "watering_schedule_days",
+      Math.max(1, Math.min(365, days))
+    );
   };
 
   const commonPlantTypes = [
-    'Peace Lily',
-    'Monstera Deliciosa',
-    'Snake Plant',
-    'Fiddle Leaf Fig',
-    'Pothos',
-    'Rubber Plant',
-    'ZZ Plant',
-    'Boston Fern',
-    'Aloe Vera',
-    'Philodendron',
-    'Bird of Paradise',
-    'Spider Plant'
+    "Peace Lily",
+    "Monstera Deliciosa",
+    "Snake Plant",
+    "Fiddle Leaf Fig",
+    "Pothos",
+    "Rubber Plant",
+    "ZZ Plant",
+    "Boston Fern",
+    "Aloe Vera",
+    "Philodendron",
+    "Bird of Paradise",
+    "Spider Plant",
   ];
 
+  // All unique plant names from the catalog
+  const allPlantNames = Array.from(new Set(allPlants.map((p) => p.name)));
+
+  // Filtered plant names for search
+  const filteredPlantNames = plantTypeSearch
+    ? allPlantNames.filter((name) =>
+        name.toLowerCase().includes(plantTypeSearch.toLowerCase())
+      )
+    : commonPlantTypes;
+
   const wateringOptions = [
-    { value: 3, label: 'Every 3 days' },
-    { value: 7, label: 'Weekly (7 days)' },
-    { value: 10, label: 'Every 10 days' },
-    { value: 14, label: 'Bi-weekly (14 days)' },
-    { value: 21, label: 'Every 3 weeks' },
-    { value: 30, label: 'Monthly (30 days)' }
+    { value: 3, label: "Every 3 days" },
+    { value: 7, label: "Weekly (7 days)" },
+    { value: 10, label: "Every 10 days" },
+    { value: 14, label: "Bi-weekly (14 days)" },
+    { value: 21, label: "Every 3 weeks" },
+    { value: 30, label: "Monthly (30 days)" },
   ];
 
   // Determine the current select value
   const getCurrentSelectValue = () => {
-    if (isCustomSelected) return 'custom';
+    if (isCustomSelected) return "custom";
     return formData.watering_schedule_days.toString();
   };
 
@@ -168,17 +218,21 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
       <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-plant-text font-poppins">
-            {plantData ? `Add ${plantData.name} to Collection` : 'Add New Plant'}
+            {plantData
+              ? `Add ${plantData.name} to Collection`
+              : "Add New Plant"}
           </DialogTitle>
         </DialogHeader>
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="nickname" className="text-plant-text">Plant Nickname *</Label>
+            <Label htmlFor="nickname" className="text-plant-text">
+              Plant Nickname *
+            </Label>
             <Input
               id="nickname"
               value={formData.nickname}
-              onChange={(e) => handleInputChange('nickname', e.target.value)}
+              onChange={(e) => handleInputChange("nickname", e.target.value)}
               placeholder="Give your plant a nickname"
               className="border-plant-secondary/30 focus:border-plant-primary"
               required
@@ -186,25 +240,118 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="plant_type" className="text-plant-text">Plant Type *</Label>
-            <Select value={formData.plant_type} onValueChange={(value) => handleInputChange('plant_type', value)}>
-              <SelectTrigger className="border-plant-secondary/30 focus:border-plant-primary">
-                <SelectValue placeholder="Select or type plant type" />
-              </SelectTrigger>
-              <SelectContent>
-                {commonPlantTypes.map((type) => (
-                  <SelectItem key={type} value={type}>
-                    {type}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Input
-              value={formData.plant_type}
-              onChange={(e) => handleInputChange('plant_type', e.target.value)}
-              placeholder="Or type custom plant type"
-              className="border-plant-secondary/30 focus:border-plant-primary mt-2"
-            />
+            <Label htmlFor="plant_type" className="text-plant-text">
+              Plant Type *
+            </Label>
+            <Popover
+              open={isPlantTypePopoverOpen}
+              onOpenChange={setIsPlantTypePopoverOpen}
+            >
+              <PopoverTrigger asChild>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full justify-start text-left font-normal border-plant-secondary/30 focus:border-plant-primary"
+                  aria-haspopup="listbox"
+                >
+                  {formData.plant_type || (
+                    <span className="text-muted-foreground">
+                      Search or select plant type
+                    </span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="p-0 w-[--radix-popover-trigger-width] min-w-[250px]">
+                <Command className="border-none shadow-none">
+                  <CommandInput
+                    placeholder="Search or type plant type"
+                    value={plantTypeSearch}
+                    onValueChange={setPlantTypeSearch}
+                    autoFocus
+                  />
+                  <CommandList>
+                    <CommandEmpty>No plants found.</CommandEmpty>
+                    <CommandGroup heading="Common Plants">
+                      {filteredPlantNames.length === 0 && plantTypeSearch
+                        ? null
+                        : filteredPlantNames.map((type) => (
+                            <CommandItem
+                              key={type}
+                              value={type}
+                              onSelect={() => {
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  plant_type: type,
+                                }));
+                                setIsCustomPlantType(false);
+                                setCustomPlantType("");
+                                setPlantTypeSearch("");
+                                setIsPlantTypePopoverOpen(false);
+                              }}
+                            >
+                              {type}
+                            </CommandItem>
+                          ))}
+                    </CommandGroup>
+                    {/* If search doesn't match any plant, allow custom */}
+                    {plantTypeSearch &&
+                      !allPlantNames.some(
+                        (name) =>
+                          name.toLowerCase() === plantTypeSearch.toLowerCase()
+                      ) && (
+                        <CommandGroup heading="Custom">
+                          <CommandItem
+                            value={plantTypeSearch}
+                            onSelect={() => {
+                              setFormData((prev) => ({
+                                ...prev,
+                                plant_type: plantTypeSearch,
+                              }));
+                              setIsCustomPlantType(true);
+                              setCustomPlantType(plantTypeSearch);
+                              setPlantTypeSearch("");
+                              setIsPlantTypePopoverOpen(false);
+                            }}
+                          >
+                            Add "{plantTypeSearch}" as custom plant type
+                          </CommandItem>
+                        </CommandGroup>
+                      )}
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+            {/* Show custom plant type input if a custom type is selected */}
+            {isCustomPlantType && (
+              <div className="space-y-2">
+                <Label htmlFor="custom_plant_type" className="text-plant-text">
+                  Custom Plant Type *
+                </Label>
+                <Input
+                  id="custom_plant_type"
+                  value={customPlantType}
+                  onChange={(e) => {
+                    setCustomPlantType(e.target.value);
+                    setFormData((prev) => ({
+                      ...prev,
+                      plant_type: e.target.value,
+                    }));
+                  }}
+                  placeholder="Enter custom plant type"
+                  className="border-plant-secondary/30 focus:border-plant-primary"
+                  required
+                />
+              </div>
+            )}
+            {/* Hidden input to keep formData.plant_type in sync for validation, only if not custom */}
+            {!isCustomPlantType && (
+              <input
+                type="hidden"
+                value={formData.plant_type}
+                required
+                readOnly
+              />
+            )}
           </div>
 
           <div className="space-y-2">
@@ -216,7 +363,9 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
                   className="w-full justify-start text-left font-normal border-plant-secondary/30 focus:border-plant-primary"
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {lastWateredDate ? format(lastWateredDate, "PPP") : "Select date"}
+                  {lastWateredDate
+                    ? format(lastWateredDate, "PPP")
+                    : "Select date"}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
@@ -241,16 +390,19 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
               <div className="flex items-center gap-2 p-2 bg-yellow-50 border border-yellow-200 rounded-md">
                 <AlertTriangle className="h-4 w-4 text-yellow-600" />
                 <p className="text-sm text-yellow-700">
-                  No last watering date set - watering schedule calculations may be inaccurate
+                  No last watering date set - watering schedule calculations may
+                  be inaccurate
                 </p>
               </div>
             )}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="watering_schedule" className="text-plant-text">Watering Schedule</Label>
-            <Select 
-              value={getCurrentSelectValue()} 
+            <Label htmlFor="watering_schedule" className="text-plant-text">
+              Watering Schedule
+            </Label>
+            <Select
+              value={getCurrentSelectValue()}
               onValueChange={handleWateringScheduleChange}
             >
               <SelectTrigger className="border-plant-secondary/30 focus:border-plant-primary">
@@ -258,17 +410,25 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
               </SelectTrigger>
               <SelectContent>
                 {wateringOptions.map((option) => (
-                  <SelectItem key={option.value} value={option.value.toString()}>
+                  <SelectItem
+                    key={option.value}
+                    value={option.value.toString()}
+                  >
                     {option.label}
                   </SelectItem>
                 ))}
                 <SelectItem value="custom">Custom</SelectItem>
               </SelectContent>
             </Select>
-            
+
             {isCustomSelected && (
               <div className="space-y-1">
-                <Label htmlFor="custom_days" className="text-plant-text text-sm">Custom days</Label>
+                <Label
+                  htmlFor="custom_days"
+                  className="text-plant-text text-sm"
+                >
+                  Custom days
+                </Label>
                 <Input
                   id="custom_days"
                   type="number"
@@ -288,17 +448,19 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
 
           <ImageUpload
             value={formData.image}
-            onChange={(url) => handleInputChange('image', url)}
+            onChange={(url) => handleInputChange("image", url)}
             label="Plant Image"
             placeholder="Enter image URL or upload a photo"
           />
 
           <div className="space-y-2">
-            <Label htmlFor="notes" className="text-plant-text">Notes</Label>
+            <Label htmlFor="notes" className="text-plant-text">
+              Notes
+            </Label>
             <Textarea
               id="notes"
               value={formData.notes}
-              onChange={(e) => handleInputChange('notes', e.target.value)}
+              onChange={(e) => handleInputChange("notes", e.target.value)}
               placeholder="Care instructions, botanical name, etc."
               className="border-plant-secondary/30 focus:border-plant-primary min-h-20"
             />
@@ -316,10 +478,14 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
             </Button>
             <Button
               type="submit"
-              disabled={!formData.nickname.trim() || !formData.plant_type.trim() || isSubmitting}
+              disabled={
+                !formData.nickname.trim() ||
+                !formData.plant_type.trim() ||
+                isSubmitting
+              }
               className="flex-1 bg-plant-primary hover:bg-plant-primary/90 text-white"
             >
-              {isSubmitting ? 'Adding...' : 'Add Plant'}
+              {isSubmitting ? "Adding..." : "Add Plant"}
             </Button>
           </div>
         </form>
