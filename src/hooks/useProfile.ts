@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
@@ -22,7 +22,6 @@ export const useProfile = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const hasShownToast = useRef(false);
   
   const [profileData, setProfileData] = useState<ProfileData>({
     first_name: "",
@@ -42,8 +41,7 @@ export const useProfile = () => {
   const [isLoadingProfile, setIsLoadingProfile] = useState(true);
 
   useEffect(() => {
-    if (!user && !hasShownToast.current) {
-      hasShownToast.current = true;
+    if (!user) {
       toast({
         title: "Authentication Required",
         description: "Please sign in to access your profile.",
@@ -52,9 +50,7 @@ export const useProfile = () => {
       navigate("/");
       return;
     }
-    if (user) {
-      fetchProfile();
-    }
+    fetchProfile();
   }, [user, navigate]);
 
   const fetchProfile = async () => {

@@ -143,90 +143,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const signOut = async () => {
     try {
-      console.log("AuthContext: Starting comprehensive sign out process...");
+      console.log("AuthContext: Starting sign out...");
 
-      // Step 1: Clear all possible storage locations
-      const clearAllStorage = () => {
-        try {
-          // Clear localStorage
-          const keys = Object.keys(localStorage);
-          keys.forEach((key) => {
-            if (
-              key.includes("supabase") ||
-              key.includes("auth") ||
-              key.includes("sb-")
-            ) {
-              localStorage.removeItem(key);
-              console.log(`Cleared localStorage key: ${key}`);
-            }
-          });
-
-          // Clear sessionStorage
-          const sessionKeys = Object.keys(sessionStorage);
-          sessionKeys.forEach((key) => {
-            if (
-              key.includes("supabase") ||
-              key.includes("auth") ||
-              key.includes("sb-")
-            ) {
-              sessionStorage.removeItem(key);
-              console.log(`Cleared sessionStorage key: ${key}`);
-            }
-          });
-
-          console.log("AuthContext: Cleared all storage");
-        } catch (error) {
-          console.warn("AuthContext: Error clearing storage:", error);
-        }
-      };
-
-      // Step 2: Clear local state first
+      // Clear local state immediately
       setSession(null);
       setUser(null);
-      setLoading(false);
 
-      // Step 3: Clear storage immediately
-      clearAllStorage();
+      // Try to sign out from Supabase
+      await supabase.auth.signOut({ scope: "local" });
 
-      // Step 4: Try to sign out from Supabase (but don't let it block us)
-      try {
-        await supabase.auth.signOut({ scope: "local" });
-        console.log("AuthContext: Supabase sign out successful");
-      } catch (error) {
-        console.warn(
-          "AuthContext: Supabase sign out failed, but continuing:",
-          error
-        );
-        // Don't throw - we've already cleared everything locally
-      }
-
-      // Step 5: Force reload the page to ensure clean state
-      setTimeout(() => {
-        console.log("AuthContext: Forcing page reload for clean state");
-        window.location.href = "/";
-      }, 100);
-
-      console.log("AuthContext: Sign out process completed");
+      console.log("AuthContext: Sign out completed");
     } catch (error) {
-      console.error("AuthContext: Sign out completely failed:", error);
-
-      // Even if everything fails, clear local state and reload
-      setSession(null);
-      setUser(null);
-      setLoading(false);
-
-      // Clear storage as fallback
-      try {
-        localStorage.clear();
-        sessionStorage.clear();
-      } catch (storageError) {
-        console.warn("Could not clear storage:", storageError);
-      }
-
-      // Force reload as last resort
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 100);
+      console.warn(
+        "AuthContext: Sign out error (but local state cleared):",
+        error
+      );
+      // Local state is already cleared, so this is still a successful sign out from user perspective
     }
   };
 
