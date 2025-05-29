@@ -244,106 +244,55 @@ const AddPlantDialog = ({
               Plant Type *
             </Label>
             <div className="space-y-2">
-              <div className="relative">
-                <Input
-                  placeholder="Search plant types..."
-                  value={plantTypeSearch}
-                  onChange={(e) => setPlantTypeSearch(e.target.value)}
-                  className="border-plant-secondary/30 focus:border-plant-primary pr-8"
-                />
-                {plantTypeSearch && (
-                  <button
-                    type="button"
-                    onClick={() => setPlantTypeSearch("")}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                  >
-                    ✕
-                  </button>
-                )}
-              </div>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    role="combobox"
-                    className="w-full justify-between border-plant-secondary/30 focus:border-plant-primary"
-                  >
-                    {formData.plant_type || "Select plant type"}
-                    <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
-                  <Command>
-                    <CommandList className="max-h-60">
-                      <CommandEmpty>No results found.</CommandEmpty>
-                      <CommandGroup>
-                        {filteredPlantNames.map((type) => (
-                          <CommandItem
-                            key={type}
-                            value={type}
-                            onSelect={(currentValue) => {
-                              setFormData((prev) => ({
-                                ...prev,
-                                plant_type: currentValue,
-                              }));
-                              // Check if it's a custom plant type
-                              if (
-                                plantTypeSearch &&
-                                !allPlantNames.some(
-                                  (name) =>
-                                    name.toLowerCase() ===
-                                    currentValue.toLowerCase()
-                                ) &&
-                                currentValue === plantTypeSearch
-                              ) {
-                                setIsCustomPlantType(true);
-                                setCustomPlantType(currentValue);
-                              } else {
-                                setIsCustomPlantType(false);
-                                setCustomPlantType("");
-                              }
-                              // Clear search after selection
-                              setPlantTypeSearch("");
-                            }}
-                          >
-                            <Check
-                              className={cn(
-                                "mr-2 h-4 w-4",
-                                formData.plant_type === type
-                                  ? "opacity-100"
-                                  : "opacity-0"
-                              )}
-                            />
-                            {type}
-                          </CommandItem>
-                        ))}
-                        {plantTypeSearch &&
-                          !allPlantNames.some(
-                            (name) =>
-                              name.toLowerCase() ===
-                              plantTypeSearch.toLowerCase()
-                          ) && (
-                            <CommandItem
-                              value={plantTypeSearch}
-                              onSelect={(currentValue) => {
-                                setFormData((prev) => ({
-                                  ...prev,
-                                  plant_type: currentValue,
-                                }));
-                                setIsCustomPlantType(true);
-                                setCustomPlantType(currentValue);
-                                setPlantTypeSearch("");
-                              }}
-                            >
-                              <Check className="mr-2 h-4 w-4 opacity-0" />
-                              Add "{plantTypeSearch}" as custom
-                            </CommandItem>
-                          )}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
+              <Input
+                placeholder="Search plant types..."
+                value={plantTypeSearch}
+                onChange={(e) => setPlantTypeSearch(e.target.value)}
+                className="border-plant-secondary/30 focus:border-plant-primary"
+              />
+              <Select
+                value={formData.plant_type}
+                onValueChange={(value) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    plant_type: value,
+                  }));
+                  // Check if it's a custom plant type
+                  if (
+                    plantTypeSearch &&
+                    !allPlantNames.some(
+                      (name) => name.toLowerCase() === value.toLowerCase()
+                    ) &&
+                    value === plantTypeSearch
+                  ) {
+                    setIsCustomPlantType(true);
+                    setCustomPlantType(value);
+                  } else {
+                    setIsCustomPlantType(false);
+                    setCustomPlantType("");
+                  }
+                }}
+              >
+                <SelectTrigger className="border-plant-secondary/30 focus:border-plant-primary">
+                  <SelectValue placeholder="Select plant type" />
+                </SelectTrigger>
+                <SelectContent className="max-h-60">
+                  {filteredPlantNames.map((type) => (
+                    <SelectItem key={type} value={type}>
+                      {type}
+                    </SelectItem>
+                  ))}
+                  {plantTypeSearch &&
+                    !allPlantNames.some(
+                      (name) =>
+                        name.toLowerCase() === plantTypeSearch.toLowerCase()
+                    ) && (
+                      <SelectItem value={plantTypeSearch}>
+                        Add "{plantTypeSearch}" as custom
+                      </SelectItem>
+                    )}
+                </SelectContent>
+              </Select>
             </div>
             {/* Show custom plant type input if a custom type is selected */}
             {isCustomPlantType && (
