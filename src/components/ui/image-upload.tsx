@@ -1,0 +1,176 @@
+
+import { useState, useRef } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Upload, X, Loader2 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+
+interface ImageUploadProps {
+  value: string;
+  onChange: (url: string) => void;
+  label?: string;
+  placeholder?: string;
+}
+
+const ImageUpload = ({ value, onChange, label = "Image", placeholder = "Enter image URL or upload" }: ImageUploadProps) => {
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
+
+  const uploadToCloudinary = async (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'ml_default'); // Will be replaced with actual preset from secrets
+    
+    try {
+      // Get the cloud name from our edge function
+      const response = await fetch('/api/upload-image', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const data = await response.json();
+      return data.secure_url;
+    } catch (error) {
+      console.error('Cloudinary upload error:', error);
+      throw error;
+    }
+  };
+
+  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast({
+        title: 'Invalid file type',
+        description: 'Please select an image file',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    // Validate file size (5MB limit)
+    if (file.size > 5 * 1024 * 1024) {
+      toast({
+        title: 'File too large',
+        description: 'Please select an image smaller than 5MB',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setIsUploading(true);
+    try {
+      const imageUrl = await uploadToCloudinary(file);
+      onChange(imageUrl);
+      toast({
+        title: 'Upload successful',
+        description: 'Image uploaded successfully',
+      });
+    } catch (error) {
+      toast({
+        title: 'Upload failed',
+        description: 'Failed to upload image. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsUploading(false);
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
+  const handleUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleRemoveImage = () => {
+    onChange('');
+  };
+
+  return (
+    <div className="space-y-2">
+      <Label htmlFor="image">{label}</Label>
+      
+      <div className="space-y-3">
+        {/* URL Input */}
+        <Input
+          id="image"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+          className="border-plant-secondary/30 focus:border-plant-primary"
+        />
+        
+        {/* Upload Button */}
+        <div className="flex gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleUploadClick}
+            disabled={isUploading}
+            className="flex-1"
+          >
+            {isUploading ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Uploading...
+              </>
+            ) : (
+              <>
+                <Upload className="w-4 h-4 mr-2" />
+                Upload Image
+              </>
+            )}
+          </Button>
+          
+          {value && (
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              onClick={handleRemoveImage}
+              className="text-red-600 hover:text-red-700"
+            >
+              <X className="w-4 h-4" />
+            </Button>
+          )}
+        </div>
+
+        {/* Hidden file input */}
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleFileSelect}
+          className="hidden"
+        />
+        
+        {/* Image Preview */}
+        {value && (
+          <div className="mt-2">
+            <img 
+              src={value} 
+              alt="Preview" 
+              className="w-20 h-20 object-cover rounded-lg border"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ImageUpload;

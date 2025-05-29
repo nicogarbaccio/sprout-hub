@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -11,6 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { CalendarIcon, AlertTriangle } from 'lucide-react';
 import { format } from 'date-fns';
 import { useUserPlants } from '@/hooks/useUserPlants';
+import ImageUpload from '@/components/ui/image-upload';
 
 interface PlantData {
   name: string;
@@ -286,28 +286,12 @@ const AddPlantDialog = ({ isOpen, onClose, plantData }: AddPlantDialogProps) => 
             )}
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="image" className="text-plant-text">Image URL</Label>
-            <Input
-              id="image"
-              value={formData.image}
-              onChange={(e) => handleInputChange('image', e.target.value)}
-              placeholder="https://example.com/plant-image.jpg"
-              className="border-plant-secondary/30 focus:border-plant-primary"
-            />
-            {formData.image && (
-              <div className="mt-2">
-                <img 
-                  src={formData.image} 
-                  alt="Plant preview" 
-                  className="w-20 h-20 object-cover rounded-lg"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-              </div>
-            )}
-          </div>
+          <ImageUpload
+            value={formData.image}
+            onChange={(url) => handleInputChange('image', url)}
+            label="Plant Image"
+            placeholder="Enter image URL or upload a photo"
+          />
 
           <div className="space-y-2">
             <Label htmlFor="notes" className="text-plant-text">Notes</Label>

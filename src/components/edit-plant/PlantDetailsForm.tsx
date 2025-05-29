@@ -1,6 +1,7 @@
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import ImageUpload from '@/components/ui/image-upload';
 
 interface PlantDetailsFormProps {
   nickname: string;
@@ -74,15 +75,12 @@ const PlantDetailsForm = ({
         />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="image">Image URL</Label>
-        <Input
-          id="image"
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
-          placeholder="Enter image URL"
-        />
-      </div>
+      <ImageUpload
+        value={image}
+        onChange={setImage}
+        label="Plant Image"
+        placeholder="Enter image URL or upload a photo"
+      />
 
       <div className="space-y-2">
         <Label htmlFor="wateringSchedule">Watering Schedule</Label>
