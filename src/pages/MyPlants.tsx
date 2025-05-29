@@ -4,6 +4,7 @@ import Navigation from "@/components/Navigation";
 import MyPlantsCollection from "@/components/MyPlantsCollection";
 import { useAuth } from "@/contexts/AuthContext";
 import Footer from "@/components/Footer";
+import { toast } from "@/hooks/use-toast";
 
 const MyPlants = () => {
   const { user, loading } = useAuth();
@@ -11,7 +12,12 @@ const MyPlants = () => {
 
   useEffect(() => {
     if (!loading && !user) {
-      navigate("/auth");
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to view your plant collection.",
+        variant: "default",
+      });
+      navigate("/");
     }
   }, [user, loading, navigate]);
 

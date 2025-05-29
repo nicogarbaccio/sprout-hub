@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -43,7 +42,12 @@ export const useProfile = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/auth");
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to access your profile.",
+        variant: "default",
+      });
+      navigate("/");
       return;
     }
     fetchProfile();
