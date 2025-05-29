@@ -10,6 +10,7 @@ import Auth from "./pages/Auth";
 import PlantCatalogPage from "./pages/PlantCatalog";
 import PlantDetails from "./pages/PlantDetails";
 import MyPlants from "./pages/MyPlants";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/plant-catalog" element={<PlantCatalogPage />} />
             <Route path="/plant-details/:plantName" element={<PlantDetails />} />
             <Route path="/my-plants" element={<MyPlants />} />
+            <Route path="/profile" element={<Profile />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
