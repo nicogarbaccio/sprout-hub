@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { User, Session } from "@supabase/supabase-js";
+import { User, Session, AuthError } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 
 interface AuthContextType {
@@ -12,8 +12,11 @@ interface AuthContextType {
     firstName: string,
     lastName: string,
     username: string
-  ) => Promise<{ error: any }>;
-  signIn: (email: string, password: string) => Promise<{ error: any }>;
+  ) => Promise<{ error: AuthError | { message: string } | null }>;
+  signIn: (
+    email: string,
+    password: string
+  ) => Promise<{ error: AuthError | null }>;
   signOut: () => Promise<void>;
 }
 
@@ -142,25 +145,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       console.log("AuthContext: Starting sign out process...");
 
-      // Check if we have an active session
-      const {
-        data: { session: currentSession },
-      } = await supabase.auth.getSession();
-
-      if (!currentSession) {
-        console.log(
-          "AuthContext: No active session found, clearing local state..."
-        );
-        // If no session exists, just clear the local state
-        setSession(null);
-        setUser(null);
-        return;
-      }
-
-      console.log(
-        "AuthContext: Active session found, proceeding with sign out..."
-      );
-      const { error } = await supabase.auth.signOut();
+      // Use local scope to avoid server-side session issues
+      const { error } = await supabase.auth.signOut({ scope: "local" });
 
       if (error) {
         console.error("AuthContext: Sign out error:", error);
@@ -181,6 +167,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         throw error;
       }
 
+      // Explicitly clear the local state
+      setSession(null);
+      setUser(null);
       console.log("AuthContext: Sign out completed successfully");
     } catch (error) {
       console.error("AuthContext: Sign out failed:", error);
@@ -198,7 +187,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         return;
       }
 
-      throw error;
+      // For any other error, still clear local state to ensure user gets signed out
+      console.log("AuthContext: Clearing local state despite error");
+      setSession(null);
+      setUser(null);
     }
   };
 
