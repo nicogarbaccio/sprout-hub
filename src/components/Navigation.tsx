@@ -36,6 +36,12 @@ const Navigation = () => {
   const { profileData, isLoadingProfile } = useProfile();
   const navigate = useNavigate();
 
+  const handleSignIn = () => {
+    console.log("Navigation: Sign in button clicked, current user:", user);
+    console.log("Navigation: Navigating to /auth");
+    navigate("/auth");
+  };
+
   const handleSignOut = async (event?: React.MouseEvent) => {
     if (event) {
       event.preventDefault();
@@ -153,7 +159,7 @@ const Navigation = () => {
               </DropdownMenu>
             ) : (
               <Button
-                onClick={() => navigate("/auth")}
+                onClick={handleSignIn}
                 className="bg-plant-primary hover:bg-plant-primary/90"
               >
                 Sign In
@@ -226,7 +232,7 @@ const Navigation = () => {
                     ) : (
                       <SheetClose asChild>
                         <Button
-                          onClick={() => navigate("/auth")}
+                          onClick={handleSignIn}
                           className="w-full justify-start bg-plant-primary hover:bg-plant-primary/90"
                         >
                           Sign In

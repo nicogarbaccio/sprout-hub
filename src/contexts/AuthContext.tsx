@@ -143,89 +143,90 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const signOut = async () => {
     try {
-      console.log("AuthContext: Starting sign out process...");
+      console.log("AuthContext: Starting comprehensive sign out process...");
 
-      // Use local scope to avoid server-side session issues
-      const { error } = await supabase.auth.signOut({ scope: "local" });
+      // Step 1: Clear all possible storage locations
+      const clearAllStorage = () => {
+        try {
+          // Clear localStorage
+          const keys = Object.keys(localStorage);
+          keys.forEach((key) => {
+            if (
+              key.includes("supabase") ||
+              key.includes("auth") ||
+              key.includes("sb-")
+            ) {
+              localStorage.removeItem(key);
+              console.log(`Cleared localStorage key: ${key}`);
+            }
+          });
 
-      if (error) {
-        console.error("AuthContext: Sign out error:", error);
+          // Clear sessionStorage
+          const sessionKeys = Object.keys(sessionStorage);
+          sessionKeys.forEach((key) => {
+            if (
+              key.includes("supabase") ||
+              key.includes("auth") ||
+              key.includes("sb-")
+            ) {
+              sessionStorage.removeItem(key);
+              console.log(`Cleared sessionStorage key: ${key}`);
+            }
+          });
 
-        // Handle the specific AuthSessionMissingError
-        if (
-          error.message?.includes("Auth session missing") ||
-          error.name === "AuthSessionMissingError"
-        ) {
-          console.log(
-            "AuthContext: Session already missing, clearing local state..."
-          );
-        } else {
-          throw error;
+          console.log("AuthContext: Cleared all storage");
+        } catch (error) {
+          console.warn("AuthContext: Error clearing storage:", error);
         }
-      }
+      };
 
-      // Explicitly clear the local state
+      // Step 2: Clear local state first
       setSession(null);
       setUser(null);
+      setLoading(false);
 
-      // Also clear localStorage manually to ensure complete cleanup
+      // Step 3: Clear storage immediately
+      clearAllStorage();
+
+      // Step 4: Try to sign out from Supabase (but don't let it block us)
       try {
-        localStorage.removeItem("supabase.auth.token");
-        localStorage.removeItem("sb-ufhjudswppdqupjbqbwm-auth-token");
-        // Clear any other potential auth storage keys
-        const keysToRemove = [];
-        for (let i = 0; i < localStorage.length; i++) {
-          const key = localStorage.key(i);
-          if (key && (key.includes("supabase") || key.includes("auth"))) {
-            keysToRemove.push(key);
-          }
-        }
-        keysToRemove.forEach((key) => localStorage.removeItem(key));
-        console.log("AuthContext: Cleared localStorage auth data");
-      } catch (localStorageError) {
+        await supabase.auth.signOut({ scope: "local" });
+        console.log("AuthContext: Supabase sign out successful");
+      } catch (error) {
         console.warn(
-          "AuthContext: Could not clear localStorage:",
-          localStorageError
+          "AuthContext: Supabase sign out failed, but continuing:",
+          error
         );
+        // Don't throw - we've already cleared everything locally
       }
 
-      console.log("AuthContext: Sign out completed successfully");
+      // Step 5: Force reload the page to ensure clean state
+      setTimeout(() => {
+        console.log("AuthContext: Forcing page reload for clean state");
+        window.location.href = "/";
+      }, 100);
+
+      console.log("AuthContext: Sign out process completed");
     } catch (error) {
-      console.error("AuthContext: Sign out failed:", error);
+      console.error("AuthContext: Sign out completely failed:", error);
 
-      // Handle AuthSessionMissingError gracefully
-      if (
-        error.message?.includes("Auth session missing") ||
-        error.name === "AuthSessionMissingError"
-      ) {
-        console.log(
-          "AuthContext: Treating AuthSessionMissingError as successful sign out"
-        );
-      }
-
-      // For any error, still clear local state to ensure user gets signed out
-      console.log("AuthContext: Clearing local state despite error");
+      // Even if everything fails, clear local state and reload
       setSession(null);
       setUser(null);
+      setLoading(false);
 
-      // Clear localStorage even on error
+      // Clear storage as fallback
       try {
-        localStorage.removeItem("supabase.auth.token");
-        localStorage.removeItem("sb-ufhjudswppdqupjbqbwm-auth-token");
-        const keysToRemove = [];
-        for (let i = 0; i < localStorage.length; i++) {
-          const key = localStorage.key(i);
-          if (key && (key.includes("supabase") || key.includes("auth"))) {
-            keysToRemove.push(key);
-          }
-        }
-        keysToRemove.forEach((key) => localStorage.removeItem(key));
-      } catch (localStorageError) {
-        console.warn(
-          "AuthContext: Could not clear localStorage on error:",
-          localStorageError
-        );
+        localStorage.clear();
+        sessionStorage.clear();
+      } catch (storageError) {
+        console.warn("Could not clear storage:", storageError);
       }
+
+      // Force reload as last resort
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 100);
     }
   };
 
