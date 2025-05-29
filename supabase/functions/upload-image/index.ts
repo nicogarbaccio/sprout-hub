@@ -6,6 +6,24 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Helper function to generate signature for signed uploads
+function generateSignature(params: Record<string, string>, apiSecret: string): string {
+  const sortedParams = Object.keys(params)
+    .sort()
+    .map(key => `${key}=${params[key]}`)
+    .join('&');
+  
+  const stringToSign = sortedParams + apiSecret;
+  
+  // Simple hash function for signature (Cloudinary uses SHA1)
+  const encoder = new TextEncoder();
+  const data = encoder.encode(stringToSign);
+  return crypto.subtle.digest('SHA-1', data).then(hash => {
+    const hashArray = Array.from(new Uint8Array(hash));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  });
+}
+
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
@@ -22,12 +40,14 @@ serve(async (req) => {
 
     // Get Cloudinary configuration from environment
     const cloudName = Deno.env.get('CLOUDINARY_CLOUD_NAME');
-    const uploadPreset = Deno.env.get('CLOUDINARY_UPLOAD_PRESET');
+    const apiKey = Deno.env.get('CLOUDINARY_API_KEY');
+    const apiSecret = Deno.env.get('CLOUDINARY_API_SECRET');
 
     console.log('Cloud name:', cloudName);
-    console.log('Upload preset:', uploadPreset);
+    console.log('API key configured:', !!apiKey);
+    console.log('API secret configured:', !!apiSecret);
 
-    if (!cloudName || !uploadPreset) {
+    if (!cloudName || !apiKey || !apiSecret) {
       console.error('Missing Cloudinary configuration');
       return new Response('Cloudinary configuration missing', { 
         status: 500, 
@@ -48,11 +68,25 @@ serve(async (req) => {
 
     console.log('File received:', file.name, file.type, file.size);
 
-    // Prepare form data for Cloudinary
+    // Generate timestamp for signed upload
+    const timestamp = Math.round(Date.now() / 1000).toString();
+    
+    // Parameters for signature
+    const signatureParams = {
+      folder: 'plant-collection',
+      timestamp: timestamp,
+    };
+
+    // Generate signature
+    const signature = await generateSignature(signatureParams, apiSecret);
+
+    // Prepare form data for Cloudinary signed upload
     const cloudinaryFormData = new FormData();
     cloudinaryFormData.append('file', file);
-    cloudinaryFormData.append('upload_preset', uploadPreset);
+    cloudinaryFormData.append('api_key', apiKey);
+    cloudinaryFormData.append('timestamp', timestamp);
     cloudinaryFormData.append('folder', 'plant-collection');
+    cloudinaryFormData.append('signature', signature);
 
     const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
     console.log('Uploading to:', cloudinaryUrl);
