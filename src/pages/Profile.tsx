@@ -77,7 +77,7 @@ const Profile = () => {
         last_name: data.last_name || "",
         username: data.username || "",
         email: data.email || user.email || "",
-        avatar_url: data.avatar_url || "",
+        avatar_url: (data as any).avatar_url || "",
       });
     } catch (error) {
       console.error("Error fetching profile:", error);
