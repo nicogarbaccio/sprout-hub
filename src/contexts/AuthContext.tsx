@@ -159,17 +159,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           console.log(
             "AuthContext: Session already missing, clearing local state..."
           );
-          setSession(null);
-          setUser(null);
-          return;
+        } else {
+          throw error;
         }
-
-        throw error;
       }
 
       // Explicitly clear the local state
       setSession(null);
       setUser(null);
+
+      // Also clear localStorage manually to ensure complete cleanup
+      try {
+        localStorage.removeItem("supabase.auth.token");
+        localStorage.removeItem("sb-ufhjudswppdqupjbqbwm-auth-token");
+        // Clear any other potential auth storage keys
+        const keysToRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && (key.includes("supabase") || key.includes("auth"))) {
+            keysToRemove.push(key);
+          }
+        }
+        keysToRemove.forEach((key) => localStorage.removeItem(key));
+        console.log("AuthContext: Cleared localStorage auth data");
+      } catch (localStorageError) {
+        console.warn(
+          "AuthContext: Could not clear localStorage:",
+          localStorageError
+        );
+      }
+
       console.log("AuthContext: Sign out completed successfully");
     } catch (error) {
       console.error("AuthContext: Sign out failed:", error);
@@ -182,15 +201,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         console.log(
           "AuthContext: Treating AuthSessionMissingError as successful sign out"
         );
-        setSession(null);
-        setUser(null);
-        return;
       }
 
-      // For any other error, still clear local state to ensure user gets signed out
+      // For any error, still clear local state to ensure user gets signed out
       console.log("AuthContext: Clearing local state despite error");
       setSession(null);
       setUser(null);
+
+      // Clear localStorage even on error
+      try {
+        localStorage.removeItem("supabase.auth.token");
+        localStorage.removeItem("sb-ufhjudswppdqupjbqbwm-auth-token");
+        const keysToRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && (key.includes("supabase") || key.includes("auth"))) {
+            keysToRemove.push(key);
+          }
+        }
+        keysToRemove.forEach((key) => localStorage.removeItem(key));
+      } catch (localStorageError) {
+        console.warn(
+          "AuthContext: Could not clear localStorage on error:",
+          localStorageError
+        );
+      }
     }
   };
 
