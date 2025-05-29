@@ -235,13 +235,25 @@ const AddPlantDialog = ({
               Plant Type *
             </Label>
             <div className="space-y-2">
-              <Input
-                placeholder="Search plant types..."
-                value={plantTypeSearch}
-                onChange={(e) => setPlantTypeSearch(e.target.value)}
-                className="border-plant-secondary/30 focus:border-plant-primary"
-              />
+              <div className="relative">
+                <Input
+                  placeholder="Search plant types..."
+                  value={plantTypeSearch}
+                  onChange={(e) => setPlantTypeSearch(e.target.value)}
+                  className="border-plant-secondary/30 focus:border-plant-primary pr-8"
+                />
+                {plantTypeSearch && (
+                  <button
+                    type="button"
+                    onClick={() => setPlantTypeSearch("")}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
               <Select
+                key={plantTypeSearch}
                 value={formData.plant_type}
                 onValueChange={(value) => {
                   setFormData((prev) => ({
@@ -262,17 +274,33 @@ const AddPlantDialog = ({
                     setIsCustomPlantType(false);
                     setCustomPlantType("");
                   }
+                  // Clear search after selection
+                  setPlantTypeSearch("");
                 }}
               >
                 <SelectTrigger className="border-plant-secondary/30 focus:border-plant-primary">
-                  <SelectValue placeholder="Select plant type" />
+                  <SelectValue
+                    placeholder={
+                      plantTypeSearch
+                        ? `Select from ${filteredPlantNames.length} result${
+                            filteredPlantNames.length !== 1 ? "s" : ""
+                          }`
+                        : "Select plant type"
+                    }
+                  />
                 </SelectTrigger>
                 <SelectContent className="max-h-60 overflow-y-auto">
-                  {filteredPlantNames.map((type) => (
-                    <SelectItem key={type} value={type}>
-                      {type}
-                    </SelectItem>
-                  ))}
+                  {filteredPlantNames.length === 0 && plantTypeSearch ? (
+                    <div className="px-2 py-1.5 text-sm text-muted-foreground text-center">
+                      No plants found
+                    </div>
+                  ) : (
+                    filteredPlantNames.map((type) => (
+                      <SelectItem key={type} value={type}>
+                        {type}
+                      </SelectItem>
+                    ))
+                  )}
                   {plantTypeSearch &&
                     !allPlantNames.some(
                       (name) =>
