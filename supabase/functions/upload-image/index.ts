@@ -7,7 +7,7 @@ const corsHeaders = {
 };
 
 // Helper function to generate signature for signed uploads
-function generateSignature(params: Record<string, string>, apiSecret: string): string {
+function generateSignature(params: Record<string, string>, apiSecret: string): Promise<string> {
   const sortedParams = Object.keys(params)
     .sort()
     .map(key => `${key}=${params[key]}`)
@@ -49,9 +49,16 @@ serve(async (req) => {
 
     if (!cloudName || !apiKey || !apiSecret) {
       console.error('Missing Cloudinary configuration');
-      return new Response('Cloudinary configuration missing', { 
+      return new Response(JSON.stringify({ 
+        error: 'Cloudinary configuration missing', 
+        details: {
+          cloudName: !!cloudName,
+          apiKey: !!apiKey,
+          apiSecret: !!apiSecret
+        }
+      }), { 
         status: 500, 
-        headers: corsHeaders 
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }
 
@@ -60,9 +67,9 @@ serve(async (req) => {
     const file = formData.get('file') as File;
 
     if (!file) {
-      return new Response('No file provided', { 
+      return new Response(JSON.stringify({ error: 'No file provided' }), { 
         status: 400, 
-        headers: corsHeaders 
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }
 
@@ -73,12 +80,13 @@ serve(async (req) => {
     
     // Parameters for signature
     const signatureParams = {
+      timestamp,
       folder: 'plant-collection',
-      timestamp: timestamp,
     };
 
     // Generate signature
     const signature = await generateSignature(signatureParams, apiSecret);
+    console.log('Generated signature for upload');
 
     // Prepare form data for Cloudinary signed upload
     const cloudinaryFormData = new FormData();
@@ -99,18 +107,35 @@ serve(async (req) => {
 
     const responseText = await cloudinaryResponse.text();
     console.log('Cloudinary response status:', cloudinaryResponse.status);
-    console.log('Cloudinary response:', responseText);
-
+    
     if (!cloudinaryResponse.ok) {
-      console.error('Cloudinary error:', responseText);
-      return new Response(`Upload to Cloudinary failed: ${responseText}`, { 
+      console.error('Cloudinary error response:', responseText);
+      return new Response(JSON.stringify({ 
+        error: 'Upload to Cloudinary failed', 
+        status: cloudinaryResponse.status,
+        details: responseText 
+      }), { 
         status: 500, 
-        headers: corsHeaders 
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }
 
-    const result = JSON.parse(responseText);
+    console.log('Cloudinary success response received');
+    let result;
+    try {
+      result = JSON.parse(responseText);
+    } catch (e) {
+      console.error('Failed to parse Cloudinary response:', e);
+      return new Response(JSON.stringify({
+        error: 'Failed to parse Cloudinary response',
+        details: responseText
+      }), {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
 
+    console.log('Upload successful, returning URL:', result.secure_url);
     return new Response(
       JSON.stringify({
         secure_url: result.secure_url,
@@ -125,9 +150,13 @@ serve(async (req) => {
     );
   } catch (error) {
     console.error('Error in upload-image function:', error);
-    return new Response(`Internal server error: ${error.message}`, { 
+    return new Response(JSON.stringify({ 
+      error: 'Internal server error', 
+      message: error.message,
+      stack: error.stack
+    }), { 
       status: 500, 
-      headers: corsHeaders 
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
     });
   }
 });
