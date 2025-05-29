@@ -85,29 +85,45 @@ const Navigation = () => {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-plant-text hover:text-plant-primary p-0 focus-visible:ring-2 focus-visible:ring-plant-primary/50"
-                    style={{ background: "none" }}
+                    className="text-plant-text hover:text-plant-primary p-0 !border-none !ring-0 !outline-none !focus:outline-none !focus-visible:outline-none focus:shadow-none focus-visible:shadow-none rounded-full data-[state=open]:outline-none data-[state=open]:ring-0 data-[state=open]:shadow-none"
+                    style={{
+                      background: "none",
+                      border: "none",
+                      outline: "none",
+                      boxShadow: "none",
+                      boxSizing: "border-box",
+                    }}
                   >
-                    <Avatar className="w-10 h-10 transition-colors hover:bg-plant-primary/30">
+                    <Avatar
+                      className="w-10 h-10 transition-colors hover:bg-plant-primary/30"
+                      style={{
+                        border: "none",
+                        outline: "none",
+                        boxShadow: "none",
+                      }}
+                    >
                       <AvatarImage
                         src={profileData.avatar_url}
                         alt="User avatar"
                       />
-                      <AvatarFallback className="text-xs font-medium">
+                      <AvatarFallback className="text-xs font-medium bg-plant-secondary/20 transition-colors">
                         {getInitials()}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => navigate("/profile")}>
+                  <DropdownMenuItem
+                    onClick={() => navigate("/profile")}
+                    className="cursor-pointer"
+                  >
                     <User className="w-4 h-4 mr-2" />
                     Profile
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     onClick={handleSignOut}
-                    className="text-red-600"
+                    className="text-red-600 cursor-pointer"
                   >
                     <LogOut className="w-4 h-4 mr-2" />
                     Sign Out
@@ -167,7 +183,7 @@ const Navigation = () => {
                                   src={profileData.avatar_url}
                                   alt="User avatar"
                                 />
-                                <AvatarFallback className="text-xs font-medium">
+                                <AvatarFallback className="text-xs font-medium bg-plant-secondary/20 transition-colors">
                                   {getInitials()}
                                 </AvatarFallback>
                               </Avatar>
