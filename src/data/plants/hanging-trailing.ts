@@ -5,7 +5,7 @@ export const hangingTrailingPlants: Plant[] = [
   {
     name: 'Pothos',
     botanicalName: 'Epipremnum aureum',
-    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539451/Jade-Pothos-3G-HB-Variation-800x1000_sljdrg.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Low to Bright Light',
@@ -15,7 +15,7 @@ export const hangingTrailingPlants: Plant[] = [
   {
     name: 'Spider Plant',
     botanicalName: 'Chlorophytum comosum',
-    image: 'https://images.unsplash.com/photo-1572688484438-313a6e50c333?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539471/spider-plants-chlorophytum-definition-1902773-01b-b3f60dce30a64c399d52b5538417cc7d_d6dqkd.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -25,7 +25,7 @@ export const hangingTrailingPlants: Plant[] = [
   {
     name: 'Philodendron',
     botanicalName: 'Philodendron hederaceum',
-    image: 'https://images.unsplash.com/photo-1594736797933-d0cc5d8b7ac0?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539497/grow-philodendron-houseplants-1902768-04-8bee1496f67e41c392304329eaea505e_aw2gz5.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Medium to Bright Light',
@@ -35,7 +35,7 @@ export const hangingTrailingPlants: Plant[] = [
   {
     name: 'English Ivy',
     botanicalName: 'Hedera helix',
-    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539518/English-Ivy-Front_cb9t6a.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -45,7 +45,7 @@ export const hangingTrailingPlants: Plant[] = [
   {
     name: 'Hoya',
     botanicalName: 'Hoya carnosa',
-    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539557/Hoya-Carnosa_qblnkv.jpg',
     wateringFrequency: 'Bi-weekly',
     suggestedWateringDays: 14,
     lightRequirement: 'Bright Indirect Light',

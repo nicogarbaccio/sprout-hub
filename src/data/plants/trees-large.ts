@@ -5,7 +5,7 @@ export const treesLargePlants: Plant[] = [
   {
     name: 'Fiddle Leaf Fig',
     botanicalName: 'Ficus lyrata',
-    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748540002/bloomscape_fiddle-leaf-fig_charcoal-e1652800894846_gszilp.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -15,7 +15,7 @@ export const treesLargePlants: Plant[] = [
   {
     name: 'Rubber Plant',
     botanicalName: 'Ficus elastica',
-    image: 'https://images.unsplash.com/photo-1463320726281-696a485928c7?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748540022/RubberTreePlant_f8ks90.jpg',
     wateringFrequency: 'Bi-weekly',
     suggestedWateringDays: 14,
     lightRequirement: 'Bright Indirect Light',
@@ -25,7 +25,7 @@ export const treesLargePlants: Plant[] = [
   {
     name: 'Dracaena',
     botanicalName: 'Dracaena marginata',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748540063/dracaena-plant-care-66578f39338ba.jpg_tpgdmd.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 10,
     lightRequirement: 'Medium Light',
@@ -35,7 +35,7 @@ export const treesLargePlants: Plant[] = [
   {
     name: 'Schefflera',
     botanicalName: 'Schefflera actinophylla',
-    image: 'https://images.unsplash.com/photo-1463320726281-696a485928c7?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748540141/Schefflera-actinophylla-scaled_hhfm1s.webp',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -45,7 +45,7 @@ export const treesLargePlants: Plant[] = [
   {
     name: 'Yucca',
     botanicalName: 'Yucca elephantipes',
-    image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748540108/yucca-elephantipes-potted-plant-spineless-yucca-2-stem__0413416_pe570661_s5_f2nkxq.jpg',
     wateringFrequency: 'Bi-weekly',
     suggestedWateringDays: 14,
     lightRequirement: 'Bright Direct Light',
@@ -55,7 +55,7 @@ export const treesLargePlants: Plant[] = [
   {
     name: 'Norfolk Pine',
     botanicalName: 'Araucaria heterophylla',
-    image: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748540164/norfolk-island-pine-28038312362026_x560.progressive_j0hab5.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',

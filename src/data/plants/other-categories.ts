@@ -5,7 +5,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'ZZ Plant',
     botanicalName: 'Zamioculcas zamiifolia',
-    image: 'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539586/8D2A2069_cgjmbk.jpg',
     wateringFrequency: 'Monthly',
     suggestedWateringDays: 30,
     lightRequirement: 'Low to Medium Light',
@@ -15,7 +15,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Boston Fern',
     botanicalName: 'Nephrolepis exaltata',
-    image: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539605/Boston_Fern_Plant_lbfkir.jpg',
     wateringFrequency: 'Twice weekly',
     suggestedWateringDays: 3,
     lightRequirement: 'Bright Indirect Light',
@@ -25,7 +25,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Chinese Money Plant',
     botanicalName: 'Pilea peperomioides',
-    image: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539634/Chinese-Money-Pilea_bsau0h.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -35,7 +35,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Calathea',
     botanicalName: 'Calathea orbifolia',
-    image: 'https://images.unsplash.com/photo-1594736797933-d0cc5d8b7ac0?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539678/calathea-orbifolia_tqhnjf.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Medium Light',
@@ -45,7 +45,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Croton',
     botanicalName: 'Codiaeum variegatum',
-    image: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539699/croton-plant-basket-codiaeum-variegatum-pictum-PL01301.425_pqloj9.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Direct Light',
@@ -55,7 +55,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Majesty Palm',
     botanicalName: 'Ravenea rivularis',
-    image: 'https://images.unsplash.com/photo-1572688484438-313a6e50c333?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539722/E3403-1024-1024-01_gh81yo.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -65,7 +65,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Peperomia',
     botanicalName: 'Peperomia obtusifolia',
-    image: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539777/peperomia_obtusifolia_gzuoij.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 10,
     lightRequirement: 'Medium Light',
@@ -75,7 +75,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Ponytail Palm',
     botanicalName: 'Beaucarnea recurvata',
-    image: 'https://images.unsplash.com/photo-1572688484438-313a6e50c333?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539801/DSC03549-Edit--cream_jbjnkp.jpg',
     wateringFrequency: 'Monthly',
     suggestedWateringDays: 30,
     lightRequirement: 'Bright Direct Light',
@@ -85,7 +85,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Prayer Plant',
     botanicalName: 'Maranta leuconeura',
-    image: 'https://images.unsplash.com/photo-1594736797933-d0cc5d8b7ac0?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539824/Prayer-Plant-1200x1200_dqdk8y.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Medium Light',
@@ -95,7 +95,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Parlor Palm',
     botanicalName: 'Chamaedorea elegans',
-    image: 'https://images.unsplash.com/photo-1572688484438-313a6e50c333?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539843/house-plants-4-palm-parlor-64_1000_lcgd3u.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Low to Medium Light',

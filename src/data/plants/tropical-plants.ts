@@ -5,7 +5,7 @@ export const tropicalPlants: Plant[] = [
   {
     name: 'Monstera Deliciosa',
     botanicalName: 'Monstera deliciosa',
-    image: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748540196/united-nursery-monstera-plants-21887-64_600_qccheq.jpg',
     wateringFrequency: 'Bi-weekly',
     suggestedWateringDays: 14,
     lightRequirement: 'Bright Indirect Light',
@@ -15,7 +15,7 @@ export const tropicalPlants: Plant[] = [
   {
     name: 'Bird of Paradise',
     botanicalName: 'Strelitzia nicolai',
-    image: 'https://images.unsplash.com/photo-1502911679107-2b54f5c0292c?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748540227/multi-planted-bird-of-paradise-strelitzia-nicolai-25cm-pot-my-jungle-home-142052_tycvp3.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -25,7 +25,7 @@ export const tropicalPlants: Plant[] = [
   {
     name: 'Alocasia',
     botanicalName: 'Alocasia amazonica',
-    image: 'https://images.unsplash.com/photo-1594736797933-d0cc5d8b7ac0?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748540250/alocasia-amazonica-potted-plant-elephant-ear__0653981_pe708210_s5_n3zpxt.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -35,7 +35,7 @@ export const tropicalPlants: Plant[] = [
   {
     name: 'Monstera Adansonii',
     botanicalName: 'Monstera adansonii',
-    image: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748540275/Monstera_Adansonii_Swiss_Cheese_Plant_btuaki.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -45,7 +45,7 @@ export const tropicalPlants: Plant[] = [
   {
     name: 'Dieffenbachia',
     botanicalName: 'Dieffenbachia seguine',
-    image: 'https://images.unsplash.com/photo-1594736797933-d0cc5d8b7ac0?w=400&h=300&fit=crop',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748540302/DG5_1024px_anuzkc.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Medium Light',
