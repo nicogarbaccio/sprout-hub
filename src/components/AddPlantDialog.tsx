@@ -269,7 +269,7 @@ const AddPlantDialog = ({
                     onValueChange={setPlantTypeSearch}
                     autoFocus
                   />
-                  <CommandList>
+                  <CommandList className="max-h-60 overflow-y-auto">
                     <CommandEmpty>No plants found.</CommandEmpty>
                     <CommandGroup heading="Common Plants">
                       {filteredPlantNames.length === 0 && plantTypeSearch
