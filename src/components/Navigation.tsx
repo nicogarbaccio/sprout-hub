@@ -35,7 +35,11 @@ const Navigation = () => {
   const { profileData, isLoadingProfile } = useProfile();
   const navigate = useNavigate();
 
-  const handleSignOut = async () => {
+  const handleSignOut = async (event?: React.MouseEvent) => {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     try {
       console.log("Attempting to sign out...");
       await signOut();
@@ -128,7 +132,7 @@ const Navigation = () => {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
-                    onClick={handleSignOut}
+                    onClick={(event) => handleSignOut(event)}
                     className="text-red-600 cursor-pointer"
                   >
                     <LogOut className="w-4 h-4 mr-2" />
@@ -201,7 +205,7 @@ const Navigation = () => {
                           <Button
                             variant="ghost"
                             className="w-full justify-start flex items-center space-x-2 text-red-600"
-                            onClick={handleSignOut}
+                            onClick={(event) => handleSignOut(event)}
                           >
                             <LogOut className="w-4 h-4 mr-2" />
                             <span>Sign Out</span>
