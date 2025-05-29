@@ -7,6 +7,7 @@ import {
   LogOut,
   Menu,
   X,
+  Flower2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,14 +27,25 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import SproutHubLogo from "@/components/SproutHubLogo";
 import * as React from "react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useProfile } from "@/hooks/useProfile";
 
 const Navigation = () => {
   const { user, signOut } = useAuth();
+  const { profileData, isLoadingProfile } = useProfile();
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
     await signOut();
     navigate("/");
+  };
+
+  // Helper to get initials for fallback
+  const getInitials = () => {
+    if (!profileData.first_name && !profileData.last_name) return "?";
+    return `${profileData.first_name?.charAt(0) || ""}${
+      profileData.last_name?.charAt(0) || ""
+    }`.toUpperCase();
   };
 
   return (
@@ -61,7 +73,7 @@ const Navigation = () => {
                   variant="ghost"
                   className="text-plant-text hover:text-plant-primary flex items-center space-x-2"
                 >
-                  <Droplets className="w-4 h-4" />
+                  <Flower2 className="w-4 h-4" />
                   <span>My Plants</span>
                 </Button>
               </Link>
@@ -73,9 +85,18 @@ const Navigation = () => {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-plant-text hover:text-plant-primary"
+                    className="text-plant-text hover:text-plant-primary p-0 focus-visible:ring-2 focus-visible:ring-plant-primary/50"
+                    style={{ background: "none" }}
                   >
-                    <User className="w-4 h-4" />
+                    <Avatar className="w-10 h-10 transition-colors hover:bg-plant-primary/30">
+                      <AvatarImage
+                        src={profileData.avatar_url}
+                        alt="User avatar"
+                      />
+                      <AvatarFallback className="text-xs font-medium">
+                        {getInitials()}
+                      </AvatarFallback>
+                    </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -84,7 +105,10 @@ const Navigation = () => {
                     Profile
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleSignOut}>
+                  <DropdownMenuItem
+                    onClick={handleSignOut}
+                    className="text-red-600"
+                  >
                     <LogOut className="w-4 h-4 mr-2" />
                     Sign Out
                   </DropdownMenuItem>
@@ -129,11 +153,26 @@ const Navigation = () => {
                         <SheetClose asChild>
                           <Button
                             variant="ghost"
-                            className="w-full justify-start flex items-center space-x-2"
+                            className="w-full justify-start flex items-center space-x-3 pl-2"
                             onClick={() => navigate("/profile")}
+                            style={{
+                              paddingTop: 0,
+                              paddingBottom: 0,
+                              height: "48px",
+                            }}
                           >
-                            <User className="w-4 h-4 mr-2" />
-                            <span>Profile</span>
+                            <span className="flex items-center">
+                              <Avatar className="w-6 h-6">
+                                <AvatarImage
+                                  src={profileData.avatar_url}
+                                  alt="User avatar"
+                                />
+                                <AvatarFallback className="text-xs font-medium">
+                                  {getInitials()}
+                                </AvatarFallback>
+                              </Avatar>
+                            </span>
+                            <span className="text-base">Profile</span>
                           </Button>
                         </SheetClose>
                         <SheetClose asChild>
@@ -177,7 +216,7 @@ const Navigation = () => {
                             variant="ghost"
                             className="w-full justify-start text-plant-text hover:text-plant-primary flex items-center space-x-2"
                           >
-                            <Droplets className="w-4 h-4 mr-2" />
+                            <Flower2 className="w-4 h-4 mr-2" />
                             <span>My Plants</span>
                           </Button>
                         </Link>
