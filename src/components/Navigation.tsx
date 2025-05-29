@@ -36,8 +36,14 @@ const Navigation = () => {
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
-    await signOut();
-    navigate("/");
+    try {
+      console.log("Attempting to sign out...");
+      await signOut();
+      console.log("Sign out successful, navigating to home...");
+      navigate("/");
+    } catch (error) {
+      console.error("Sign out error:", error);
+    }
   };
 
   // Helper to get initials for fallback

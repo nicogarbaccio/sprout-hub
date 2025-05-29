@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import MyPlantsCollection from "@/components/MyPlantsCollection";
@@ -9,9 +9,11 @@ import { toast } from "@/hooks/use-toast";
 const MyPlants = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const hasShownToast = useRef(false);
 
   useEffect(() => {
-    if (!loading && !user) {
+    if (!loading && !user && !hasShownToast.current) {
+      hasShownToast.current = true;
       toast({
         title: "Authentication Required",
         description: "Please sign in to view your plant collection.",

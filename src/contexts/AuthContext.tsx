@@ -1,13 +1,18 @@
-
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { User, Session } from '@supabase/supabase-js';
-import { supabase } from '@/integrations/supabase/client';
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { User, Session } from "@supabase/supabase-js";
+import { supabase } from "@/integrations/supabase/client";
 
 interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
-  signUp: (email: string, password: string, firstName: string, lastName: string, username: string) => Promise<{ error: any }>;
+  signUp: (
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+    username: string
+  ) => Promise<{ error: any }>;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
 }
@@ -17,24 +22,26 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        setLoading(false);
-      }
-    );
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
@@ -45,29 +52,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => subscription.unsubscribe();
   }, []);
 
-  const signUp = async (email: string, password: string, firstName: string, lastName: string, username: string) => {
+  const signUp = async (
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+    username: string
+  ) => {
     try {
       // First check if username already exists
       const { data: existingUser, error: checkError } = await supabase
-        .from('profiles')
-        .select('username')
-        .eq('username', username)
+        .from("profiles")
+        .select("username")
+        .eq("username", username)
         .maybeSingle();
 
-      if (checkError && checkError.code !== 'PGRST116') {
-        console.error('Error checking username:', checkError);
-        return { 
-          error: { 
-            message: 'Error checking username availability. Please try again.' 
-          } 
+      if (checkError && checkError.code !== "PGRST116") {
+        console.error("Error checking username:", checkError);
+        return {
+          error: {
+            message: "Error checking username availability. Please try again.",
+          },
         };
       }
 
       if (existingUser) {
-        return { 
-          error: { 
-            message: 'Username already exists. Please choose a different username.' 
-          } 
+        return {
+          error: {
+            message:
+              "Username already exists. Please choose a different username.",
+          },
         };
       }
 
@@ -86,11 +100,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       if (error) {
         // Handle specific Supabase auth errors
-        if (error.message.includes('User already registered') || error.message.includes('already been registered')) {
-          return { 
-            error: { 
-              message: 'An account with this email already exists. Please sign in instead.' 
-            } 
+        if (
+          error.message.includes("User already registered") ||
+          error.message.includes("already been registered")
+        ) {
+          return {
+            error: {
+              message:
+                "An account with this email already exists. Please sign in instead.",
+            },
           };
         }
         return { error };
@@ -103,11 +121,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       return { error: null };
     } catch (err) {
-      console.error('Signup error:', err);
-      return { 
-        error: { 
-          message: 'An unexpected error occurred. Please try again.' 
-        } 
+      console.error("Signup error:", err);
+      return {
+        error: {
+          message: "An unexpected error occurred. Please try again.",
+        },
       };
     }
   };
@@ -121,7 +139,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    try {
+      console.log("AuthContext: Starting sign out process...");
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error("AuthContext: Sign out error:", error);
+        throw error;
+      }
+      console.log("AuthContext: Sign out completed successfully");
+    } catch (error) {
+      console.error("AuthContext: Sign out failed:", error);
+      throw error;
+    }
   };
 
   const value: AuthContextType = {
