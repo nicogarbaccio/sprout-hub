@@ -24,7 +24,11 @@ serve(async (req) => {
     const cloudName = Deno.env.get('CLOUDINARY_CLOUD_NAME');
     const uploadPreset = Deno.env.get('CLOUDINARY_UPLOAD_PRESET');
 
+    console.log('Cloud name:', cloudName);
+    console.log('Upload preset:', uploadPreset);
+
     if (!cloudName || !uploadPreset) {
+      console.error('Missing Cloudinary configuration');
       return new Response('Cloudinary configuration missing', { 
         status: 500, 
         headers: corsHeaders 
@@ -42,31 +46,36 @@ serve(async (req) => {
       });
     }
 
+    console.log('File received:', file.name, file.type, file.size);
+
     // Prepare form data for Cloudinary
     const cloudinaryFormData = new FormData();
     cloudinaryFormData.append('file', file);
     cloudinaryFormData.append('upload_preset', uploadPreset);
-    cloudinaryFormData.append('folder', 'plant-collection'); // Organize uploads in a folder
+    cloudinaryFormData.append('folder', 'plant-collection');
+
+    const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+    console.log('Uploading to:', cloudinaryUrl);
 
     // Upload to Cloudinary
-    const cloudinaryResponse = await fetch(
-      `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-      {
-        method: 'POST',
-        body: cloudinaryFormData,
-      }
-    );
+    const cloudinaryResponse = await fetch(cloudinaryUrl, {
+      method: 'POST',
+      body: cloudinaryFormData,
+    });
+
+    const responseText = await cloudinaryResponse.text();
+    console.log('Cloudinary response status:', cloudinaryResponse.status);
+    console.log('Cloudinary response:', responseText);
 
     if (!cloudinaryResponse.ok) {
-      const errorText = await cloudinaryResponse.text();
-      console.error('Cloudinary error:', errorText);
-      return new Response('Upload to Cloudinary failed', { 
+      console.error('Cloudinary error:', responseText);
+      return new Response(`Upload to Cloudinary failed: ${responseText}`, { 
         status: 500, 
         headers: corsHeaders 
       });
     }
 
-    const result = await cloudinaryResponse.json();
+    const result = JSON.parse(responseText);
 
     return new Response(
       JSON.stringify({
@@ -82,7 +91,7 @@ serve(async (req) => {
     );
   } catch (error) {
     console.error('Error in upload-image function:', error);
-    return new Response('Internal server error', { 
+    return new Response(`Internal server error: ${error.message}`, { 
       status: 500, 
       headers: corsHeaders 
     });
