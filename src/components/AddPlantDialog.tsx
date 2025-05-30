@@ -285,17 +285,13 @@ const AddPlantDialog = ({
                     />
                   </div>
                   <div
-                    className="max-h-[200px] overflow-y-scroll p-1 bg-white border-2 border-red-200"
+                    className="max-h-[200px] overflow-y-scroll p-1 bg-white"
                     style={{
                       maxHeight: "200px",
                       overflowY: "scroll",
                       scrollbarWidth: "thin",
                     }}
                   >
-                    <div className="text-xs text-red-500 mb-1">
-                      Items: {filteredPlantNames.length} (Should scroll if more
-                      than ~8)
-                    </div>
                     {filteredPlantNames.length === 0 ? (
                       <div className="px-2 py-3 text-sm text-muted-foreground text-center">
                         No plants found.
