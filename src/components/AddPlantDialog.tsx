@@ -268,9 +268,11 @@ const AddPlantDialog = ({
                 onClick={() =>
                   setIsPlantTypePopoverOpen(!isPlantTypePopoverOpen)
                 }
-                className="w-full justify-between border-plant-secondary/30 focus:border-plant-primary"
+                className="w-full justify-between border-plant-secondary/30 focus:border-plant-primary font-normal"
               >
-                {formData.plant_type || "Search or select plant type..."}
+                <span className="font-normal text-muted-foreground">
+                  {formData.plant_type || "Search or select plant type..."}
+                </span>
                 <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
               {isPlantTypePopoverOpen && (
