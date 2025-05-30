@@ -1,14 +1,7 @@
-import {
-  Search,
-  Droplets,
-  Home,
-  BookOpen,
-  User,
-  LogOut,
-  Menu,
-  X,
-  Flower2,
-} from "lucide-react";
+
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Menu, X, LogOut, User, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -17,81 +10,23 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetClose,
-} from "@/components/ui/sheet";
 import { useAuth } from "@/contexts/AuthContext";
-import { useNavigate, Link } from "react-router-dom";
-import SproutHubLogo from "@/components/SproutHubLogo";
-import * as React from "react";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { toast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import SproutHubLogo from "./SproutHubLogo";
+import UserAvatar from "@/components/ui/user-avatar";
 
 const Navigation = () => {
-  const { user, signOut } = useAuth();
+  const { user, profileData, isLoadingProfile, signOut } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
   const navigate = useNavigate();
-  const [profileData, setProfileData] = React.useState({
-    first_name: "",
-    last_name: "",
-    avatar_url: "",
-  });
 
-  // Fetch profile data only when we have a user, without redirecting
-  React.useEffect(() => {
-    const fetchProfileData = async () => {
-      if (!user) {
-        setProfileData({ first_name: "", last_name: "", avatar_url: "" });
-        return;
-      }
-
-      try {
-        const { data, error } = await supabase
-          .from("profiles")
-          .select("first_name, last_name, avatar_url")
-          .eq("id", user.id)
-          .single();
-
-        if (error) {
-          console.warn("Could not fetch profile data:", error);
-          return;
-        }
-
-        setProfileData({
-          first_name: data.first_name || "",
-          last_name: data.last_name || "",
-          avatar_url: data.avatar_url || "",
-        });
-      } catch (error) {
-        console.warn("Error fetching profile:", error);
-      }
-    };
-
-    fetchProfileData();
-  }, [user]);
-
-  const handleSignIn = () => {
-    console.log("Navigation: Sign in button clicked, current user:", user);
-    console.log("Navigation: Navigating to /auth");
-    navigate("/auth");
-  };
-
-  const handleSignOut = async (event?: React.MouseEvent) => {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+  const handleSignOut = async () => {
     try {
-      console.log("Attempting to sign out...");
       await signOut();
-      console.log("Sign out successful, navigating to home...");
       toast({
         title: "Signed out successfully",
         description: "You have been signed out of your account.",
-        variant: "default",
       });
       navigate("/");
     } catch (error) {
@@ -104,210 +39,197 @@ const Navigation = () => {
     }
   };
 
-  // Helper to get initials for fallback
-  const getInitials = () => {
-    if (!profileData.first_name && !profileData.last_name) return "?";
-    return `${profileData.first_name?.charAt(0) || ""}${
-      profileData.last_name?.charAt(0) || ""
-    }`.toUpperCase();
-  };
+  const navLinks = [
+    { to: "/", label: "Home", showWhenSignedIn: false },
+    { to: "/plant-catalog", label: "Plant Catalog", showWhenSignedIn: true },
+    { to: "/my-plants", label: "My Plants", showWhenSignedIn: true },
+  ];
+
+  const filteredNavLinks = navLinks.filter((link) => {
+    if (user) {
+      return link.showWhenSignedIn;
+    }
+    return !link.showWhenSignedIn;
+  });
 
   return (
-    <nav className="bg-white shadow-sm border-b border-plant-secondary/20">
+    <nav className="bg-white border-b border-plant-secondary/20 fixed w-full top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link to="/">
-            <SproutHubLogo size="md" />
+          <Link to="/" className="flex items-center space-x-2">
+            <SproutHubLogo className="w-8 h-8" />
+            <span className="text-xl font-bold text-plant-text font-poppins">
+              SproutHub
+            </span>
           </Link>
 
-          {/* Desktop Nav */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/plant-catalog">
-              <Button
-                variant="ghost"
-                className="text-plant-text hover:text-plant-primary flex items-center space-x-2"
+            {filteredNavLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`text-plant-text hover:text-plant-primary transition-colors font-medium ${
+                  location.pathname === link.to
+                    ? "text-plant-primary border-b-2 border-plant-primary pb-1"
+                    : ""
+                }`}
               >
-                <BookOpen className="w-4 h-4" />
-                <span>Plant Catalog</span>
-              </Button>
-            </Link>
-            {user && (
-              <Link to="/my-plants">
-                <Button
-                  variant="ghost"
-                  className="text-plant-text hover:text-plant-primary flex items-center space-x-2"
-                >
-                  <Flower2 className="w-4 h-4" />
-                  <span>My Plants</span>
-                </Button>
+                {link.label}
               </Link>
-            )}
+            ))}
 
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    size="icon"
-                    className="text-plant-text hover:text-plant-primary p-0 !border-none !ring-0 !outline-none !focus:outline-none !focus-visible:outline-none focus:shadow-none focus-visible:shadow-none rounded-full data-[state=open]:outline-none data-[state=open]:ring-0 data-[state=open]:shadow-none"
-                    style={{
-                      background: "none",
-                      border: "none",
-                      outline: "none",
-                      boxShadow: "none",
-                      boxSizing: "border-box",
-                    }}
+                    className="relative h-10 w-10 rounded-full p-0"
                   >
-                    <Avatar
-                      className="w-10 h-10 transition-colors hover:bg-plant-primary/30"
-                      style={{
-                        border: "none",
-                        outline: "none",
-                        boxShadow: "none",
-                      }}
-                    >
-                      <AvatarImage
-                        src={profileData.avatar_url}
-                        alt="User avatar"
-                      />
-                      <AvatarFallback className="text-xs font-medium bg-plant-secondary/20 transition-colors">
-                        {getInitials()}
-                      </AvatarFallback>
-                    </Avatar>
+                    <UserAvatar
+                      firstName={profileData.first_name}
+                      lastName={profileData.last_name}
+                      avatarUrl={profileData.avatar_url}
+                      isLoading={isLoadingProfile}
+                      size="md"
+                    />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem
-                    onClick={() => navigate("/profile")}
-                    className="cursor-pointer"
-                  >
-                    <User className="w-4 h-4 mr-2" />
-                    Profile
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <div className="flex items-center justify-start gap-2 p-2">
+                    <div className="flex flex-col space-y-1 leading-none">
+                      {profileData.first_name || profileData.last_name ? (
+                        <p className="font-medium">
+                          {profileData.first_name} {profileData.last_name}
+                        </p>
+                      ) : (
+                        <p className="font-medium">Plant Parent</p>
+                      )}
+                      <p className="w-[200px] truncate text-sm text-muted-foreground">
+                        {user.email}
+                      </p>
+                    </div>
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/profile" className="cursor-pointer">
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Profile</span>
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
-                    onClick={(event) => handleSignOut(event)}
-                    className="text-red-600 cursor-pointer"
+                    className="cursor-pointer"
+                    onClick={handleSignOut}
                   >
-                    <LogOut className="w-4 h-4 mr-2" />
-                    Sign Out
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Sign Out</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button
-                onClick={handleSignIn}
-                className="bg-plant-primary hover:bg-plant-primary/90"
-              >
-                Sign In
-              </Button>
+              <div className="flex items-center space-x-4">
+                <Link to="/auth">
+                  <Button
+                    variant="outline"
+                    className="border-plant-primary text-plant-primary hover:bg-plant-primary hover:text-white"
+                  >
+                    Sign In
+                  </Button>
+                </Link>
+              </div>
             )}
           </div>
 
-          {/* Mobile Hamburger Menu */}
-          <div className="md:hidden flex items-center">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  aria-label="Open menu"
-                  className="w-12 h-12"
-                >
-                  <Menu className="w-8 h-8" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="p-0 w-64">
-                <div className="flex flex-col h-full">
-                  <div className="flex items-center justify-between px-4 py-4 border-b">
-                    <Link
-                      to="/"
-                      onClick={() => document.body.click() /* closes sheet */}
-                    >
-                      <SproutHubLogo size="md" />
-                    </Link>
-                  </div>
-                  <div className="flex flex-col gap-2 px-4 py-4 border-b">
-                    {user ? (
-                      <>
-                        <SheetClose asChild>
-                          <Button
-                            variant="ghost"
-                            className="w-full justify-start flex items-center space-x-3 pl-2"
-                            onClick={() => navigate("/profile")}
-                            style={{
-                              paddingTop: 0,
-                              paddingBottom: 0,
-                              height: "48px",
-                            }}
-                          >
-                            <span className="flex items-center">
-                              <Avatar className="w-6 h-6">
-                                <AvatarImage
-                                  src={profileData.avatar_url}
-                                  alt="User avatar"
-                                />
-                                <AvatarFallback className="text-xs font-medium bg-plant-secondary/20 transition-colors">
-                                  {getInitials()}
-                                </AvatarFallback>
-                              </Avatar>
-                            </span>
-                            <span className="text-base">Profile</span>
-                          </Button>
-                        </SheetClose>
-                        <SheetClose asChild>
-                          <Button
-                            variant="ghost"
-                            className="w-full justify-start flex items-center space-x-2 text-red-600"
-                            onClick={(event) => handleSignOut(event)}
-                          >
-                            <LogOut className="w-4 h-4 mr-2" />
-                            <span>Sign Out</span>
-                          </Button>
-                        </SheetClose>
-                      </>
-                    ) : (
-                      <SheetClose asChild>
-                        <Button
-                          onClick={handleSignIn}
-                          className="w-full justify-start bg-plant-primary hover:bg-plant-primary/90"
-                        >
-                          Sign In
-                        </Button>
-                      </SheetClose>
-                    )}
-                  </div>
-                  <div className="flex flex-col gap-2 px-4 py-6">
-                    <SheetClose asChild>
-                      <Link to="/plant-catalog">
-                        <Button
-                          variant="ghost"
-                          className="w-full justify-start text-plant-text hover:text-plant-primary flex items-center space-x-2"
-                        >
-                          <BookOpen className="w-4 h-4 mr-2" />
-                          <span>Plant Catalog</span>
-                        </Button>
-                      </Link>
-                    </SheetClose>
-                    {user && (
-                      <SheetClose asChild>
-                        <Link to="/my-plants">
-                          <Button
-                            variant="ghost"
-                            className="w-full justify-start text-plant-text hover:text-plant-primary flex items-center space-x-2"
-                          >
-                            <Flower2 className="w-4 h-4 mr-2" />
-                            <span>My Plants</span>
-                          </Button>
-                        </Link>
-                      </SheetClose>
-                    )}
-                  </div>
-                </div>
-              </SheetContent>
-            </Sheet>
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-plant-text hover:text-plant-primary p-2"
+            >
+              {isMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden py-4 border-t border-plant-secondary/20">
+            <div className="flex flex-col space-y-4">
+              {filteredNavLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className={`text-plant-text hover:text-plant-primary transition-colors font-medium px-2 py-1 ${
+                    location.pathname === link.to ? "text-plant-primary" : ""
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+
+              {user ? (
+                <div className="pt-4 border-t border-plant-secondary/20">
+                  <div className="flex items-center space-x-3 px-2 pb-3">
+                    <UserAvatar
+                      firstName={profileData.first_name}
+                      lastName={profileData.last_name}
+                      avatarUrl={profileData.avatar_url}
+                      isLoading={isLoadingProfile}
+                      size="md"
+                    />
+                    <div>
+                      {profileData.first_name || profileData.last_name ? (
+                        <p className="font-medium">
+                          {profileData.first_name} {profileData.last_name}
+                        </p>
+                      ) : (
+                        <p className="font-medium">Plant Parent</p>
+                      )}
+                      <p className="text-sm text-plant-text/60">
+                        {user.email}
+                      </p>
+                    </div>
+                  </div>
+                  <Link
+                    to="/profile"
+                    className="flex items-center space-x-2 text-plant-text hover:text-plant-primary transition-colors px-2 py-2"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <Settings className="w-4 h-4" />
+                    <span>Profile</span>
+                  </Link>
+                  <button
+                    onClick={() => {
+                      handleSignOut();
+                      setIsMenuOpen(false);
+                    }}
+                    className="flex items-center space-x-2 text-plant-text hover:text-plant-primary transition-colors px-2 py-2 w-full text-left"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="pt-4 border-t border-plant-secondary/20">
+                  <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
+                    <Button
+                      variant="outline"
+                      className="w-full border-plant-primary text-plant-primary hover:bg-plant-primary hover:text-white"
+                    >
+                      Sign In
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

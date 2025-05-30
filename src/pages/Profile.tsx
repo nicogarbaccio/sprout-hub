@@ -1,3 +1,4 @@
+
 import React from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -8,21 +9,29 @@ import DangerZone from "@/components/profile/DangerZone";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useProfile } from "@/hooks/useProfile";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Profile = () => {
+  const { profileData: authProfileData, isLoadingProfile: authLoading } = useAuth();
   const {
     profileData,
     setProfileData,
     passwordData,
     setPasswordData,
     isLoading,
-    isLoadingProfile,
     handleUpdateProfile,
     handleChangePassword,
     handleDeleteAccount,
   } = useProfile();
 
-  if (isLoadingProfile) {
+  // Use auth profile data to initialize the profile form
+  React.useEffect(() => {
+    if (authProfileData && !isLoading) {
+      setProfileData(authProfileData);
+    }
+  }, [authProfileData, isLoading, setProfileData]);
+
+  if (authLoading) {
     return (
       <div className="min-h-screen bg-white font-poppins">
         <Navigation />
