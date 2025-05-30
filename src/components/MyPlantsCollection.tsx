@@ -1,16 +1,17 @@
-import { useState } from 'react';
-import { Plus, Edit } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import MyPlantCard from './MyPlantCard';
-import EditPlantDialog from './EditPlantDialog';
-import AddPlantDialog from './AddPlantDialog';
-import { useUserPlants } from '@/hooks/useUserPlants';
-import { useAuth } from '@/contexts/AuthContext';
+import { useState } from "react";
+import { Plus, Edit } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { MyPlantCardSkeleton, Skeleton } from "@/components/ui/skeleton";
+import MyPlantCard from "./MyPlantCard";
+import EditPlantDialog from "./EditPlantDialog";
+import AddPlantDialog from "./AddPlantDialog";
+import { useUserPlants, UserPlant } from "@/hooks/useUserPlants";
+import { useAuth } from "@/contexts/AuthContext";
 
 const MyPlantsCollection = () => {
   const { user } = useAuth();
   const { plants, loading, fetchPlants, waterPlant } = useUserPlants();
-  const [editingPlant, setEditingPlant] = useState<any>(null);
+  const [editingPlant, setEditingPlant] = useState<UserPlant | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
@@ -22,29 +23,47 @@ const MyPlantsCollection = () => {
     return (
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center py-20">
-            <div className="text-plant-text">Loading your plants...</div>
+          {/* Header Skeleton */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">
+            <div>
+              <Skeleton className="h-10 w-80 mb-4" />
+              <div className="flex flex-wrap gap-4">
+                <Skeleton className="h-6 w-20 rounded-full" />
+                <Skeleton className="h-6 w-24 rounded-full" />
+                <Skeleton className="h-6 w-28 rounded-full" />
+              </div>
+            </div>
+            <Skeleton className="h-10 w-36 rounded-xl mt-4 md:mt-0" />
+          </div>
+
+          {/* Plant Cards Grid Skeleton */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {Array.from({ length: 8 }).map((_, index) => (
+              <MyPlantCardSkeleton key={index} />
+            ))}
           </div>
         </div>
       </section>
     );
   }
 
-  const overdueCount = plants.filter(plant => {
+  const overdueCount = plants.filter((plant) => {
     if (!plant.days_since_watering || !plant.latest_watering) return false;
     const wateringSchedule = plant.suggested_watering_days || 7;
     return plant.days_since_watering > wateringSchedule;
   }).length;
 
-  const dueToday = plants.filter(plant => {
+  const dueToday = plants.filter((plant) => {
     if (!plant.days_since_watering || !plant.latest_watering) return false;
     const wateringSchedule = plant.suggested_watering_days || 7;
     return plant.days_since_watering >= wateringSchedule;
   }).length;
 
-  const unknownWateringCount = plants.filter(plant => !plant.latest_watering).length;
+  const unknownWateringCount = plants.filter(
+    (plant) => !plant.latest_watering
+  ).length;
 
-  const handleEditPlant = (plant: any) => {
+  const handleEditPlant = (plant: UserPlant) => {
     setEditingPlant(plant);
     setIsEditDialogOpen(true);
   };
@@ -67,27 +86,37 @@ const MyPlantsCollection = () => {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
     });
   };
 
-  const getNextWateringDate = (lastWatered: string | undefined, daysAgo: number | undefined, wateringSchedule: number) => {
+  const getNextWateringDate = (
+    lastWatered: string | undefined,
+    daysAgo: number | undefined,
+    wateringSchedule: number
+  ) => {
     if (!lastWatered || daysAgo === undefined) {
-      return 'Unknown';
+      return "Unknown";
     }
-    
+
     const lastWateredDate = new Date(lastWatered);
     const nextWatering = new Date(lastWateredDate);
     nextWatering.setDate(nextWatering.getDate() + wateringSchedule);
-    
+
     return formatDate(nextWatering.toISOString());
   };
 
-  const isOverdue = (daysAgo: number | undefined, wateringSchedule: number, hasLastWatered: boolean) => {
-    return hasLastWatered && daysAgo !== undefined && daysAgo > wateringSchedule;
+  const isOverdue = (
+    daysAgo: number | undefined,
+    wateringSchedule: number,
+    hasLastWatered: boolean
+  ) => {
+    return (
+      hasLastWatered && daysAgo !== undefined && daysAgo > wateringSchedule
+    );
   };
 
   return (
@@ -119,8 +148,8 @@ const MyPlantsCollection = () => {
               )}
             </div>
           </div>
-          
-          <Button 
+
+          <Button
             onClick={handleAddPlant}
             className="bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl mt-4 md:mt-0"
           >
@@ -128,15 +157,19 @@ const MyPlantsCollection = () => {
             Add New Plant
           </Button>
         </div>
-        
+
         {plants.length === 0 ? (
           <div className="text-center py-20">
             <div className="w-24 h-24 bg-plant-secondary/20 rounded-full flex items-center justify-center mx-auto mb-6">
               <Plus className="w-8 h-8 text-plant-primary" />
             </div>
-            <h3 className="text-xl font-semibold text-plant-text mb-2 font-poppins">Start Your Plant Journey</h3>
-            <p className="text-plant-text/60 mb-6">Add your first plant to begin tracking its care and growth.</p>
-            <Button 
+            <h3 className="text-xl font-semibold text-plant-text mb-2 font-poppins">
+              Start Your Plant Journey
+            </h3>
+            <p className="text-plant-text/60 mb-6">
+              Add your first plant to begin tracking its care and growth.
+            </p>
+            <Button
               onClick={handleAddPlant}
               className="bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl"
             >
@@ -154,11 +187,30 @@ const MyPlantsCollection = () => {
                   id={plant.id}
                   name={plant.nickname}
                   plantType={plant.plant_type}
-                  image={plant.image || 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=400&h=300&fit=crop'}
-                  lastWatered={plant.latest_watering ? formatDate(plant.latest_watering) : 'Unknown'}
-                  nextWateringDue={getNextWateringDate(plant.latest_watering, plant.days_since_watering, wateringSchedule)}
-                  isOverdue={isOverdue(plant.days_since_watering, wateringSchedule, hasLastWatered)}
-                  daysUntilWatering={plant.days_since_watering ? (wateringSchedule - plant.days_since_watering) : 0}
+                  image={
+                    plant.image ||
+                    "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=400&h=300&fit=crop"
+                  }
+                  lastWatered={
+                    plant.latest_watering
+                      ? formatDate(plant.latest_watering)
+                      : "Unknown"
+                  }
+                  nextWateringDue={getNextWateringDate(
+                    plant.latest_watering,
+                    plant.days_since_watering,
+                    wateringSchedule
+                  )}
+                  isOverdue={isOverdue(
+                    plant.days_since_watering,
+                    wateringSchedule,
+                    hasLastWatered
+                  )}
+                  daysUntilWatering={
+                    plant.days_since_watering
+                      ? wateringSchedule - plant.days_since_watering
+                      : 0
+                  }
                   hasUnknownWateringDate={!hasLastWatered}
                   onWater={() => waterPlant(plant.id)}
                   onEdit={() => handleEditPlant(plant)}

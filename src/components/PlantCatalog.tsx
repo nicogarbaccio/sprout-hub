@@ -18,11 +18,13 @@ import {
 interface PlantCatalogProps {
   isHomepage?: boolean;
   isDashboard?: boolean;
+  isLoading?: boolean;
 }
 
 const PlantCatalog = ({
   isHomepage = false,
   isDashboard = false,
+  isLoading = false,
 }: PlantCatalogProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -151,6 +153,7 @@ const PlantCatalog = ({
           onViewDetails={handleViewDetails}
           hasActiveFilters={hasActiveFilters}
           clearAllFilters={clearAllFilters}
+          isLoading={isLoading}
         />
 
         {isHomepage && (
