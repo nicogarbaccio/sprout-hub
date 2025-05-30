@@ -266,66 +266,69 @@ const AddPlantDialog = ({
                     value={plantTypeSearch}
                     onValueChange={setPlantTypeSearch}
                   />
-                  <CommandList
-                    className="max-h-[200px] overflow-y-auto"
+                  <div
+                    className="max-h-[200px] overflow-y-scroll"
                     style={{
                       maxHeight: "200px",
-                      overflowY: "auto",
+                      overflowY: "scroll",
                       overflowX: "hidden",
                     }}
                   >
-                    <CommandEmpty>No plants found.</CommandEmpty>
-                    <CommandGroup>
-                      {filteredPlantNames.map((type) => (
-                        <CommandItem
-                          key={type}
-                          value={type}
-                          onSelect={(currentValue) => {
-                            setFormData((prev) => ({
-                              ...prev,
-                              plant_type: currentValue,
-                            }));
-                            setIsCustomPlantType(false);
-                            setCustomPlantType("");
-                            setPlantTypeSearch("");
-                            setIsPlantTypePopoverOpen(false);
-                          }}
-                        >
-                          <Check
-                            className={cn(
-                              "mr-2 h-4 w-4",
-                              formData.plant_type === type
-                                ? "opacity-100"
-                                : "opacity-0"
-                            )}
-                          />
-                          {type}
-                        </CommandItem>
-                      ))}
-                      {plantTypeSearch &&
-                        !allPlantNames.some(
-                          (name) =>
-                            name.toLowerCase() === plantTypeSearch.toLowerCase()
-                        ) && (
+                    <CommandList>
+                      <CommandEmpty>No plants found.</CommandEmpty>
+                      <CommandGroup>
+                        {filteredPlantNames.map((type) => (
                           <CommandItem
-                            value={plantTypeSearch}
+                            key={type}
+                            value={type}
                             onSelect={(currentValue) => {
                               setFormData((prev) => ({
                                 ...prev,
                                 plant_type: currentValue,
                               }));
-                              setIsCustomPlantType(true);
-                              setCustomPlantType(currentValue);
+                              setIsCustomPlantType(false);
+                              setCustomPlantType("");
                               setPlantTypeSearch("");
                               setIsPlantTypePopoverOpen(false);
                             }}
                           >
-                            <Check className="mr-2 h-4 w-4 opacity-0" />
-                            Add "{plantTypeSearch}" as custom
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                formData.plant_type === type
+                                  ? "opacity-100"
+                                  : "opacity-0"
+                              )}
+                            />
+                            {type}
                           </CommandItem>
-                        )}
-                    </CommandGroup>
-                  </CommandList>
+                        ))}
+                        {plantTypeSearch &&
+                          !allPlantNames.some(
+                            (name) =>
+                              name.toLowerCase() ===
+                              plantTypeSearch.toLowerCase()
+                          ) && (
+                            <CommandItem
+                              value={plantTypeSearch}
+                              onSelect={(currentValue) => {
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  plant_type: currentValue,
+                                }));
+                                setIsCustomPlantType(true);
+                                setCustomPlantType(currentValue);
+                                setPlantTypeSearch("");
+                                setIsPlantTypePopoverOpen(false);
+                              }}
+                            >
+                              <Check className="mr-2 h-4 w-4 opacity-0" />
+                              Add "{plantTypeSearch}" as custom
+                            </CommandItem>
+                          )}
+                      </CommandGroup>
+                    </CommandList>
+                  </div>
                 </Command>
               </PopoverContent>
             </Popover>
