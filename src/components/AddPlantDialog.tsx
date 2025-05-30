@@ -30,7 +30,7 @@ import {
   CommandGroup,
   CommandEmpty,
 } from "@/components/ui/command";
-import { CalendarIcon, AlertTriangle, ChevronDown, Check } from "lucide-react";
+import { CalendarIcon, AlertTriangle, Check, ChevronDown } from "lucide-react";
 import { format } from "date-fns";
 import { useUserPlants } from "@/hooks/useUserPlants";
 import ImageUpload from "@/components/ui/image-upload";
@@ -75,6 +75,7 @@ const AddPlantDialog = ({
   const [isCustomPlantType, setIsCustomPlantType] = useState(false);
   const [customPlantType, setCustomPlantType] = useState("");
   const [plantTypeSearch, setPlantTypeSearch] = useState("");
+  const [isPlantTypePopoverOpen, setIsPlantTypePopoverOpen] = useState(false);
 
   // Reset form when dialog opens/closes or plant data changes
   useEffect(() => {
@@ -243,57 +244,91 @@ const AddPlantDialog = ({
             <Label htmlFor="plant_type" className="text-plant-text">
               Plant Type *
             </Label>
-            <div className="space-y-2">
-              <Input
-                placeholder="Search plant types..."
-                value={plantTypeSearch}
-                onChange={(e) => setPlantTypeSearch(e.target.value)}
-                className="border-plant-secondary/30 focus:border-plant-primary"
-              />
-              <Select
-                value={formData.plant_type}
-                onValueChange={(value) => {
-                  setFormData((prev) => ({
-                    ...prev,
-                    plant_type: value,
-                  }));
-                  // Check if it's a custom plant type
-                  if (
-                    plantTypeSearch &&
-                    !allPlantNames.some(
-                      (name) => name.toLowerCase() === value.toLowerCase()
-                    ) &&
-                    value === plantTypeSearch
-                  ) {
-                    setIsCustomPlantType(true);
-                    setCustomPlantType(value);
-                  } else {
-                    setIsCustomPlantType(false);
-                    setCustomPlantType("");
-                  }
-                }}
-              >
-                <SelectTrigger className="border-plant-secondary/30 focus:border-plant-primary">
-                  <SelectValue placeholder="Select plant type" />
-                </SelectTrigger>
-                <SelectContent className="max-h-60">
-                  {filteredPlantNames.map((type) => (
-                    <SelectItem key={type} value={type}>
-                      {type}
-                    </SelectItem>
-                  ))}
-                  {plantTypeSearch &&
-                    !allPlantNames.some(
-                      (name) =>
-                        name.toLowerCase() === plantTypeSearch.toLowerCase()
-                    ) && (
-                      <SelectItem value={plantTypeSearch}>
-                        Add "{plantTypeSearch}" as custom
-                      </SelectItem>
-                    )}
-                </SelectContent>
-              </Select>
-            </div>
+            <Popover
+              open={isPlantTypePopoverOpen}
+              onOpenChange={setIsPlantTypePopoverOpen}
+            >
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={isPlantTypePopoverOpen}
+                  className="w-full justify-between border-plant-secondary/30 focus:border-plant-primary"
+                >
+                  {formData.plant_type || "Search or select plant type..."}
+                  <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[--radix-popover-trigger-width] p-0 max-h-[300px] overflow-hidden">
+                <Command>
+                  <CommandInput
+                    placeholder="Search plant types..."
+                    value={plantTypeSearch}
+                    onValueChange={setPlantTypeSearch}
+                  />
+                  <CommandList
+                    className="max-h-[200px] overflow-y-auto"
+                    style={{
+                      maxHeight: "200px",
+                      overflowY: "auto",
+                      overflowX: "hidden",
+                    }}
+                  >
+                    <CommandEmpty>No plants found.</CommandEmpty>
+                    <CommandGroup>
+                      {filteredPlantNames.map((type) => (
+                        <CommandItem
+                          key={type}
+                          value={type}
+                          onSelect={(currentValue) => {
+                            setFormData((prev) => ({
+                              ...prev,
+                              plant_type: currentValue,
+                            }));
+                            setIsCustomPlantType(false);
+                            setCustomPlantType("");
+                            setPlantTypeSearch("");
+                            setIsPlantTypePopoverOpen(false);
+                          }}
+                        >
+                          <Check
+                            className={cn(
+                              "mr-2 h-4 w-4",
+                              formData.plant_type === type
+                                ? "opacity-100"
+                                : "opacity-0"
+                            )}
+                          />
+                          {type}
+                        </CommandItem>
+                      ))}
+                      {plantTypeSearch &&
+                        !allPlantNames.some(
+                          (name) =>
+                            name.toLowerCase() === plantTypeSearch.toLowerCase()
+                        ) && (
+                          <CommandItem
+                            value={plantTypeSearch}
+                            onSelect={(currentValue) => {
+                              setFormData((prev) => ({
+                                ...prev,
+                                plant_type: currentValue,
+                              }));
+                              setIsCustomPlantType(true);
+                              setCustomPlantType(currentValue);
+                              setPlantTypeSearch("");
+                              setIsPlantTypePopoverOpen(false);
+                            }}
+                          >
+                            <Check className="mr-2 h-4 w-4 opacity-0" />
+                            Add "{plantTypeSearch}" as custom
+                          </CommandItem>
+                        )}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
             {/* Show custom plant type input if a custom type is selected */}
             {isCustomPlantType && (
               <div className="space-y-2">
