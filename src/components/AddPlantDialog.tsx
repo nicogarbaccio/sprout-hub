@@ -121,6 +121,23 @@ const AddPlantDialog = ({
     }
   }, [isOpen, plantData]);
 
+  // Click outside to close dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isPlantTypePopoverOpen) {
+        const target = event.target as Element;
+        if (!target.closest(".plant-type-dropdown")) {
+          setIsPlantTypePopoverOpen(false);
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isPlantTypePopoverOpen]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -244,94 +261,99 @@ const AddPlantDialog = ({
             <Label htmlFor="plant_type" className="text-plant-text">
               Plant Type *
             </Label>
-            <Popover
-              open={isPlantTypePopoverOpen}
-              onOpenChange={setIsPlantTypePopoverOpen}
-            >
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  role="combobox"
-                  aria-expanded={isPlantTypePopoverOpen}
-                  className="w-full justify-between border-plant-secondary/30 focus:border-plant-primary"
-                >
-                  {formData.plant_type || "Search or select plant type..."}
-                  <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
-                <div className="border-b p-2">
-                  <Input
-                    placeholder="Search plant types..."
-                    value={plantTypeSearch}
-                    onChange={(e) => setPlantTypeSearch(e.target.value)}
-                    className="border-0 focus:ring-0 focus:outline-none"
-                  />
-                </div>
-                <div
-                  className="max-h-[200px] overflow-y-scroll p-1"
-                  style={{
-                    maxHeight: "200px",
-                    overflowY: "scroll",
-                  }}
-                >
-                  {filteredPlantNames.length === 0 ? (
-                    <div className="px-2 py-3 text-sm text-muted-foreground text-center">
-                      No plants found.
+            <div className="relative plant-type-dropdown">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() =>
+                  setIsPlantTypePopoverOpen(!isPlantTypePopoverOpen)
+                }
+                className="w-full justify-between border-plant-secondary/30 focus:border-plant-primary"
+              >
+                {formData.plant_type || "Search or select plant type..."}
+                <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              </Button>
+              {isPlantTypePopoverOpen && (
+                <div className="absolute top-full left-0 right-0 z-50 bg-white border border-gray-200 rounded-md shadow-lg mt-1">
+                  <div className="border-b p-2">
+                    <Input
+                      placeholder="Search plant types..."
+                      value={plantTypeSearch}
+                      onChange={(e) => setPlantTypeSearch(e.target.value)}
+                      className="border-0 focus:ring-0 focus:outline-none"
+                      autoFocus
+                    />
+                  </div>
+                  <div
+                    className="max-h-[200px] overflow-y-scroll p-1 bg-white border-2 border-red-200"
+                    style={{
+                      maxHeight: "200px",
+                      overflowY: "scroll",
+                      scrollbarWidth: "thin",
+                    }}
+                  >
+                    <div className="text-xs text-red-500 mb-1">
+                      Items: {filteredPlantNames.length} (Should scroll if more
+                      than ~8)
                     </div>
-                  ) : (
-                    filteredPlantNames.map((type) => (
-                      <div
-                        key={type}
-                        className="flex items-center px-2 py-2 text-sm cursor-pointer hover:bg-accent rounded-sm"
-                        onClick={() => {
-                          setFormData((prev) => ({
-                            ...prev,
-                            plant_type: type,
-                          }));
-                          setIsCustomPlantType(false);
-                          setCustomPlantType("");
-                          setPlantTypeSearch("");
-                          setIsPlantTypePopoverOpen(false);
-                        }}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            formData.plant_type === type
-                              ? "opacity-100"
-                              : "opacity-0"
-                          )}
-                        />
-                        {type}
+                    {filteredPlantNames.length === 0 ? (
+                      <div className="px-2 py-3 text-sm text-muted-foreground text-center">
+                        No plants found.
                       </div>
-                    ))
-                  )}
-                  {plantTypeSearch &&
-                    !allPlantNames.some(
-                      (name) =>
-                        name.toLowerCase() === plantTypeSearch.toLowerCase()
-                    ) && (
-                      <div
-                        className="flex items-center px-2 py-2 text-sm cursor-pointer hover:bg-accent rounded-sm"
-                        onClick={() => {
-                          setFormData((prev) => ({
-                            ...prev,
-                            plant_type: plantTypeSearch,
-                          }));
-                          setIsCustomPlantType(true);
-                          setCustomPlantType(plantTypeSearch);
-                          setPlantTypeSearch("");
-                          setIsPlantTypePopoverOpen(false);
-                        }}
-                      >
-                        <Check className="mr-2 h-4 w-4 opacity-0" />
-                        Add "{plantTypeSearch}" as custom
-                      </div>
+                    ) : (
+                      filteredPlantNames.map((type) => (
+                        <div
+                          key={type}
+                          className="flex items-center px-2 py-2 text-sm cursor-pointer hover:bg-gray-100 rounded-sm"
+                          onClick={() => {
+                            setFormData((prev) => ({
+                              ...prev,
+                              plant_type: type,
+                            }));
+                            setIsCustomPlantType(false);
+                            setCustomPlantType("");
+                            setPlantTypeSearch("");
+                            setIsPlantTypePopoverOpen(false);
+                          }}
+                        >
+                          <Check
+                            className={cn(
+                              "mr-2 h-4 w-4",
+                              formData.plant_type === type
+                                ? "opacity-100"
+                                : "opacity-0"
+                            )}
+                          />
+                          {type}
+                        </div>
+                      ))
                     )}
+                    {plantTypeSearch &&
+                      !allPlantNames.some(
+                        (name) =>
+                          name.toLowerCase() === plantTypeSearch.toLowerCase()
+                      ) && (
+                        <div
+                          className="flex items-center px-2 py-2 text-sm cursor-pointer hover:bg-gray-100 rounded-sm"
+                          onClick={() => {
+                            setFormData((prev) => ({
+                              ...prev,
+                              plant_type: plantTypeSearch,
+                            }));
+                            setIsCustomPlantType(true);
+                            setCustomPlantType(plantTypeSearch);
+                            setPlantTypeSearch("");
+                            setIsPlantTypePopoverOpen(false);
+                          }}
+                        >
+                          <Check className="mr-2 h-4 w-4 opacity-0" />
+                          Add "{plantTypeSearch}" as custom
+                        </div>
+                      )}
+                  </div>
                 </div>
-              </PopoverContent>
-            </Popover>
+              )}
+            </div>
             {/* Show custom plant type input if a custom type is selected */}
             {isCustomPlantType && (
               <div className="space-y-2">
