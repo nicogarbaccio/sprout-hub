@@ -53,7 +53,7 @@ const Navigation = () => {
   });
 
   return (
-    <nav className="bg-white border-b border-plant-secondary/20 fixed w-full top-0 z-50">
+    <nav className="bg-white/95 backdrop-blur-sm border-b border-plant-secondary/20 fixed w-full top-0 z-[100] shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
@@ -95,7 +95,7 @@ const Navigation = () => {
                     />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuContent className="w-56 bg-white border border-gray-200 shadow-lg z-[200]" align="end" forceMount>
                   <div className="flex items-center justify-start gap-2 p-2">
                     <div className="flex flex-col space-y-1 leading-none">
                       {profileData.first_name || profileData.last_name ? (
@@ -158,7 +158,7 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-plant-secondary/20">
+          <div className="md:hidden py-4 border-t border-plant-secondary/20 bg-white/95 backdrop-blur-sm">
             <div className="flex flex-col space-y-4">
               {filteredNavLinks.map((link) => (
                 <Link
