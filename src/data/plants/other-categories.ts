@@ -1,3 +1,4 @@
+
 import { Plant } from '../types';
 
 export const otherPlants: Plant[] = [
@@ -40,16 +41,6 @@ export const otherPlants: Plant[] = [
     lightRequirement: 'Medium Light',
     careLevel: 'Hard' as const,
     category: 'Prayer Plants'
-  },
-  {
-    name: 'Croton',
-    botanicalName: 'Codiaeum variegatum',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539699/croton-plant-basket-codiaeum-variegatum-pictum-PL01301.425_pqloj9.jpg',
-    wateringFrequency: 'Weekly',
-    suggestedWateringDays: 7,
-    lightRequirement: 'Bright Direct Light',
-    careLevel: 'Medium' as const,
-    category: 'Colorful Foliage'
   },
   {
     name: 'Majesty Palm',
@@ -234,33 +225,6 @@ export const otherPlants: Plant[] = [
       'Fading colors: Needs brighter indirect light',
       'Brown leaf edges: Low humidity or fluoride sensitivity',
       'Dormancy: Natural cycle, reduce watering'
-    ]
-  },
-  {
-    name: 'Rubber Plant',
-    botanicalName: 'Ficus elastica',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
-    wateringFrequency: 'Weekly',
-    suggestedWateringDays: 7,
-    lightRequirement: 'Bright Indirect Light',
-    careLevel: 'Easy' as const,
-    category: 'Low Maintenance',
-    description: 'A classic houseplant with thick, glossy leaves. The Rubber Plant is very forgiving and can tolerate some neglect while still looking beautiful.',
-    toxicity: 'Mildly toxic to pets',
-    temperature: '65-75°F (18-24°C)',
-    humidity: '40-50%',
-    careInstructions: [
-      'Water when top inch of soil feels dry',
-      'Wipe leaves with damp cloth to maintain shine',
-      'Provide bright, indirect light',
-      'Rotate occasionally for even growth',
-      'Prune to control size and shape'
-    ],
-    commonProblems: [
-      'Leaf drop: Usually from overwatering or environmental stress',
-      'Brown leaf tips: Low humidity or fluoride in water',
-      'Leggy growth: Needs more light or occasional pruning',
-      'Dull leaves: Regular cleaning needed'
     ]
   },
   {
