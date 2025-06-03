@@ -1,3 +1,4 @@
+
 import { Plant } from '../types';
 
 export const tropicalPlants: Plant[] = [
@@ -50,5 +51,86 @@ export const tropicalPlants: Plant[] = [
     lightRequirement: 'Medium Light',
     careLevel: 'Easy' as const,
     category: 'Tropical Plants'
+  },
+  {
+    name: 'Philodendron Brasil',
+    botanicalName: 'Philodendron hederaceum',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Medium Light',
+    careLevel: 'Easy' as const,
+    category: 'Tropical Plants',
+    description: 'A stunning variegated philodendron with heart-shaped leaves featuring bright yellow and green patterns. Fast-growing and easy to care for.',
+    toxicity: 'Toxic to pets if ingested',
+    temperature: '65-78°F (18-26°C)',
+    humidity: '40-60%',
+    careInstructions: [
+      'Water when top inch of soil feels dry',
+      'Provide medium to bright indirect light',
+      'Wipe leaves clean regularly',
+      'Provide climbing support for best growth',
+      'Propagate easily in water'
+    ],
+    commonProblems: [
+      'Loss of variegation: Needs more bright light',
+      'Yellowing leaves: Usually overwatering',
+      'Leggy growth: Needs more light or pruning',
+      'Brown leaf tips: Low humidity or fluoride sensitivity'
+    ]
+  },
+  {
+    name: 'Kentia Palm',
+    botanicalName: 'Howea forsteriana',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Medium Light',
+    careLevel: 'Easy' as const,
+    category: 'Tropical Plants',
+    description: 'An elegant palm with arching fronds that adds a tropical feel to any space. Very tolerant of indoor conditions and low light.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '65-80°F (18-27°C)',
+    humidity: '40-50%',
+    careInstructions: [
+      'Water when top inch of soil is dry',
+      'Provide medium to bright indirect light',
+      'Clean fronds with damp cloth monthly',
+      'Rotate occasionally for even growth',
+      'Fertilize monthly during growing season'
+    ],
+    commonProblems: [
+      'Brown frond tips: Low humidity or over-fertilizing',
+      'Yellow fronds: Natural aging or overwatering',
+      'Scale insects: Common pest, treat promptly',
+      'Slow growth: Normal for this species'
+    ]
+  },
+  {
+    name: 'Banana Plant',
+    botanicalName: 'Musa acuminata',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 5,
+    lightRequirement: 'Bright Direct Light',
+    careLevel: 'Hard' as const,
+    category: 'Tropical Plants',
+    description: 'A dramatic tropical plant with large paddle-shaped leaves. Can produce small bananas indoors with proper care and sufficient light.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '75-85°F (24-29°C)',
+    humidity: '60-70%',
+    careInstructions: [
+      'Keep soil consistently moist but not waterlogged',
+      'Provide maximum bright light (6+ hours)',
+      'Maintain high humidity with humidifier',
+      'Fertilize regularly during growing season',
+      'Remove damaged leaves promptly'
+    ],
+    commonProblems: [
+      'Brown leaf edges: Low humidity or fluoride sensitivity',
+      'Yellowing leaves: Natural aging or inconsistent watering',
+      'Pest issues: Spider mites in low humidity',
+      'Slow growth: Needs more light, heat, or nutrients'
+    ]
   }
 ];
