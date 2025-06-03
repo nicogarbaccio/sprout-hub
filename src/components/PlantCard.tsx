@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Droplets, Sun, Clock, Plus, Eye } from "lucide-react";
+import PlantImage from "@/components/ui/plant-image";
 
 interface PlantCardProps {
   name: string;
@@ -43,10 +44,10 @@ const PlantCard = ({
       data-testid="plant-card"
     >
       <div className="relative">
-        <img
+        <PlantImage
           src={image}
           alt={name}
-          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-48 group-hover:scale-105 transition-transform duration-300"
         />
         <div className="absolute top-3 right-3">
           <span

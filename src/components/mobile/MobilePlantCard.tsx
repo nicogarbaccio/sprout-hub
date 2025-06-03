@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { useSwipe, useHaptic } from "@/hooks/use-touch";
 import { cn } from "@/lib/utils";
+import PlantImage from "@/components/ui/plant-image";
 
 interface MobilePlantCardProps {
   plant: {
@@ -193,14 +194,14 @@ export function MobilePlantCard({
             <div className="flex-shrink-0">
               <div className="w-16 h-16 rounded-lg bg-gray-100 overflow-hidden">
                 {plant.image_url ? (
-                  <img
+                  <PlantImage
                     src={plant.image_url}
                     alt={plant.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full"
                   />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
-                    <div className="w-8 h-8 rounded-full bg-green-500" />
+                    <Sun className="w-8 h-8 text-green-500" />
                   </div>
                 )}
               </div>

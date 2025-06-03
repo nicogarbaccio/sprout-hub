@@ -29,6 +29,7 @@ import {
 import { useUserPlants } from "@/hooks/useUserPlants";
 import { useProfile } from "@/hooks/useProfile";
 import AddPlantDialog from "./AddPlantDialog";
+import PlantImage from "@/components/ui/plant-image";
 import { format, formatDistanceToNow } from "date-fns";
 
 const Dashboard = () => {
@@ -390,7 +391,7 @@ const Dashboard = () => {
                         className="flex items-center justify-between p-3 bg-plant-neutral rounded-lg"
                       >
                         <div className="flex items-center space-x-3">
-                          <img
+                          <PlantImage
                             src={
                               plant.image ||
                               "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=60&h=60&fit=crop"
@@ -467,7 +468,7 @@ const Dashboard = () => {
                       key={plant.id}
                       className="flex items-center space-x-3 p-3 bg-plant-neutral rounded-lg"
                     >
-                      <img
+                      <PlantImage
                         src={
                           plant.image ||
                           "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=40&h=40&fit=crop"
@@ -617,7 +618,7 @@ const Dashboard = () => {
                 {favoritePlants.map((plant) => (
                   <div key={plant.id} className="group cursor-pointer">
                     <div className="aspect-square bg-plant-neutral rounded-lg overflow-hidden mb-2">
-                      <img
+                      <PlantImage
                         src={
                           plant.image ||
                           "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=200&h=200&fit=crop"

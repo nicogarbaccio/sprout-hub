@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Droplets, AlertTriangle, Edit } from "lucide-react";
+import PlantImage from "@/components/ui/plant-image";
 
 interface MyPlantCardProps {
   id: string;
@@ -47,7 +48,7 @@ const MyPlantCard = ({
   return (
     <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden">
       <div className="relative">
-        <img src={image} alt={name} className="w-full h-40 object-cover" />
+        <PlantImage src={image} alt={name} className="w-full h-40" />
         <div className="absolute top-3 right-3">
           <span
             className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor()}`}

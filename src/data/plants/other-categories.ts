@@ -1,4 +1,3 @@
-
 import { Plant } from '../types';
 
 export const otherPlants: Plant[] = [
