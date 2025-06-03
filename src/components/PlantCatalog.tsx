@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -6,7 +6,12 @@ import PlantCatalogHeader from "./catalog/PlantCatalogHeader";
 import PlantSearchFilters from "./catalog/PlantSearchFilters";
 import PlantResultsSummary from "./catalog/PlantResultsSummary";
 import PlantGrid from "./catalog/PlantGrid";
+import PaginationControls from "./catalog/PaginationControls";
 import AddPlantDialog from "./AddPlantDialog";
+import { usePaginationUrl } from "@/hooks/usePaginationUrl";
+import { useKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
+import { useScrollToTop } from "@/hooks/useScrollToTop";
+import { useDebounce } from "@/hooks/useDebounce";
 import {
   plants,
   getUniqueCategories,
@@ -36,6 +41,17 @@ const PlantCatalog = ({
   const [selectedCareLevel, setSelectedCareLevel] = useState("all");
   const [selectedLightRequirement, setSelectedLightRequirement] =
     useState("all");
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 24;
+
+  // Loading states for better UX
+  const [isChangingPage, setIsChangingPage] = useState(false);
+
+  // Debounced search to prevent excessive filtering
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
   const navigate = useNavigate();
 
   // Get unique values for filter options
@@ -46,8 +62,10 @@ const PlantCatalog = ({
   // Filter plants based on all criteria
   let filteredPlants = plants.filter((plant) => {
     const matchesSearch =
-      plant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      plant.botanicalName.toLowerCase().includes(searchTerm.toLowerCase());
+      plant.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+      plant.botanicalName
+        .toLowerCase()
+        .includes(debouncedSearchTerm.toLowerCase());
     const matchesCategory =
       selectedCategory === "all" || plant.category === selectedCategory;
     const matchesCareLevel =
@@ -64,10 +82,92 @@ const PlantCatalog = ({
     a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
   );
 
-  // Limit plants on homepage to show only 4-5 rows (16-20 plants)
+  // Calculate pagination values
+  const totalPages = Math.ceil(filteredPlants.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+
+  // Reset to page 1 when filters change (use debounced search term)
+  useEffect(() => {
+    setCurrentPage(1);
+    // Also reset URL for non-homepage
+    if (!isHomepage && urlPagination) {
+      urlPagination.handleResetToFirstPage();
+    }
+  }, [
+    debouncedSearchTerm,
+    selectedCategory,
+    selectedCareLevel,
+    selectedLightRequirement,
+    isHomepage,
+  ]);
+
+  // Get plants for current page or homepage display
   const displayedPlants = isHomepage
-    ? filteredPlants.slice(0, 16)
-    : filteredPlants;
+    ? filteredPlants.slice(0, 16) // Homepage shows first 16 plants
+    : filteredPlants.slice(startIndex, endIndex); // Catalog shows 24 per page
+
+  // Enhanced pagination handlers with loading states
+  const handlePageChange = async (page: number) => {
+    if (!isHomepage) {
+      setIsChangingPage(true);
+    }
+
+    setCurrentPage(page);
+
+    // Small delay to show loading state
+    if (!isHomepage) {
+      setTimeout(() => setIsChangingPage(false), 200);
+    }
+  };
+
+  const handleNextPage = async () => {
+    if (currentPage < totalPages) {
+      await handlePageChange(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = async () => {
+    if (currentPage > 1) {
+      await handlePageChange(currentPage - 1);
+    }
+  };
+
+  // URL synchronization (only for full catalog, not homepage)
+  const urlPagination = usePaginationUrl({
+    currentPage: currentPage,
+    onPageChange: handlePageChange,
+    resetToFirstPage: () => setCurrentPage(1),
+  });
+
+  // Use URL-aware handlers for non-homepage
+  const paginationHandlers = isHomepage
+    ? {
+        onPageChange: handlePageChange,
+        onNextPage: handleNextPage,
+        onPreviousPage: handlePreviousPage,
+      }
+    : {
+        onPageChange: urlPagination.handlePageChange,
+        onNextPage: urlPagination.handleNextPage,
+        onPreviousPage: urlPagination.handlePreviousPage,
+      };
+
+  // Add keyboard navigation for non-homepage
+  useKeyboardNavigation({
+    onNextPage: paginationHandlers.onNextPage,
+    onPreviousPage: paginationHandlers.onPreviousPage,
+    hasNextPage: currentPage < totalPages,
+    hasPreviousPage: currentPage > 1,
+    isEnabled: !isHomepage && !isLoading,
+  });
+
+  // Auto-scroll to top on page change
+  useScrollToTop({
+    currentPage,
+    isEnabled: !isHomepage,
+    offset: 100,
+  });
 
   const handleViewDetails = (plantName: string) => {
     const plantPath = plantName.toLowerCase().replace(/\s+/g, "-");
@@ -89,6 +189,10 @@ const PlantCatalog = ({
     setSelectedCareLevel("all");
     setSelectedLightRequirement("all");
     setSearchTerm("");
+    // Reset pagination when clearing filters
+    if (!isHomepage) {
+      urlPagination.handleResetToFirstPage();
+    }
   };
 
   const hasActiveFilters =
@@ -100,6 +204,10 @@ const PlantCatalog = ({
   const handleViewAllPlants = () => {
     navigate("/plant-catalog");
   };
+
+  // Calculate display info for results summary
+  const startItem = filteredPlants.length === 0 ? 0 : startIndex + 1;
+  const endItem = Math.min(endIndex, filteredPlants.length);
 
   return (
     <section
@@ -143,6 +251,9 @@ const PlantCatalog = ({
               filteredCount={filteredPlants.length}
               totalCount={plants.length}
               hasActiveFilters={hasActiveFilters}
+              startItem={startItem}
+              endItem={endItem}
+              isPaginated={true}
             />
           </>
         )}
@@ -154,7 +265,23 @@ const PlantCatalog = ({
           hasActiveFilters={hasActiveFilters}
           clearAllFilters={clearAllFilters}
           isLoading={isLoading}
+          isChangingPage={isChangingPage}
         />
+
+        {/* Pagination Controls - Only show on full catalog page */}
+        {!isHomepage && totalPages > 1 && (
+          <PaginationControls
+            currentPage={currentPage}
+            totalPages={totalPages}
+            hasNextPage={currentPage < totalPages}
+            hasPreviousPage={currentPage > 1}
+            isChangingPage={isChangingPage}
+            onPageChange={paginationHandlers.onPageChange}
+            onNextPage={paginationHandlers.onNextPage}
+            onPreviousPage={paginationHandlers.onPreviousPage}
+            className="mt-12"
+          />
+        )}
 
         {isHomepage && (
           <div className="flex justify-center mt-12">

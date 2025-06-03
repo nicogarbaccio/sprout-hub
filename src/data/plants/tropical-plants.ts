@@ -134,33 +134,6 @@ export const tropicalPlants: Plant[] = [
     ]
   },
   {
-    name: 'Rubber Tree',
-    botanicalName: 'Ficus elastica',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
-    wateringFrequency: 'Weekly',
-    suggestedWateringDays: 7,
-    lightRequirement: 'Bright Indirect Light',
-    careLevel: 'Easy' as const,
-    category: 'Tropical Plants',
-    description: 'A popular houseplant with large, glossy leaves. The Rubber Tree is forgiving and can grow quite large indoors with proper care.',
-    toxicity: 'Mildly toxic to pets',
-    temperature: '65-75°F (18-24°C)',
-    humidity: '40-50%',
-    careInstructions: [
-      'Water when top inch of soil is dry',
-      'Wipe leaves regularly to keep them glossy',
-      'Provide bright, indirect light',
-      'Rotate occasionally for even growth',
-      'Prune to maintain desired size and shape'
-    ],
-    commonProblems: [
-      'Leaf drop: Usually from overwatering or sudden changes',
-      'Brown leaf tips: Low humidity or fluoride sensitivity',
-      'Leggy growth: Needs more light or pruning',
-      'Dull leaves: Need regular cleaning'
-    ]
-  },
-  {
     name: 'Fiddle Leaf Fig',
     botanicalName: 'Ficus lyrata',
     image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
