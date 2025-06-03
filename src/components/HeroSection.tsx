@@ -31,11 +31,13 @@ const HeroSection = () => {
             <div className="bg-white rounded-3xl shadow-xl p-8 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-plant-secondary/5 to-plant-primary/5 rounded-3xl"></div>
               <div className="relative">
-                <img
-                  src="https://res.cloudinary.com/dojdglovh/image/upload/v1748914784/ChatGPT_Image_Jun_2_2025_09_38_59_PM_p5udwo.png"
-                  alt="Beautiful plants collection"
-                  className="w-full h-64 object-cover rounded-2xl mb-6"
-                />
+                <div className="w-full min-h-64 max-h-96 mb-6 bg-plant-neutral/20 rounded-2xl flex items-center justify-center">
+                  <img
+                    src="/lovable-uploads/1d39d91d-a402-4e8d-8c9f-fe034006f89f.png"
+                    alt="Person watering plants illustration"
+                    className="w-full h-full object-contain rounded-2xl"
+                  />
+                </div>
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
                     <div className="w-10 h-10 bg-plant-secondary/20 rounded-full flex items-center justify-center">
