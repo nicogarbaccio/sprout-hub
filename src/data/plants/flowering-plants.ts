@@ -176,5 +176,167 @@ export const floweringPlants: Plant[] = [
       'Leggy growth: Pinch regularly and provide adequate light',
       'Dropping buds: Usually from stress or sudden changes'
     ]
+  },
+  {
+    name: 'Orchid',
+    botanicalName: 'Phalaenopsis species',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Hard' as const,
+    category: 'Flowering Plants',
+    description: 'Elegant flowering plants with long-lasting blooms. Phalaenopsis orchids are among the easiest orchids to grow indoors.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '65-80°F (18-27°C)',
+    humidity: '50-70%',
+    careInstructions: [
+      'Water weekly with ice cubes or room temperature water',
+      'Use orchid bark mix for potting',
+      'Provide bright, indirect light',
+      'Maintain high humidity around plant',
+      'Fertilize monthly with orchid fertilizer'
+    ],
+    commonProblems: [
+      'Crown rot: Avoid getting water in the center',
+      'Root rot: Ensure excellent drainage',
+      'Lack of blooms: May need temperature variation',
+      'Yellowing leaves: Natural aging or overwatering'
+    ]
+  },
+  {
+    name: 'Flowering Maple',
+    botanicalName: 'Abutilon pictum',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Bright Direct Light',
+    careLevel: 'Medium' as const,
+    category: 'Flowering Plants',
+    description: 'A fast-growing plant with maple-like leaves and bell-shaped flowers in various colors. Blooms almost year-round with proper care.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '40-50%',
+    careInstructions: [
+      'Keep soil consistently moist during growing season',
+      'Provide bright light for best flowering',
+      'Pinch growing tips to encourage bushiness',
+      'Fertilize every 2-3 weeks during blooming',
+      'Prune to maintain desired size'
+    ],
+    commonProblems: [
+      'Lack of flowers: Usually insufficient light',
+      'Leggy growth: Pinch regularly and provide more light',
+      'Yellowing leaves: Natural aging or overwatering',
+      'Pest issues: Watch for whiteflies and aphids'
+    ]
+  },
+  {
+    name: 'Hibiscus',
+    botanicalName: 'Hibiscus rosa-sinensis',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 5,
+    lightRequirement: 'Bright Direct Light',
+    careLevel: 'Medium' as const,
+    category: 'Flowering Plants',
+    description: 'Tropical flowering shrub with large, showy blooms. Individual flowers last only a day but new ones appear regularly.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '65-80°F (18-27°C)',
+    humidity: '50-60%',
+    careInstructions: [
+      'Keep soil consistently moist but well-draining',
+      'Provide at least 6 hours of direct sunlight',
+      'Fertilize regularly during growing season',
+      'Prune to maintain shape and encourage blooming',
+      'Maintain high humidity around the plant'
+    ],
+    commonProblems: [
+      'Lack of flowers: Usually insufficient light',
+      'Bud drop: From stress or environmental changes',
+      'Yellow leaves: Normal aging or inconsistent watering',
+      'Pest issues: Watch for aphids and spider mites'
+    ]
+  },
+  {
+    name: 'Bougainvillea',
+    botanicalName: 'Bougainvillea spectabilis',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Bright Direct Light',
+    careLevel: 'Medium' as const,
+    category: 'Flowering Plants',
+    description: 'Vibrant climbing plant with colorful bracts that surround small white flowers. Thorny but spectacular when in bloom.',
+    toxicity: 'Mildly toxic to pets',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '40-50%',
+    careInstructions: [
+      'Allow soil to dry slightly between waterings',
+      'Provide maximum direct sunlight',
+      'Prune after flowering to maintain shape',
+      'Support climbing growth with trellis',
+      'Fertilize monthly during growing season'
+    ],
+    commonProblems: [
+      'Lack of color: Needs more direct sunlight',
+      'Thorns: Handle with gloves when pruning',
+      'Leggy growth: Prune regularly to maintain shape',
+      'Leaf drop: Usually from environmental stress'
+    ]
+  },
+  {
+    name: 'Crown of Thorns',
+    botanicalName: 'Euphorbia milii',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 10,
+    lightRequirement: 'Bright Direct Light',
+    careLevel: 'Medium' as const,
+    category: 'Flowering Plants',
+    description: 'A thorny succulent that produces small, colorful bracts year-round. Very drought tolerant and blooms continuously with proper care.',
+    toxicity: 'Toxic to pets and humans - sap causes skin irritation',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '30-40%',
+    careInstructions: [
+      'Water when top inch of soil is dry',
+      'Provide at least 4 hours of direct sunlight',
+      'Handle with gloves due to thorns and toxic sap',
+      'Deadhead spent bracts to encourage more blooms',
+      'Use well-draining succulent potting mix'
+    ],
+    commonProblems: [
+      'Lack of flowers: Usually insufficient light',
+      'Leaf drop: Natural response to stress',
+      'Skin irritation: Always wear gloves when handling',
+      'Root rot: From overwatering in cool conditions'
+    ]
+  },
+  {
+    name: 'Pentas',
+    botanicalName: 'Pentas lanceolata',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Bright Direct Light',
+    careLevel: 'Easy' as const,
+    category: 'Flowering Plants',
+    description: 'Star-shaped flowers in clusters that bloom continuously. Easy to care for and attracts butterflies when placed outdoors.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '40-50%',
+    careInstructions: [
+      'Keep soil consistently moist but well-draining',
+      'Provide bright, direct sunlight',
+      'Deadhead spent flowers regularly',
+      'Pinch growing tips to encourage bushiness',
+      'Fertilize every 2-3 weeks during blooming season'
+    ],
+    commonProblems: [
+      'Lack of flowers: Usually insufficient light',
+      'Leggy growth: Pinch regularly and provide more light',
+      'Wilting: Usually needs more water',
+      'Pest issues: Watch for aphids and whiteflies'
+    ]
   }
 ];

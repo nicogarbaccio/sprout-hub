@@ -196,5 +196,113 @@ export const succulents: Plant[] = [
       'Stem rot: From overwatering in cool conditions',
       'Skin irritation: Always wear gloves when handling'
     ]
+  },
+  {
+    name: 'Zebra Plant',
+    botanicalName: 'Haworthia fasciata',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Bi-weekly',
+    suggestedWateringDays: 14,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Easy' as const,
+    category: 'Succulents',
+    description: 'A small succulent with distinctive white stripes on dark green leaves. Perfect for beginners and produces small white flowers.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '65-80°F (18-27°C)',
+    humidity: '30-40%',
+    careInstructions: [
+      'Water when soil is dry to touch',
+      'Provide bright, indirect light',
+      'Use well-draining succulent soil',
+      'Remove flower stalks after blooming',
+      'Propagate from offsets'
+    ],
+    commonProblems: [
+      'Root rot: From overwatering',
+      'Stretching: Needs more light',
+      'Brown tips: Usually low humidity or poor water quality',
+      'Slow growth: Normal for small succulents'
+    ]
+  },
+  {
+    name: 'Paddle Plant',
+    botanicalName: 'Kalanchoe thyrsiflora',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Bi-weekly',
+    suggestedWateringDays: 14,
+    lightRequirement: 'Bright Direct Light',
+    careLevel: 'Easy' as const,
+    category: 'Succulents',
+    description: 'A striking succulent with large, flat, paddle-shaped leaves that develop red edges in bright light. Also called Flapjack Plant.',
+    toxicity: 'Toxic to pets if ingested',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '30-40%',
+    careInstructions: [
+      'Water when soil is completely dry',
+      'Provide bright, direct sunlight for red coloring',
+      'Use well-draining succulent mix',
+      'Remove flower stalk to preserve plant energy',
+      'Propagate from leaf cuttings'
+    ],
+    commonProblems: [
+      'Green color (no red): Needs more direct sunlight',
+      'Overwatering: Can cause root rot',
+      'Stretching: Insufficient light',
+      'Dying after flowering: Natural lifecycle, propagate before'
+    ]
+  },
+  {
+    name: 'String of Buttons',
+    botanicalName: 'Crassula perforata',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Bi-weekly',
+    suggestedWateringDays: 14,
+    lightRequirement: 'Bright Direct Light',
+    careLevel: 'Easy' as const,
+    category: 'Succulents',
+    description: 'An unusual succulent where triangular leaves appear to be threaded on the stem like buttons. Forms interesting geometric patterns.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '30-40%',
+    careInstructions: [
+      'Water thoroughly when soil is dry',
+      'Provide bright, direct light',
+      'Use well-draining succulent soil',
+      'Pinch growing tips to encourage branching',
+      'Easy to propagate from stem cuttings'
+    ],
+    commonProblems: [
+      'Stretching: Needs more bright light',
+      'Overwatering: Watch for soft, mushy stems',
+      'Leggy growth: Pinch tips regularly',
+      'Slow growth: Normal for this species'
+    ]
+  },
+  {
+    name: 'Ghost Plant',
+    botanicalName: 'Graptopetalum paraguayense',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Bi-weekly',
+    suggestedWateringDays: 14,
+    lightRequirement: 'Bright Direct Light',
+    careLevel: 'Easy' as const,
+    category: 'Succulents',
+    description: 'A beautiful rosette succulent with silvery-blue leaves that take on pink hues in bright light. Very hardy and produces many offsets.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '65-80°F (18-27°C)',
+    humidity: '30-40%',
+    careInstructions: [
+      'Water when soil is completely dry',
+      'Provide bright light for best coloration',
+      'Use well-draining succulent mix',
+      'Remove offsets to propagate',
+      'Protect from extreme heat'
+    ],
+    commonProblems: [
+      'Loss of color: Needs more bright light',
+      'Overwatering: Can cause root rot',
+      'Stretching: Insufficient light',
+      'Pest issues: Watch for mealybugs'
+    ]
   }
 ];

@@ -370,5 +370,140 @@ export const otherPlants: Plant[] = [
       'Scale insects: Occasionally problematic, treat promptly',
       'Yellowing leaves: Natural aging or excessive watering'
     ]
+  },
+  {
+    name: 'Polka Dot Plant',
+    botanicalName: 'Hypoestes phyllostachya',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 5,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Easy' as const,
+    category: 'Colorful Foliage',
+    description: 'A compact plant with spotted leaves in pink, white, or red. Perfect for adding splashes of color to small spaces and terrariums.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '50-60%',
+    careInstructions: [
+      'Keep soil consistently moist but well-draining',
+      'Provide bright, indirect light for best coloration',
+      'Pinch flower spikes to maintain foliage',
+      'Maintain moderate humidity',
+      'Propagate easily from stem cuttings'
+    ],
+    commonProblems: [
+      'Fading spots: Needs more bright, indirect light',
+      'Leggy growth: Pinch regularly to maintain compact shape',
+      'Wilting: Usually needs more water or humidity',
+      'Loss of color: Insufficient light or overwatering'
+    ]
+  },
+  {
+    name: 'Aluminum Plant',
+    botanicalName: 'Pilea cadierei',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Easy' as const,
+    category: 'Small Plants',
+    description: 'A small plant with distinctive silver markings on green leaves. Easy to care for and perfect for terrariums or small containers.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '40-50%',
+    careInstructions: [
+      'Water when top inch of soil feels dry',
+      'Provide bright, indirect light',
+      'Pinch growing tips to encourage bushiness',
+      'Rotate occasionally for even growth',
+      'Easy to propagate from stem cuttings'
+    ],
+    commonProblems: [
+      'Leggy growth: Pinch regularly and provide adequate light',
+      'Fading silver markings: Needs more bright light',
+      'Yellowing leaves: Usually overwatering',
+      'Dropping leaves: Environmental stress or overwatering'
+    ]
+  },
+  {
+    name: 'Swedish Ivy',
+    botanicalName: 'Plectranthus australis',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Easy' as const,
+    category: 'Low Maintenance',
+    description: 'A fast-growing trailing plant with round, scalloped leaves. Despite its name, it\'s not an ivy and is much easier to care for.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '60-75°F (15-24°C)',
+    humidity: '40-50%',
+    careInstructions: [
+      'Water when top inch of soil feels dry',
+      'Provide bright, indirect light',
+      'Pinch growing tips to encourage bushiness',
+      'Very easy to propagate in water',
+      'Fertilize monthly during growing season'
+    ],
+    commonProblems: [
+      'Leggy growth: Pinch regularly and provide adequate light',
+      'Yellowing leaves: Usually overwatering or natural aging',
+      'Dropping leaves: Environmental stress or underwatering',
+      'Slow growth: May need more light or nutrients'
+    ]
+  },
+  {
+    name: 'Arrowhead Plant',
+    botanicalName: 'Syngonium podophyllum',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Medium Light',
+    careLevel: 'Easy' as const,
+    category: 'Low Maintenance',
+    description: 'A versatile plant that changes leaf shape as it matures. Can be grown as a bushy plant or allowed to climb with support.',
+    toxicity: 'Toxic to pets if ingested',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '50-60%',
+    careInstructions: [
+      'Water when top inch of soil feels dry',
+      'Provide medium to bright indirect light',
+      'Support climbing growth with moss pole',
+      'Prune to maintain desired shape',
+      'Propagate easily from stem cuttings'
+    ],
+    commonProblems: [
+      'Yellowing leaves: Usually overwatering',
+      'Brown leaf tips: Low humidity or fluoride sensitivity',
+      'Leggy growth: Needs more light or pruning',
+      'Loss of variegation: May need more bright light'
+    ]
+  },
+  {
+    name: 'Wandering Jew',
+    botanicalName: 'Tradescantia fluminensis',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Easy' as const,
+    category: 'Low Maintenance',
+    description: 'A fast-growing trailing plant with green and white striped leaves. Extremely easy to propagate and perfect for beginners.',
+    toxicity: 'Mildly toxic to pets - may cause skin irritation',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '40-50%',
+    careInstructions: [
+      'Keep soil consistently moist but not soggy',
+      'Provide bright light for best variegation',
+      'Pinch regularly to maintain compact growth',
+      'Propagate easily in water or soil',
+      'Trim regularly to prevent legginess'
+    ],
+    commonProblems: [
+      'Fading variegation: Needs more bright light',
+      'Leggy growth: Pinch regularly and provide adequate light',
+      'Brown tips: Low humidity or fluoride sensitivity',
+      'Overgrowing: Vigorous grower, trim regularly'
+    ]
   }
 ];

@@ -156,5 +156,86 @@ export const hangingTrailingPlants: Plant[] = [
       'Leaf drop: Natural when touched or stressed',
       'Root rot: Ensure excellent drainage'
     ]
+  },
+  {
+    name: 'Burro\'s Tail',
+    botanicalName: 'Sedum morganianum',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Bi-weekly',
+    suggestedWateringDays: 14,
+    lightRequirement: 'Bright Direct Light',
+    careLevel: 'Easy' as const,
+    category: 'Hanging & Trailing Plants',
+    description: 'A unique trailing succulent with thick, blue-green leaves that cascade like a donkey\'s tail. Very drought tolerant and striking in hanging baskets.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '20-40%',
+    careInstructions: [
+      'Water when soil is completely dry',
+      'Handle very carefully as leaves drop easily',
+      'Provide bright, direct sunlight',
+      'Use well-draining succulent soil',
+      'Propagate from fallen leaves or cuttings'
+    ],
+    commonProblems: [
+      'Leaf drop: Natural when touched or from overwatering',
+      'Stretching: Needs more direct sunlight',
+      'Wrinkled leaves: Usually needs water',
+      'Root rot: Ensure proper drainage'
+    ]
+  },
+  {
+    name: 'String of Dolphins',
+    botanicalName: 'Senecio peregrinus',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Bi-weekly',
+    suggestedWateringDays: 14,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Medium' as const,
+    category: 'Hanging & Trailing Plants',
+    description: 'A whimsical succulent with leaves shaped like jumping dolphins. This hybrid of String of Pearls creates a unique conversation piece.',
+    toxicity: 'Mildly toxic to pets',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '30-40%',
+    careInstructions: [
+      'Water thoroughly when soil is dry',
+      'Provide bright, indirect light',
+      'Handle gently to avoid leaf damage',
+      'Use well-draining succulent mix',
+      'Propagate from stem cuttings'
+    ],
+    commonProblems: [
+      'Overwatering: Can quickly cause root rot',
+      'Leggy growth: Needs more bright light',
+      'Leaf drop: From handling or stress',
+      'Slow growth: Normal for this specialty hybrid'
+    ]
+  },
+  {
+    name: 'Devil\'s Ivy',
+    botanicalName: 'Epipremnum aureum',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Low to Medium Light',
+    careLevel: 'Easy' as const,
+    category: 'Hanging & Trailing Plants',
+    description: 'An extremely hardy trailing plant that can survive in almost any condition. Perfect for beginners and thrives in water or soil.',
+    toxicity: 'Toxic to pets if ingested',
+    temperature: '65-85°F (18-29°C)',
+    humidity: '40-60%',
+    careInstructions: [
+      'Water when top inch of soil is dry',
+      'Tolerates very low light conditions',
+      'Can be grown in water indefinitely',
+      'Prune regularly to maintain shape',
+      'Very easy to propagate from cuttings'
+    ],
+    commonProblems: [
+      'Yellowing leaves: Usually overwatering',
+      'Brown spots: May be from too much direct sun',
+      'Leggy growth: Natural in low light, can be pruned',
+      'Root rot: Only from severe overwatering'
+    ]
   }
 ];

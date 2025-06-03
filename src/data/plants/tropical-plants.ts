@@ -213,5 +213,113 @@ export const tropicalPlants: Plant[] = [
       'Spider mites: Common in low humidity conditions',
       'Brown leaf tips: Low humidity or fluoride sensitivity'
     ]
+  },
+  {
+    name: 'Calathea Orbifolia',
+    botanicalName: 'Calathea orbifolia',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Medium Light',
+    careLevel: 'Hard' as const,
+    category: 'Tropical Plants',
+    description: 'A prayer plant with large, round leaves featuring distinctive silver and green stripes. Leaves fold up at night like hands in prayer.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '60-70%',
+    careInstructions: [
+      'Keep soil consistently moist but not soggy',
+      'Use distilled or filtered water',
+      'Provide bright, indirect light',
+      'Maintain high humidity with humidifier',
+      'Avoid cold drafts and temperature fluctuations'
+    ],
+    commonProblems: [
+      'Brown leaf edges: Low humidity or fluoride in water',
+      'Curling leaves: Low humidity or underwatering',
+      'Fading patterns: Needs more filtered light',
+      'Spider mites: Common in low humidity'
+    ]
+  },
+  {
+    name: 'Swiss Cheese Plant',
+    botanicalName: 'Monstera adansonii',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Medium' as const,
+    category: 'Tropical Plants',
+    description: 'A vining plant with distinctive holes in its leaves, giving it the common name Swiss Cheese Plant. Perfect for hanging baskets or climbing.',
+    toxicity: 'Toxic to pets if ingested',
+    temperature: '65-80°F (18-27°C)',
+    humidity: '50-60%',
+    careInstructions: [
+      'Water when top inch of soil feels dry',
+      'Provide bright, indirect light',
+      'Support climbing growth with moss pole',
+      'Maintain moderate humidity',
+      'Propagate easily from stem cuttings'
+    ],
+    commonProblems: [
+      'Small or no holes: Young plants or insufficient light',
+      'Yellowing leaves: Usually overwatering',
+      'Brown leaf tips: Low humidity or fluoride sensitivity',
+      'Leggy growth: Needs more light or support'
+    ]
+  },
+  {
+    name: 'Philodendron Pink Princess',
+    botanicalName: 'Philodendron erubescens',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Medium' as const,
+    category: 'Tropical Plants',
+    description: 'A rare and coveted philodendron with dark green leaves splashed with pink variegation. The pink coloring is unpredictable and highly prized.',
+    toxicity: 'Toxic to pets if ingested',
+    temperature: '65-80°F (18-27°C)',
+    humidity: '50-60%',
+    careInstructions: [
+      'Water when top inch of soil feels dry',
+      'Provide bright, indirect light for pink coloration',
+      'Support climbing growth with moss pole',
+      'Prune all-green growth to maintain variegation',
+      'Maintain consistent humidity'
+    ],
+    commonProblems: [
+      'Loss of pink: May revert, prune green sections',
+      'Yellowing leaves: Usually overwatering',
+      'Brown leaf tips: Low humidity or fluoride sensitivity',
+      'Slow growth: Normal for variegated plants'
+    ]
+  },
+  {
+    name: 'Elephant Ear',
+    botanicalName: 'Alocasia macrorrhiza',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Hard' as const,
+    category: 'Tropical Plants',
+    description: 'A dramatic plant with enormous arrow-shaped leaves that can grow several feet long. Creates a bold tropical statement indoors.',
+    toxicity: 'Toxic to pets and children if ingested',
+    temperature: '65-80°F (18-27°C)',
+    humidity: '60-70%',
+    careInstructions: [
+      'Keep soil consistently moist but well-draining',
+      'Provide bright, indirect light',
+      'Maintain high humidity with humidifier',
+      'Clean large leaves regularly',
+      'Allow dormancy period in winter'
+    ],
+    commonProblems: [
+      'Brown leaf edges: Low humidity or fluoride sensitivity',
+      'Yellowing leaves: Natural aging or dormancy',
+      'Drooping leaves: Usually underwatering or low humidity',
+      'Pest issues: Watch for spider mites and aphids'
+    ]
   }
 ];
