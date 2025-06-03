@@ -121,7 +121,7 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-4">
             <Link to="/plant-catalog">
               <Button
                 variant="ghost"
@@ -205,7 +205,7 @@ const Navigation = () => {
           </div>
 
           {/* Mobile Hamburger Menu */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center space-x-2">
             <Sheet>
               <SheetTrigger asChild>
                 <Button

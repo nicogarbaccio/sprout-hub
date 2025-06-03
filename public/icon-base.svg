@@ -1,0 +1,29 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="#10b981" stroke="#059669" stroke-width="32"/>
+  
+  <!-- Plant pot -->
+  <path d="M180 420h152c8 0 15-6 16-14l12-120H152l12 120c1 8 8 14 16 14z" fill="#a16207" stroke="#92400e" stroke-width="4"/>
+  
+  <!-- Soil -->
+  <ellipse cx="256" cy="290" rx="80" ry="16" fill="#7c2d12"/>
+  
+  <!-- Main stem -->
+  <path d="M256 290v-80" stroke="#166534" stroke-width="8" stroke-linecap="round"/>
+  
+  <!-- Left leaf -->
+  <path d="M256 240c-20-10-40-5-50 15-10 20 0 35 20 30 15-3 25-15 30-25v-20z" fill="#22c55e" stroke="#16a34a" stroke-width="3"/>
+  
+  <!-- Right leaf -->
+  <path d="M256 220c20-15 45-10 55 10 10 20-5 40-25 35-20-5-30-20-30-25v-20z" fill="#22c55e" stroke="#16a34a" stroke-width="3"/>
+  
+  <!-- Top leaves -->
+  <path d="M256 200c-15-20-35-15-40 5-5 20 10 30 25 25 10-3 15-10 15-15v-15z" fill="#22c55e" stroke="#16a34a" stroke-width="3"/>
+  <path d="M256 180c15-25 40-20 45 0 5 20-15 35-30 30-15-5-15-15-15-15v-15z" fill="#22c55e" stroke="#16a34a" stroke-width="3"/>
+  
+  <!-- Small decorative elements -->
+  <circle cx="200" cy="180" r="4" fill="#fbbf24"/>
+  <circle cx="320" cy="160" r="4" fill="#fbbf24"/>
+  <circle cx="180" cy="220" r="3" fill="#f87171"/>
+  <circle cx="340" cy="200" r="3" fill="#f87171"/>
+</svg> 
