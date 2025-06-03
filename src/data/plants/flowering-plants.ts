@@ -122,5 +122,59 @@ export const floweringPlants: Plant[] = [
       'Leggy growth: Needs more light and pinching',
       'Leaf spots: Avoid overhead watering'
     ]
+  },
+  {
+    name: 'Kalanchoe',
+    botanicalName: 'Kalanchoe blossfeldiana',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 10,
+    lightRequirement: 'Bright Direct Light',
+    careLevel: 'Easy' as const,
+    category: 'Flowering Plants',
+    description: 'A succulent flowering plant that produces clusters of small, colorful flowers. Long-lasting blooms and easy care make it very popular.',
+    toxicity: 'Toxic to pets if ingested',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '30-40%',
+    careInstructions: [
+      'Allow soil to dry between waterings',
+      'Provide bright, direct sunlight for blooming',
+      'Remove spent flower clusters',
+      'Rest plant in cool, dark place for 6 weeks to rebloom',
+      'Use well-draining potting mix'
+    ],
+    commonProblems: [
+      'No flowers: Needs more direct light or rest period',
+      'Overwatering: Can cause root rot quickly',
+      'Leggy growth: Pinch back after flowering',
+      'Short bloom period: Natural, but can be extended with care'
+    ]
+  },
+  {
+    name: 'Impatiens',
+    botanicalName: 'Impatiens walleriana',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Twice weekly',
+    suggestedWateringDays: 3,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Medium' as const,
+    category: 'Flowering Plants',
+    description: 'Colorful annual flowers that bloom continuously with proper care. Perfect for brightening indoor spaces with vibrant colors.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '50-60%',
+    careInstructions: [
+      'Keep soil consistently moist but not soggy',
+      'Provide bright, filtered light',
+      'Deadhead spent flowers regularly',
+      'Fertilize every 2-3 weeks during blooming',
+      'Pinch growing tips to encourage bushiness'
+    ],
+    commonProblems: [
+      'Wilting: Usually needs more water or humidity',
+      'Fungal diseases: Improve air circulation',
+      'Leggy growth: Pinch regularly and provide adequate light',
+      'Dropping buds: Usually from stress or sudden changes'
+    ]
   }
 ];

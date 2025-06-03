@@ -142,5 +142,59 @@ export const succulents: Plant[] = [
       'Not splitting: Natural cycle, be patient',
       'Soft plants: Usually from too much water'
     ]
+  },
+  {
+    name: 'Prickly Pear Cactus',
+    botanicalName: 'Opuntia microdasys',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Monthly',
+    suggestedWateringDays: 30,
+    lightRequirement: 'Bright Direct Light',
+    careLevel: 'Easy' as const,
+    category: 'Succulents',
+    description: 'A charming paddle-shaped cactus with fuzzy spines. Easy to care for and produces beautiful yellow flowers when mature.',
+    toxicity: 'Non-toxic but has irritating glochids (tiny spines)',
+    temperature: '70-80°F (21-27°C)',
+    humidity: '10-30%',
+    careInstructions: [
+      'Water sparingly, especially in winter',
+      'Provide maximum direct sunlight',
+      'Use cactus potting mix with excellent drainage',
+      'Handle with thick gloves to avoid glochids',
+      'Allow soil to dry completely between waterings'
+    ],
+    commonProblems: [
+      'Overwatering: Can cause root rot quickly',
+      'Soft pads: Usually sign of overwatering',
+      'Glochid irritation: Use tweezers to remove spines from skin',
+      'Slow growth: Normal for cacti, be patient'
+    ]
+  },
+  {
+    name: 'Crown of Thorns',
+    botanicalName: 'Euphorbia milii',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 10,
+    lightRequirement: 'Bright Direct Light',
+    careLevel: 'Medium' as const,
+    category: 'Succulents',
+    description: 'A spiny succulent that produces colorful bracts year-round with proper care. Despite its thorns, it\'s a rewarding flowering houseplant.',
+    toxicity: 'Toxic to pets and humans - sap can cause skin irritation',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '30-40%',
+    careInstructions: [
+      'Water when top inch of soil is dry',
+      'Provide at least 4 hours of direct sunlight',
+      'Deadhead spent flowers to encourage blooming',
+      'Handle with gloves due to thorns and toxic sap',
+      'Fertilize monthly during growing season'
+    ],
+    commonProblems: [
+      'Lack of flowers: Usually insufficient light',
+      'Leaf drop: Natural response to stress or seasonal changes',
+      'Stem rot: From overwatering in cool conditions',
+      'Skin irritation: Always wear gloves when handling'
+    ]
   }
 ];

@@ -1,4 +1,3 @@
-
 import { Plant } from '../types';
 
 export const otherPlants: Plant[] = [
@@ -235,6 +234,141 @@ export const otherPlants: Plant[] = [
       'Fading colors: Needs brighter indirect light',
       'Brown leaf edges: Low humidity or fluoride sensitivity',
       'Dormancy: Natural cycle, reduce watering'
+    ]
+  },
+  {
+    name: 'Rubber Plant',
+    botanicalName: 'Ficus elastica',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Easy' as const,
+    category: 'Low Maintenance',
+    description: 'A classic houseplant with thick, glossy leaves. The Rubber Plant is very forgiving and can tolerate some neglect while still looking beautiful.',
+    toxicity: 'Mildly toxic to pets',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '40-50%',
+    careInstructions: [
+      'Water when top inch of soil feels dry',
+      'Wipe leaves with damp cloth to maintain shine',
+      'Provide bright, indirect light',
+      'Rotate occasionally for even growth',
+      'Prune to control size and shape'
+    ],
+    commonProblems: [
+      'Leaf drop: Usually from overwatering or environmental stress',
+      'Brown leaf tips: Low humidity or fluoride in water',
+      'Leggy growth: Needs more light or occasional pruning',
+      'Dull leaves: Regular cleaning needed'
+    ]
+  },
+  {
+    name: 'Dracaena',
+    botanicalName: 'Dracaena marginata',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 10,
+    lightRequirement: 'Medium Light',
+    careLevel: 'Easy' as const,
+    category: 'Low Maintenance',
+    description: 'Also known as Dragon Tree, this plant has thin, spiky leaves with red edges. Very drought tolerant and perfect for beginners.',
+    toxicity: 'Toxic to pets if ingested',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '40-50%',
+    careInstructions: [
+      'Allow soil to dry between waterings',
+      'Tolerates low to medium light conditions',
+      'Remove yellowing lower leaves',
+      'Dust leaves occasionally',
+      'Fertilize sparingly during growing season'
+    ],
+    commonProblems: [
+      'Brown leaf tips: Usually from fluoride in tap water',
+      'Yellow leaves: Natural aging or overwatering',
+      'Slow growth: Normal for this species',
+      'Pest issues: Watch for spider mites in dry conditions'
+    ]
+  },
+  {
+    name: 'Aloe Aristata',
+    botanicalName: 'Aloe aristata',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Bi-weekly',
+    suggestedWateringDays: 14,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Easy' as const,
+    category: 'Small Plants',
+    description: 'A compact aloe with distinctive white spots and soft spines. Perfect for small spaces and produces attractive flower spikes.',
+    toxicity: 'Mildly toxic to pets',
+    temperature: '65-80°F (18-27°C)',
+    humidity: '30-40%',
+    careInstructions: [
+      'Water deeply but infrequently',
+      'Provide bright, indirect light',
+      'Use well-draining succulent soil',
+      'Allow soil to dry completely between waterings',
+      'Remove flower stalks after blooming'
+    ],
+    commonProblems: [
+      'Root rot: Most common from overwatering',
+      'Stretching: Needs more bright light',
+      'Brown tips: Usually from low humidity',
+      'Slow growth: Normal for small aloes'
+    ]
+  },
+  {
+    name: 'Nerve Plant',
+    botanicalName: 'Fittonia albivenis',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Twice weekly',
+    suggestedWateringDays: 3,
+    lightRequirement: 'Medium Light',
+    careLevel: 'Medium' as const,
+    category: 'Small Plants',
+    description: 'A small plant with intricate white or pink veined leaves. Perfect for terrariums and adds beautiful texture to plant collections.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '60-70%',
+    careInstructions: [
+      'Keep soil consistently moist but not soggy',
+      'Provide medium to bright indirect light',
+      'Maintain high humidity around the plant',
+      'Pinch flowers to encourage foliage growth',
+      'Propagate easily from stem cuttings'
+    ],
+    commonProblems: [
+      'Wilting: Usually needs more water or humidity',
+      'Leggy growth: Pinch regularly to maintain compact shape',
+      'Brown leaf tips: Low humidity or fluoride sensitivity',
+      'Fading patterns: May need brighter indirect light'
+    ]
+  },
+  {
+    name: 'Cast Iron Plant',
+    botanicalName: 'Aspidistra elatior',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 10,
+    lightRequirement: 'Low Light',
+    careLevel: 'Easy' as const,
+    category: 'Low Maintenance',
+    description: 'Nearly indestructible plant with dark green, leathery leaves. Perfect for low-light areas and tolerates neglect better than most plants.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '55-75°F (13-24°C)',
+    humidity: '30-50%',
+    careInstructions: [
+      'Water when soil feels dry to touch',
+      'Tolerates very low light conditions',
+      'Clean leaves with damp cloth occasionally',
+      'Very drought tolerant once established',
+      'Fertilize sparingly, if at all'
+    ],
+    commonProblems: [
+      'Brown leaf tips: Usually from overwatering or poor water quality',
+      'Slow growth: Normal and expected for this plant',
+      'Scale insects: Occasionally problematic, treat promptly',
+      'Yellowing leaves: Natural aging or excessive watering'
     ]
   }
 ];

@@ -82,5 +82,59 @@ export const airPlants: Plant[] = [
       'Slow growth: Normal for this species',
       'Brown tips: Usually from low humidity'
     ]
+  },
+  {
+    name: 'Tillandsia Cyanea',
+    botanicalName: 'Tillandsia cyanea',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Medium' as const,
+    category: 'Air Plants',
+    description: 'Also known as Pink Quill, this air plant produces a stunning pink flowering spike with purple flowers. Often grown in pots with bark.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '65-80°F (18-27°C)',
+    humidity: '50-60%',
+    careInstructions: [
+      'Water by misting leaves and watering soil if potted',
+      'Provide bright, filtered light',
+      'Maintain moderate humidity',
+      'Remove spent flowers to encourage new growth',
+      'Can be grown mounted or in well-draining bark mix'
+    ],
+    commonProblems: [
+      'Brown leaf tips: Low humidity or water quality issues',
+      'Fading flower spike: Natural after blooming period',
+      'Overwatering: Can cause root rot if planted in soil',
+      'Insufficient blooming: Needs bright light and maturity'
+    ]
+  },
+  {
+    name: 'Tillandsia Bulbosa',
+    botanicalName: 'Tillandsia bulbosa',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Medium' as const,
+    category: 'Air Plants',
+    description: 'A unique air plant with a bulbous base and twisted, tentacle-like leaves. Creates an interesting sculptural element in displays.',
+    toxicity: 'Non-toxic to pets',
+    temperature: '65-80°F (18-27°C)',
+    humidity: '50-60%',
+    careInstructions: [
+      'Soak weekly for 20-30 minutes',
+      'Ensure base dries completely to prevent rot',
+      'Provide bright, indirect light',
+      'Good air circulation is essential',
+      'Mist lightly between soakings if very dry'
+    ],
+    commonProblems: [
+      'Base rot: Usually from water trapped in bulbous section',
+      'Curling leaves: Natural characteristic, not a problem',
+      'Slow growth: Normal for this species',
+      'Brown tips: Usually low humidity or over-fertilizing'
+    ]
   }
 ];

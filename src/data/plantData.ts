@@ -1,5 +1,4 @@
 
-
 import { Plant } from './types';
 import { floweringPlants } from './plants/flowering-plants';
 import { tropicalPlants } from './plants/tropical-plants';
@@ -32,4 +31,3 @@ export const plants: Plant[] = [
 export const getUniqueCategories = () => getUniqueCategoriesUtil(plants);
 export const getUniqueCareLevels = () => getUniqueCareLevelsUtil(plants);
 export const getUniqueLightRequirements = () => getUniqueLightRequirementsUtil(plants);
-

@@ -102,5 +102,59 @@ export const hangingTrailingPlants: Plant[] = [
       'Brown tips: Low humidity or fluoride sensitivity',
       'Dropping leaves: Usually from inconsistent watering'
     ]
+  },
+  {
+    name: 'Heartleaf Philodendron',
+    botanicalName: 'Philodendron hederaceum',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Medium Light',
+    careLevel: 'Easy' as const,
+    category: 'Hanging & Trailing Plants',
+    description: 'One of the easiest houseplants to grow, with glossy heart-shaped leaves that trail beautifully from hanging baskets or climb up supports.',
+    toxicity: 'Toxic to pets if ingested',
+    temperature: '65-78°F (18-26°C)',
+    humidity: '40-60%',
+    careInstructions: [
+      'Water when top inch of soil feels dry',
+      'Tolerates low to medium light conditions',
+      'Wipe leaves clean regularly for best appearance',
+      'Propagate easily in water or soil',
+      'Pinch growing tips to encourage bushiness'
+    ],
+    commonProblems: [
+      'Yellowing leaves: Usually overwatering',
+      'Brown leaf tips: Low humidity or fluoride sensitivity',
+      'Leggy growth: Needs more light or regular pruning',
+      'Pest issues: Watch for aphids and spider mites'
+    ]
+  },
+  {
+    name: 'String of Bananas',
+    botanicalName: 'Senecio radicans',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Bi-weekly',
+    suggestedWateringDays: 14,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Easy' as const,
+    category: 'Hanging & Trailing Plants',
+    description: 'A delightful succulent with banana-shaped leaves that cascade from hanging planters. Related to String of Pearls but with a unique leaf shape.',
+    toxicity: 'Mildly toxic to pets',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '30-40%',
+    careInstructions: [
+      'Water thoroughly when soil is completely dry',
+      'Provide bright, indirect sunlight',
+      'Handle gently as leaves can drop easily',
+      'Use well-draining succulent soil mix',
+      'Propagate from stem cuttings'
+    ],
+    commonProblems: [
+      'Overwatering: Most common cause of plant death',
+      'Stretching: Needs more bright light',
+      'Leaf drop: Natural when touched or stressed',
+      'Root rot: Ensure excellent drainage'
+    ]
   }
 ];

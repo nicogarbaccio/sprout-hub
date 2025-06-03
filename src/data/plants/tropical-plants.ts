@@ -132,5 +132,86 @@ export const tropicalPlants: Plant[] = [
       'Pest issues: Spider mites in low humidity',
       'Slow growth: Needs more light, heat, or nutrients'
     ]
+  },
+  {
+    name: 'Rubber Tree',
+    botanicalName: 'Ficus elastica',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Easy' as const,
+    category: 'Tropical Plants',
+    description: 'A popular houseplant with large, glossy leaves. The Rubber Tree is forgiving and can grow quite large indoors with proper care.',
+    toxicity: 'Mildly toxic to pets',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '40-50%',
+    careInstructions: [
+      'Water when top inch of soil is dry',
+      'Wipe leaves regularly to keep them glossy',
+      'Provide bright, indirect light',
+      'Rotate occasionally for even growth',
+      'Prune to maintain desired size and shape'
+    ],
+    commonProblems: [
+      'Leaf drop: Usually from overwatering or sudden changes',
+      'Brown leaf tips: Low humidity or fluoride sensitivity',
+      'Leggy growth: Needs more light or pruning',
+      'Dull leaves: Need regular cleaning'
+    ]
+  },
+  {
+    name: 'Fiddle Leaf Fig',
+    botanicalName: 'Ficus lyrata',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Bright Indirect Light',
+    careLevel: 'Hard' as const,
+    category: 'Tropical Plants',
+    description: 'A trendy houseplant with large, violin-shaped leaves. Known for being finicky but creates a dramatic statement in any room.',
+    toxicity: 'Toxic to pets if ingested',
+    temperature: '65-75°F (18-24°C)',
+    humidity: '40-50%',
+    careInstructions: [
+      'Water when top inch of soil is dry',
+      'Provide consistent bright, indirect light',
+      'Avoid moving or rotating frequently',
+      'Clean leaves weekly with damp cloth',
+      'Fertilize monthly during growing season'
+    ],
+    commonProblems: [
+      'Brown spots: Usually from overwatering or inconsistent watering',
+      'Leaf drop: Stress from changes in light, water, or location',
+      'Brown edges: Low humidity or root problems',
+      'Slow growth: Normal, be patient with this plant'
+    ]
+  },
+  {
+    name: 'Croton',
+    botanicalName: 'Codiaeum variegatum',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    wateringFrequency: 'Weekly',
+    suggestedWateringDays: 7,
+    lightRequirement: 'Bright Direct Light',
+    careLevel: 'Medium' as const,
+    category: 'Tropical Plants',
+    description: 'A colorful tropical plant with vibrant, multicolored leaves. Crotons need bright light to maintain their stunning foliage colors.',
+    toxicity: 'Toxic to pets and children if ingested',
+    temperature: '70-80°F (21-27°C)',
+    humidity: '50-60%',
+    careInstructions: [
+      'Keep soil consistently moist but well-draining',
+      'Provide bright, direct light for best colors',
+      'Maintain high humidity around the plant',
+      'Avoid cold drafts and temperature fluctuations',
+      'Fertilize monthly during growing season'
+    ],
+    commonProblems: [
+      'Leaf drop: Usually from stress or sudden environmental changes',
+      'Fading colors: Needs more bright, direct light',
+      'Spider mites: Common in low humidity conditions',
+      'Brown leaf tips: Low humidity or fluoride sensitivity'
+    ]
   }
 ];
