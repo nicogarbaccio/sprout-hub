@@ -199,7 +199,9 @@ const SproutHubLogo = ({
       </div>
 
       {/* Text logo */}
-      <span className={`${textSizes[size]} font-bold text-plant-primary`}>
+      <span
+        className={`${textSizes[size]} font-bold text-plant-primary group-hover:text-plant-primary/90 transition-colors duration-200`}
+      >
         SproutHub
       </span>
     </div>

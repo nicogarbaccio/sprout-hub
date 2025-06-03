@@ -116,12 +116,23 @@ const Navigation = () => {
     <nav className="bg-white shadow-sm border-b border-plant-secondary/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link to="/">
+          <Link to="/" className="group">
             <SproutHubLogo size="md" />
           </Link>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-4">
+            {user && (
+              <Link to="/">
+                <Button
+                  variant="ghost"
+                  className="text-plant-text hover:text-plant-primary flex items-center space-x-2"
+                >
+                  <Home className="w-4 h-4" />
+                  <span>Dashboard</span>
+                </Button>
+              </Link>
+            )}
             <Link to="/plant-catalog">
               <Button
                 variant="ghost"
@@ -223,6 +234,7 @@ const Navigation = () => {
                     <Link
                       to="/"
                       onClick={() => document.body.click() /* closes sheet */}
+                      className="group"
                     >
                       <SproutHubLogo size="md" />
                     </Link>
@@ -278,6 +290,19 @@ const Navigation = () => {
                     )}
                   </div>
                   <div className="flex flex-col gap-2 px-4 py-6">
+                    {user && (
+                      <SheetClose asChild>
+                        <Link to="/">
+                          <Button
+                            variant="ghost"
+                            className="w-full justify-start text-plant-text hover:text-plant-primary flex items-center space-x-2"
+                          >
+                            <Home className="w-4 h-4 mr-2" />
+                            <span>Dashboard</span>
+                          </Button>
+                        </Link>
+                      </SheetClose>
+                    )}
                     <SheetClose asChild>
                       <Link to="/plant-catalog">
                         <Button
