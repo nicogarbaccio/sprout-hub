@@ -122,7 +122,51 @@ const Profile = () => {
   }
 
   if (!isReady) {
-    return null;
+    return (
+      <div className="min-h-screen bg-white font-poppins">
+        <Navigation />
+        <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-plant-primary/10 to-plant-secondary/10 p-4">
+          <div className="max-w-4xl mx-auto space-y-6 opacity-0">
+            {/* Invisible content to maintain height */}
+            <Card>
+              <CardHeader className="text-center">
+                <div className="h-24 w-24 mx-auto mb-4" />
+                <div className="h-8 w-48 mx-auto mb-2" />
+                <div className="h-4 w-32 mx-auto" />
+              </CardHeader>
+            </Card>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <div className="h-6 w-40" />
+                  <div className="h-4 w-64" />
+                </CardHeader>
+                <CardContent>
+                  <div className="h-96" />
+                </CardContent>
+              </Card>
+              <div className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <div className="h-6 w-40" />
+                    <div className="h-4 w-56" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="h-64" />
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent>
+                    <div className="h-32" />
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
   }
 
   return (

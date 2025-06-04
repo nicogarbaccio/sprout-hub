@@ -53,7 +53,7 @@ const PlantDetails = () => {
     return (
       <div className="min-h-screen bg-white font-poppins">
         <Navigation />
-        <div className="pt-16">
+        <div className="pt-16 min-h-[calc(100vh-4rem)]">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {/* Back button skeleton */}
             <Skeleton className="h-10 w-32 mb-8" />
@@ -141,7 +141,29 @@ const PlantDetails = () => {
   }
 
   if (!isReady) {
-    return null;
+    return (
+      <div className="min-h-screen bg-white font-poppins">
+        <Navigation />
+        <div className="pt-16 min-h-[calc(100vh-4rem)]">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 opacity-0">
+            {/* Invisible content to maintain height */}
+            <div className="h-10 w-32 mb-8" />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+              <div className="h-80" />
+              <div className="space-y-6">
+                <div className="h-32" />
+                <div className="h-24" />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="h-64" />
+              <div className="h-64" />
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
   }
 
   // Create default care instructions and common problems if not provided

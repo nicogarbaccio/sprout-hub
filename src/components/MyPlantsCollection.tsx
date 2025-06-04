@@ -29,7 +29,7 @@ const MyPlantsCollection = () => {
 
   if (showLoading) {
     return (
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white min-h-[calc(100vh-4rem)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header Skeleton */}
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">
@@ -45,7 +45,7 @@ const MyPlantsCollection = () => {
           </div>
 
           {/* Plant Cards Grid Skeleton */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
             {Array.from({ length: 8 }).map((_, index) => (
               <MyPlantCardSkeleton key={index} />
             ))}
@@ -56,7 +56,29 @@ const MyPlantsCollection = () => {
   }
 
   if (!isReady) {
-    return null;
+    return (
+      <section className="py-20 bg-white min-h-[calc(100vh-4rem)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 opacity-0">
+          {/* Invisible content to maintain height */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">
+            <div>
+              <div className="h-10 w-80 mb-4" />
+              <div className="flex flex-wrap gap-4">
+                <div className="h-6 w-20" />
+                <div className="h-6 w-24" />
+                <div className="h-6 w-28" />
+              </div>
+            </div>
+            <div className="h-10 w-36 mt-4 md:mt-0" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div key={index} className="h-80" />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
   }
 
   const overdueCount = plants.filter((plant) => {
@@ -132,7 +154,7 @@ const MyPlantsCollection = () => {
   };
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white min-h-[calc(100vh-4rem)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <CascadingContainer delay={0}>
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">
