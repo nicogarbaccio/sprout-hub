@@ -34,6 +34,7 @@ interface Plant {
   nickname: string;
   plant_type: string;
   image?: string;
+  room?: string;
   suggested_watering_days?: number;
 }
 

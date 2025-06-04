@@ -9,6 +9,7 @@ export interface UserPlant {
   nickname: string;
   plant_type: string;
   image?: string;
+  room?: string;
   suggested_watering_days?: number;
   latest_watering?: string;
   days_since_watering?: number;
@@ -54,6 +55,7 @@ export const useUserPlants = () => {
     nickname: string; 
     plant_type: string; 
     image?: string; 
+    room?: string;
     suggested_watering_days?: number;
     last_watered_date?: string;
   }) => {
@@ -67,6 +69,7 @@ export const useUserPlants = () => {
           nickname: plantData.nickname,
           plant_type: plantData.plant_type,
           image: plantData.image,
+          room: plantData.room,
           suggested_watering_days: plantData.suggested_watering_days,
           user_id: user.id,
         })
