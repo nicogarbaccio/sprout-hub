@@ -1,7 +1,15 @@
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import ImageUpload from '@/components/ui/image-upload';
+import { useState, useEffect } from "react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import ImageUpload from "@/components/ui/image-upload";
+import { ROOM_OPTIONS } from "@/utils/rooms";
 
 interface PlantDetailsFormProps {
   nickname: string;
@@ -10,6 +18,8 @@ interface PlantDetailsFormProps {
   setPlantType: (value: string) => void;
   image: string;
   setImage: (value: string) => void;
+  room: string;
+  setRoom: (value: string) => void;
   suggestedWateringDays: number;
   setSuggestedWateringDays: (value: number) => void;
 }
@@ -21,22 +31,40 @@ const PlantDetailsForm = ({
   setPlantType,
   image,
   setImage,
+  room,
+  setRoom,
   suggestedWateringDays,
   setSuggestedWateringDays,
 }: PlantDetailsFormProps) => {
+  const [isCustomRoom, setIsCustomRoom] = useState(false);
+  const [customRoom, setCustomRoom] = useState("");
+
+  // Check if current room is a custom room (not in predefined options)
+  useEffect(() => {
+    if (room && !ROOM_OPTIONS.find((option) => option.value === room)) {
+      setIsCustomRoom(true);
+      setCustomRoom(room);
+    } else {
+      setIsCustomRoom(false);
+      setCustomRoom("");
+    }
+  }, [room]);
+
   const wateringOptions = [
-    { value: 3, label: 'Every 3 days' },
-    { value: 7, label: 'Weekly (7 days)' },
-    { value: 10, label: 'Every 10 days' },
-    { value: 14, label: 'Bi-weekly (14 days)' },
-    { value: 21, label: 'Every 3 weeks' },
-    { value: 30, label: 'Monthly (30 days)' }
+    { value: 3, label: "Every 3 days" },
+    { value: 7, label: "Weekly (7 days)" },
+    { value: 10, label: "Every 10 days" },
+    { value: 14, label: "Bi-weekly (14 days)" },
+    { value: 21, label: "Every 3 weeks" },
+    { value: 30, label: "Monthly (30 days)" },
   ];
 
-  const isCustomValue = !wateringOptions.some(option => option.value === suggestedWateringDays);
+  const isCustomValue = !wateringOptions.some(
+    (option) => option.value === suggestedWateringDays
+  );
 
   const handleWateringScheduleChange = (value: string) => {
-    if (value === 'custom') {
+    if (value === "custom") {
       // Keep current value if it's already custom, otherwise default to 7
       if (!isCustomValue) {
         setSuggestedWateringDays(7);
@@ -47,14 +75,14 @@ const PlantDetailsForm = ({
   };
 
   const getCurrentSelectValue = () => {
-    if (isCustomValue) return 'custom';
+    if (isCustomValue) return "custom";
     return suggestedWateringDays.toString();
   };
 
   return (
     <div className="space-y-4">
       <h3 className="text-lg font-semibold">Plant Information</h3>
-      
+
       <div className="space-y-2">
         <Label htmlFor="nickname">Nickname</Label>
         <Input
@@ -75,6 +103,56 @@ const PlantDetailsForm = ({
         />
       </div>
 
+      <div className="space-y-2">
+        <Label htmlFor="room">Room (Optional)</Label>
+        <Select
+          value={isCustomRoom ? "custom" : room}
+          onValueChange={(value) => {
+            if (value === "custom") {
+              setIsCustomRoom(true);
+              setRoom(customRoom);
+            } else {
+              setIsCustomRoom(false);
+              setCustomRoom("");
+              setRoom(value);
+            }
+          }}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Select a room or leave empty" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="">No room assigned</SelectItem>
+            {ROOM_OPTIONS.map((roomOption) => (
+              <SelectItem key={roomOption.value} value={roomOption.value}>
+                <span className="flex items-center gap-2">
+                  <span>{roomOption.icon}</span>
+                  <span>{roomOption.label}</span>
+                </span>
+              </SelectItem>
+            ))}
+            <SelectItem value="custom">🏠 Custom Room</SelectItem>
+          </SelectContent>
+        </Select>
+
+        {isCustomRoom && (
+          <div className="space-y-1">
+            <Label htmlFor="custom_room" className="text-sm">
+              Custom Room Name
+            </Label>
+            <Input
+              id="custom_room"
+              value={customRoom}
+              onChange={(e) => {
+                setCustomRoom(e.target.value);
+                setRoom(e.target.value);
+              }}
+              placeholder="Enter custom room name"
+            />
+          </div>
+        )}
+      </div>
+
       <ImageUpload
         value={image}
         onChange={setImage}
@@ -84,8 +162,8 @@ const PlantDetailsForm = ({
 
       <div className="space-y-2">
         <Label htmlFor="wateringSchedule">Watering Schedule</Label>
-        <Select 
-          value={getCurrentSelectValue()} 
+        <Select
+          value={getCurrentSelectValue()}
           onValueChange={handleWateringScheduleChange}
         >
           <SelectTrigger>
@@ -100,17 +178,21 @@ const PlantDetailsForm = ({
             <SelectItem value="custom">Custom</SelectItem>
           </SelectContent>
         </Select>
-        
+
         {isCustomValue && (
           <div className="space-y-1">
-            <Label htmlFor="customDays" className="text-sm">Custom days</Label>
+            <Label htmlFor="customDays" className="text-sm">
+              Custom days
+            </Label>
             <Input
               id="customDays"
               type="number"
               min="1"
               max="365"
               value={suggestedWateringDays}
-              onChange={(e) => setSuggestedWateringDays(parseInt(e.target.value) || 1)}
+              onChange={(e) =>
+                setSuggestedWateringDays(parseInt(e.target.value) || 1)
+              }
               placeholder="Enter days between watering"
             />
             <p className="text-xs text-muted-foreground">

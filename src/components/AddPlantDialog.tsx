@@ -36,6 +36,7 @@ import { useUserPlants } from "@/hooks/useUserPlants";
 import ImageUpload from "@/components/ui/image-upload";
 import { plants as allPlants } from "@/data/plantData";
 import { cn } from "@/lib/utils";
+import { ROOM_OPTIONS } from "@/utils/rooms";
 
 interface PlantData {
   name: string;
@@ -63,6 +64,7 @@ const AddPlantDialog = ({
     nickname: "",
     plant_type: "",
     image: "",
+    room: "",
     watering_schedule_days: 7,
     notes: "",
   });
@@ -76,6 +78,8 @@ const AddPlantDialog = ({
   const [customPlantType, setCustomPlantType] = useState("");
   const [plantTypeSearch, setPlantTypeSearch] = useState("");
   const [isPlantTypePopoverOpen, setIsPlantTypePopoverOpen] = useState(false);
+  const [isCustomRoom, setIsCustomRoom] = useState(false);
+  const [customRoom, setCustomRoom] = useState("");
 
   // Reset form when dialog opens/closes or plant data changes
   useEffect(() => {
@@ -86,6 +90,7 @@ const AddPlantDialog = ({
           nickname: plantData.name,
           plant_type: plantData.name,
           image: plantData.image,
+          room: "",
           watering_schedule_days: plantData.suggestedWateringDays || 7,
           notes: `Botanical name: ${plantData.botanicalName}\nWatering: ${plantData.wateringFrequency}\nLight: ${plantData.lightRequirement}\nCare level: ${plantData.careLevel}`,
         });
@@ -107,6 +112,7 @@ const AddPlantDialog = ({
           nickname: "",
           plant_type: "",
           image: "",
+          room: "",
           watering_schedule_days: 7,
           notes: "",
         });
@@ -114,6 +120,8 @@ const AddPlantDialog = ({
         setCustomPlantType("");
         setIsCustomSelected(false);
         setCustomDays("");
+        setIsCustomRoom(false);
+        setCustomRoom("");
       }
 
       // Reset last watered date to today
@@ -151,6 +159,7 @@ const AddPlantDialog = ({
       nickname: formData.nickname.trim(),
       plant_type: formData.plant_type.trim(),
       image: formData.image.trim() || undefined,
+      room: formData.room.trim() || undefined,
       suggested_watering_days: formData.watering_schedule_days,
       last_watered_date: lastWateredDate?.toISOString(),
     });
@@ -371,6 +380,62 @@ const AddPlantDialog = ({
                   placeholder="Enter custom plant type"
                   className="border-plant-secondary/30 focus:border-plant-primary"
                   required
+                />
+              </div>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="room" className="text-plant-text">
+              Room (Optional)
+            </Label>
+            <Select
+              value={formData.room}
+              onValueChange={(value) => {
+                if (value === "custom") {
+                  setIsCustomRoom(true);
+                  handleInputChange("room", customRoom);
+                } else {
+                  setIsCustomRoom(false);
+                  setCustomRoom("");
+                  handleInputChange("room", value);
+                }
+              }}
+            >
+              <SelectTrigger className="border-plant-secondary/30 focus:border-plant-primary">
+                <SelectValue placeholder="Select a room or leave empty" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">No room assigned</SelectItem>
+                {ROOM_OPTIONS.map((room) => (
+                  <SelectItem key={room.value} value={room.value}>
+                    <span className="flex items-center gap-2">
+                      <span>{room.icon}</span>
+                      <span>{room.label}</span>
+                    </span>
+                  </SelectItem>
+                ))}
+                <SelectItem value="custom">🏠 Custom Room</SelectItem>
+              </SelectContent>
+            </Select>
+
+            {isCustomRoom && (
+              <div className="space-y-1">
+                <Label
+                  htmlFor="custom_room"
+                  className="text-plant-text text-sm"
+                >
+                  Custom Room Name
+                </Label>
+                <Input
+                  id="custom_room"
+                  value={customRoom}
+                  onChange={(e) => {
+                    setCustomRoom(e.target.value);
+                    handleInputChange("room", e.target.value);
+                  }}
+                  placeholder="Enter custom room name"
+                  className="border-plant-secondary/30 focus:border-plant-primary"
                 />
               </div>
             )}

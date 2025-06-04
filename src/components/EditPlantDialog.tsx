@@ -55,6 +55,7 @@ const EditPlantDialog = ({
   const [nickname, setNickname] = useState("");
   const [plantType, setPlantType] = useState("");
   const [image, setImage] = useState("");
+  const [room, setRoom] = useState("");
   const [suggestedWateringDays, setSuggestedWateringDays] = useState<number>(7);
   const [wateringRecords, setWateringRecords] = useState<WateringRecord[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -66,6 +67,7 @@ const EditPlantDialog = ({
       setNickname(plant.nickname);
       setPlantType(plant.plant_type);
       setImage(plant.image || "");
+      setRoom(plant.room || "");
       setSuggestedWateringDays(plant.suggested_watering_days || 7);
       loadWateringRecords(plant.id);
     }
@@ -102,6 +104,7 @@ const EditPlantDialog = ({
           nickname,
           plant_type: plantType,
           image: image || null,
+          room: room || null,
           suggested_watering_days: suggestedWateringDays,
           updated_at: new Date().toISOString(),
         })
@@ -225,6 +228,8 @@ const EditPlantDialog = ({
             setPlantType={setPlantType}
             image={image}
             setImage={setImage}
+            room={room}
+            setRoom={setRoom}
             suggestedWateringDays={suggestedWateringDays}
             setSuggestedWateringDays={setSuggestedWateringDays}
           />
