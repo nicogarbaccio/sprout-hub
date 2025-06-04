@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Plus, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MyPlantCardSkeleton, Skeleton } from "@/components/ui/skeleton";
+import { CascadingContainer } from "@/components/ui/cascading-container";
+import { CascadingGrid } from "@/components/ui/cascading-grid";
+import { useGracefulLoading } from "@/hooks/useGracefulLoading";
 import MyPlantCard from "./MyPlantCard";
 import EditPlantDialog from "./EditPlantDialog";
 import AddPlantDialog from "./AddPlantDialog";
@@ -15,11 +18,16 @@ const MyPlantsCollection = () => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
+  const { showLoading, isReady } = useGracefulLoading(loading, {
+    minLoadingTime: 400,
+    staggerDelay: 100,
+  });
+
   if (!user) {
     return null;
   }
 
-  if (loading) {
+  if (showLoading) {
     return (
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,6 +53,10 @@ const MyPlantsCollection = () => {
         </div>
       </section>
     );
+  }
+
+  if (!isReady) {
+    return null;
   }
 
   const overdueCount = plants.filter((plant) => {
@@ -122,63 +134,68 @@ const MyPlantsCollection = () => {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-plant-text mb-4 font-poppins">
-              My Plant Collection
-            </h2>
-            <div className="flex flex-wrap gap-4 text-sm">
-              <span className="bg-plant-secondary/20 text-plant-primary px-3 py-1 rounded-full">
-                {plants.length} plants total
-              </span>
-              {overdueCount > 0 && (
-                <span className="bg-plant-warning/20 text-plant-warning px-3 py-1 rounded-full">
-                  {overdueCount} overdue
+        <CascadingContainer delay={0}>
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-plant-text mb-4 font-poppins">
+                My Plant Collection
+              </h2>
+              <div className="flex flex-wrap gap-4 text-sm">
+                <span className="bg-plant-secondary/20 text-plant-primary px-3 py-1 rounded-full">
+                  {plants.length} plants total
                 </span>
-              )}
-              {dueToday > 0 && (
-                <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">
-                  {dueToday} due today
-                </span>
-              )}
-              {unknownWateringCount > 0 && (
-                <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
-                  {unknownWateringCount} unknown schedule
-                </span>
-              )}
+                {overdueCount > 0 && (
+                  <span className="bg-plant-warning/20 text-plant-warning px-3 py-1 rounded-full">
+                    {overdueCount} overdue
+                  </span>
+                )}
+                {dueToday > 0 && (
+                  <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">
+                    {dueToday} due today
+                  </span>
+                )}
+                {unknownWateringCount > 0 && (
+                  <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
+                    {unknownWateringCount} unknown schedule
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
 
-          <Button
-            onClick={handleAddPlant}
-            className="bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl mt-4 md:mt-0"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Add New Plant
-          </Button>
-        </div>
-
-        {plants.length === 0 ? (
-          <div className="text-center py-20">
-            <div className="w-24 h-24 bg-plant-secondary/20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Plus className="w-8 h-8 text-plant-primary" />
-            </div>
-            <h3 className="text-xl font-semibold text-plant-text mb-2 font-poppins">
-              Start Your Plant Journey
-            </h3>
-            <p className="text-plant-text/60 mb-6">
-              Add your first plant to begin tracking its care and growth.
-            </p>
             <Button
               onClick={handleAddPlant}
-              className="bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl"
+              className="bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl mt-4 md:mt-0"
             >
-              Add Your First Plant
+              <Plus className="w-4 h-4 mr-2" />
+              Add New Plant
             </Button>
           </div>
+        </CascadingContainer>
+
+        {plants.length === 0 ? (
+          <CascadingContainer delay={200}>
+            <div className="text-center py-20">
+              <div className="w-24 h-24 bg-plant-secondary/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Plus className="w-8 h-8 text-plant-primary" />
+              </div>
+              <h3 className="text-xl font-semibold text-plant-text mb-2 font-poppins">
+                Start Your Plant Journey
+              </h3>
+              <p className="text-plant-text/60 mb-6">
+                Add your first plant to begin tracking its care and growth.
+              </p>
+              <Button
+                onClick={handleAddPlant}
+                className="bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl"
+              >
+                Add Your First Plant
+              </Button>
+            </div>
+          </CascadingContainer>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {plants.map((plant) => {
+          <CascadingGrid
+            items={plants}
+            renderItem={(plant) => {
               const wateringSchedule = plant.suggested_watering_days || 7;
               const hasLastWatered = !!plant.latest_watering;
               return (
@@ -216,8 +233,10 @@ const MyPlantsCollection = () => {
                   onEdit={() => handleEditPlant(plant)}
                 />
               );
-            })}
-          </div>
+            }}
+            cols={{ default: 1, md: 2, lg: 3, xl: 4 }}
+            itemDelay={75}
+          />
         )}
 
         <EditPlantDialog

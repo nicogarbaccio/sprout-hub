@@ -7,6 +7,8 @@ import SecuritySettings from "@/components/profile/SecuritySettings";
 import DangerZone from "@/components/profile/DangerZone";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { CascadingContainer } from "@/components/ui/cascading-container";
+import { useGracefulLoading } from "@/hooks/useGracefulLoading";
 import { useProfile } from "@/hooks/useProfile";
 
 const Profile = () => {
@@ -22,7 +24,12 @@ const Profile = () => {
     handleDeleteAccount,
   } = useProfile();
 
-  if (isLoadingProfile) {
+  const { showLoading, isReady } = useGracefulLoading(isLoadingProfile, {
+    minLoadingTime: 400,
+    staggerDelay: 150,
+  });
+
+  if (showLoading) {
     return (
       <div className="min-h-screen bg-white font-poppins">
         <Navigation />
@@ -114,33 +121,45 @@ const Profile = () => {
     );
   }
 
+  if (!isReady) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen bg-white font-poppins">
       <Navigation />
       <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-plant-primary/10 to-plant-secondary/10 p-4">
         <div className="max-w-4xl mx-auto space-y-6">
-          <ProfileHeader />
+          <CascadingContainer delay={0}>
+            <ProfileHeader />
+          </CascadingContainer>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <ProfileInformation
-              profileData={profileData}
-              setProfileData={setProfileData}
-              handleUpdateProfile={handleUpdateProfile}
-              isLoading={isLoading}
-            />
+            <CascadingContainer delay={100}>
+              <ProfileInformation
+                profileData={profileData}
+                setProfileData={setProfileData}
+                handleUpdateProfile={handleUpdateProfile}
+                isLoading={isLoading}
+              />
+            </CascadingContainer>
 
             <div className="space-y-6">
-              <SecuritySettings
-                passwordData={passwordData}
-                setPasswordData={setPasswordData}
-                handleChangePassword={handleChangePassword}
-                isLoading={isLoading}
-              />
+              <CascadingContainer delay={200}>
+                <SecuritySettings
+                  passwordData={passwordData}
+                  setPasswordData={setPasswordData}
+                  handleChangePassword={handleChangePassword}
+                  isLoading={isLoading}
+                />
+              </CascadingContainer>
 
-              <DangerZone
-                handleDeleteAccount={handleDeleteAccount}
-                isLoading={isLoading}
-              />
+              <CascadingContainer delay={300}>
+                <DangerZone
+                  handleDeleteAccount={handleDeleteAccount}
+                  isLoading={isLoading}
+                />
+              </CascadingContainer>
             </div>
           </div>
         </div>

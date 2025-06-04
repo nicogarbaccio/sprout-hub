@@ -147,9 +147,26 @@
     animation: scaleIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  /* Respect motion preferences for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in,
+    .animate-slide-up,
+    .animate-scale-in {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   /* Smooth transitions for interactive elements */
   .transition-smooth {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .transition-smooth {
+      transition: none;
+    }
   }
 
   /* Custom scrollbar for better UX */
