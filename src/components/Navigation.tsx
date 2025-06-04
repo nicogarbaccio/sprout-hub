@@ -106,7 +106,7 @@ const Navigation = () => {
 
   // Helper to get initials for fallback
   const getInitials = () => {
-    if (!profileData.first_name && !profileData.last_name) return "?";
+    if (!profileData.first_name && !profileData.last_name) return "";
     return `${profileData.first_name?.charAt(0) || ""}${
       profileData.last_name?.charAt(0) || ""
     }`.toUpperCase();
