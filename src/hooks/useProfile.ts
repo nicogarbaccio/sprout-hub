@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import { useProfileData } from "@/contexts/ProfileDataContext";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -20,6 +21,7 @@ interface PasswordData {
 
 export const useProfile = () => {
   const { user, signOut } = useAuth();
+  const { updateProfileData } = useProfileData();
   const navigate = useNavigate();
   const { toast } = useToast();
   
@@ -70,7 +72,7 @@ export const useProfile = () => {
         last_name: data.last_name || "",
         username: data.username || "",
         email: data.email || user.email || "",
-        avatar_url: (data as any).avatar_url || "",
+        avatar_url: data.avatar_url || "",
       });
     } catch (error) {
       console.error("Error fetching profile:", error);
@@ -117,6 +119,14 @@ export const useProfile = () => {
         .eq("id", user.id);
 
       if (error) throw error;
+
+      // Update the global profile data context
+      updateProfileData({
+        first_name: profileData.first_name,
+        last_name: profileData.last_name,
+        username: profileData.username,
+        avatar_url: profileData.avatar_url,
+      });
 
       toast({
         title: "Success",

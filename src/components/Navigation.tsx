@@ -24,54 +24,17 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { useAuth } from "@/contexts/AuthContext";
+import { useProfileData } from "@/contexts/ProfileDataContext";
 import { useNavigate, Link } from "react-router-dom";
 import SproutHubLogo from "@/components/SproutHubLogo";
 import * as React from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { toast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 
 const Navigation = () => {
   const { user, signOut } = useAuth();
+  const { profileData } = useProfileData();
   const navigate = useNavigate();
-  const [profileData, setProfileData] = React.useState({
-    first_name: "",
-    last_name: "",
-    avatar_url: "",
-  });
-
-  // Fetch profile data only when we have a user, without redirecting
-  React.useEffect(() => {
-    const fetchProfileData = async () => {
-      if (!user) {
-        setProfileData({ first_name: "", last_name: "", avatar_url: "" });
-        return;
-      }
-
-      try {
-        const { data, error } = await supabase
-          .from("profiles")
-          .select("first_name, last_name, avatar_url")
-          .eq("id", user.id)
-          .single();
-
-        if (error) {
-          console.warn("Could not fetch profile data:", error);
-          return;
-        }
-
-        setProfileData({
-          first_name: data.first_name || "",
-          last_name: data.last_name || "",
-          avatar_url: data.avatar_url || "",
-        });
-      } catch (error) {
-        console.warn("Error fetching profile:", error);
-      }
-    };
-
-    fetchProfileData();
-  }, [user?.id]); // Only refetch when user ID actually changes
 
   const handleSignIn = () => {
     console.log("Navigation: Sign in button clicked, current user:", user);
