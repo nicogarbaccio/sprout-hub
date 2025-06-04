@@ -71,7 +71,7 @@ const Navigation = () => {
     };
 
     fetchProfileData();
-  }, [user]);
+  }, [user?.id]); // Only refetch when user ID actually changes
 
   const handleSignIn = () => {
     console.log("Navigation: Sign in button clicked, current user:", user);
