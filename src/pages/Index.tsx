@@ -19,8 +19,8 @@ const MarketingPageSkeleton = () => {
       {/* Hero Section Skeleton */}
       <section className="bg-gradient-to-br from-plant-neutral to-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
-            <div className="mb-8 lg:mb-0">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start">
+            <div className="mb-8 lg:mb-0 lg:pt-8">
               <Skeleton className="h-16 w-3/4 mb-6" />
               <div className="space-y-2 mb-8">
                 <Skeleton className="h-6 w-full" />
@@ -29,19 +29,22 @@ const MarketingPageSkeleton = () => {
               </div>
               <Skeleton className="h-12 w-40 rounded-xl" />
             </div>
-            <div className="relative">
-              <div className="bg-white rounded-3xl shadow-xl p-8">
-                <Skeleton className="w-full aspect-[3/4] rounded-2xl mb-6" />
-                <div className="space-y-4">
-                  {Array.from({ length: 3 }).map((_, i) => (
-                    <div key={i} className="flex items-center space-x-3">
-                      <Skeleton className="w-10 h-10 rounded-full" />
-                      <div className="flex-1">
-                        <Skeleton className="h-4 w-32 mb-1" />
-                        <Skeleton className="h-3 w-24" />
+            <div className="relative lg:flex lg:justify-center">
+              <div className="bg-white rounded-3xl shadow-xl p-6 relative overflow-hidden mx-auto lg:mx-0 min-w-[400px]">
+                <div className="absolute inset-0 bg-gradient-to-br from-plant-secondary/5 to-plant-primary/5 rounded-3xl"></div>
+                <div className="relative">
+                  <Skeleton className="w-full h-48 sm:h-56 lg:h-64 rounded-3xl mb-4" />
+                  <div className="space-y-3">
+                    {Array.from({ length: 3 }).map((_, i) => (
+                      <div key={i} className="flex items-center space-x-3">
+                        <Skeleton className="w-10 h-10 rounded-full" />
+                        <div className="flex-1">
+                          <Skeleton className="h-4 w-48 mb-1" />
+                          <Skeleton className="h-3 w-36" />
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -94,15 +97,15 @@ const Index = () => {
   useEffect(() => {
     // Simulate initial page load time for marketing content
     if (!user && !authLoading) {
-      const timer = setTimeout(() => setIsMarketingLoading(false), 800);
+      const timer = setTimeout(() => setIsMarketingLoading(false), 300);
       return () => clearTimeout(timer);
     }
   }, [user, authLoading]);
 
   const { showLoading: showMarketingLoading, isReady: isMarketingReady } =
     useGracefulLoading(isMarketingLoading, {
-      minLoadingTime: 500,
-      staggerDelay: 150,
+      minLoadingTime: 200,
+      staggerDelay: 100,
     });
 
   // Show skeleton during auth loading or marketing loading for non-signed-in users
@@ -119,13 +122,31 @@ const Index = () => {
           {/* Invisible content to maintain height */}
           <section className="bg-gradient-to-br from-plant-neutral to-white py-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
-                <div className="mb-8 lg:mb-0">
+              <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start">
+                <div className="mb-8 lg:mb-0 lg:pt-8">
                   <div className="h-16 w-3/4 mb-6" />
                   <div className="h-24 mb-8" />
                   <div className="h-12 w-40" />
                 </div>
-                <div className="h-96" />
+                <div className="relative lg:flex lg:justify-center">
+                  <div className="bg-white rounded-3xl shadow-xl p-6 relative overflow-hidden mx-auto lg:mx-0 min-w-[400px]">
+                    <div className="absolute inset-0 bg-gradient-to-br from-plant-secondary/5 to-plant-primary/5 rounded-3xl"></div>
+                    <div className="relative">
+                      <div className="w-full h-48 sm:h-56 lg:h-64 rounded-3xl mb-4" />
+                      <div className="space-y-3">
+                        {Array.from({ length: 3 }).map((_, i) => (
+                          <div key={i} className="flex items-center space-x-3">
+                            <div className="w-10 h-10 rounded-full" />
+                            <div className="flex-1">
+                              <div className="h-4 w-48 mb-1" />
+                              <div className="h-3 w-36" />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
