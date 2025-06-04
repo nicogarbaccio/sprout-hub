@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Droplets } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
@@ -20,14 +20,17 @@ import SproutHubLogo from "@/components/SproutHubLogo";
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { signUp, signIn, user } = useAuth();
   const { toast } = useToast();
 
   useEffect(() => {
     if (user) {
-      navigate("/");
+      // Get the redirect URL from search params
+      const redirectTo = searchParams.get("redirect") || "/";
+      navigate(redirectTo);
     }
-  }, [user, navigate]);
+  }, [user, navigate, searchParams]);
 
   const handleSignIn = async (emailOrUsername: string, password: string) => {
     setIsLoading(true);

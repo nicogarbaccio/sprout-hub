@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Droplets, Sun, Clock, Plus, Eye } from "lucide-react";
+import { Droplets, Sun, Clock, Plus, Eye, LogIn } from "lucide-react";
 import PlantImage from "@/components/ui/plant-image";
 
 interface PlantCardProps {
@@ -12,6 +12,8 @@ interface PlantCardProps {
   careLevel: "Easy" | "Medium" | "Hard";
   onAddToCollection?: () => void;
   onViewDetails?: () => void;
+  isAuthenticated?: boolean;
+  onSignInToAdd?: () => void;
 }
 
 const PlantCard = ({
@@ -24,6 +26,8 @@ const PlantCard = ({
   careLevel,
   onAddToCollection,
   onViewDetails,
+  isAuthenticated = false,
+  onSignInToAdd,
 }: PlantCardProps) => {
   const getCareColor = (level: string) => {
     switch (level) {
@@ -98,13 +102,24 @@ const PlantCard = ({
             View Details
           </Button>
 
-          <Button
-            onClick={onAddToCollection}
-            className="w-full bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl font-medium"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Add to Collection
-          </Button>
+          {isAuthenticated ? (
+            <Button
+              onClick={onAddToCollection}
+              className="w-full bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl font-medium"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Add to Collection
+            </Button>
+          ) : (
+            <Button
+              onClick={onSignInToAdd}
+              variant="outline"
+              className="w-full border-plant-primary text-plant-primary hover:bg-plant-primary hover:text-white rounded-xl font-medium"
+            >
+              <LogIn className="w-4 h-4 mr-2" />
+              Sign in to Add
+            </Button>
+          )}
         </div>
       </div>
     </div>

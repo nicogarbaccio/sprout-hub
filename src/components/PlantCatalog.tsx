@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import PlantCatalogHeader from "./catalog/PlantCatalogHeader";
@@ -53,6 +54,8 @@ const PlantCatalog = ({
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const { user } = useAuth();
 
   // Get unique values for filter options
   const categories = getUniqueCategories();
@@ -205,6 +208,11 @@ const PlantCatalog = ({
     navigate("/plant-catalog");
   };
 
+  const handleSignInToAdd = () => {
+    const currentPath = encodeURIComponent(location.pathname);
+    navigate(`/auth?redirect=${currentPath}`);
+  };
+
   // Calculate display info for results summary
   const startItem = filteredPlants.length === 0 ? 0 : startIndex + 1;
   const endItem = Math.min(endIndex, filteredPlants.length);
@@ -266,6 +274,8 @@ const PlantCatalog = ({
           clearAllFilters={clearAllFilters}
           isLoading={isLoading}
           isChangingPage={isChangingPage}
+          isAuthenticated={!!user}
+          onSignInToAdd={handleSignInToAdd}
         />
 
         {/* Pagination Controls - Only show on full catalog page */}
@@ -295,11 +305,13 @@ const PlantCatalog = ({
           </div>
         )}
 
-        <AddPlantDialog
-          isOpen={isAddDialogOpen}
-          onClose={handleCloseAddDialog}
-          plantData={selectedPlantData}
-        />
+        {user && (
+          <AddPlantDialog
+            isOpen={isAddDialogOpen}
+            onClose={handleCloseAddDialog}
+            plantData={selectedPlantData}
+          />
+        )}
       </div>
     </section>
   );

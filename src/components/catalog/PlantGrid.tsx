@@ -12,6 +12,8 @@ interface PlantGridProps {
   clearAllFilters: () => void;
   isLoading?: boolean;
   isChangingPage?: boolean;
+  isAuthenticated?: boolean;
+  onSignInToAdd?: () => void;
 }
 
 const PlantGrid = ({
@@ -22,6 +24,8 @@ const PlantGrid = ({
   clearAllFilters,
   isLoading = false,
   isChangingPage = false,
+  isAuthenticated = false,
+  onSignInToAdd,
 }: PlantGridProps) => {
   // Show skeleton during loading or page changes
   if (isLoading || isChangingPage) {
@@ -80,6 +84,8 @@ const PlantGrid = ({
             {...plant}
             onAddToCollection={() => onAddToCollection(plant)}
             onViewDetails={() => onViewDetails(plant.name)}
+            isAuthenticated={isAuthenticated}
+            onSignInToAdd={onSignInToAdd}
           />
         </div>
       ))}

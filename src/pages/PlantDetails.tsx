@@ -1,4 +1,5 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import AddPlantDialog from "@/components/AddPlantDialog";
@@ -16,6 +17,8 @@ import { plants } from "@/data/plantData";
 const PlantDetails = () => {
   const { plantName } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { user } = useAuth();
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
   // Simulate loading state (in a real app, this would be actual data fetching)
@@ -46,6 +49,11 @@ const PlantDetails = () => {
 
   const handleCloseAddDialog = () => {
     setIsAddDialogOpen(false);
+  };
+
+  const handleSignInToAdd = () => {
+    const currentPath = encodeURIComponent(location.pathname);
+    navigate(`/auth?redirect=${currentPath}`);
   };
 
   // Show loading skeleton
@@ -212,6 +220,8 @@ const PlantDetails = () => {
                     plant.toxicity || "Unknown - consult a veterinarian"
                   }
                   onAddToCollection={handleAddToCollection}
+                  isAuthenticated={!!user}
+                  onSignInToAdd={handleSignInToAdd}
                 />
               </CascadingContainer>
 
@@ -236,19 +246,21 @@ const PlantDetails = () => {
         </div>
       </div>
 
-      <AddPlantDialog
-        isOpen={isAddDialogOpen}
-        onClose={handleCloseAddDialog}
-        plantData={{
-          name: plant.name,
-          botanicalName: plant.botanicalName,
-          image: plant.image,
-          wateringFrequency: plant.wateringFrequency,
-          suggestedWateringDays: plant.suggestedWateringDays,
-          lightRequirement: plant.lightRequirement,
-          careLevel: plant.careLevel,
-        }}
-      />
+      {user && (
+        <AddPlantDialog
+          isOpen={isAddDialogOpen}
+          onClose={handleCloseAddDialog}
+          plantData={{
+            name: plant.name,
+            botanicalName: plant.botanicalName,
+            image: plant.image,
+            wateringFrequency: plant.wateringFrequency,
+            suggestedWateringDays: plant.suggestedWateringDays,
+            lightRequirement: plant.lightRequirement,
+            careLevel: plant.careLevel,
+          }}
+        />
+      )}
       <Footer />
     </div>
   );
