@@ -32,8 +32,8 @@ const HeroSection = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-plant-secondary/5 to-plant-primary/5 rounded-3xl"></div>
               <div className="relative">
                 <img
-                  src="https://res.cloudinary.com/dojdglovh/image/upload/v1748914784/ChatGPT_Image_Jun_2_2025_09_38_59_PM_p5udwo.png"
-                  alt="Beautiful plants collection"
+                  src="https://res.cloudinary.com/dojdglovh/image/upload/v1749047653/ChatGPT_Image_Jun_4_2025_10_31_01_AM_b4iog6.png"
+                  alt="Person watering a plant"
                   className="w-full aspect-video object-cover rounded-2xl mb-6"
                 />
                 <div className="space-y-4">
