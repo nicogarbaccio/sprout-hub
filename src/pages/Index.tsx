@@ -31,7 +31,7 @@ const MarketingPageSkeleton = () => {
             </div>
             <div className="relative">
               <div className="bg-white rounded-3xl shadow-xl p-8">
-                <Skeleton className="w-full aspect-video rounded-2xl mb-6" />
+                <Skeleton className="w-full aspect-[3/4] rounded-2xl mb-6" />
                 <div className="space-y-4">
                   {Array.from({ length: 3 }).map((_, i) => (
                     <div key={i} className="flex items-center space-x-3">

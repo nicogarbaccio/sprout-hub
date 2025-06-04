@@ -34,7 +34,7 @@ const HeroSection = () => {
                 <img
                   src="https://res.cloudinary.com/dojdglovh/image/upload/v1749047653/ChatGPT_Image_Jun_4_2025_10_31_01_AM_b4iog6.png"
                   alt="Person watering a plant"
-                  className="w-full aspect-video object-cover rounded-2xl mb-6"
+                  className="w-full aspect-[3/4] object-cover rounded-2xl mb-6"
                 />
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
