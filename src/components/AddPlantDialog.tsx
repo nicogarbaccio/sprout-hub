@@ -36,7 +36,7 @@ import { useUserPlants } from "@/hooks/useUserPlants";
 import ImageUpload from "@/components/ui/image-upload";
 import { plants as allPlants } from "@/data/plantData";
 import { cn } from "@/lib/utils";
-import { ROOM_OPTIONS } from "@/utils/rooms";
+import { ROOM_OPTIONS, NO_ROOM_VALUE } from "@/utils/rooms";
 
 interface PlantData {
   name: string;
@@ -64,7 +64,7 @@ const AddPlantDialog = ({
     nickname: "",
     plant_type: "",
     image: "",
-    room: "",
+    room: NO_ROOM_VALUE,
     watering_schedule_days: 7,
     notes: "",
   });
@@ -90,7 +90,7 @@ const AddPlantDialog = ({
           nickname: plantData.name,
           plant_type: plantData.name,
           image: plantData.image,
-          room: "",
+          room: NO_ROOM_VALUE,
           watering_schedule_days: plantData.suggestedWateringDays || 7,
           notes: `Botanical name: ${plantData.botanicalName}\nWatering: ${plantData.wateringFrequency}\nLight: ${plantData.lightRequirement}\nCare level: ${plantData.careLevel}`,
         });
@@ -112,7 +112,7 @@ const AddPlantDialog = ({
           nickname: "",
           plant_type: "",
           image: "",
-          room: "",
+          room: NO_ROOM_VALUE,
           watering_schedule_days: 7,
           notes: "",
         });
@@ -155,11 +155,16 @@ const AddPlantDialog = ({
 
     setIsSubmitting(true);
 
+    const roomValue =
+      formData.room === NO_ROOM_VALUE
+        ? undefined
+        : formData.room.trim() || undefined;
+
     const success = await addPlant({
       nickname: formData.nickname.trim(),
       plant_type: formData.plant_type.trim(),
       image: formData.image.trim() || undefined,
-      room: formData.room.trim() || undefined,
+      room: roomValue,
       suggested_watering_days: formData.watering_schedule_days,
       last_watered_date: lastWateredDate?.toISOString(),
     });
@@ -406,7 +411,7 @@ const AddPlantDialog = ({
                 <SelectValue placeholder="Select a room or leave empty" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">No room assigned</SelectItem>
+                <SelectItem value={NO_ROOM_VALUE}>No room assigned</SelectItem>
                 {ROOM_OPTIONS.map((room) => (
                   <SelectItem key={room.value} value={room.value}>
                     <span className="flex items-center gap-2">

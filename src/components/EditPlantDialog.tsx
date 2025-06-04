@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { NO_ROOM_VALUE } from "@/utils/rooms";
 import PlantDetailsForm from "./edit-plant/PlantDetailsForm";
 import WateringRecordForm from "./edit-plant/WateringRecordForm";
 import WateringRecordsList from "./edit-plant/WateringRecordsList";
@@ -67,7 +68,7 @@ const EditPlantDialog = ({
       setNickname(plant.nickname);
       setPlantType(plant.plant_type);
       setImage(plant.image || "");
-      setRoom(plant.room || "");
+      setRoom(plant.room || NO_ROOM_VALUE);
       setSuggestedWateringDays(plant.suggested_watering_days || 7);
       loadWateringRecords(plant.id);
     }
@@ -97,18 +98,24 @@ const EditPlantDialog = ({
     if (!plant) return;
 
     setIsLoading(true);
+
+    const roomToSave = !room || room === NO_ROOM_VALUE ? null : room;
+
     try {
-      const { error } = await supabase
+      const updateData = {
+        nickname,
+        plant_type: plantType,
+        image: image || null,
+        room: roomToSave,
+        suggested_watering_days: suggestedWateringDays,
+        updated_at: new Date().toISOString(),
+      };
+
+      const { data: updatedData, error } = await supabase
         .from("user_plants")
-        .update({
-          nickname,
-          plant_type: plantType,
-          image: image || null,
-          room: room || null,
-          suggested_watering_days: suggestedWateringDays,
-          updated_at: new Date().toISOString(),
-        })
-        .eq("id", plant.id);
+        .update(updateData)
+        .eq("id", plant.id)
+        .select();
 
       if (error) throw error;
 

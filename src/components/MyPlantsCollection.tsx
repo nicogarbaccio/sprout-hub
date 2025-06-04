@@ -1,15 +1,17 @@
 import { useState } from "react";
-import { Plus, Edit } from "lucide-react";
+import { Plus, Edit, Droplets } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MyPlantCardSkeleton, Skeleton } from "@/components/ui/skeleton";
 import { CascadingContainer } from "@/components/ui/cascading-container";
 import { CascadingGrid } from "@/components/ui/cascading-grid";
 import { useGracefulLoading } from "@/hooks/useGracefulLoading";
 import MyPlantCard from "./MyPlantCard";
+import RoomSection from "./RoomSection";
 import EditPlantDialog from "./EditPlantDialog";
 import AddPlantDialog from "./AddPlantDialog";
 import { useUserPlants, UserPlant } from "@/hooks/useUserPlants";
 import { useAuth } from "@/contexts/AuthContext";
+import { groupPlantsByRoom } from "@/utils/rooms";
 
 const MyPlantsCollection = () => {
   const { user } = useAuth();
@@ -97,6 +99,10 @@ const MyPlantsCollection = () => {
     (plant) => !plant.latest_watering
   ).length;
 
+  // Room statistics
+  const roomGroups = groupPlantsByRoom(plants);
+  const roomCount = Object.keys(roomGroups).length;
+
   const handleEditPlant = (plant: UserPlant) => {
     setEditingPlant(plant);
     setIsEditDialogOpen(true);
@@ -166,6 +172,11 @@ const MyPlantsCollection = () => {
                 <span className="bg-plant-secondary/20 text-plant-primary px-3 py-1 rounded-full">
                   {plants.length} plants total
                 </span>
+                {roomCount > 0 && (
+                  <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full">
+                    {roomCount} room{roomCount !== 1 ? "s" : ""}
+                  </span>
+                )}
                 {overdueCount > 0 && (
                   <span className="bg-plant-warning/20 text-plant-warning px-3 py-1 rounded-full">
                     {overdueCount} overdue
@@ -196,69 +207,85 @@ const MyPlantsCollection = () => {
 
         {plants.length === 0 ? (
           <CascadingContainer delay={200}>
-            <div className="text-center py-20">
-              <div className="w-24 h-24 bg-plant-secondary/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Plus className="w-8 h-8 text-plant-primary" />
+            <div className="bg-gradient-to-br from-plant-secondary/10 to-plant-primary/5 rounded-3xl p-12 text-center">
+              <div className="w-32 h-32 bg-gradient-to-br from-plant-primary to-plant-secondary rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg">
+                <span className="text-6xl">🌱</span>
               </div>
-              <h3 className="text-xl font-semibold text-plant-text mb-2 font-poppins">
-                Start Your Plant Journey
+              <h3 className="text-3xl font-bold text-plant-text mb-4 font-poppins">
+                Welcome to Your Plant Collection
               </h3>
-              <p className="text-plant-text/60 mb-6">
-                Add your first plant to begin tracking its care and growth.
+              <p className="text-lg text-plant-text/70 mb-8 max-w-2xl mx-auto">
+                Start your journey as a plant parent! Track watering schedules,
+                organize plants by room, and watch your green family grow.
               </p>
+
+              {/* Benefits */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div className="flex flex-col items-center p-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3">
+                    <Droplets className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <h4 className="font-semibold text-plant-text mb-2">
+                    Smart Watering
+                  </h4>
+                  <p className="text-sm text-plant-text/60">
+                    Never forget to water with personalized schedules
+                  </p>
+                </div>
+                <div className="flex flex-col items-center p-4">
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-3">
+                    <span className="text-lg">🏠</span>
+                  </div>
+                  <h4 className="font-semibold text-plant-text mb-2">
+                    Room Organization
+                  </h4>
+                  <p className="text-sm text-plant-text/60">
+                    Organize plants by location in your home
+                  </p>
+                </div>
+                <div className="flex flex-col items-center p-4">
+                  <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-3">
+                    <span className="text-lg">📊</span>
+                  </div>
+                  <h4 className="font-semibold text-plant-text mb-2">
+                    Growth Tracking
+                  </h4>
+                  <p className="text-sm text-plant-text/60">
+                    Monitor your plants' health and progress
+                  </p>
+                </div>
+              </div>
+
               <Button
                 onClick={handleAddPlant}
-                className="bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl"
+                size="lg"
+                className="bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
               >
+                <Plus className="w-5 h-5 mr-2" />
                 Add Your First Plant
               </Button>
             </div>
           </CascadingContainer>
         ) : (
-          <CascadingGrid
-            items={plants}
-            renderItem={(plant) => {
-              const wateringSchedule = plant.suggested_watering_days || 7;
-              const hasLastWatered = !!plant.latest_watering;
-              return (
-                <MyPlantCard
-                  key={plant.id}
-                  id={plant.id}
-                  name={plant.nickname}
-                  plantType={plant.plant_type}
-                  image={
-                    plant.image ||
-                    "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=400&h=300&fit=crop"
-                  }
-                  lastWatered={
-                    plant.latest_watering
-                      ? formatDate(plant.latest_watering)
-                      : "Unknown"
-                  }
-                  nextWateringDue={getNextWateringDate(
-                    plant.latest_watering,
-                    plant.days_since_watering,
-                    wateringSchedule
-                  )}
-                  isOverdue={isOverdue(
-                    plant.days_since_watering,
-                    wateringSchedule,
-                    hasLastWatered
-                  )}
-                  daysUntilWatering={
-                    plant.days_since_watering
-                      ? wateringSchedule - plant.days_since_watering
-                      : 0
-                  }
-                  hasUnknownWateringDate={!hasLastWatered}
-                  onWater={() => waterPlant(plant.id)}
-                  onEdit={() => handleEditPlant(plant)}
+          <>
+            {/* Render Plants by Room */}
+            {Object.entries(groupPlantsByRoom(plants)).map(
+              ([roomKey, roomPlants], index) => (
+                <RoomSection
+                  key={roomKey}
+                  roomKey={roomKey}
+                  plants={roomPlants}
+                  onWaterPlant={waterPlant}
+                  onEditPlant={handleEditPlant}
+                  onAddPlant={handleAddPlant}
+                  formatDate={formatDate}
+                  getNextWateringDate={getNextWateringDate}
+                  isOverdue={isOverdue}
+                  delay={200 + index * 100}
                 />
-              );
-            }}
-            cols={{ default: 1, md: 2, lg: 3, xl: 4 }}
-            itemDelay={75}
-          />
+              )
+            )}
+          </>
         )}
 
         <EditPlantDialog

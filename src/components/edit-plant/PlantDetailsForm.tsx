@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import ImageUpload from "@/components/ui/image-upload";
-import { ROOM_OPTIONS } from "@/utils/rooms";
+import { ROOM_OPTIONS, NO_ROOM_VALUE } from "@/utils/rooms";
 
 interface PlantDetailsFormProps {
   nickname: string;
@@ -41,7 +41,11 @@ const PlantDetailsForm = ({
 
   // Check if current room is a custom room (not in predefined options)
   useEffect(() => {
-    if (room && !ROOM_OPTIONS.find((option) => option.value === room)) {
+    if (
+      room &&
+      room !== NO_ROOM_VALUE &&
+      !ROOM_OPTIONS.find((option) => option.value === room)
+    ) {
       setIsCustomRoom(true);
       setCustomRoom(room);
     } else {
@@ -106,15 +110,14 @@ const PlantDetailsForm = ({
       <div className="space-y-2">
         <Label htmlFor="room">Room (Optional)</Label>
         <Select
-          value={isCustomRoom ? "custom" : room}
+          value={isCustomRoom ? "custom" : room || NO_ROOM_VALUE}
           onValueChange={(value) => {
             if (value === "custom") {
               setIsCustomRoom(true);
-              setRoom(customRoom);
             } else {
               setIsCustomRoom(false);
               setCustomRoom("");
-              setRoom(value);
+              setRoom(value === NO_ROOM_VALUE ? "" : value);
             }
           }}
         >
@@ -122,7 +125,7 @@ const PlantDetailsForm = ({
             <SelectValue placeholder="Select a room or leave empty" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">No room assigned</SelectItem>
+            <SelectItem value={NO_ROOM_VALUE}>No room assigned</SelectItem>
             {ROOM_OPTIONS.map((roomOption) => (
               <SelectItem key={roomOption.value} value={roomOption.value}>
                 <span className="flex items-center gap-2">
