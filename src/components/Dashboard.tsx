@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Plus,
   Droplets,
@@ -48,6 +49,7 @@ import { format, formatDistanceToNow } from "date-fns";
 const Dashboard = () => {
   const { plants, loading, waterPlant } = useUserPlants();
   const { profileData, isLoadingProfile } = useProfile();
+  const navigate = useNavigate();
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isBulkWaterDialogOpen, setIsBulkWaterDialogOpen] = useState(false);
 
@@ -347,19 +349,22 @@ const Dashboard = () => {
                 if (plantsNeedingWater.length > 0) {
                   setIsBulkWaterDialogOpen(true);
                 } else {
-                  window.scrollTo({
-                    top: document.getElementById("todays-tasks")?.offsetTop,
-                    behavior: "smooth",
-                  });
+                  navigate("/my-plants");
                 }
               }}
             >
-              <Droplets className="w-6 h-6 mr-3" />
-              {plantsNeedingWater.length > 0
-                ? `Water ${plantsNeedingWater.length} Plant${
-                    plantsNeedingWater.length > 1 ? "s" : ""
-                  }`
-                : "View Tasks"}
+              {plantsNeedingWater.length > 0 ? (
+                <>
+                  <Droplets className="w-6 h-6 mr-3" />
+                  Water {plantsNeedingWater.length} Plant
+                  {plantsNeedingWater.length > 1 ? "s" : ""}
+                </>
+              ) : (
+                <>
+                  <Flower2 className="w-6 h-6 mr-3" />
+                  View All Plants
+                </>
+              )}
             </Button>
           </div>
         </CascadingContainer>
