@@ -8,6 +8,7 @@ import {
   Clock,
   Flower2,
   CheckCircle,
+  CheckCircle2,
   Target,
   Activity,
 } from "lucide-react";
@@ -20,6 +21,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import {
   DashboardMetricSkeleton,
   DashboardTaskSkeleton,
@@ -38,6 +49,7 @@ const Dashboard = () => {
   const { plants, loading, waterPlant } = useUserPlants();
   const { profileData, isLoadingProfile } = useProfile();
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isBulkWaterDialogOpen, setIsBulkWaterDialogOpen] = useState(false);
 
   const isLoading = loading || isLoadingProfile;
 
@@ -284,6 +296,22 @@ const Dashboard = () => {
     }
   };
 
+  const handleBulkWater = async () => {
+    setIsBulkWaterDialogOpen(false);
+
+    // Water all plants that need watering today
+    const waterPromises = plantsNeedingWater.map((plant) =>
+      waterPlant(plant.id, `Bulk watered from dashboard`)
+    );
+
+    try {
+      await Promise.all(waterPromises);
+      // Success feedback will be handled by the useUserPlants hook
+    } catch (error) {
+      console.error("Error bulk watering plants:", error);
+    }
+  };
+
   return (
     <div className="py-8 bg-white min-h-[calc(100vh-4rem)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -316,15 +344,22 @@ const Dashboard = () => {
               className="h-16 bg-plant-water text-white rounded-xl font-medium text-lg hover:bg-plant-water/90 hover:text-white border-plant-water"
               size="lg"
               onClick={() => {
-                // Quick water multiple plants functionality could be added here
-                window.scrollTo({
-                  top: document.getElementById("todays-tasks")?.offsetTop,
-                  behavior: "smooth",
-                });
+                if (plantsNeedingWater.length > 0) {
+                  setIsBulkWaterDialogOpen(true);
+                } else {
+                  window.scrollTo({
+                    top: document.getElementById("todays-tasks")?.offsetTop,
+                    behavior: "smooth",
+                  });
+                }
               }}
             >
               <Droplets className="w-6 h-6 mr-3" />
-              Water Plants
+              {plantsNeedingWater.length > 0
+                ? `Water ${plantsNeedingWater.length} Plant${
+                    plantsNeedingWater.length > 1 ? "s" : ""
+                  }`
+                : "View Tasks"}
             </Button>
           </div>
         </CascadingContainer>
@@ -697,6 +732,76 @@ const Dashboard = () => {
           isOpen={isAddDialogOpen}
           onClose={() => setIsAddDialogOpen(false)}
         />
+
+        <AlertDialog
+          open={isBulkWaterDialogOpen}
+          onOpenChange={setIsBulkWaterDialogOpen}
+        >
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle className="flex items-center">
+                <Droplets className="w-5 h-5 mr-2 text-plant-water" />
+                Water Multiple Plants
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                You're about to water {plantsNeedingWater.length} plant
+                {plantsNeedingWater.length > 1 ? "s" : ""} that need attention
+                today:
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+
+            <div className="max-h-48 overflow-y-auto space-y-2 my-4">
+              {plantsNeedingWater.map((plant) => (
+                <div
+                  key={plant.id}
+                  className="flex items-center space-x-3 p-2 bg-plant-neutral rounded-lg"
+                >
+                  <PlantImage
+                    src={
+                      plant.image ||
+                      "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=40&h=40&fit=crop"
+                    }
+                    alt={plant.nickname}
+                    className="w-8 h-8 rounded-full object-cover"
+                  />
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-plant-text">
+                      {plant.nickname}
+                    </p>
+                    <p className="text-xs text-plant-text/60">
+                      {plant.plant_type}
+                    </p>
+                  </div>
+                  <Badge
+                    variant={
+                      plant.days_since_watering! >
+                      (plant.suggested_watering_days || 7)
+                        ? "destructive"
+                        : "secondary"
+                    }
+                    className="text-xs"
+                  >
+                    {plant.days_since_watering! >
+                    (plant.suggested_watering_days || 7)
+                      ? `${plant.days_since_watering} days overdue`
+                      : "Due today"}
+                  </Badge>
+                </div>
+              ))}
+            </div>
+
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleBulkWater}
+                className="bg-plant-water hover:bg-plant-water/90 text-white"
+              >
+                <CheckCircle2 className="w-4 h-4 mr-2" />
+                Water All Plants
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </div>
   );
