@@ -178,11 +178,7 @@ const Index = () => {
 
       {user ? (
         // Dashboard view for signed-in users
-        <>
-          <Dashboard />
-          {/* Optional: Show a condensed plant catalog or skip it for dashboard users */}
-          <PlantCatalog isHomepage={true} isDashboard={true} />
-        </>
+        <Dashboard />
       ) : (
         // Marketing view for non-signed-in users with cascading animations
         <>
