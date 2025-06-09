@@ -239,6 +239,7 @@ const RoomSection = ({
                     ? formatDate(plant.latest_watering)
                     : "Unknown"
                 }
+                lastWateredDate={plant.latest_watering}
                 nextWateringDue={getNextWateringDate(
                   plant.latest_watering,
                   plant.days_since_watering,

@@ -8,6 +8,7 @@ interface MyPlantCardProps {
   plantType: string;
   image: string;
   lastWatered: string;
+  lastWateredDate?: string; // Raw ISO date string for calculations
   nextWateringDue: string;
   isOverdue: boolean;
   daysUntilWatering: number;
@@ -21,6 +22,7 @@ const MyPlantCard = ({
   plantType,
   image,
   lastWatered,
+  lastWateredDate,
   nextWateringDue,
   isOverdue,
   daysUntilWatering,
@@ -31,6 +33,25 @@ const MyPlantCard = ({
   const getStatusColor = () => {
     if (hasUnknownWateringDate) return "bg-gray-100 text-gray-700";
     if (isOverdue) return "bg-plant-warning text-white";
+
+    if (daysUntilWatering === 0) {
+      // Check if truly just watered vs due today
+      if (lastWateredDate) {
+        const today = new Date();
+        const lastWateredDateObj = new Date(lastWateredDate);
+        const timeDiff = today.getTime() - lastWateredDateObj.getTime();
+        const hoursDiff = timeDiff / (1000 * 60 * 60);
+
+        // If watered within the last 12 hours, show green (just watered)
+        if (hoursDiff <= 12) {
+          return "bg-green-100 text-green-700";
+        }
+      }
+
+      // Otherwise it's due today, show yellow
+      return "bg-yellow-100 text-yellow-700";
+    }
+
     if (daysUntilWatering <= 1) return "bg-yellow-100 text-yellow-700";
     return "bg-green-100 text-green-700";
   };
@@ -38,7 +59,26 @@ const MyPlantCard = ({
   const getStatusText = () => {
     if (hasUnknownWateringDate) return "Unknown schedule";
     if (isOverdue) return `Overdue by ${Math.abs(daysUntilWatering)} days`;
-    if (daysUntilWatering === 0) return "Just watered";
+
+    // Check if plant was watered within the last day (truly just watered)
+    if (daysUntilWatering === 0) {
+      // Additional check: if last watered was very recent (same day), show "Just watered"
+      // Otherwise, it means it's exactly on schedule and due today
+      if (lastWateredDate) {
+        const today = new Date();
+        const lastWateredDateObj = new Date(lastWateredDate);
+        const timeDiff = today.getTime() - lastWateredDateObj.getTime();
+        const hoursDiff = timeDiff / (1000 * 60 * 60);
+
+        // If watered within the last 12 hours, consider it "just watered"
+        if (hoursDiff <= 12) {
+          return "Just watered";
+        }
+      }
+
+      return "Due today";
+    }
+
     if (daysUntilWatering === 1) return "Water tomorrow";
     if (daysUntilWatering < 0)
       return `Overdue by ${Math.abs(daysUntilWatering)} days`;
