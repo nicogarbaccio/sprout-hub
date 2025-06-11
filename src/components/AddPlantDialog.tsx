@@ -30,13 +30,20 @@ import {
   CommandGroup,
   CommandEmpty,
 } from "@/components/ui/command";
-import { CalendarIcon, AlertTriangle, Check, ChevronDown } from "lucide-react";
+import {
+  CalendarIcon,
+  AlertTriangle,
+  Check,
+  ChevronDown,
+  Brain,
+} from "lucide-react";
 import { format } from "date-fns";
 import { useUserPlants } from "@/hooks/useUserPlants";
 import ImageUpload from "@/components/ui/image-upload";
 import { plants as allPlants } from "@/data/plantData";
 import { cn } from "@/lib/utils";
 import { ROOM_OPTIONS, NO_ROOM_VALUE } from "@/utils/rooms";
+import { SmartWateringWizard } from "@/components/SmartWateringWizard";
 
 interface PlantData {
   name: string;
@@ -80,6 +87,7 @@ const AddPlantDialog = ({
   const [isPlantTypePopoverOpen, setIsPlantTypePopoverOpen] = useState(false);
   const [isCustomRoom, setIsCustomRoom] = useState(false);
   const [customRoom, setCustomRoom] = useState("");
+  const [isSmartWizardOpen, setIsSmartWizardOpen] = useState(false);
 
   // Reset form when dialog opens/closes or plant data changes
   useEffect(() => {
@@ -186,9 +194,9 @@ const AddPlantDialog = ({
   const handleWateringScheduleChange = (value: string) => {
     if (value === "custom") {
       setIsCustomSelected(true);
-      // Keep current custom value or default to 7
-      const days = customDays ? parseInt(customDays) : 7;
-      handleInputChange("watering_schedule_days", days);
+      // Set customDays to the current watering_schedule_days value so user sees it in the input
+      setCustomDays(formData.watering_schedule_days.toString());
+      // Don't change the actual watering_schedule_days value when switching to custom mode
     } else {
       setIsCustomSelected(false);
       setCustomDays("");
@@ -513,6 +521,16 @@ const AddPlantDialog = ({
               </SelectContent>
             </Select>
 
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full mt-2 text-sm border-plant-primary/30 hover:bg-plant-primary/5 hover:border-plant-primary"
+              onClick={() => setIsSmartWizardOpen(true)}
+            >
+              <Brain className="w-4 h-4 mr-2" />
+              Find optimal schedule for this plant
+            </Button>
+
             {isCustomSelected && (
               <div className="space-y-1">
                 <Label
@@ -581,6 +599,30 @@ const AddPlantDialog = ({
             </Button>
           </div>
         </form>
+
+        <SmartWateringWizard
+          isOpen={isSmartWizardOpen}
+          onClose={() => setIsSmartWizardOpen(false)}
+          onApplySchedule={(days) => {
+            handleInputChange("watering_schedule_days", days);
+
+            // Check if the recommended days match any preset option
+            const presetOptions = [3, 7, 10, 14, 21, 30];
+            if (presetOptions.includes(days)) {
+              // Use preset option - show in dropdown
+              setIsCustomSelected(false);
+              setCustomDays("");
+            } else {
+              // Use custom value - show in custom input
+              setIsCustomSelected(true);
+              setCustomDays(days.toString());
+            }
+
+            setIsSmartWizardOpen(false);
+          }}
+          baseDays={plantData?.suggestedWateringDays || 7}
+          plantName={formData.nickname || plantData?.name || "your plant"}
+        />
       </DialogContent>
     </Dialog>
   );

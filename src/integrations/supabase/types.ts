@@ -78,6 +78,45 @@ export type Database = {
         }
         Relationships: []
       }
+      user_watering_preferences: {
+        Row: {
+          created_at: string | null
+          default_care_style: string
+          default_humidity: string
+          default_light_level: string
+          default_soil_type: string
+          default_temperature: string
+          id: string
+          location: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          default_care_style: string
+          default_humidity: string
+          default_light_level: string
+          default_soil_type: string
+          default_temperature: string
+          id?: string
+          location?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          default_care_style?: string
+          default_humidity?: string
+          default_light_level?: string
+          default_soil_type?: string
+          default_temperature?: string
+          id?: string
+          location?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       watering_records: {
         Row: {
           created_at: string

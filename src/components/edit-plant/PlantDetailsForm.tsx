@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -8,8 +9,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Brain } from "lucide-react";
 import ImageUpload from "@/components/ui/image-upload";
 import { ROOM_OPTIONS, NO_ROOM_VALUE } from "@/utils/rooms";
+import { SmartWateringWizard } from "@/components/SmartWateringWizard";
 
 interface PlantDetailsFormProps {
   nickname: string;
@@ -38,6 +41,8 @@ const PlantDetailsForm = ({
 }: PlantDetailsFormProps) => {
   const [isCustomRoom, setIsCustomRoom] = useState(false);
   const [customRoom, setCustomRoom] = useState("");
+  const [isSmartWizardOpen, setIsSmartWizardOpen] = useState(false);
+  const [isInCustomMode, setIsInCustomMode] = useState(false);
 
   // Check if current room is a custom room (not in predefined options)
   useEffect(() => {
@@ -54,6 +59,14 @@ const PlantDetailsForm = ({
     }
   }, [room]);
 
+  // Initialize custom mode based on whether the initial watering value is a preset
+  useEffect(() => {
+    const isPresetValue = wateringOptions.some(
+      (option) => option.value === suggestedWateringDays
+    );
+    setIsInCustomMode(!isPresetValue);
+  }, []);
+
   const wateringOptions = [
     { value: 3, label: "Every 3 days" },
     { value: 7, label: "Weekly (7 days)" },
@@ -69,17 +82,16 @@ const PlantDetailsForm = ({
 
   const handleWateringScheduleChange = (value: string) => {
     if (value === "custom") {
-      // Keep current value if it's already custom, otherwise default to 7
-      if (!isCustomValue) {
-        setSuggestedWateringDays(7);
-      }
+      setIsInCustomMode(true);
+      // Don't change the value when switching to custom mode
     } else {
+      setIsInCustomMode(false);
       setSuggestedWateringDays(parseInt(value));
     }
   };
 
   const getCurrentSelectValue = () => {
-    if (isCustomValue) return "custom";
+    if (isInCustomMode) return "custom";
     return suggestedWateringDays.toString();
   };
 
@@ -182,7 +194,17 @@ const PlantDetailsForm = ({
           </SelectContent>
         </Select>
 
-        {isCustomValue && (
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full mt-2 text-sm border-plant-primary/30 hover:bg-plant-primary/5 hover:border-plant-primary"
+          onClick={() => setIsSmartWizardOpen(true)}
+        >
+          <Brain className="w-4 h-4 mr-2" />
+          Find optimal schedule for this plant
+        </Button>
+
+        {isInCustomMode && (
           <div className="space-y-1">
             <Label htmlFor="customDays" className="text-sm">
               Custom days
@@ -204,6 +226,26 @@ const PlantDetailsForm = ({
           </div>
         )}
       </div>
+
+      <SmartWateringWizard
+        isOpen={isSmartWizardOpen}
+        onClose={() => setIsSmartWizardOpen(false)}
+        onApplySchedule={(days) => {
+          setSuggestedWateringDays(days);
+
+          // Check if the recommended days match any preset option
+          const presetOptions = [3, 7, 10, 14, 21, 30];
+          if (presetOptions.includes(days)) {
+            setIsInCustomMode(false); // Use dropdown mode
+          } else {
+            setIsInCustomMode(true); // Use custom mode
+          }
+
+          setIsSmartWizardOpen(false);
+        }}
+        baseDays={suggestedWateringDays}
+        plantName={nickname || plantType || "your plant"}
+      />
     </div>
   );
 };
