@@ -30,7 +30,7 @@ const SproutHubLogo = ({
       className={`${sizeClasses[size]} ${className} flex items-center justify-center gap-3`}
     >
       {/* Full, lush plant icon 🪴 */}
-      <div className={`${iconSizes[size]} text-plant-primary`}>
+      <div className={`${iconSizes[size]} text-green-600 dark:text-green-400`}>
         <svg
           viewBox="0 0 24 24"
           fill="none"
@@ -200,7 +200,7 @@ const SproutHubLogo = ({
 
       {/* Text logo */}
       <span
-        className={`${textSizes[size]} font-bold text-plant-primary group-hover:text-plant-primary/90 transition-colors duration-200`}
+        className={`${textSizes[size]} font-bold text-plant-primary dark:text-white group-hover:text-plant-primary/90 dark:group-hover:text-gray-100 transition-colors duration-200`}
       >
         SproutHub
       </span>

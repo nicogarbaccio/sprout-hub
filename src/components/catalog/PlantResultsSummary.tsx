@@ -24,7 +24,7 @@ const PlantResultsSummary = ({
 
   return (
     <div className="mb-6 text-center">
-      <p className="text-plant-text/70">
+      <p className="text-muted-foreground">
         {displayText}
         {hasActiveFilters && (
           <span className="ml-2">

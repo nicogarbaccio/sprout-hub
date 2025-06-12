@@ -1,10 +1,19 @@
-
-import { Search, Filter, X } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Search, Filter, X } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 interface PlantSearchFiltersProps {
   searchTerm: string;
@@ -39,7 +48,7 @@ const PlantSearchFilters = ({
   careLevels,
   lightRequirements,
   hasActiveFilters,
-  clearAllFilters
+  clearAllFilters,
 }: PlantSearchFiltersProps) => {
   return (
     <div className="max-w-4xl mx-auto space-y-6 mb-8">
@@ -47,7 +56,7 @@ const PlantSearchFilters = ({
         {/* Search Bar and Filter Button Row */}
         <div className="flex justify-center gap-4">
           <div className="relative w-full max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-plant-text/40 w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
               type="text"
               placeholder="Search plants..."
@@ -56,80 +65,104 @@ const PlantSearchFilters = ({
               className="pl-10 border-plant-secondary/30 focus:border-plant-primary rounded-xl h-11"
             />
           </div>
-          
+
           <CollapsibleTrigger asChild>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="border-plant-secondary/30 hover:bg-plant-secondary/10 rounded-xl h-11 px-6 flex-shrink-0"
             >
               <Filter className="w-4 h-4 mr-2" />
               Filters
               {hasActiveFilters && (
-                <Badge variant="secondary" className="ml-2 bg-plant-primary text-white text-xs">
+                <Badge
+                  variant="secondary"
+                  className="ml-2 bg-plant-primary text-white text-xs"
+                >
                   Active
                 </Badge>
               )}
             </Button>
           </CollapsibleTrigger>
         </div>
-        
+
         {/* Filters Panel - Appears Below and Centered */}
         <CollapsibleContent className="mt-6">
           <div className="flex justify-center">
-            <div className="p-6 bg-white rounded-xl border border-plant-secondary/30 shadow-lg w-full max-w-3xl">
+            <div className="p-6 bg-card rounded-xl border border-border shadow-lg w-full max-w-3xl">
               {/* Filter Controls */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-3">
-                  <label className="text-sm font-medium text-plant-text block">Category</label>
-                  <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                  <label className="text-sm font-medium text-foreground block">
+                    Category
+                  </label>
+                  <Select
+                    value={selectedCategory}
+                    onValueChange={setSelectedCategory}
+                  >
                     <SelectTrigger className="border-plant-secondary/30 w-full h-11">
                       <SelectValue placeholder="All Categories" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white border border-plant-secondary/30 shadow-lg z-50 max-h-60">
+                    <SelectContent className="bg-card border border-plant-secondary/30 shadow-lg z-50 max-h-60">
                       <SelectItem value="all">All Categories</SelectItem>
-                      {categories.map(category => (
-                        <SelectItem key={category} value={category}>{category}</SelectItem>
+                      {categories.map((category) => (
+                        <SelectItem key={category} value={category}>
+                          {category}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </div>
-                
+
                 <div className="space-y-3">
-                  <label className="text-sm font-medium text-plant-text block">Care Level</label>
-                  <Select value={selectedCareLevel} onValueChange={setSelectedCareLevel}>
+                  <label className="text-sm font-medium text-foreground block">
+                    Care Level
+                  </label>
+                  <Select
+                    value={selectedCareLevel}
+                    onValueChange={setSelectedCareLevel}
+                  >
                     <SelectTrigger className="border-plant-secondary/30 w-full h-11">
                       <SelectValue placeholder="All Levels" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white border border-plant-secondary/30 shadow-lg z-50 max-h-60">
+                    <SelectContent className="bg-card border border-plant-secondary/30 shadow-lg z-50 max-h-60">
                       <SelectItem value="all">All Levels</SelectItem>
-                      {careLevels.map(level => (
-                        <SelectItem key={level} value={level}>{level}</SelectItem>
+                      {careLevels.map((level) => (
+                        <SelectItem key={level} value={level}>
+                          {level}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </div>
-                
+
                 <div className="space-y-3">
-                  <label className="text-sm font-medium text-plant-text block">Light Requirement</label>
-                  <Select value={selectedLightRequirement} onValueChange={setSelectedLightRequirement}>
+                  <label className="text-sm font-medium text-foreground block">
+                    Light Requirement
+                  </label>
+                  <Select
+                    value={selectedLightRequirement}
+                    onValueChange={setSelectedLightRequirement}
+                  >
                     <SelectTrigger className="border-plant-secondary/30 w-full h-11">
                       <SelectValue placeholder="All Light Types" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white border border-plant-secondary/30 shadow-lg z-50 max-h-60">
+                    <SelectContent className="bg-card border border-plant-secondary/30 shadow-lg z-50 max-h-60">
                       <SelectItem value="all">All Light Types</SelectItem>
-                      {lightRequirements.map(light => (
-                        <SelectItem key={light} value={light}>{light}</SelectItem>
+                      {lightRequirements.map((light) => (
+                        <SelectItem key={light} value={light}>
+                          {light}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </div>
               </div>
-              
+
               {/* Clear Filters Button */}
               {hasActiveFilters && (
                 <div className="mt-6 pt-4 border-t border-plant-secondary/20 flex justify-center">
-                  <Button 
-                    variant="ghost" 
+                  <Button
+                    variant="ghost"
                     onClick={clearAllFilters}
                     className="text-plant-text/70 hover:text-plant-text hover:bg-plant-secondary/10 px-4 py-2"
                   >

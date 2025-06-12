@@ -31,7 +31,7 @@ const MyPlantsCollection = () => {
 
   if (showLoading) {
     return (
-      <section className="py-20 bg-white min-h-[calc(100vh-4rem)]">
+      <section className="py-20 bg-background min-h-[calc(100vh-4rem)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header Skeleton */}
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">
@@ -59,7 +59,7 @@ const MyPlantsCollection = () => {
 
   if (!isReady) {
     return (
-      <section className="py-20 bg-white min-h-[calc(100vh-4rem)]">
+      <section className="py-20 bg-background min-h-[calc(100vh-4rem)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 opacity-0">
           {/* Invisible content to maintain height */}
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">
@@ -160,16 +160,16 @@ const MyPlantsCollection = () => {
   };
 
   return (
-    <section className="py-20 bg-white min-h-[calc(100vh-4rem)]">
+    <section className="py-20 bg-background min-h-[calc(100vh-4rem)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <CascadingContainer delay={0}>
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-plant-text mb-4 font-poppins">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-poppins">
                 My Plant Collection
               </h2>
               <div className="flex flex-wrap gap-4 text-sm">
-                <span className="bg-plant-secondary/20 text-plant-primary px-3 py-1 rounded-full">
+                <span className="bg-plant-secondary/20 text-plant-primary dark:text-plant-secondary px-3 py-1 rounded-full">
                   {plants.length} plants total
                 </span>
                 {roomCount > 0 && (
@@ -197,7 +197,7 @@ const MyPlantsCollection = () => {
 
             <Button
               onClick={handleAddPlant}
-              className="bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl mt-4 md:mt-0"
+              className="bg-green-600 hover:bg-green-500 text-white rounded-xl mt-4 md:mt-0 font-medium"
             >
               <Plus className="w-4 h-4 mr-2" />
               Add New Plant
@@ -211,10 +211,10 @@ const MyPlantsCollection = () => {
               <div className="w-32 h-32 bg-gradient-to-br from-plant-primary to-plant-secondary rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg">
                 <span className="text-6xl">🌱</span>
               </div>
-              <h3 className="text-3xl font-bold text-plant-text mb-4 font-poppins">
+              <h3 className="text-3xl font-bold text-foreground mb-4 font-poppins">
                 Welcome to Your Plant Collection
               </h3>
-              <p className="text-lg text-plant-text/70 mb-8 max-w-2xl mx-auto">
+              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Start your journey as a plant parent! Track watering schedules,
                 organize plants by room, and watch your green family grow.
               </p>
@@ -225,10 +225,10 @@ const MyPlantsCollection = () => {
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3">
                     <Droplets className="w-6 h-6 text-blue-600" />
                   </div>
-                  <h4 className="font-semibold text-plant-text mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     Smart Watering
                   </h4>
-                  <p className="text-sm text-plant-text/60">
+                  <p className="text-sm text-muted-foreground">
                     Never forget to water with personalized schedules
                   </p>
                 </div>
@@ -236,10 +236,10 @@ const MyPlantsCollection = () => {
                   <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-3">
                     <span className="text-lg">🏠</span>
                   </div>
-                  <h4 className="font-semibold text-plant-text mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     Room Organization
                   </h4>
-                  <p className="text-sm text-plant-text/60">
+                  <p className="text-sm text-muted-foreground">
                     Organize plants by location in your home
                   </p>
                 </div>
@@ -247,10 +247,10 @@ const MyPlantsCollection = () => {
                   <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-3">
                     <span className="text-lg">📊</span>
                   </div>
-                  <h4 className="font-semibold text-plant-text mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     Growth Tracking
                   </h4>
-                  <p className="text-sm text-plant-text/60">
+                  <p className="text-sm text-muted-foreground">
                     Monitor your plants' health and progress
                   </p>
                 </div>
@@ -259,7 +259,7 @@ const MyPlantsCollection = () => {
               <Button
                 onClick={handleAddPlant}
                 size="lg"
-                className="bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                className="bg-plant-secondary hover:bg-plant-secondary/90 text-plant-primary dark:text-white rounded-xl px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
               >
                 <Plus className="w-5 h-5 mr-2" />
                 Add Your First Plant

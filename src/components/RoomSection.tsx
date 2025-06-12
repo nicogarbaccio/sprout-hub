@@ -131,11 +131,11 @@ const RoomSection = ({
                 <span className="text-2xl sm:text-3xl">{roomIcon}</span>
               </div>
               <div>
-                <h3 className="text-xl sm:text-2xl font-bold text-plant-text font-poppins mb-1">
+                <h3 className="text-xl sm:text-2xl font-bold text-foreground font-poppins mb-1">
                   {roomLabel}
                 </h3>
                 <div className="flex items-center gap-2">
-                  <p className="text-sm text-plant-text/60">
+                  <p className="text-sm text-muted-foreground">
                     {plants.length} plant{plants.length !== 1 ? "s" : ""}
                   </p>
                   <div

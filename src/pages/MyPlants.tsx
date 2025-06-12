@@ -24,10 +24,10 @@ const MyPlants = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white font-poppins">
+      <div className="min-h-screen bg-background font-poppins">
         <Navigation />
         <div className="pt-16">
-          <section className="py-20 bg-white">
+          <section className="py-20 bg-background">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               {/* Header Skeleton */}
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">
@@ -61,7 +61,7 @@ const MyPlants = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white font-poppins">
+    <div className="min-h-screen bg-background font-poppins">
       <Navigation />
       <div className="pt-16">
         <MyPlantsCollection />

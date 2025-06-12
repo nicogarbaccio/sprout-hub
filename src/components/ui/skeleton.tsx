@@ -19,7 +19,7 @@ function PlantCardSkeleton({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "bg-white rounded-2xl shadow-md overflow-hidden",
+        "bg-card rounded-2xl shadow-md overflow-hidden border border-border",
         className
       )}
     >
@@ -61,7 +61,7 @@ function MyPlantCardSkeleton({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "bg-white rounded-2xl shadow-md overflow-hidden",
+        "bg-card rounded-2xl shadow-md overflow-hidden border border-border",
         className
       )}
     >
@@ -109,10 +109,7 @@ function MyPlantCardSkeleton({ className }: { className?: string }) {
 function DashboardMetricSkeleton({ className }: { className?: string }) {
   return (
     <div
-      className={cn(
-        "bg-white border border-plant-secondary/20 rounded-lg p-6",
-        className
-      )}
+      className={cn("bg-card border border-border rounded-lg p-6", className)}
     >
       <div className="flex items-center justify-between">
         <div className="space-y-2">
@@ -132,7 +129,7 @@ function DashboardTaskSkeleton({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex items-center justify-between p-3 bg-plant-neutral rounded-lg",
+        "flex items-center justify-between p-3 bg-muted rounded-lg",
         className
       )}
     >
@@ -158,7 +155,7 @@ function DashboardActivitySkeleton({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex items-center space-x-3 p-3 bg-plant-neutral rounded-lg",
+        "flex items-center space-x-3 p-3 bg-muted rounded-lg",
         className
       )}
     >
@@ -209,7 +206,7 @@ function WateringRecordSkeleton({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex items-center justify-between p-3 border rounded-md",
+        "flex items-center justify-between p-3 border border-border rounded-md",
         className
       )}
     >
@@ -229,7 +226,7 @@ function ImageUploadSkeleton({ className }: { className?: string }) {
   return (
     <div className={cn("space-y-2", className)}>
       <Skeleton className="h-4 w-16" />
-      <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+      <div className="border-2 border-dashed border-border rounded-lg p-6 text-center">
         <Skeleton className="w-12 h-12 rounded-full mx-auto mb-3" />
         <Skeleton className="h-4 w-32 mx-auto mb-2" />
         <Skeleton className="h-3 w-48 mx-auto" />

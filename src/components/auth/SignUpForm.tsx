@@ -101,7 +101,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
       />
       <Button
         type="submit"
-        className="w-full bg-plant-primary hover:bg-plant-primary/90"
+        className="w-full bg-green-500 hover:bg-green-400 text-white"
         disabled={isLoading}
         data-testid="sign-up-button"
       >

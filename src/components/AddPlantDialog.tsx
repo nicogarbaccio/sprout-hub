@@ -298,7 +298,7 @@ const AddPlantDialog = ({
                 <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
               {isPlantTypePopoverOpen && (
-                <div className="absolute top-full left-0 right-0 z-50 bg-white border border-gray-200 rounded-md shadow-lg mt-1">
+                <div className="absolute top-full left-0 right-0 z-50 bg-card border border-border rounded-md shadow-lg mt-1">
                   <div className="border-b p-2">
                     <Input
                       placeholder="Search plant types..."
@@ -309,7 +309,7 @@ const AddPlantDialog = ({
                     />
                   </div>
                   <div
-                    className="max-h-[200px] overflow-y-scroll p-1 bg-white"
+                    className="max-h-[200px] overflow-y-scroll p-1 bg-card"
                     style={{
                       maxHeight: "200px",
                       overflowY: "scroll",

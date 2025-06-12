@@ -62,7 +62,7 @@ const Dashboard = () => {
 
   if (showLoading) {
     return (
-      <div className="py-8 bg-white min-h-[calc(100vh-4rem)]">
+      <div className="py-8 bg-background min-h-[calc(100vh-4rem)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Welcome Header Skeleton */}
           <div className="mb-8">
@@ -200,7 +200,7 @@ const Dashboard = () => {
 
   if (!isReady) {
     return (
-      <div className="py-8 bg-white min-h-[calc(100vh-4rem)]">
+      <div className="py-8 bg-background min-h-[calc(100vh-4rem)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 opacity-0">
           {/* Invisible content to maintain height */}
           <div className="mb-8">
@@ -315,15 +315,15 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="py-8 bg-white min-h-[calc(100vh-4rem)]">
+    <div className="py-8 bg-background min-h-[calc(100vh-4rem)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Welcome Header */}
         <CascadingContainer delay={0}>
           <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-plant-text mb-2 font-poppins">
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2 font-poppins">
               {greeting} 🌱
             </h1>
-            <p className="text-plant-text/60 text-lg">
+            <p className="text-foreground/60 text-lg">
               Here's how your plants are doing today
             </p>
           </div>
@@ -334,7 +334,7 @@ const Dashboard = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             <Button
               onClick={() => setIsAddDialogOpen(true)}
-              className="h-16 bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl font-medium text-lg"
+              className="h-16 bg-green-600 hover:bg-green-500 text-white rounded-xl font-medium text-lg"
               size="lg"
             >
               <Plus className="w-6 h-6 mr-3" />
@@ -372,71 +372,73 @@ const Dashboard = () => {
         {/* Care Status Overview */}
         <CascadingContainer delay={200}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <Card className="border-plant-secondary/20 hover:shadow-lg transition-shadow">
+            <Card className="border-border hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-plant-text/60 mb-1">
+                    <p className="text-sm text-muted-foreground mb-1">
                       Total Plants
                     </p>
-                    <p className="text-3xl font-bold text-plant-text">
+                    <p className="text-3xl font-bold text-foreground">
                       {totalPlants}
                     </p>
                   </div>
-                  <div className="w-12 h-12 bg-plant-secondary/20 rounded-full flex items-center justify-center">
-                    <Flower2 className="w-6 h-6 text-plant-primary" />
+                  <div className="w-12 h-12 bg-plant-secondary/20 dark:bg-plant-primary/20 rounded-full flex items-center justify-center">
+                    <Flower2 className="w-6 h-6 text-plant-primary dark:text-plant-secondary" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-plant-secondary/20 hover:shadow-lg transition-shadow">
+            <Card className="border-border hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-plant-text/60 mb-1">
+                    <p className="text-sm text-muted-foreground mb-1">
                       Need Water Today
                     </p>
-                    <p className="text-3xl font-bold text-yellow-600">
+                    <p className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">
                       {plantsNeedingWaterToday}
                     </p>
                   </div>
-                  <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-                    <Droplets className="w-6 h-6 text-yellow-600" />
+                  <div className="w-12 h-12 bg-yellow-100 dark:bg-yellow-500/20 rounded-full flex items-center justify-center">
+                    <Droplets className="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-plant-secondary/20 hover:shadow-lg transition-shadow">
+            <Card className="border-border hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-plant-text/60 mb-1">Overdue</p>
-                    <p className="text-3xl font-bold text-red-600">
+                    <p className="text-sm text-muted-foreground mb-1">
+                      Overdue
+                    </p>
+                    <p className="text-3xl font-bold text-red-600 dark:text-red-400">
                       {overduePlants}
                     </p>
                   </div>
-                  <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
-                    <AlertTriangle className="w-6 h-6 text-red-600" />
+                  <div className="w-12 h-12 bg-red-100 dark:bg-red-500/20 rounded-full flex items-center justify-center">
+                    <AlertTriangle className="w-6 h-6 text-red-600 dark:text-red-400" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-plant-secondary/20 hover:shadow-lg transition-shadow">
+            <Card className="border-border hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-plant-text/60 mb-1">
+                    <p className="text-sm text-muted-foreground mb-1">
                       New This Week
                     </p>
-                    <p className="text-3xl font-bold text-green-600">
+                    <p className="text-3xl font-bold text-green-600 dark:text-green-400">
                       {recentlyAddedCount}
                     </p>
                   </div>
-                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                    <TrendingUp className="w-6 h-6 text-green-600" />
+                  <div className="w-12 h-12 bg-green-100 dark:bg-green-500/20 rounded-full flex items-center justify-center">
+                    <TrendingUp className="w-6 h-6 text-green-600 dark:text-green-400" />
                   </div>
                 </div>
               </CardContent>
@@ -447,10 +449,10 @@ const Dashboard = () => {
         <CascadingContainer delay={300}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             {/* Today's Tasks */}
-            <Card id="todays-tasks" className="border-plant-secondary/20">
+            <Card id="todays-tasks" className="border-border">
               <CardHeader>
-                <CardTitle className="flex items-center text-plant-text">
-                  <Calendar className="w-5 h-5 mr-2 text-plant-primary" />
+                <CardTitle className="flex items-center text-foreground">
+                  <Calendar className="w-5 h-5 mr-2 text-plant-primary dark:text-plant-secondary" />
                   Today's Tasks
                 </CardTitle>
                 <CardDescription>
@@ -460,8 +462,8 @@ const Dashboard = () => {
               <CardContent>
                 {plantsNeedingWater.length === 0 ? (
                   <div className="text-center py-8">
-                    <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-3" />
-                    <p className="text-plant-text/60">
+                    <CheckCircle className="w-12 h-12 text-green-500 dark:text-green-400 mx-auto mb-3" />
+                    <p className="text-muted-foreground">
                       All caught up! No plants need watering today.
                     </p>
                   </div>
@@ -529,10 +531,10 @@ const Dashboard = () => {
             </Card>
 
             {/* Recent Activity Feed */}
-            <Card className="border-plant-secondary/20">
+            <Card className="border-border">
               <CardHeader>
-                <CardTitle className="flex items-center text-plant-text">
-                  <Activity className="w-5 h-5 mr-2 text-plant-primary" />
+                <CardTitle className="flex items-center text-foreground">
+                  <Activity className="w-5 h-5 mr-2 text-plant-primary dark:text-plant-secondary" />
                   Recent Activity
                 </CardTitle>
                 <CardDescription>
@@ -542,8 +544,8 @@ const Dashboard = () => {
               <CardContent>
                 {recentlyWateredPlants.length === 0 ? (
                   <div className="text-center py-8">
-                    <Clock className="w-12 h-12 text-plant-text/30 mx-auto mb-3" />
-                    <p className="text-plant-text/60">
+                    <Clock className="w-12 h-12 text-muted-foreground/50 mx-auto mb-3" />
+                    <p className="text-muted-foreground">
                       No recent activity. Start caring for your plants!
                     </p>
                   </div>
@@ -552,7 +554,7 @@ const Dashboard = () => {
                     {recentlyWateredPlants.map((plant) => (
                       <div
                         key={plant.id}
-                        className="flex items-center space-x-3 p-3 bg-plant-neutral rounded-lg"
+                        className="flex items-center space-x-3 p-3 bg-muted/30 dark:bg-muted/20 rounded-lg border border-border/50"
                       >
                         <PlantImage
                           src={
@@ -563,20 +565,20 @@ const Dashboard = () => {
                           className="w-8 h-8 rounded-full object-cover"
                         />
                         <div className="flex-1">
-                          <p className="text-sm font-medium text-plant-text">
+                          <p className="text-sm font-medium text-foreground">
                             Watered{" "}
                             <span className="font-semibold">
                               {plant.nickname}
                             </span>
                           </p>
-                          <p className="text-xs text-plant-text/60">
+                          <p className="text-xs text-muted-foreground">
                             {formatDistanceToNow(
                               new Date(plant.latest_watering!),
                               { addSuffix: true }
                             )}
                           </p>
                         </div>
-                        <Droplets className="w-4 h-4 text-plant-primary" />
+                        <Droplets className="w-4 h-4 text-plant-primary dark:text-plant-secondary" />
                       </div>
                     ))}
                   </div>
@@ -588,10 +590,10 @@ const Dashboard = () => {
 
         {/* Plant Health Insights */}
         <CascadingContainer delay={400}>
-          <Card className="border-plant-secondary/20 mb-8">
+          <Card className="border-border mb-8">
             <CardHeader>
-              <CardTitle className="flex items-center text-plant-text">
-                <Target className="w-5 h-5 mr-2 text-plant-primary" />
+              <CardTitle className="flex items-center text-foreground">
+                <Target className="w-5 h-5 mr-2 text-plant-primary dark:text-plant-secondary" />
                 Plant Health Insights
               </CardTitle>
               <CardDescription>
@@ -601,15 +603,15 @@ const Dashboard = () => {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
-                  <h4 className="font-semibold text-plant-text">
+                  <h4 className="font-semibold text-foreground">
                     Health Summary
                   </h4>
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-sm text-plant-text/60">
+                      <span className="text-sm text-muted-foreground">
                         Plants with regular care
                       </span>
-                      <span className="text-sm font-medium text-green-600">
+                      <span className="text-sm font-medium text-green-600 dark:text-green-400">
                         {totalPlants -
                           plantsWithoutWateringData -
                           overduePlants}
@@ -617,18 +619,18 @@ const Dashboard = () => {
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-plant-text/60">
+                      <span className="text-sm text-muted-foreground">
                         Overdue for watering
                       </span>
-                      <span className="text-sm font-medium text-red-600">
+                      <span className="text-sm font-medium text-red-600 dark:text-red-400">
                         {overduePlants}/{totalPlants}
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-plant-text/60">
+                      <span className="text-sm text-muted-foreground">
                         Unknown watering schedule
                       </span>
-                      <span className="text-sm font-medium text-gray-600">
+                      <span className="text-sm font-medium text-muted-foreground">
                         {plantsWithoutWateringData}/{totalPlants}
                       </span>
                     </div>
@@ -636,23 +638,23 @@ const Dashboard = () => {
                 </div>
 
                 <div className="space-y-4">
-                  <h4 className="font-semibold text-plant-text">
+                  <h4 className="font-semibold text-foreground">
                     Recommendations
                   </h4>
                   <div className="space-y-2">
                     {overduePlants > 0 && (
-                      <div className="flex items-start space-x-2 p-3 bg-red-50 rounded-lg border border-red-200">
-                        <AlertTriangle className="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
-                        <p className="text-sm text-red-700">
+                      <div className="flex items-start space-x-2 p-3 bg-red-50 dark:bg-red-500/10 rounded-lg border border-red-200 dark:border-red-500/30">
+                        <AlertTriangle className="w-4 h-4 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+                        <p className="text-sm text-red-700 dark:text-red-300">
                           {overduePlants} plant{overduePlants > 1 ? "s" : ""}{" "}
                           overdue for watering - check them soon!
                         </p>
                       </div>
                     )}
                     {plantsWithoutWateringData > 0 && (
-                      <div className="flex items-start space-x-2 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
-                        <Clock className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
-                        <p className="text-sm text-yellow-700">
+                      <div className="flex items-start space-x-2 p-3 bg-yellow-50 dark:bg-yellow-500/10 rounded-lg border border-yellow-200 dark:border-yellow-500/30">
+                        <Clock className="w-4 h-4 text-yellow-600 dark:text-yellow-400 mt-0.5 flex-shrink-0" />
+                        <p className="text-sm text-yellow-700 dark:text-yellow-300">
                           {plantsWithoutWateringData} plant
                           {plantsWithoutWateringData > 1 ? "s" : ""} need
                           initial watering data
@@ -662,22 +664,22 @@ const Dashboard = () => {
                     {overduePlants === 0 &&
                       plantsWithoutWateringData === 0 &&
                       totalPlants > 0 && (
-                        <div className="flex items-start space-x-2 p-3 bg-green-50 rounded-lg border border-green-200">
-                          <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                          <p className="text-sm text-green-700">
+                        <div className="flex items-start space-x-2 p-3 bg-green-50 dark:bg-green-500/10 rounded-lg border border-green-200 dark:border-green-500/30">
+                          <CheckCircle className="w-4 h-4 text-plant-secondary dark:text-plant-secondary mt-0.5 flex-shrink-0" />
+                          <p className="text-sm text-green-700 dark:text-green-300">
                             Great job! All your plants are well cared for. Keep
                             up the excellent work!
                           </p>
                         </div>
                       )}
                     {totalPlants === 0 && (
-                      <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
-                        <p className="text-sm text-blue-700 mb-3">
+                      <div className="text-center p-4 bg-blue-50 dark:bg-blue-500/10 rounded-lg border border-blue-200 dark:border-blue-500/30">
+                        <p className="text-sm text-blue-700 dark:text-blue-300 mb-3">
                           Start your plant journey by adding your first plant!
                         </p>
                         <Button
                           onClick={() => setIsAddDialogOpen(true)}
-                          className="bg-plant-primary hover:bg-plant-primary/90 text-white"
+                          className="bg-green-600 hover:bg-green-500 text-white"
                           size="sm"
                         >
                           <Plus className="w-4 h-4 mr-2" />
@@ -695,10 +697,10 @@ const Dashboard = () => {
         {/* Quick Plant Gallery */}
         {favoritePlants.length > 0 && (
           <CascadingContainer delay={500}>
-            <Card className="border-plant-secondary/20">
+            <Card className="border-border">
               <CardHeader>
-                <CardTitle className="flex items-center text-plant-text">
-                  <Flower2 className="w-5 h-5 mr-2 text-plant-primary" />
+                <CardTitle className="flex items-center text-foreground">
+                  <Flower2 className="w-5 h-5 mr-2 text-plant-primary dark:text-plant-secondary" />
                   Your Plant Gallery
                 </CardTitle>
                 <CardDescription>
@@ -709,7 +711,7 @@ const Dashboard = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {favoritePlants.map((plant) => (
                     <div key={plant.id} className="group cursor-pointer">
-                      <div className="aspect-square bg-plant-neutral rounded-lg overflow-hidden mb-2">
+                      <div className="aspect-square bg-plant-neutral dark:bg-plant-neutral rounded-lg overflow-hidden mb-2">
                         <PlantImage
                           src={
                             plant.image ||
@@ -719,10 +721,10 @@ const Dashboard = () => {
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       </div>
-                      <p className="text-sm font-medium text-plant-text text-center">
+                      <p className="text-sm font-medium text-foreground text-center">
                         {plant.nickname}
                       </p>
-                      <p className="text-xs text-plant-text/60 text-center">
+                      <p className="text-xs text-muted-foreground text-center">
                         {plant.plant_type}
                       </p>
                     </div>
@@ -759,7 +761,7 @@ const Dashboard = () => {
               {plantsNeedingWater.map((plant) => (
                 <div
                   key={plant.id}
-                  className="flex items-center space-x-3 p-2 bg-plant-neutral rounded-lg"
+                  className="flex items-center space-x-3 p-2 bg-plant-neutral dark:bg-plant-neutral rounded-lg"
                 >
                   <PlantImage
                     src={
@@ -770,10 +772,10 @@ const Dashboard = () => {
                     className="w-8 h-8 rounded-full object-cover"
                   />
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-plant-text">
+                    <p className="text-sm font-medium text-foreground">
                       {plant.nickname}
                     </p>
-                    <p className="text-xs text-plant-text/60">
+                    <p className="text-xs text-muted-foreground">
                       {plant.plant_type}
                     </p>
                   </div>

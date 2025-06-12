@@ -31,9 +31,9 @@ const Profile = () => {
 
   if (showLoading) {
     return (
-      <div className="min-h-screen bg-white font-poppins">
+      <div className="min-h-screen bg-background font-poppins">
         <Navigation />
-        <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-plant-primary/10 to-plant-secondary/10 p-4">
+        <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-plant-primary/10 to-plant-secondary/10 dark:from-plant-primary/20 dark:to-plant-secondary/20 p-4">
           <div className="max-w-4xl mx-auto space-y-6">
             {/* Profile Header Skeleton */}
             <Card>
@@ -123,9 +123,9 @@ const Profile = () => {
 
   if (!isReady) {
     return (
-      <div className="min-h-screen bg-white font-poppins">
+      <div className="min-h-screen bg-background font-poppins">
         <Navigation />
-        <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-plant-primary/10 to-plant-secondary/10 p-4">
+        <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-plant-primary/10 to-plant-secondary/10 dark:from-plant-primary/20 dark:to-plant-secondary/20 p-4">
           <div className="max-w-4xl mx-auto space-y-6 opacity-0">
             {/* Invisible content to maintain height */}
             <Card>
@@ -170,9 +170,9 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white font-poppins">
+    <div className="min-h-screen bg-background font-poppins">
       <Navigation />
-      <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-plant-primary/10 to-plant-secondary/10 p-4">
+      <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-plant-primary/10 to-plant-secondary/10 dark:from-plant-primary/20 dark:to-plant-secondary/20 p-4">
         <div className="max-w-4xl mx-auto space-y-6">
           <CascadingContainer delay={0}>
             <ProfileHeader />

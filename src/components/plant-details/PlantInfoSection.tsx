@@ -39,7 +39,7 @@ const PlantInfoSection = ({
     <div className="space-y-6">
       <div>
         <div className="flex items-center gap-3 mb-2">
-          <h1 className="text-3xl font-bold text-plant-text font-poppins">
+          <h1 className="text-3xl font-bold text-foreground font-poppins">
             {name}
           </h1>
           <span
@@ -50,16 +50,16 @@ const PlantInfoSection = ({
             {careLevel}
           </span>
         </div>
-        <p className="text-lg text-plant-text/60 italic mb-4">
+        <p className="text-lg text-muted-foreground italic mb-4">
           {botanicalName}
         </p>
-        <p className="text-plant-text leading-relaxed">{description}</p>
+        <p className="text-foreground leading-relaxed">{description}</p>
       </div>
 
       {isAuthenticated ? (
         <Button
           onClick={onAddToCollection}
-          className="w-full bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl font-medium py-3"
+          className="w-full bg-green-600 hover:bg-green-500 text-white rounded-xl font-medium py-3"
           size="lg"
         >
           <Plus className="w-5 h-5 mr-2" />
@@ -68,8 +68,7 @@ const PlantInfoSection = ({
       ) : (
         <Button
           onClick={onSignInToAdd}
-          variant="outline"
-          className="w-full border-plant-primary text-plant-primary hover:bg-plant-primary hover:text-white rounded-xl font-medium py-3"
+          className="w-full bg-green-600 hover:bg-green-500 text-white rounded-xl font-medium py-3"
           size="lg"
         >
           <LogIn className="w-5 h-5 mr-2" />

@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Card,
@@ -47,7 +46,9 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({
           label="New Password"
           placeholder="Enter new password"
           value={passwordData.newPassword}
-          onChange={(value) => setPasswordData(prev => ({ ...prev, newPassword: value }))}
+          onChange={(value) =>
+            setPasswordData((prev) => ({ ...prev, newPassword: value }))
+          }
         />
 
         <PasswordInput
@@ -55,13 +56,19 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({
           label="Confirm New Password"
           placeholder="Confirm new password"
           value={passwordData.confirmPassword}
-          onChange={(value) => setPasswordData(prev => ({ ...prev, confirmPassword: value }))}
+          onChange={(value) =>
+            setPasswordData((prev) => ({ ...prev, confirmPassword: value }))
+          }
         />
 
-        <Button 
-          onClick={handleChangePassword} 
-          disabled={isLoading || !passwordData.newPassword || !passwordData.confirmPassword}
-          className="w-full"
+        <Button
+          onClick={handleChangePassword}
+          disabled={
+            isLoading ||
+            !passwordData.newPassword ||
+            !passwordData.confirmPassword
+          }
+          className="w-full bg-green-600 hover:bg-green-500 text-white"
         >
           {isLoading ? "Updating..." : "Change Password"}
         </Button>

@@ -44,7 +44,7 @@ const PlantCard = ({
 
   return (
     <div
-      className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group"
+      className="bg-card rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group border border-border"
       data-testid="plant-card"
     >
       <div className="relative">
@@ -65,30 +65,30 @@ const PlantCard = ({
       </div>
 
       <div className="p-6">
-        <h3 className="text-lg font-semibold text-plant-text mb-1 font-poppins">
+        <h3 className="text-lg font-semibold text-foreground mb-1 font-poppins">
           {name}
         </h3>
-        <p className="text-sm text-plant-text/60 italic mb-4">
+        <p className="text-sm text-muted-foreground italic mb-4">
           {botanicalName}
         </p>
 
         <div className="space-y-3 mb-4">
           <div className="flex items-center space-x-2">
-            <Droplets className="w-4 h-4 text-plant-primary" />
+            <Droplets className="w-4 h-4 text-plant-primary dark:text-plant-secondary" />
             <div>
-              <span className="text-sm text-plant-text">
+              <span className="text-sm text-foreground">
                 {wateringFrequency}
               </span>
               {suggestedWateringDays && (
-                <span className="text-xs text-plant-text/50 ml-1">
+                <span className="text-xs text-muted-foreground ml-1">
                   (Every {suggestedWateringDays} days)
                 </span>
               )}
             </div>
           </div>
           <div className="flex items-center space-x-2">
-            <Sun className="w-4 h-4 text-plant-primary" />
-            <span className="text-sm text-plant-text">{lightRequirement}</span>
+            <Sun className="w-4 h-4 text-plant-primary dark:text-plant-secondary" />
+            <span className="text-sm text-foreground">{lightRequirement}</span>
           </div>
         </div>
 
@@ -105,7 +105,7 @@ const PlantCard = ({
           {isAuthenticated ? (
             <Button
               onClick={onAddToCollection}
-              className="w-full bg-plant-primary hover:bg-plant-primary/90 text-white rounded-xl font-medium"
+              className="w-full bg-green-600 hover:bg-green-500 text-white rounded-xl font-medium"
             >
               <Plus className="w-4 h-4 mr-2" />
               Add to Collection
@@ -113,8 +113,7 @@ const PlantCard = ({
           ) : (
             <Button
               onClick={onSignInToAdd}
-              variant="outline"
-              className="w-full border-plant-primary text-plant-primary hover:bg-plant-primary hover:text-white rounded-xl font-medium"
+              className="w-full bg-green-600 hover:bg-green-500 text-white rounded-xl font-medium"
             >
               <LogIn className="w-4 h-4 mr-2" />
               Sign in to Add

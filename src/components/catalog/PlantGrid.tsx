@@ -45,10 +45,10 @@ const PlantGrid = ({
           <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plant-secondary/20 flex items-center justify-center">
             <span className="text-2xl">🌱</span>
           </div>
-          <p className="text-plant-text/60 text-lg mb-4">
+          <p className="text-muted-foreground text-lg mb-4">
             No plants found matching your criteria.
           </p>
-          <p className="text-plant-text/40 text-sm mb-6">
+          <p className="text-muted-foreground/70 text-sm mb-6">
             Try adjusting your filters or search terms to find more plants.
           </p>
         </div>

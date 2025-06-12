@@ -23,12 +23,24 @@ export default {
 				'poppins': ['Poppins', 'sans-serif'],
 			},
 			colors: {
-				// PlantPal Brand Colors
-				'plant-primary': '#4a6741',
-				'plant-secondary': '#85B09A', 
-				'plant-neutral': '#F5F7F5',
+				// PlantPal Brand Colors with dark mode support
+				'plant-primary': {
+					DEFAULT: '#4a6741', // Forest green for light mode
+					dark: '#85B09A', // Lighter green for dark mode
+				},
+				'plant-secondary': {
+					DEFAULT: '#85B09A', // Light green for light mode  
+					dark: '#4a6741', // Forest green for dark mode (inverted)
+				},
+				'plant-neutral': {
+					DEFAULT: '#F5F7F5', // Very light green for light mode
+					dark: '#2a3f2a', // Dark forest green for dark mode
+				},
 				'plant-warning': '#FF9F43',
-				'plant-text': '#2D3436',
+				'plant-text': {
+					DEFAULT: '#2D3436', // Dark text for light mode
+					dark: '#D1D5D1', // Light text for dark mode
+				},
 				'plant-water': '#0FA3B1',
 
 				// Keep existing shadcn colors
@@ -107,12 +119,21 @@ export default {
 						opacity: '1',
 						transform: 'translateY(0)'
 					}
+				},
+				'theme-transition': {
+					'0%': {
+						opacity: '0.8'
+					},
+					'100%': {
+						opacity: '1'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'fade-in': 'fade-in 0.3s ease-out'
+				'fade-in': 'fade-in 0.3s ease-out',
+				'theme-transition': 'theme-transition 0.3s ease-out'
 			}
 		}
 	},

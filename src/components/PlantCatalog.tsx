@@ -219,15 +219,17 @@ const PlantCatalog = ({
 
   return (
     <section
-      className={`py-20 ${isDashboard ? "bg-white" : "bg-plant-neutral"}`}
+      className={`py-20 ${
+        isDashboard ? "bg-background" : "bg-plant-neutral dark:bg-background"
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {isDashboard ? (
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-plant-text mb-4 font-poppins">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4 font-poppins">
               Discover New Plants
             </h2>
-            <p className="text-plant-text/60 text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Browse our plant catalog to find your next green companion
             </p>
           </div>
@@ -297,7 +299,7 @@ const PlantCatalog = ({
           <div className="flex justify-center mt-12">
             <Button
               onClick={handleViewAllPlants}
-              className="bg-plant-primary hover:bg-plant-primary/90 text-white px-8 py-3 rounded-xl font-medium text-lg"
+              className="bg-emerald-500 hover:bg-emerald-400 text-white px-8 py-3 rounded-xl font-medium text-lg"
             >
               View All Plants
               <ArrowRight className="ml-2 w-5 h-5" />

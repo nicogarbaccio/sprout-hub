@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Card,
@@ -20,26 +19,28 @@ const DangerZone: React.FC<DangerZoneProps> = ({
   isLoading,
 }) => {
   return (
-    <Card className="border-red-200">
+    <Card className="border-red-200 dark:border-red-800/50">
       <CardHeader>
         <div className="flex items-center space-x-2">
-          <Trash2 className="w-5 h-5 text-red-600" />
-          <CardTitle className="text-red-600">Danger Zone</CardTitle>
+          <Trash2 className="w-5 h-5 text-red-600 dark:text-red-400" />
+          <CardTitle className="text-red-600 dark:text-red-400">
+            Danger Zone
+          </CardTitle>
         </div>
         <CardDescription>
           Irreversible actions that affect your account
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Button 
+        <Button
           onClick={handleDeleteAccount}
           disabled={isLoading}
           variant="destructive"
-          className="w-full"
+          className="w-full bg-red-600 hover:bg-red-700 dark:bg-red-700/80 dark:hover:bg-red-600/80"
         >
           {isLoading ? "Deleting..." : "Delete Account"}
         </Button>
-        <p className="text-sm text-gray-500 mt-2">
+        <p className="text-sm text-muted-foreground mt-2">
           This will permanently delete your account and all associated data.
         </p>
       </CardContent>

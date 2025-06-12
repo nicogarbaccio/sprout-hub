@@ -44,6 +44,24 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Theme script to prevent flash of light mode -->
+    <script>
+      (function () {
+        const storageKey = "sprouthub-ui-theme";
+        const theme = localStorage.getItem(storageKey) || "system";
+
+        if (
+          theme === "dark" ||
+          (theme === "system" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      })();
+    </script>
   </head>
 
   <body>

@@ -17,15 +17,15 @@ import Footer from "@/components/Footer";
 
 const SkeletonDemo = () => {
   return (
-    <div className="min-h-screen bg-white font-poppins">
+    <div className="min-h-screen bg-background font-poppins">
       <Navigation />
       <div className="pt-16 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold text-plant-text mb-4 font-poppins">
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-poppins">
               Skeleton Loading States Demo
             </h1>
-            <p className="text-plant-text/60 text-lg">
+            <p className="text-muted-foreground text-lg">
               All skeleton components used throughout the SproutHub application
             </p>
           </div>
@@ -59,13 +59,13 @@ const SkeletonDemo = () => {
 
             {/* Dashboard Components Section */}
             <section>
-              <h2 className="text-2xl font-bold text-plant-text mb-6">
+              <h2 className="text-2xl font-bold text-foreground mb-6">
                 Dashboard Components
               </h2>
 
               {/* Metrics */}
               <div className="mb-8">
-                <h3 className="text-lg font-semibold text-plant-text mb-4">
+                <h3 className="text-lg font-semibold text-foreground mb-4">
                   Metrics
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -108,7 +108,7 @@ const SkeletonDemo = () => {
 
             {/* Form Components Section */}
             <section>
-              <h2 className="text-2xl font-bold text-plant-text mb-6">
+              <h2 className="text-2xl font-bold text-foreground mb-6">
                 Form Components
               </h2>
 
@@ -139,7 +139,7 @@ const SkeletonDemo = () => {
 
             {/* Other Components Section */}
             <section>
-              <h2 className="text-2xl font-bold text-plant-text mb-6">
+              <h2 className="text-2xl font-bold text-foreground mb-6">
                 Other Components
               </h2>
 
@@ -170,7 +170,7 @@ const SkeletonDemo = () => {
 
             {/* Basic Skeleton Variations */}
             <section>
-              <h2 className="text-2xl font-bold text-plant-text mb-6">
+              <h2 className="text-2xl font-bold text-foreground mb-6">
                 Basic Skeleton Variations
               </h2>
 

@@ -13,11 +13,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const MarketingPageSkeleton = () => {
   return (
-    <div className="min-h-screen bg-white font-poppins">
+    <div className="min-h-screen bg-background font-poppins">
       <Navigation />
 
       {/* Hero Section Skeleton */}
-      <section className="bg-gradient-to-br from-plant-neutral to-white py-20">
+      <section className="bg-background py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start">
             <div className="mb-8 lg:mb-0 lg:pt-8">
@@ -30,7 +30,7 @@ const MarketingPageSkeleton = () => {
               <Skeleton className="h-12 w-40 rounded-xl" />
             </div>
             <div className="relative lg:flex lg:justify-center">
-              <div className="bg-white rounded-3xl shadow-xl p-6 relative overflow-hidden mx-auto lg:mx-0 min-w-[400px]">
+              <div className="bg-card rounded-3xl shadow-xl p-6 relative overflow-hidden mx-auto lg:mx-0 min-w-[400px]">
                 <div className="absolute inset-0 bg-gradient-to-br from-plant-secondary/5 to-plant-primary/5 rounded-3xl"></div>
                 <div className="relative">
                   <Skeleton className="w-full h-48 sm:h-56 lg:h-64 rounded-3xl mb-4" />
@@ -53,7 +53,7 @@ const MarketingPageSkeleton = () => {
       </section>
 
       {/* Features Section Skeleton */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <Skeleton className="h-10 w-80 mx-auto mb-4" />
@@ -64,7 +64,7 @@ const MarketingPageSkeleton = () => {
             {Array.from({ length: 6 }).map((_, index) => (
               <div
                 key={index}
-                className="bg-plant-neutral rounded-2xl p-8 h-full"
+                className="bg-card border border-border rounded-2xl p-8 h-full"
               >
                 <Skeleton className="w-12 h-12 rounded-xl mb-6" />
                 <Skeleton className="h-6 w-32 mb-3" />
@@ -116,11 +116,11 @@ const Index = () => {
   // For non-signed-in users, show invisible placeholder during stagger delay
   if (!user && !isMarketingReady) {
     return (
-      <div className="min-h-screen bg-white font-poppins">
+      <div className="min-h-screen bg-background font-poppins">
         <Navigation />
         <div className="opacity-0">
           {/* Invisible content to maintain height */}
-          <section className="bg-gradient-to-br from-plant-neutral to-white py-20">
+          <section className="bg-background py-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start">
                 <div className="mb-8 lg:mb-0 lg:pt-8">
@@ -129,7 +129,7 @@ const Index = () => {
                   <div className="h-12 w-40" />
                 </div>
                 <div className="relative lg:flex lg:justify-center">
-                  <div className="bg-white rounded-3xl shadow-xl p-6 relative overflow-hidden mx-auto lg:mx-0 min-w-[400px]">
+                  <div className="bg-card rounded-3xl shadow-xl p-6 relative overflow-hidden mx-auto lg:mx-0 min-w-[400px]">
                     <div className="absolute inset-0 bg-gradient-to-br from-plant-secondary/5 to-plant-primary/5 rounded-3xl"></div>
                     <div className="relative">
                       <div className="w-full h-48 sm:h-56 lg:h-64 rounded-3xl mb-4" />
@@ -150,12 +150,27 @@ const Index = () => {
               </div>
             </div>
           </section>
-          <section className="py-20 bg-white">
+          <section className="py-20 bg-background">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="h-32 mb-16" />
+              <div className="text-center mb-16">
+                <div className="h-10 w-80 mx-auto mb-4" />
+                <div className="h-6 w-96 mx-auto" />
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {Array.from({ length: 6 }).map((_, index) => (
-                  <div key={index} className="h-64" />
+                  <div
+                    key={index}
+                    className="bg-card border border-border rounded-2xl p-8 h-full"
+                  >
+                    <div className="w-12 h-12 rounded-xl mb-6" />
+                    <div className="h-6 w-32 mb-3" />
+                    <div className="space-y-2">
+                      <div className="h-4 w-full" />
+                      <div className="h-4 w-full" />
+                      <div className="h-4 w-3/4" />
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -168,7 +183,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white font-poppins">
+    <div className="min-h-screen bg-background font-poppins">
       <Navigation />
 
       {/* PWA Debug Panel - Development only */}

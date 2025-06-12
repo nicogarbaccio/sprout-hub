@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Card,
@@ -37,7 +36,9 @@ const ProfileInformation: React.FC<ProfileInformationProps> = ({
   isLoading,
 }) => {
   const getInitials = () => {
-    return `${profileData.first_name.charAt(0)}${profileData.last_name.charAt(0)}`.toUpperCase();
+    return `${profileData.first_name.charAt(0)}${profileData.last_name.charAt(
+      0
+    )}`.toUpperCase();
   };
 
   return (
@@ -57,10 +58,12 @@ const ProfileInformation: React.FC<ProfileInformationProps> = ({
             <AvatarImage src={profileData.avatar_url} />
             <AvatarFallback className="text-lg">{getInitials()}</AvatarFallback>
           </Avatar>
-          
+
           <ImageUpload
             value={profileData.avatar_url || ""}
-            onChange={(url) => setProfileData(prev => ({ ...prev, avatar_url: url }))}
+            onChange={(url) =>
+              setProfileData((prev) => ({ ...prev, avatar_url: url }))
+            }
             label="Profile Picture"
             placeholder="Upload or enter avatar URL"
           />
@@ -74,17 +77,27 @@ const ProfileInformation: React.FC<ProfileInformationProps> = ({
             <Input
               id="first_name"
               value={profileData.first_name}
-              onChange={(e) => setProfileData(prev => ({ ...prev, first_name: e.target.value }))}
+              onChange={(e) =>
+                setProfileData((prev) => ({
+                  ...prev,
+                  first_name: e.target.value,
+                }))
+              }
               placeholder="Enter your first name"
             />
           </div>
-          
+
           <div className="space-y-2">
             <Label htmlFor="last_name">Last Name</Label>
             <Input
               id="last_name"
               value={profileData.last_name}
-              onChange={(e) => setProfileData(prev => ({ ...prev, last_name: e.target.value }))}
+              onChange={(e) =>
+                setProfileData((prev) => ({
+                  ...prev,
+                  last_name: e.target.value,
+                }))
+              }
               placeholder="Enter your last name"
             />
           </div>
@@ -95,7 +108,9 @@ const ProfileInformation: React.FC<ProfileInformationProps> = ({
           <Input
             id="username"
             value={profileData.username}
-            onChange={(e) => setProfileData(prev => ({ ...prev, username: e.target.value }))}
+            onChange={(e) =>
+              setProfileData((prev) => ({ ...prev, username: e.target.value }))
+            }
             placeholder="Enter your username"
           />
         </div>
@@ -107,15 +122,17 @@ const ProfileInformation: React.FC<ProfileInformationProps> = ({
             type="email"
             value={profileData.email}
             disabled
-            className="bg-gray-50"
+            className="bg-muted"
           />
-          <p className="text-sm text-gray-500">Email cannot be changed from here</p>
+          <p className="text-sm text-muted-foreground/70">
+            Email cannot be changed from here
+          </p>
         </div>
 
-        <Button 
-          onClick={handleUpdateProfile} 
+        <Button
+          onClick={handleUpdateProfile}
           disabled={isLoading}
-          className="w-full bg-plant-primary hover:bg-plant-primary/90"
+          className="w-full bg-green-600 hover:bg-green-500 text-white font-medium"
         >
           {isLoading ? "Updating..." : "Update Profile"}
         </Button>

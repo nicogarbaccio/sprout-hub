@@ -86,7 +86,7 @@ const MyPlantCard = ({
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden">
+    <div className="bg-card rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-border">
       <div className="relative">
         <PlantImage src={image} alt={name} className="w-full h-40" />
         <div className="absolute top-3 right-3">
@@ -102,7 +102,7 @@ const MyPlantCard = ({
         <Button
           size="sm"
           variant="secondary"
-          className="absolute bottom-3 right-3 bg-white/90 hover:bg-white"
+          className="absolute bottom-3 right-3 bg-card/90 hover:bg-card border border-border shadow-sm"
           onClick={onEdit}
         >
           <Edit className="w-4 h-4" />
@@ -110,10 +110,10 @@ const MyPlantCard = ({
       </div>
 
       <div className="p-5">
-        <h3 className="text-lg font-semibold text-plant-text mb-1 font-poppins">
+        <h3 className="text-lg font-semibold text-foreground mb-1 font-poppins">
           {name}
         </h3>
-        <p className="text-sm text-plant-text/60 mb-4">{plantType}</p>
+        <p className="text-sm text-muted-foreground mb-4">{plantType}</p>
 
         {hasUnknownWateringDate && (
           <div className="flex items-center gap-2 p-2 bg-yellow-50 border border-yellow-200 rounded-md mb-4">
@@ -127,12 +127,12 @@ const MyPlantCard = ({
 
         <div className="space-y-2 mb-4">
           <div className="flex items-center justify-between text-sm">
-            <span className="text-plant-text/60">Last watered:</span>
-            <span className="text-plant-text font-medium">{lastWatered}</span>
+            <span className="text-muted-foreground">Last watered:</span>
+            <span className="text-foreground font-medium">{lastWatered}</span>
           </div>
           <div className="flex items-center justify-between text-sm">
-            <span className="text-plant-text/60">Next watering:</span>
-            <span className="text-plant-text font-medium">
+            <span className="text-muted-foreground">Next watering:</span>
+            <span className="text-foreground font-medium">
               {nextWateringDue}
             </span>
           </div>
