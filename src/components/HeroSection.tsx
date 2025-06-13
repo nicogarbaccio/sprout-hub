@@ -19,7 +19,7 @@ const HeroSection = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/plant-catalog">
-                <Button className="bg-emerald-500 hover:bg-emerald-400 text-white px-8 py-3 rounded-xl font-medium text-lg">
+                <Button className="bg-green-800 hover:bg-green-700 text-white px-8 py-3 rounded-xl font-medium text-lg">
                   Start Growing
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
@@ -38,7 +38,7 @@ const HeroSection = () => {
                 />
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-plant-secondary/20 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 bg-green-800 border-2 border-white rounded-xl flex items-center justify-center">
                       <Droplets className="w-5 h-5 text-white" />
                     </div>
                     <div>
@@ -51,7 +51,7 @@ const HeroSection = () => {
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-plant-secondary/20 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 bg-green-800 border-2 border-white rounded-xl flex items-center justify-center">
                       <Calendar className="w-5 h-5 text-white" />
                     </div>
                     <div>
@@ -64,7 +64,7 @@ const HeroSection = () => {
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-plant-secondary/20 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 bg-green-800 border-2 border-white rounded-xl flex items-center justify-center">
                       <Camera className="w-5 h-5 text-white" />
                     </div>
                     <div>

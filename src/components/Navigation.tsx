@@ -173,7 +173,7 @@ const Navigation = () => {
             ) : (
               <Button
                 onClick={handleSignIn}
-                className="bg-plant-secondary hover:bg-plant-secondary/90 text-plant-primary dark:text-white font-medium shadow-sm"
+                className="bg-green-800 hover:bg-green-700 text-white font-medium shadow-sm"
               >
                 Sign In
               </Button>
@@ -247,7 +247,7 @@ const Navigation = () => {
                       <SheetClose asChild>
                         <Button
                           onClick={handleSignIn}
-                          className="w-full justify-start bg-plant-secondary hover:bg-plant-secondary/90 text-plant-primary dark:text-white font-medium"
+                          className="w-full justify-start bg-green-800 hover:bg-green-700 text-white font-medium"
                         >
                           Sign In
                         </Button>
