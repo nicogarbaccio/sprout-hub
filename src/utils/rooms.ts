@@ -74,7 +74,7 @@ export const ROOM_THEMES: Record<string, RoomTheme> = {
   'garden': {
     background: 'bg-green-50 dark:bg-green-600/20',
     border: 'border-green-200 dark:border-green-300/30',
-    iconBg: 'bg-green-800 border-2 border-white dark:bg-green-700 dark:border-white/80',
+    iconBg: 'bg-green-800 border-2 border-white/60 dark:bg-green-700 dark:border-white/20',
     accent: 'text-green-600 dark:text-green-200'
   },
   'greenhouse': {

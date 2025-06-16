@@ -30,7 +30,7 @@ import SproutHubLogo from "@/components/SproutHubLogo";
 import * as React from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { toast } from "@/hooks/use-toast";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { ThemeToggle, SimpleThemeToggle } from "@/components/ui/theme-toggle";
 
 const Navigation = () => {
   const { user, signOut } = useAuth();
@@ -182,6 +182,7 @@ const Navigation = () => {
 
           {/* Mobile Hamburger Menu */}
           <div className="md:hidden flex items-center space-x-2">
+            <SimpleThemeToggle />
             <Sheet>
               <SheetTrigger asChild>
                 <Button
@@ -203,6 +204,7 @@ const Navigation = () => {
                     >
                       <SproutHubLogo size="md" />
                     </Link>
+                    <SimpleThemeToggle />
                   </div>
                   <div className="flex flex-col gap-2 px-4 py-4 border-b">
                     {user ? (
