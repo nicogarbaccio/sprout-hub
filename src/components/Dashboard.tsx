@@ -476,7 +476,7 @@ const Dashboard = () => {
                       return (
                         <div
                           key={plant.id}
-                          className="flex items-center justify-between p-3 bg-plant-neutral rounded-lg"
+                          className="flex items-center justify-between p-3 bg-muted/30 dark:bg-muted/20 rounded-lg border border-border/50"
                         >
                           <div className="flex items-center space-x-3">
                             <PlantImage
@@ -488,10 +488,10 @@ const Dashboard = () => {
                               className="w-10 h-10 rounded-full object-cover"
                             />
                             <div>
-                              <p className="font-medium text-plant-text">
+                              <p className="font-medium text-foreground">
                                 {plant.nickname}
                               </p>
-                              <p className="text-sm text-plant-text/60">
+                              <p className="text-sm text-muted-foreground">
                                 {plant.plant_type}
                               </p>
                             </div>
@@ -520,7 +520,7 @@ const Dashboard = () => {
                       );
                     })}
                     {plantsNeedingWater.length > 5 && (
-                      <p className="text-sm text-plant-text/60 text-center pt-2">
+                      <p className="text-sm text-muted-foreground text-center pt-2">
                         +{plantsNeedingWater.length - 5} more plants need
                         attention
                       </p>
