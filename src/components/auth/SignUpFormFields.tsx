@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -43,7 +42,7 @@ export const SignUpFormFields: React.FC<SignUpFormFieldsProps> = ({
           />
         </div>
       </div>
-      
+
       <div className="space-y-2">
         <Label htmlFor="username">Username</Label>
         <Input
@@ -58,7 +57,7 @@ export const SignUpFormFields: React.FC<SignUpFormFieldsProps> = ({
           <p className="text-sm text-red-500">{errors.username}</p>
         )}
       </div>
-      
+
       <div className="space-y-2">
         <Label htmlFor="signup-email">Email</Label>
         <Input
@@ -69,12 +68,11 @@ export const SignUpFormFields: React.FC<SignUpFormFieldsProps> = ({
           onChange={(e) => onInputChange("email", e.target.value)}
           className={errors.email ? "border-red-500" : ""}
           required
+          data-testid="sign-up-email"
         />
-        {errors.email && (
-          <p className="text-sm text-red-500">{errors.email}</p>
-        )}
+        {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
       </div>
-      
+
       <PasswordInput
         id="signup-password"
         label="Password"
@@ -84,7 +82,7 @@ export const SignUpFormFields: React.FC<SignUpFormFieldsProps> = ({
         error={errors.password}
         required
       />
-      
+
       <PasswordInput
         id="confirmPassword"
         label="Confirm Password"

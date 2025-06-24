@@ -1,7 +1,12 @@
 import { test, expect } from '@playwright/test';
+import { setupCleanTest } from './test-utils';
 
 test.describe('Smart Watering Preferences', () => {
   test.beforeEach(async ({ page }) => {
+    // Ensure clean state before each test
+    await setupCleanTest(page);
+    
+    // Navigate to auth page and sign in with clean state
     await page.goto('/auth');
     
     // Try to sign in first, fallback to sign up if needed

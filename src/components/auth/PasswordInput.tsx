@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -41,6 +40,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
           onChange={(e) => onChange(e.target.value)}
           className={error ? "border-red-500" : ""}
           required={required}
+          data-testid={id}
         />
         <Button
           type="button"
@@ -56,9 +56,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
           )}
         </Button>
       </div>
-      {error && (
-        <p className="text-sm text-red-500">{error}</p>
-      )}
+      {error && <p className="text-sm text-red-500">{error}</p>}
     </div>
   );
 };

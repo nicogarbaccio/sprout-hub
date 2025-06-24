@@ -19,6 +19,8 @@ export default defineConfig({
     trace: 'on-first-retry',
     baseURL: 'http://localhost:8080',
     headless: true,
+    // Clear all browser storage before each test for isolation
+    storageState: { cookies: [], origins: [] },
   },
   projects: [
     {
