@@ -55,7 +55,7 @@ export const tropicalPlants: Plant[] = [
   {
     name: 'Philodendron Brasil',
     botanicalName: 'Philodendron hederaceum',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750805312/1713224407501_s5dqa4.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Medium Light',
@@ -82,7 +82,7 @@ export const tropicalPlants: Plant[] = [
   {
     name: 'Kentia Palm',
     botanicalName: 'Howea forsteriana',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750805262/07_PALM_KENTIA_6-7FT_01_fdrgw2.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Medium Light',
@@ -109,7 +109,7 @@ export const tropicalPlants: Plant[] = [
   {
     name: 'Banana Plant',
     botanicalName: 'Musa acuminata',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750804910/banana-musa-plant-in-pot-royalty-free-image-1699118571.jpg_ozao1i.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 5,
     lightRequirement: 'Bright Direct Light',
@@ -136,7 +136,7 @@ export const tropicalPlants: Plant[] = [
   {
     name: 'Fiddle Leaf Fig',
     botanicalName: 'Ficus lyrata',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750805185/bloomscape_fiddle-leaf-fig_charcoal-e1652800894846_vlfmkt.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -163,7 +163,7 @@ export const tropicalPlants: Plant[] = [
   {
     name: 'Croton',
     botanicalName: 'Codiaeum variegatum',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750805039/large-croton-house-plant-PL112322.425_zamfnl.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Direct Light',
@@ -189,8 +189,8 @@ export const tropicalPlants: Plant[] = [
   },
   {
     name: 'Calathea Orbifolia',
-    botanicalName: 'Calathea orbifolia',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    botanicalName: 'Calathea Orbifolia',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750804970/lighter_r1ycrj.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Medium Light',
@@ -215,36 +215,9 @@ export const tropicalPlants: Plant[] = [
     ]
   },
   {
-    name: 'Swiss Cheese Plant',
-    botanicalName: 'Monstera adansonii',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
-    wateringFrequency: 'Weekly',
-    suggestedWateringDays: 7,
-    lightRequirement: 'Bright Indirect Light',
-    careLevel: 'Medium' as const,
-    category: 'Tropical Plants',
-    description: 'A vining plant with distinctive holes in its leaves, giving it the common name Swiss Cheese Plant. Perfect for hanging baskets or climbing.',
-    toxicity: 'Toxic to pets if ingested',
-    temperature: '65-80°F (18-27°C)',
-    humidity: '50-60%',
-    careInstructions: [
-      'Water when top inch of soil feels dry',
-      'Provide bright, indirect light',
-      'Support climbing growth with moss pole',
-      'Maintain moderate humidity',
-      'Propagate easily from stem cuttings'
-    ],
-    commonProblems: [
-      'Small or no holes: Young plants or insufficient light',
-      'Yellowing leaves: Usually overwatering',
-      'Brown leaf tips: Low humidity or fluoride sensitivity',
-      'Leggy growth: Needs more light or support'
-    ]
-  },
-  {
     name: 'Philodendron Pink Princess',
     botanicalName: 'Philodendron erubescens',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750805349/20250120211054_file_678ebbdea2df9_x3scee.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -271,7 +244,7 @@ export const tropicalPlants: Plant[] = [
   {
     name: 'Elephant Ear',
     botanicalName: 'Alocasia macrorrhiza',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750805164/DETA-1855_jqndwt.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',

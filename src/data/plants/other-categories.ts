@@ -95,7 +95,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Maidenhair Fern',
     botanicalName: 'Adiantum raddianum',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750945860/il_570xN.2454440912_tkbi_jovayw.jpg',
     wateringFrequency: 'Twice weekly',
     suggestedWateringDays: 3,
     lightRequirement: 'Bright Indirect Light',
@@ -122,7 +122,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Staghorn Fern',
     botanicalName: 'Platycerium bifurcatum',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750945889/Platycerium_bifurcatum_kz01_aykqix.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -149,7 +149,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Bird\'s Nest Fern',
     botanicalName: 'Asplenium nidus',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750945832/bnfern-1_o4oizy.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Medium Light',
@@ -176,7 +176,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Coleus',
     botanicalName: 'Solenostemon scutellarioides',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750945749/coleus-plant-care-and-growing-guide-780x520_mqvzik.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 5,
     lightRequirement: 'Bright Indirect Light',
@@ -203,7 +203,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Caladium',
     botanicalName: 'Caladium bicolor',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750945632/gabriella-plants-caladium-bicolor-the-scarlet-girl-4-1168705231_qjzfab.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -230,7 +230,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Dracaena',
     botanicalName: 'Dracaena marginata',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750944256/Dracaena-marginata-Bicolour-Multi-Stem-21x110cm-_3-stems_-Charlotte-Plant-Pot-Spiced-Ochre-23x20cm_cd6f59df-f987-4d3e-8aac-b815a382378e_1600x_pgczpb.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 10,
     lightRequirement: 'Medium Light',
@@ -257,7 +257,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Aloe Aristata',
     botanicalName: 'Aloe aristata',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750944054/aloe-aristata_svtvxo.webp',
     wateringFrequency: 'Bi-weekly',
     suggestedWateringDays: 14,
     lightRequirement: 'Bright Indirect Light',
@@ -284,7 +284,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Nerve Plant',
     botanicalName: 'Fittonia albivenis',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750944111/shutterstock_725555002_wqgxns.jpg',
     wateringFrequency: 'Twice weekly',
     suggestedWateringDays: 3,
     lightRequirement: 'Medium Light',
@@ -311,7 +311,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Cast Iron Plant',
     botanicalName: 'Aspidistra elatior',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750944227/Cast-Iron-Plant-Aspidistra-elatior_cb28wh.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 10,
     lightRequirement: 'Low Light',
@@ -338,7 +338,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Polka Dot Plant',
     botanicalName: 'Hypoestes phyllostachya',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750945779/grow-hypoestes-phyllostachya-indoors-1902650-01-142be1b46981445f8b8425c65ed2b514_x1ucbz.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 5,
     lightRequirement: 'Bright Indirect Light',
@@ -365,7 +365,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Aluminum Plant',
     botanicalName: 'Pilea cadierei',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750944081/aluminum_plant_o75rpl.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -392,7 +392,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Swedish Ivy',
     botanicalName: 'Plectranthus australis',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750944294/12586_ogonep.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -419,7 +419,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Arrowhead Plant',
     botanicalName: 'Syngonium podophyllum',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750944167/shutterstock_1993387385_se0rmi.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Medium Light',
@@ -446,7 +446,7 @@ export const otherPlants: Plant[] = [
   {
     name: 'Wandering Jew',
     botanicalName: 'Tradescantia fluminensis',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750944323/71lXIbyOb6L._UF894_1000_QL80__mmce1d.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',

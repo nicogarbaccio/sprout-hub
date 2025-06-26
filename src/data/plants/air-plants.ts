@@ -5,7 +5,7 @@ export const airPlants: Plant[] = [
   {
     name: 'Tillandsia Ionantha',
     botanicalName: 'Tillandsia ionantha',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750963662/Tillandsia-ionantha-Rubra-Air-Plant_mc0btd.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -32,7 +32,7 @@ export const airPlants: Plant[] = [
   {
     name: 'Spanish Moss',
     botanicalName: 'Tillandsia usneoides',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750963276/livespanishmoss-1-1_bzu5to.jpg',
     wateringFrequency: 'Twice weekly',
     suggestedWateringDays: 3,
     lightRequirement: 'Bright Indirect Light',
@@ -59,7 +59,7 @@ export const airPlants: Plant[] = [
   {
     name: 'Tillandsia Xerographica',
     botanicalName: 'Tillandsia xerographica',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750963701/Tillandsia_Xerographica_Air_Plant-6_cluw4m.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 10,
     lightRequirement: 'Bright Indirect Light',
@@ -86,7 +86,7 @@ export const airPlants: Plant[] = [
   {
     name: 'Tillandsia Cyanea',
     botanicalName: 'Tillandsia cyanea',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750963632/Tillandsia-cyanea_dlzmnr.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -113,7 +113,7 @@ export const airPlants: Plant[] = [
   {
     name: 'Tillandsia Bulbosa',
     botanicalName: 'Tillandsia bulbosa',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750963566/plants-bulbosa-1_2000x_jacvnu.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',

@@ -45,7 +45,7 @@ export const floweringPlants: Plant[] = [
   {
     name: 'Begonia',
     botanicalName: 'Begonia rex',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750945942/BegoniaRexShadowKingpink_ekxx28.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -72,7 +72,7 @@ export const floweringPlants: Plant[] = [
   {
     name: 'Cyclamen',
     botanicalName: 'Cyclamen persicum',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750946195/PlanteTropicale_Cyclamen_persicum_Rouge_d8b80344-3fe6-416d-914b-f0d56d585982_rdeu52.jpg',
     wateringFrequency: 'Twice weekly',
     suggestedWateringDays: 3,
     lightRequirement: 'Bright Indirect Light',
@@ -99,7 +99,7 @@ export const floweringPlants: Plant[] = [
   {
     name: 'Geranium',
     botanicalName: 'Pelargonium x hortorum',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750947179/pelargonium-zonale-big_pf34l0.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Direct Light',
@@ -126,7 +126,7 @@ export const floweringPlants: Plant[] = [
   {
     name: 'Kalanchoe',
     botanicalName: 'Kalanchoe blossfeldiana',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750963196/4-KALANCHOE-RED-1_gqdvpf.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 10,
     lightRequirement: 'Bright Direct Light',
@@ -153,7 +153,7 @@ export const floweringPlants: Plant[] = [
   {
     name: 'Impatiens',
     botanicalName: 'Impatiens walleriana',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750963101/41580-1-Impatiens_Beacon_Formula_Mix1_tnkrtm.jpg',
     wateringFrequency: 'Twice weekly',
     suggestedWateringDays: 3,
     lightRequirement: 'Bright Indirect Light',
@@ -180,7 +180,7 @@ export const floweringPlants: Plant[] = [
   {
     name: 'Orchid',
     botanicalName: 'Phalaenopsis species',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750963146/7385_44-1_qsndh5.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -207,7 +207,7 @@ export const floweringPlants: Plant[] = [
   {
     name: 'Flowering Maple',
     botanicalName: 'Abutilon pictum',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750947090/81gG2CA3QeL_qi7ayp.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Direct Light',
@@ -234,7 +234,7 @@ export const floweringPlants: Plant[] = [
   {
     name: 'Hibiscus',
     botanicalName: 'Hibiscus rosa-sinensis',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750953265/az-hibiscus-rosa-sinensis-presidents-red-tropical-hibiscus-1-690163-519462.d7777246_ptdihh.avif',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 5,
     lightRequirement: 'Bright Direct Light',
@@ -261,7 +261,7 @@ export const floweringPlants: Plant[] = [
   {
     name: 'Bougainvillea',
     botanicalName: 'Bougainvillea spectabilis',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750946017/1200px-Starr_030418-0061_Bougainvillea_spectabilis_rgto9r.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Direct Light',
@@ -288,7 +288,7 @@ export const floweringPlants: Plant[] = [
   {
     name: 'Crown of Thorns',
     botanicalName: 'Euphorbia milii',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750946142/Euphorbia-milii-crown-of-thorns-red-2-Gallon_2_1400x_lpcn6m.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 10,
     lightRequirement: 'Bright Direct Light',
@@ -315,7 +315,7 @@ export const floweringPlants: Plant[] = [
   {
     name: 'Pentas',
     botanicalName: 'Pentas lanceolata',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750963241/Pentas-lanceolata_ceozih.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Direct Light',

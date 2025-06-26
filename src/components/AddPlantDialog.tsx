@@ -257,7 +257,7 @@ const AddPlantDialog = ({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-plant-text font-poppins">
+          <DialogTitle className="text-plant-text dark:text-zinc-200 font-poppins">
             {plantData
               ? `Add ${plantData.name} to Collection`
               : "Add New Plant"}
@@ -266,7 +266,10 @@ const AddPlantDialog = ({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="nickname" className="text-plant-text">
+            <Label
+              htmlFor="nickname"
+              className="text-plant-text dark:text-zinc-200"
+            >
               Plant Nickname *
             </Label>
             <Input
@@ -280,7 +283,10 @@ const AddPlantDialog = ({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="plant_type" className="text-plant-text">
+            <Label
+              htmlFor="plant_type"
+              className="text-plant-text dark:text-zinc-200"
+            >
               Plant Type *
             </Label>
             <div className="relative plant-type-dropdown">
@@ -377,7 +383,10 @@ const AddPlantDialog = ({
             {/* Show custom plant type input if a custom type is selected */}
             {isCustomPlantType && (
               <div className="space-y-2">
-                <Label htmlFor="custom_plant_type" className="text-plant-text">
+                <Label
+                  htmlFor="custom_plant_type"
+                  className="text-plant-text dark:text-zinc-200"
+                >
                   Custom Plant Type *
                 </Label>
                 <Input
@@ -399,7 +408,10 @@ const AddPlantDialog = ({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="room" className="text-plant-text">
+            <Label
+              htmlFor="room"
+              className="text-plant-text dark:text-zinc-200"
+            >
               Room (Optional)
             </Label>
             <Select
@@ -436,7 +448,7 @@ const AddPlantDialog = ({
               <div className="space-y-1">
                 <Label
                   htmlFor="custom_room"
-                  className="text-plant-text text-sm"
+                  className="text-plant-text dark:text-zinc-200 text-sm"
                 >
                   Custom Room Name
                 </Label>
@@ -455,7 +467,9 @@ const AddPlantDialog = ({
           </div>
 
           <div className="space-y-2">
-            <Label className="text-plant-text">Last Watered</Label>
+            <Label className="text-plant-text dark:text-zinc-200">
+              Last Watered
+            </Label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -498,7 +512,10 @@ const AddPlantDialog = ({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="watering_schedule" className="text-plant-text">
+            <Label
+              htmlFor="watering_schedule"
+              className="text-plant-text dark:text-zinc-200"
+            >
               Watering Schedule
             </Label>
             <Select
@@ -535,7 +552,7 @@ const AddPlantDialog = ({
               <div className="space-y-1">
                 <Label
                   htmlFor="custom_days"
-                  className="text-plant-text text-sm"
+                  className="text-plant-text dark:text-zinc-200 text-sm"
                 >
                   Custom days
                 </Label>
@@ -564,7 +581,10 @@ const AddPlantDialog = ({
           />
 
           <div className="space-y-2">
-            <Label htmlFor="notes" className="text-plant-text">
+            <Label
+              htmlFor="notes"
+              className="text-plant-text dark:text-zinc-200"
+            >
               Notes
             </Label>
             <Textarea

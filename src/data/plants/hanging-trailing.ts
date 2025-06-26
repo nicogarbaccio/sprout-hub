@@ -5,7 +5,7 @@ export const hangingTrailingPlants: Plant[] = [
   {
     name: 'Pothos',
     botanicalName: 'Epipremnum aureum',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539513/golden-pothos-potted-plant__0653982_pe708211_s5_kvzksn.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750946347/Bellr2024relaunchpots-618copy_700x700_ho1bh7.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Medium Light',
@@ -15,7 +15,7 @@ export const hangingTrailingPlants: Plant[] = [
   {
     name: 'Spider Plant',
     botanicalName: 'Chlorophytum comosum',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748539539/1000x_wglhkv.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750963317/beautiful-spider-plant-chlorophytum-isolated-in-a-royalty-free-image-1727206150.jpg_yt6k2y.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -25,7 +25,7 @@ export const hangingTrailingPlants: Plant[] = [
   {
     name: 'English Ivy',
     botanicalName: 'Hedera helix',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750946390/Efeja_Pitsburgh_nshddi.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Bright Indirect Light',
@@ -52,7 +52,7 @@ export const hangingTrailingPlants: Plant[] = [
   {
     name: 'String of Hearts',
     botanicalName: 'Ceropegia woodii',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750963534/Ceropegia-woodii_-Silver-Glory-jpj_1_v4y4eh.jpg',
     wateringFrequency: 'Bi-weekly',
     suggestedWateringDays: 14,
     lightRequirement: 'Bright Indirect Light',
@@ -77,36 +77,9 @@ export const hangingTrailingPlants: Plant[] = [
     ]
   },
   {
-    name: 'Tradescantia',
-    botanicalName: 'Tradescantia zebrina',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
-    wateringFrequency: 'Weekly',
-    suggestedWateringDays: 7,
-    lightRequirement: 'Bright Indirect Light',
-    careLevel: 'Easy' as const,
-    category: 'Hanging & Trailing Plants',
-    description: 'Also known as Wandering Jew, this fast-growing trailing plant features stunning purple and silver striped leaves that cascade beautifully.',
-    toxicity: 'Mildly toxic to pets - may cause skin irritation',
-    temperature: '65-75°F (18-24°C)',
-    humidity: '40-50%',
-    careInstructions: [
-      'Keep soil consistently moist but not soggy',
-      'Provide bright light for best coloration',
-      'Pinch flowers to encourage foliage growth',
-      'Propagate easily in water',
-      'Trim regularly to maintain shape'
-    ],
-    commonProblems: [
-      'Fading colors: Needs more bright light',
-      'Leggy growth: Pinch regularly and provide adequate light',
-      'Brown tips: Low humidity or fluoride sensitivity',
-      'Dropping leaves: Usually from inconsistent watering'
-    ]
-  },
-  {
     name: 'Heartleaf Philodendron',
     botanicalName: 'Philodendron hederaceum',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750947262/1497a495dc858270b1a03662db1473f7_dwersd.jpg',
     wateringFrequency: 'Weekly',
     suggestedWateringDays: 7,
     lightRequirement: 'Medium Light',
@@ -133,7 +106,7 @@ export const hangingTrailingPlants: Plant[] = [
   {
     name: 'String of Bananas',
     botanicalName: 'Senecio radicans',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750963424/PhotoRoom-20220930_190520_1800x_y8vyyw.png',
     wateringFrequency: 'Bi-weekly',
     suggestedWateringDays: 14,
     lightRequirement: 'Bright Indirect Light',
@@ -160,7 +133,7 @@ export const hangingTrailingPlants: Plant[] = [
   {
     name: 'Burro\'s Tail',
     botanicalName: 'Sedum morganianum',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750946114/Donkey-Tail-Plant-_Sedum-morganianum_-1-Gallon-1_1400x_ncdkdy.jpg',
     wateringFrequency: 'Bi-weekly',
     suggestedWateringDays: 14,
     lightRequirement: 'Bright Direct Light',
@@ -187,7 +160,7 @@ export const hangingTrailingPlants: Plant[] = [
   {
     name: 'String of Dolphins',
     botanicalName: 'Senecio peregrinus',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750963486/String-of-Dolphins-6-inch-shop_4675c1d6-5cc3-45d6-b9e7-dec07c3c3c48_bgtams.jpg',
     wateringFrequency: 'Bi-weekly',
     suggestedWateringDays: 14,
     lightRequirement: 'Bright Indirect Light',
@@ -211,31 +184,4 @@ export const hangingTrailingPlants: Plant[] = [
       'Slow growth: Normal for this specialty hybrid'
     ]
   },
-  {
-    name: 'Devil\'s Ivy',
-    botanicalName: 'Epipremnum aureum',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
-    wateringFrequency: 'Weekly',
-    suggestedWateringDays: 7,
-    lightRequirement: 'Low to Medium Light',
-    careLevel: 'Easy' as const,
-    category: 'Hanging & Trailing Plants',
-    description: 'An extremely hardy trailing plant that can survive in almost any condition. Perfect for beginners and thrives in water or soil.',
-    toxicity: 'Toxic to pets if ingested',
-    temperature: '65-85°F (18-29°C)',
-    humidity: '40-60%',
-    careInstructions: [
-      'Water when top inch of soil is dry',
-      'Tolerates very low light conditions',
-      'Can be grown in water indefinitely',
-      'Prune regularly to maintain shape',
-      'Very easy to propagate from cuttings'
-    ],
-    commonProblems: [
-      'Yellowing leaves: Usually overwatering',
-      'Brown spots: May be from too much direct sun',
-      'Leggy growth: Natural in low light, can be pruned',
-      'Root rot: Only from severe overwatering'
-    ]
-  }
 ];

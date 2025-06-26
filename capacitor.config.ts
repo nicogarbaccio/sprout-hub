@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.sprouthub.app',
+  appId: 'com.nico.sprouthub',
   appName: 'SproutHub',
   webDir: 'dist',
   server: {

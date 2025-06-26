@@ -65,7 +65,7 @@ export const succulents: Plant[] = [
   {
     name: 'Barrel Cactus',
     botanicalName: 'Ferocactus wislizeni',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750943758/fer_wislezi2__09693.1698858264_zuvfer.jpg',
     wateringFrequency: 'Monthly',
     suggestedWateringDays: 30,
     lightRequirement: 'Bright Direct Light',
@@ -92,7 +92,7 @@ export const succulents: Plant[] = [
   {
     name: 'Lithops',
     botanicalName: 'Lithops species',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750943852/LivingStoneLithops2.5l_k7z8ou.jpg',
     wateringFrequency: 'Monthly',
     suggestedWateringDays: 45,
     lightRequirement: 'Bright Direct Light',
@@ -119,7 +119,7 @@ export const succulents: Plant[] = [
   {
     name: 'Prickly Pear Cactus',
     botanicalName: 'Opuntia microdasys',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750943948/bloomscape_prickly-pear-cactus_charcoal-e1625250902451_mhgfkt.jpg',
     wateringFrequency: 'Monthly',
     suggestedWateringDays: 30,
     lightRequirement: 'Bright Direct Light',
@@ -146,7 +146,7 @@ export const succulents: Plant[] = [
   {
     name: 'Zebra Plant',
     botanicalName: 'Haworthia fasciata',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750944008/shutterstock_2348932457_om9nu1.jpg',
     wateringFrequency: 'Bi-weekly',
     suggestedWateringDays: 14,
     lightRequirement: 'Bright Indirect Light',
@@ -173,7 +173,7 @@ export const succulents: Plant[] = [
   {
     name: 'Paddle Plant',
     botanicalName: 'Kalanchoe thyrsiflora',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750943894/bhg-succulant-kalanchoe-thyrsiflora-CEISxlHCqL-AlzmBsFyz-L-4f3ed69d03b847888f5013f7a4cbe904_etwkdz.jpg',
     wateringFrequency: 'Bi-weekly',
     suggestedWateringDays: 14,
     lightRequirement: 'Bright Direct Light',
@@ -200,7 +200,7 @@ export const succulents: Plant[] = [
   {
     name: 'String of Buttons',
     botanicalName: 'Crassula perforata',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750943977/shutterstock_315824633Optimized-591x533_efjg35.webp',
     wateringFrequency: 'Bi-weekly',
     suggestedWateringDays: 14,
     lightRequirement: 'Bright Direct Light',
@@ -227,7 +227,7 @@ export const succulents: Plant[] = [
   {
     name: 'Ghost Plant',
     botanicalName: 'Graptopetalum paraguayense',
-    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1748969790/plant-emoji_78370-262_gmqqjg.jpg',
+    image: 'https://res.cloudinary.com/dojdglovh/image/upload/v1750943810/Variegated-Ghost-Plant-Graptopetalum-Paraguayense-6-inch_5_1800x1800_exxl79.jpg',
     wateringFrequency: 'Bi-weekly',
     suggestedWateringDays: 14,
     lightRequirement: 'Bright Direct Light',

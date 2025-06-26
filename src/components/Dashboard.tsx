@@ -761,7 +761,7 @@ const Dashboard = () => {
               {plantsNeedingWater.map((plant) => (
                 <div
                   key={plant.id}
-                  className="flex items-center space-x-3 p-2 bg-plant-neutral dark:bg-plant-neutral rounded-lg"
+                  className="flex items-center space-x-3 p-2 bg-card border border-border rounded-lg"
                 >
                   <PlantImage
                     src={

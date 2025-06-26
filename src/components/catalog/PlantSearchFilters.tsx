@@ -160,11 +160,11 @@ const PlantSearchFilters = ({
 
               {/* Clear Filters Button */}
               {hasActiveFilters && (
-                <div className="mt-6 pt-4 border-t border-plant-secondary/20 flex justify-center">
+                <div className="mt-6 pt-4 border-t border-border flex justify-center">
                   <Button
                     variant="ghost"
                     onClick={clearAllFilters}
-                    className="text-plant-text/70 hover:text-plant-text hover:bg-plant-secondary/10 px-4 py-2"
+                    className="text-muted-foreground hover:text-foreground hover:bg-accent px-4 py-2 transition-colors"
                   >
                     <X className="w-4 h-4 mr-2" />
                     Clear All Filters
