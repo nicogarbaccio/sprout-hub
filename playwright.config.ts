@@ -36,4 +36,10 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'] },
     },
   ],
+  // Automatically start dev server before tests and stop after
+  webServer: {
+    command: 'npm run dev',
+    port: 8080,
+    reuseExistingServer: !process.env.CI,
+  },
 }); 
