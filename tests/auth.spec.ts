@@ -7,7 +7,7 @@ test('auth page loads and displays correct info', async ({ page }) => {
   await setupCleanTest(page);
   
   await expect(page).toHaveTitle('SproutHub');
-  await page.getByRole('button', { name: 'Sign In' }).click();
+  await page.getByTestId('nav-sign-in-button').click();
   await expect(page.getByTestId('sign-in-trigger')).toBeVisible();
   await expect(page.getByTestId('sign-up-trigger')).toBeVisible();
   await expect(page.getByTestId('sign-in-email')).toBeVisible();
@@ -18,7 +18,7 @@ test('sign in with valid credentials', async ({ page }) => {
   // Ensure clean state before test
   await setupCleanTest(page);
   
-  await page.getByRole('button', { name: 'Sign In' }).click();
+  await page.getByTestId('nav-sign-in-button').click();
   if (!process.env.TEST_EMAIL || !process.env.TEST_PASSWORD) {
     throw new Error('Missing TEST_EMAIL or TEST_PASSWORD in environment variables');
   }
@@ -33,7 +33,7 @@ test('invalid credentials get rejected', async ({ page }) => {
   // Ensure clean state before test
   await setupCleanTest(page);
   
-  await page.getByRole('button', { name: 'Sign In' }).click();
+  await page.getByTestId('nav-sign-in-button').click();
   await page.getByTestId('sign-in-email').fill('invalid@example.com');
   await page.getByTestId('sign-in-password').fill('wrongpassword');
   await page.getByTestId('sign-in-button').click();

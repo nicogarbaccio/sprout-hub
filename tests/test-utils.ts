@@ -1,8 +1,6 @@
 import { Page } from '@playwright/test';
 
-/**
- * Clear all authentication-related storage to ensure test isolation
- */
+// Clear all authentication-related storage to ensure test isolation
 export async function clearAuthState(page: Page) {
   // Clear localStorage - handle potential security errors
   await page.evaluate(() => {
@@ -75,9 +73,7 @@ export async function setupCleanTest(page: Page) {
   await clearAuthState(page);
 }
 
-/**
- * Check if user is currently authenticated
- */
+// Check if user is currently authenticated
 export async function isUserAuthenticated(page: Page): Promise<boolean> {
   try {
     // Check if we're on an authenticated page or if auth elements are present
@@ -91,9 +87,7 @@ export async function isUserAuthenticated(page: Page): Promise<boolean> {
   }
 }
 
-/**
- * Ensure user is logged out - useful for tests that need to start unauthenticated
- */
+// Ensure user is logged out - for tests that need to start unauthenticated
 export async function ensureLoggedOut(page: Page) {
   try {
     const isAuth = await isUserAuthenticated(page);

@@ -102,6 +102,7 @@ const Navigation = () => {
               <Button
                 variant="ghost"
                 className="text-foreground hover:text-white hover:bg-plant-secondary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                data-testid="nav-plant-catalog-button"
               >
                 <BookOpen className="w-4 h-4" />
                 <span>Plant Catalog</span>
@@ -174,6 +175,7 @@ const Navigation = () => {
               <Button
                 onClick={handleSignIn}
                 className="bg-green-800 hover:bg-green-700 text-white font-medium shadow-sm"
+                data-testid="nav-sign-in-button"
               >
                 Sign In
               </Button>
@@ -250,6 +252,7 @@ const Navigation = () => {
                         <Button
                           onClick={handleSignIn}
                           className="w-full justify-start bg-green-800 hover:bg-green-700 text-white font-medium"
+                          data-testid="mobile-nav-sign-in-button"
                         >
                           Sign In
                         </Button>
@@ -275,6 +278,7 @@ const Navigation = () => {
                         <Button
                           variant="ghost"
                           className="w-full justify-start text-foreground hover:text-white hover:bg-plant-secondary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                          data-testid="mobile-nav-plant-catalog-button"
                         >
                           <BookOpen className="w-4 h-4 mr-2" />
                           <span>Plant Catalog</span>

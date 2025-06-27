@@ -18,7 +18,7 @@ export default defineConfig({
     actionTimeout: 0,
     trace: 'on-first-retry',
     baseURL: 'http://localhost:8080',
-    headless: true,
+    headless: process.env.HEADED !== 'true',
     // Clear all browser storage before each test for isolation
     storageState: { cookies: [], origins: [] },
   },
