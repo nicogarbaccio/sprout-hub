@@ -63,6 +63,7 @@ const PlantSearchFilters = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10 border-plant-secondary/30 focus:border-plant-primary rounded-xl h-11"
+              data-testid="search-input"
             />
           </div>
 
@@ -70,6 +71,7 @@ const PlantSearchFilters = ({
             <Button
               variant="outline"
               className="border-plant-secondary/30 hover:bg-plant-secondary/10 rounded-xl h-11 px-6 flex-shrink-0"
+              data-testid="filters-button"
             >
               <Filter className="w-4 h-4 mr-2" />
               Filters
