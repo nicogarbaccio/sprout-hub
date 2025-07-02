@@ -29,7 +29,7 @@ const SproutHubLogo = ({
     <div
       className={`${sizeClasses[size]} ${className} flex items-center justify-center gap-3`}
     >
-      {/* Full, lush plant icon 🪴 */}
+      {/* Minimalistic Monstera Leaf Outline */}
       <div className={`${iconSizes[size]} text-green-600 dark:text-green-400`}>
         <svg
           viewBox="0 0 24 24"
@@ -37,163 +37,101 @@ const SproutHubLogo = ({
           xmlns="http://www.w3.org/2000/svg"
           className="w-full h-full"
         >
-          {/* Main stem */}
+          {/* Monstera leaf outline */}
           <path
-            d="M12 19V10"
+            d="M12 2C15.5 2 18.5 4.5 20 8C21 10.5 20.5 13.5 18.5 16C16.5 18.5 13.5 20 10.5 19.5C7.5 19 5 16.5 4.5 13.5C4 10.5 5.5 7.5 8 5.5C9.5 4 10.7 2.8 12 2Z"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          
+          {/* Monstera fenestrations (holes) */}
+          <path
+            d="M9 8C9.5 8.5 10.5 9 11 9.5"
             stroke="currentColor"
             strokeWidth="1.5"
             strokeLinecap="round"
           />
-
-          {/* Back layer leaves - larger, positioned behind */}
-          <ellipse
-            cx="8"
-            cy="12"
-            rx="2.8"
-            ry="2.2"
-            fill="currentColor"
-            transform="rotate(-25 8 12)"
-            fillOpacity="0.7"
-          />
-
-          <ellipse
-            cx="16"
-            cy="11"
-            rx="2.8"
-            ry="2.2"
-            fill="currentColor"
-            transform="rotate(25 16 11)"
-            fillOpacity="0.7"
-          />
-
-          {/* Main large leaves - prominent front layer */}
-          <ellipse
-            cx="9.5"
-            cy="9.5"
-            rx="3.2"
-            ry="2.8"
-            fill="currentColor"
-            transform="rotate(-15 9.5 9.5)"
-            fillOpacity="0.95"
-          />
-
-          <ellipse
-            cx="14.5"
-            cy="8.5"
-            rx="3.2"
-            ry="2.8"
-            fill="currentColor"
-            transform="rotate(15 14.5 8.5)"
-            fillOpacity="0.95"
-          />
-
-          {/* Center top leaf */}
-          <ellipse
-            cx="12"
-            cy="7"
-            rx="2"
-            ry="2.5"
-            fill="currentColor"
-            fillOpacity="1"
-          />
-
-          {/* Small side leaves for fullness */}
-          <ellipse
-            cx="10"
-            cy="13"
-            rx="1.8"
-            ry="1.5"
-            fill="currentColor"
-            transform="rotate(-30 10 13)"
-            fillOpacity="0.8"
-          />
-
-          <ellipse
-            cx="14"
-            cy="12.5"
-            rx="1.8"
-            ry="1.5"
-            fill="currentColor"
-            transform="rotate(30 14 12.5)"
-            fillOpacity="0.8"
-          />
-
-          {/* Small emerging leaves near base */}
-          <ellipse
-            cx="11"
-            cy="16"
-            rx="1.2"
-            ry="1"
-            fill="currentColor"
-            transform="rotate(-10 11 16)"
-            fillOpacity="0.6"
-          />
-
-          <ellipse
-            cx="13"
-            cy="16.5"
-            rx="1.2"
-            ry="1"
-            fill="currentColor"
-            transform="rotate(10 13 16.5)"
-            fillOpacity="0.6"
-          />
-
-          {/* Larger terracotta pot - better proportioned */}
+          
           <path
-            d="M7.5 19H16.5L15.5 22.5C15.5 23 15 23 12 23C9 23 8.5 23 8.5 22.5L7.5 19Z"
-            fill="#CD7F32"
-            fillOpacity="0.8"
+            d="M13.5 7.5C14 8 14.5 8.5 15 9"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
-
-          {/* Pot rim */}
-          <ellipse
-            cx="12"
-            cy="19"
-            rx="4.5"
-            ry="1"
-            fill="#B8671F"
-            fillOpacity="0.9"
+          
+          <path
+            d="M8.5 12C9 12.5 9.5 13 10 13.5"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
-
-          {/* Soil/dirt surface */}
-          <ellipse
-            cx="12"
-            cy="19.3"
-            rx="4"
-            ry="0.6"
-            fill="#8B4513"
-            fillOpacity="0.7"
+          
+          <path
+            d="M15 12C15.5 12.5 16 13 16.5 13.5"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
-
-          {/* Small plant sprout details */}
-          <circle
-            cx="10"
-            cy="18.8"
-            r="0.3"
-            fill="currentColor"
-            fillOpacity="0.6"
+          
+          <path
+            d="M11 15.5C11.5 16 12 16.5 12.5 17"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
           />
-          <circle
-            cx="14"
-            cy="18.9"
-            r="0.2"
-            fill="currentColor"
-            fillOpacity="0.6"
+          
+          {/* Central vein */}
+          <path
+            d="M12 4L12 18"
+            stroke="currentColor"
+            strokeWidth="1"
+            strokeLinecap="round"
           />
-          <circle
-            cx="11.8"
-            cy="18.7"
-            r="0.2"
-            fill="currentColor"
-            fillOpacity="0.5"
+          
+          {/* Side veins */}
+          <path
+            d="M12 6L9.5 9"
+            stroke="currentColor"
+            strokeWidth="0.8"
+            strokeLinecap="round"
           />
-          <circle
-            cx="12.5"
-            cy="18.9"
-            r="0.15"
-            fill="currentColor"
-            fillOpacity="0.5"
+          
+          <path
+            d="M12 6L14.5 9"
+            stroke="currentColor"
+            strokeWidth="0.8"
+            strokeLinecap="round"
+          />
+          
+          <path
+            d="M12 10L8.5 13"
+            stroke="currentColor"
+            strokeWidth="0.8"
+            strokeLinecap="round"
+          />
+          
+          <path
+            d="M12 10L15.5 13"
+            stroke="currentColor"
+            strokeWidth="0.8"
+            strokeLinecap="round"
+          />
+          
+          <path
+            d="M12 14L10 17"
+            stroke="currentColor"
+            strokeWidth="0.8"
+            strokeLinecap="round"
+          />
+          
+          <path
+            d="M12 14L14 17"
+            stroke="currentColor"
+            strokeWidth="0.8"
+            strokeLinecap="round"
           />
         </svg>
       </div>
