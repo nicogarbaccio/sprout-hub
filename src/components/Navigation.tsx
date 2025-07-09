@@ -91,7 +91,7 @@ const Navigation = () => {
               <Link to="/">
                 <Button
                   variant="ghost"
-                  className="text-foreground hover:text-white hover:bg-plant-secondary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                  className="text-foreground hover:text-white hover:bg-plant-primary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
                 >
                   <Home className="w-4 h-4" />
                   <span>Dashboard</span>
@@ -101,7 +101,7 @@ const Navigation = () => {
             <Link to="/plant-catalog">
               <Button
                 variant="ghost"
-                className="text-foreground hover:text-white hover:bg-plant-secondary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                className="text-foreground hover:text-white hover:bg-plant-primary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
                 data-testid="nav-plant-catalog-button"
               >
                 <BookOpen className="w-4 h-4" />
@@ -112,7 +112,7 @@ const Navigation = () => {
               <Link to="/my-plants">
                 <Button
                   variant="ghost"
-                  className="text-foreground hover:text-white hover:bg-plant-secondary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                  className="text-foreground hover:text-white hover:bg-plant-primary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
                 >
                   <Flower2 className="w-4 h-4" />
                   <span>My Plants</span>
@@ -136,7 +136,7 @@ const Navigation = () => {
                     }}
                   >
                     <Avatar
-                      className="w-10 h-10 transition-all duration-200 hover:ring-4 hover:ring-plant-secondary dark:hover:ring-white hover:ring-offset-2 dark:hover:ring-offset-background hover:scale-105 hover:shadow-lg"
+                      className="w-10 h-10 transition-all duration-200 hover:ring-4 hover:ring-plant-primary dark:hover:ring-white hover:ring-offset-2 dark:hover:ring-offset-background hover:scale-105 hover:shadow-lg"
                       style={{
                         border: "none",
                         outline: "none",
@@ -147,7 +147,7 @@ const Navigation = () => {
                         src={profileData.avatar_url}
                         alt="User avatar"
                       />
-                      <AvatarFallback className="text-xs font-medium bg-plant-secondary/20 dark:bg-plant-secondary/30 text-plant-primary dark:text-white transition-all duration-200 group-hover:bg-plant-secondary group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-plant-primary">
+                      <AvatarFallback className="text-xs font-medium bg-plant-secondary/20 dark:bg-plant-secondary/30 text-plant-primary dark:text-white transition-all duration-200 group-hover:bg-plant-primary group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-plant-primary">
                         {getInitials()}
                       </AvatarFallback>
                     </Avatar>
@@ -265,7 +265,7 @@ const Navigation = () => {
                         <Link to="/">
                           <Button
                             variant="ghost"
-                            className="w-full justify-start text-foreground hover:text-white hover:bg-plant-secondary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                            className="w-full justify-start text-foreground hover:text-white hover:bg-plant-primary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
                           >
                             <Home className="w-4 h-4 mr-2" />
                             <span>Dashboard</span>
@@ -277,7 +277,7 @@ const Navigation = () => {
                       <Link to="/plant-catalog">
                         <Button
                           variant="ghost"
-                          className="w-full justify-start text-foreground hover:text-white hover:bg-plant-secondary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                          className="w-full justify-start text-foreground hover:text-white hover:bg-plant-primary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
                           data-testid="mobile-nav-plant-catalog-button"
                         >
                           <BookOpen className="w-4 h-4 mr-2" />
@@ -290,7 +290,7 @@ const Navigation = () => {
                         <Link to="/my-plants">
                           <Button
                             variant="ghost"
-                            className="w-full justify-start text-foreground hover:text-white hover:bg-plant-secondary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                            className="w-full justify-start text-foreground hover:text-white hover:bg-plant-primary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
                           >
                             <Flower2 className="w-4 h-4 mr-2" />
                             <span>My Plants</span>
