@@ -20,6 +20,7 @@ import {
   getUniqueLightRequirements,
   Plant,
 } from "@/data/plantData";
+import { homepagePlants } from "@/data/homepagePlants";
 
 interface PlantCatalogProps {
   isHomepage?: boolean;
@@ -57,13 +58,16 @@ const PlantCatalog = ({
   const location = useLocation();
   const { user } = useAuth();
 
+  // Use lightweight plant data for homepage, full dataset for catalog
+  const plantsToUse = isHomepage ? homepagePlants : plants;
+
   // Get unique values for filter options
   const categories = getUniqueCategories();
   const careLevels = getUniqueCareLevels();
   const lightRequirements = getUniqueLightRequirements();
 
   // Filter plants based on all criteria
-  let filteredPlants = plants.filter((plant) => {
+  let filteredPlants = plantsToUse.filter((plant) => {
     const matchesSearch =
       plant.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
       plant.botanicalName
@@ -118,9 +122,9 @@ const PlantCatalog = ({
 
     setCurrentPage(page);
 
-    // Small delay to show loading state
+    // Immediately clear loading state for better performance
     if (!isHomepage) {
-      setTimeout(() => setIsChangingPage(false), 200);
+      setIsChangingPage(false);
     }
   };
 

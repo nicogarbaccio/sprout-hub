@@ -22,8 +22,8 @@ const MyPlantsCollection = () => {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
   const { showLoading, isReady } = useGracefulLoading(loading, {
-    minLoadingTime: 400,
-    staggerDelay: 100,
+    minLoadingTime: 0,
+    staggerDelay: 0,
   });
 
   if (!user) {

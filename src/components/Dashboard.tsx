@@ -56,8 +56,8 @@ const Dashboard = () => {
   const isLoading = loading || isLoadingProfile;
 
   const { showLoading, isReady } = useGracefulLoading(isLoading, {
-    minLoadingTime: 600,
-    staggerDelay: 150,
+    minLoadingTime: 0,
+    staggerDelay: 0,
   });
 
   if (showLoading) {

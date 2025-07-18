@@ -76,7 +76,7 @@ const PlantGrid = ({
           key={`${plant.name}-${index}`}
           className="animate-slide-up"
           style={{
-            animationDelay: `${index * 50}ms`,
+            animationDelay: `${index * 10}ms`,
             animationFillMode: "both",
           }}
         >
