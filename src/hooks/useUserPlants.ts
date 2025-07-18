@@ -142,6 +142,40 @@ export const useUserPlants = () => {
     }
   };
 
+  const postponeWatering = async (plantId: string) => {
+    try {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setHours(9, 0, 0, 0); // Set to 9 AM tomorrow for consistency
+
+      const { error } = await supabase
+        .from('watering_records')
+        .insert({
+          plant_id: plantId,
+          watered_at: tomorrow.toISOString(),
+          notes: 'Watering postponed - plant didn\'t need water yet',
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: 'Watering Postponed',
+        description: 'Plant watering pushed to tomorrow',
+      });
+      
+      fetchPlants();
+      return true;
+    } catch (error) {
+      console.error('Error postponing watering:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to postpone watering',
+        variant: 'destructive',
+      });
+      return false;
+    }
+  };
+
   useEffect(() => {
     fetchPlants();
   }, [user]);
@@ -152,5 +186,6 @@ export const useUserPlants = () => {
     fetchPlants,
     addPlant,
     waterPlant,
+    postponeWatering,
   };
 };

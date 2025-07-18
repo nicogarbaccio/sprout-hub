@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Droplets, AlertTriangle, Edit } from "lucide-react";
+import { Droplets, AlertTriangle, Edit, Clock } from "lucide-react";
 import PlantImage from "@/components/ui/plant-image";
 
 interface MyPlantCardProps {
@@ -13,8 +13,10 @@ interface MyPlantCardProps {
   isOverdue: boolean;
   daysUntilWatering: number;
   hasUnknownWateringDate: boolean;
+  isPostponed?: boolean; // If the latest watering record is a postponement
   onWater: () => void;
   onEdit: () => void;
+  onPostpone?: () => void;
 }
 
 const MyPlantCard = ({
@@ -27,11 +29,14 @@ const MyPlantCard = ({
   isOverdue,
   daysUntilWatering,
   hasUnknownWateringDate,
+  isPostponed,
   onWater,
   onEdit,
+  onPostpone,
 }: MyPlantCardProps) => {
   const getStatusColor = () => {
     if (hasUnknownWateringDate) return "bg-gray-100 text-gray-700";
+    if (isPostponed) return "bg-blue-100 text-blue-700";
     if (isOverdue) return "bg-plant-warning text-white";
 
     if (daysUntilWatering === 0) {
@@ -58,6 +63,7 @@ const MyPlantCard = ({
 
   const getStatusText = () => {
     if (hasUnknownWateringDate) return "Unknown schedule";
+    if (isPostponed) return "Postponed until tomorrow";
     if (isOverdue) return `Overdue by ${Math.abs(daysUntilWatering)} days`;
 
     // Check if plant was watered within the last day (truly just watered)
@@ -93,7 +99,8 @@ const MyPlantCard = ({
           <span
             className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor()}`}
           >
-            {(isOverdue || hasUnknownWateringDate) && (
+            {isPostponed && <Clock className="w-3 h-3 inline mr-1" />}
+            {(isOverdue || hasUnknownWateringDate) && !isPostponed && (
               <AlertTriangle className="w-3 h-3 inline mr-1" />
             )}
             {getStatusText()}
@@ -138,13 +145,37 @@ const MyPlantCard = ({
           </div>
         </div>
 
-        <Button
-          onClick={onWater}
-          className="w-full bg-plant-water text-white rounded-xl font-medium hover:bg-plant-water/90 hover:text-white"
-        >
-          <Droplets className="w-4 h-4 mr-2" />
-          Water Now
-        </Button>
+        {/* Show postpone option for overdue/due plants that aren't already postponed */}
+        {(isOverdue || daysUntilWatering <= 0) &&
+        !isPostponed &&
+        !hasUnknownWateringDate &&
+        onPostpone ? (
+          <div className="space-y-2">
+            <Button
+              onClick={onWater}
+              className="w-full bg-plant-water text-white rounded-xl font-medium hover:bg-plant-water/90 hover:text-white"
+            >
+              <Droplets className="w-4 h-4 mr-2" />
+              Water Now
+            </Button>
+            <Button
+              onClick={onPostpone}
+              variant="outline"
+              className="w-full rounded-xl font-medium border-blue-200 text-blue-700 hover:bg-blue-50"
+            >
+              <Clock className="w-4 h-4 mr-2" />
+              Push to Tomorrow
+            </Button>
+          </div>
+        ) : (
+          <Button
+            onClick={onWater}
+            className="w-full bg-plant-water text-white rounded-xl font-medium hover:bg-plant-water/90 hover:text-white"
+          >
+            <Droplets className="w-4 h-4 mr-2" />
+            Water Now
+          </Button>
+        )}
       </div>
     </div>
   );

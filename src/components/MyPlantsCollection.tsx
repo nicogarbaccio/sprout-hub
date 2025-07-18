@@ -15,7 +15,8 @@ import { groupPlantsByRoom } from "@/utils/rooms";
 
 const MyPlantsCollection = () => {
   const { user } = useAuth();
-  const { plants, loading, fetchPlants, waterPlant } = useUserPlants();
+  const { plants, loading, fetchPlants, waterPlant, postponeWatering } =
+    useUserPlants();
   const [editingPlant, setEditingPlant] = useState<UserPlant | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -278,6 +279,7 @@ const MyPlantsCollection = () => {
                   onWaterPlant={waterPlant}
                   onEditPlant={handleEditPlant}
                   onAddPlant={handleAddPlant}
+                  onPostponeWatering={postponeWatering}
                   formatDate={formatDate}
                   getNextWateringDate={getNextWateringDate}
                   isOverdue={isOverdue}

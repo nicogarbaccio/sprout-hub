@@ -3,30 +3,41 @@
 A modern, full-stack Progressive Web App (PWA) for plant care and collection management built with cutting-edge technologies and best practices.
 
 ## 🌱 Project Overview
-SproutHub is a comprehensive plant care tracker that helps you manage your indoor garden, track plant care schedules, browse a rich plant catalog, and build your personal collection. Designed for plant lovers who want a beautiful, responsive, and intelligent plant management experience that works seamlessly across all devices.
+SproutHub is a comprehensive plant care tracker that helps you manage your indoor garden, track plant care schedules, browse a rich plant catalog, and build your personal collection. Designed for plant lovers who want a beautiful, responsive, and intelligent plant management experience that works seamlessly across all devices including native iOS support.
 
 ## ✨ Key Features
 
 ### 🏠 Core Functionality
-- **Plant Catalog:** Browse and search a curated library of plants with detailed care guides
+- **Plant Catalog:** Browse and search a curated library of plants with detailed care guides and advanced search filters
 - **My Plants Collection:** Track your personal plant collection with custom rooms and organization
 - **Smart Care Tracking:** Log watering, fertilizing, and other care activities with timestamp tracking
 - **Intelligent Reminders:** Never forget to care for your plants with smart notification system
-- **Room Management:** Organize plants by rooms (Living Room, Bedroom, Kitchen, etc.)
-- **Plant Health Monitoring:** Track and visualize plant health over time
+- **Room Management:** Organize plants by rooms (Living Room, Bedroom, Kitchen, etc.) with visual themes and health statistics
+- **Plant Health Monitoring:** Track and visualize plant health over time with detailed status indicators
+
+### 🧠 Smart Watering System
+- **Intelligent Scheduling:** AI-powered watering recommendations based on environmental factors
+- **Environmental Factors:** Considers plant size, light levels, temperature, humidity, season, and soil type
+- **User Preferences:** Save and reuse personal watering preferences across all plants
+- **Postpone Feature:** Smart postpone functionality for plants that don't need water yet
+- **Care Style Adaptation:** Adapts to your care style (frequent, balanced, or minimal)
+- **Status Tracking:** Real-time status updates ("Just watered", "Due today", "Overdue", "Postponed")
 
 ### 📱 Modern User Experience
 - **Progressive Web App (PWA):** Install and use like a native app on any device
+- **Native iOS App:** Full Capacitor integration for native iOS functionality and App Store distribution
 - **Offline Support:** Access your plant data even without internet connection
 - **Responsive Design:** Mobile-first design that works perfectly on all screen sizes
 - **Dark/Light Theme:** System-aware theme switching with user preference persistence
 - **Touch-Friendly Interface:** Optimized for mobile interactions and gestures
+- **Enhanced Room Organization:** Visual room themes, health indicators, and plant statistics
 
 ### 🔐 Authentication & Data
 - **Secure Authentication:** Email/password and social login with Supabase Auth
 - **Real-time Data Sync:** Live updates across all your devices
 - **Image Upload:** Store and manage plant photos with cloud storage
 - **Data Export:** Export your plant collection and care history
+- **User Preferences:** Persistent smart watering preferences and room customization
 
 ### 🛠️ Developer Experience
 - **Type Safety:** Full TypeScript implementation with strict type checking
@@ -34,6 +45,7 @@ SproutHub is a comprehensive plant care tracker that helps you manage your indoo
 - **Component Library:** Consistent UI with shadcn/ui and Radix UI primitives
 - **Code Quality:** ESLint, Prettier, and automated formatting
 - **Performance Optimized:** Code splitting, lazy loading, and optimized bundles
+- **Native Integration:** Capacitor plugins for native device functionality
 
 ## 🚀 Tech Stack
 
@@ -53,6 +65,11 @@ SproutHub is a comprehensive plant care tracker that helps you manage your indoo
 - **[Supabase Auth](https://supabase.com/auth)** - Authentication and user management
 - **[Supabase Storage](https://supabase.com/storage)** - File storage for plant images
 - **[Supabase Edge Functions](https://supabase.com/edge-functions)** - Serverless functions
+
+### Mobile & Native Features
+- **[Capacitor](https://capacitorjs.com/)** - Native iOS app development and deployment
+- **iOS Integration** - Native hooks and platform-specific optimizations
+- **App Store Ready** - Configured for iOS App Store submission
 
 ### State Management & Data Fetching
 - **[TanStack Query](https://tanstack.com/query/)** - Powerful data synchronization
@@ -81,6 +98,7 @@ SproutHub is a comprehensive plant care tracker that helps you manage your indoo
 - **Node.js** (v18+ recommended)
 - **npm**, **yarn**, or **bun** package manager
 - **Git** for version control
+- **Xcode** (for iOS development - macOS only)
 
 ### Installation
 ```bash
@@ -118,12 +136,28 @@ bun run dev
 
 Visit [http://localhost:8080](http://localhost:8080) to view the app.
 
+### iOS Development
+```bash
+# Build the app for iOS
+npm run build
+
+# Add iOS platform (first time only)
+npx cap add ios
+
+# Copy web assets and sync with iOS project
+npx cap sync ios
+
+# Open in Xcode
+npx cap open ios
+```
+
 ### Database Setup
 The project uses Supabase with the following key tables:
 - `profiles` - User profile information
-- `plants` - Plant catalog data
 - `user_plants` - User's plant collection
-- `plant_care_logs` - Care activity tracking
+- `watering_records` - Care activity tracking with smart postpone functionality
+- `user_watering_preferences` - Smart watering user preferences
+- `plants_with_watering_info` - View combining plant and watering data
 - `plant_images` - Image storage metadata
 
 Database migrations are located in the `supabase/migrations/` directory.
@@ -144,13 +178,18 @@ npx playwright test --headed
 
 # Run specific test file
 npx playwright test tests/homepage.spec.ts
+npx playwright test tests/auth.spec.ts
+npx playwright test tests/catalog.spec.ts
 ```
 
 ### Test Coverage
 - **Authentication flows** - Login, signup, logout
 - **Plant management** - Adding, editing, deleting plants
-- **Care tracking** - Logging care activities
+- **Care tracking** - Logging care activities and postpone functionality
+- **Smart watering** - Environmental factor calculations and recommendations
+- **Room organization** - Room management and statistics
 - **Responsive design** - Mobile and desktop layouts
+- **Catalog search** - Advanced filtering and search functionality
 
 ## 🎨 Code Style & Quality
 
@@ -179,8 +218,8 @@ npm run lint:fix
 src/
 ├── components/          # Reusable UI and feature components
 │   ├── auth/           # Authentication components
-│   ├── catalog/        # Plant catalog components
-│   ├── edit-plant/     # Plant editing forms
+│   ├── catalog/        # Plant catalog components with advanced search
+│   ├── edit-plant/     # Plant editing forms with smart watering
 │   ├── mobile/         # Mobile-specific components
 │   ├── plant-details/  # Plant detail views
 │   ├── profile/        # User profile components
@@ -190,16 +229,27 @@ src/
 ├── data/              # Static data and mock data
 │   └── plants/        # Plant catalog data
 ├── hooks/             # Custom React hooks
+│   ├── use-capacitor.tsx     # Capacitor native functionality
+│   ├── useUserPlants.ts      # Plant management with smart features
+│   └── useSmartWateringPreferences.ts  # Smart watering preferences
 ├── integrations/      # External service integrations
 │   └── supabase/      # Supabase client and types
 ├── lib/               # Utility functions and helpers
 ├── pages/             # Top-level route components
 ├── types/             # TypeScript type definitions
-└── utils/             # Utility functions
+│   └── smartWateringTypes.ts  # Smart watering system types
+├── utils/             # Utility functions
+│   ├── rooms.ts             # Room management utilities
+│   └── smartWateringSchedule.ts  # Smart watering calculations
+└── vite-env.d.ts
 
 public/
 ├── icons/             # PWA app icons
 └── ...               # Static assets
+
+ios/                   # iOS Capacitor project
+├── App/              # iOS app source
+└── ...               # iOS configuration
 
 supabase/
 ├── functions/         # Edge functions
@@ -207,6 +257,7 @@ supabase/
 
 tests/                 # End-to-end tests
 ├── auth.spec.ts      # Authentication tests
+├── catalog.spec.ts   # Catalog and search tests
 └── homepage.spec.ts  # Homepage tests
 ```
 
@@ -221,7 +272,7 @@ yarn build
 bun run build
 ```
 
-### Deployment Options
+### Web Deployment Options
 The app can be deployed to any static hosting provider:
 
 - **Vercel** (Recommended) - Automatic deployments with GitHub integration
@@ -229,6 +280,22 @@ The app can be deployed to any static hosting provider:
 - **Supabase Hosting** - Integrated with your Supabase backend
 - **AWS S3 + CloudFront** - Scalable static hosting
 - **Your own infrastructure** - Deploy the `dist/` directory contents
+
+### iOS App Store Deployment
+1. **Build and sync iOS project:**
+   ```bash
+   npm run build
+   npx cap sync ios
+   ```
+
+2. **Open in Xcode:**
+   ```bash
+   npx cap open ios
+   ```
+
+3. **Configure app signing and provisioning profiles in Xcode**
+
+4. **Archive and upload to App Store Connect**
 
 ### PWA Deployment Considerations
 - Ensure HTTPS is enabled for PWA features
@@ -252,6 +319,13 @@ Configured with Workbox for:
 - **API Caching** - Supabase API responses with smart invalidation
 - **Offline Fallbacks** - Graceful offline experience
 - **Background Sync** - Queue actions when offline
+
+### Capacitor Configuration
+Native iOS features configured:
+- **Status Bar** - Adaptive styling for iOS
+- **Splash Screen** - Native iOS launch screen
+- **Keyboard** - Native keyboard handling
+- **Storage** - Secure native storage integration
 
 ## 🤝 Contributing
 
@@ -288,6 +362,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ## 🙏 Acknowledgments
 - [shadcn/ui](https://ui.shadcn.com/) for the beautiful component library
 - [Supabase](https://supabase.com/) for the powerful backend platform
+- [Capacitor](https://capacitorjs.com/) for seamless native integration
 - [Lucide](https://lucide.dev/) for the icon system
 - Plant care community for inspiration and feedback
 

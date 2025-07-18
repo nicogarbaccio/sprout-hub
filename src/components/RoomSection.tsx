@@ -13,6 +13,7 @@ interface RoomSectionProps {
   onWaterPlant: (plantId: string) => void;
   onEditPlant: (plant: UserPlant) => void;
   onAddPlant: () => void;
+  onPostponeWatering?: (plantId: string) => void;
   formatDate: (dateString: string) => string;
   getNextWateringDate: (
     lastWatered: string | undefined,
@@ -33,6 +34,7 @@ const RoomSection = ({
   onWaterPlant,
   onEditPlant,
   onAddPlant,
+  onPostponeWatering,
   formatDate,
   getNextWateringDate,
   isOverdue,
@@ -224,6 +226,12 @@ const RoomSection = ({
           renderItem={(plant) => {
             const wateringSchedule = plant.suggested_watering_days || 7;
             const hasLastWatered = !!plant.latest_watering;
+
+            // Check if this plant's watering was postponed (watering date is in the future)
+            const isPostponed =
+              plant.latest_watering &&
+              new Date(plant.latest_watering) > new Date();
+
             return (
               <MyPlantCard
                 key={plant.id}
@@ -256,8 +264,14 @@ const RoomSection = ({
                     : 0
                 }
                 hasUnknownWateringDate={!hasLastWatered}
+                isPostponed={isPostponed}
                 onWater={() => onWaterPlant(plant.id)}
                 onEdit={() => onEditPlant(plant)}
+                onPostpone={
+                  onPostponeWatering
+                    ? () => onPostponeWatering(plant.id)
+                    : undefined
+                }
               />
             );
           }}
