@@ -196,7 +196,7 @@ const PlantDetailsForm = ({
 
         <Button
           type="button"
-          className="w-full mt-2 text-sm bg-green-600 hover:bg-green-500 text-white border-none"
+          className="w-full mt-2 text-sm bg-sprout-success hover:bg-sprout-success/90 text-white border-none"
           onClick={() => setIsSmartWizardOpen(true)}
         >
           <Brain className="w-4 h-4 mr-2" />

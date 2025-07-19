@@ -85,25 +85,25 @@ const RoomSection = ({
     if (overdueCount > 0)
       return {
         status: "needs-attention",
-        color: "text-red-600",
-        bgColor: "bg-red-50",
+        color: "text-sprout-warning",
+        bgColor: "bg-sprout-warning/10",
       };
     if (dueTodayCount > 0)
       return {
         status: "due-today",
-        color: "text-yellow-600",
-        bgColor: "bg-yellow-50",
+        color: "text-sprout-dark",
+        bgColor: "bg-sprout-cream/20",
       };
     if (unknownCount > 0)
       return {
         status: "unknown",
-        color: "text-gray-600",
-        bgColor: "bg-gray-50",
+        color: "text-neutral-medium",
+        bgColor: "bg-neutral-light",
       };
     return {
       status: "healthy",
-      color: "text-green-600",
-      bgColor: "bg-green-50",
+      color: "text-sprout-success",
+      bgColor: "bg-sprout-success/10",
     };
   };
 
@@ -203,8 +203,8 @@ const RoomSection = ({
                 roomHealth.bgColor
               } rounded-lg border-l-4 ${
                 roomHealth.status === "needs-attention"
-                  ? "border-red-400"
-                  : "border-yellow-400"
+                  ? "border-sprout-warning"
+                  : "border-sprout-cream"
               }`}
             >
               <p className={`text-sm font-medium ${roomHealth.color}`}>

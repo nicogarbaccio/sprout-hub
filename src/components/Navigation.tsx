@@ -23,14 +23,13 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/contexts/AuthContext";
 import { useProfileData } from "@/contexts/ProfileDataContext";
 import { useNavigate, Link } from "react-router-dom";
-import SproutHubLogo from "@/components/SproutHubLogo";
 import * as React from "react";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { toast } from "@/hooks/use-toast";
 import { ThemeToggle, SimpleThemeToggle } from "@/components/ui/theme-toggle";
+import { toast } from "@/hooks/use-toast";
 
 const Navigation = () => {
   const { user, signOut } = useAuth();
@@ -70,28 +69,35 @@ const Navigation = () => {
 
   // Helper to get initials for fallback
   const getInitials = () => {
-    if (!profileData.first_name && !profileData.last_name) return "";
-    return `${profileData.first_name?.charAt(0) || ""}${
-      profileData.last_name?.charAt(0) || ""
-    }`.toUpperCase();
+    if (profileData.first_name && profileData.last_name) {
+      return `${profileData.first_name.charAt(0)}${profileData.last_name.charAt(
+        0
+      )}`.toUpperCase();
+    }
+    return `${profileData.email.charAt(0)}${profileData.email.charAt(
+      1
+    )}`.toUpperCase();
   };
 
   return (
-    <nav className="bg-background dark:bg-background shadow-sm border-b border-plant-secondary/20 dark:border-plant-secondary/30 transition-colors backdrop-blur-sm">
+    <nav className="bg-background dark:bg-sprout-dark shadow-sm border-b border-sprout-cream/30 dark:border-sprout-cream/20 transition-colors backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" className="group">
-            <SproutHubLogo size="md" />
+          <Link to="/" className="flex items-center gap-3 group">
+            <img src="/Logo.svg" alt="SproutHub Logo" className="h-8 w-auto" />
+            <span className="text-2xl font-bold text-sprout-primary dark:text-sprout-cream transition-colors duration-200">
+              sprouthub
+            </span>
           </Link>
 
-          {/* Desktop Nav */}
+          {/* Desktop Nav - Grouped with user section */}
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
             {user && (
               <Link to="/">
                 <Button
                   variant="ghost"
-                  className="text-foreground hover:text-white hover:bg-plant-primary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                  className="text-foreground hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
                 >
                   <Home className="w-4 h-4" />
                   <span>Dashboard</span>
@@ -101,7 +107,7 @@ const Navigation = () => {
             <Link to="/plant-catalog">
               <Button
                 variant="ghost"
-                className="text-foreground hover:text-white hover:bg-plant-primary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                className="text-foreground hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
                 data-testid="nav-plant-catalog-button"
               >
                 <BookOpen className="w-4 h-4" />
@@ -112,7 +118,7 @@ const Navigation = () => {
               <Link to="/my-plants">
                 <Button
                   variant="ghost"
-                  className="text-foreground hover:text-white hover:bg-plant-primary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                  className="text-foreground hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
                 >
                   <Flower2 className="w-4 h-4" />
                   <span>My Plants</span>
@@ -126,7 +132,7 @@ const Navigation = () => {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-plant-text hover:text-plant-primary p-0 !border-none !ring-0 !outline-none !focus:outline-none !focus-visible:outline-none focus:shadow-none focus-visible:shadow-none rounded-full data-[state=open]:outline-none data-[state=open]:ring-0 data-[state=open]:shadow-none group"
+                    className="text-neutral-medium hover:text-sprout-primary p-0 !border-none !ring-0 !outline-none !focus:outline-none !focus-visible:outline-none focus:shadow-none focus-visible:shadow-none rounded-full data-[state=open]:outline-none data-[state=open]:ring-0 data-[state=open]:shadow-none group"
                     style={{
                       background: "none",
                       border: "none",
@@ -136,7 +142,7 @@ const Navigation = () => {
                     }}
                   >
                     <Avatar
-                      className="w-10 h-10 transition-all duration-200 hover:ring-4 hover:ring-plant-primary dark:hover:ring-white hover:ring-offset-2 dark:hover:ring-offset-background hover:scale-105 hover:shadow-lg"
+                      className="w-10 h-10 transition-all duration-200 hover:ring-4 hover:ring-sprout-primary dark:hover:ring-white hover:ring-offset-2 dark:hover:ring-offset-background hover:scale-105 hover:shadow-lg"
                       style={{
                         border: "none",
                         outline: "none",
@@ -147,7 +153,7 @@ const Navigation = () => {
                         src={profileData.avatar_url}
                         alt="User avatar"
                       />
-                      <AvatarFallback className="text-xs font-medium bg-plant-secondary/20 dark:bg-plant-secondary/30 text-plant-primary dark:text-white transition-all duration-200 group-hover:bg-plant-primary group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-plant-primary">
+                      <AvatarFallback className="text-xs font-medium bg-sprout-pale dark:bg-sprout-medium/30 text-sprout-primary dark:text-white transition-all duration-200 group-hover:bg-sprout-primary group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-sprout-primary">
                         {getInitials()}
                       </AvatarFallback>
                     </Avatar>
@@ -164,7 +170,7 @@ const Navigation = () => {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     onClick={(event) => handleSignOut(event)}
-                    className="text-red-600 dark:text-red-400 cursor-pointer"
+                    className="text-sprout-warning dark:text-sprout-warning cursor-pointer"
                   >
                     <LogOut className="w-4 h-4 mr-2" />
                     Sign Out
@@ -174,7 +180,7 @@ const Navigation = () => {
             ) : (
               <Button
                 onClick={handleSignIn}
-                className="bg-green-800 hover:bg-green-700 text-white font-medium shadow-sm"
+                className="bg-sprout-dark hover:bg-sprout-primary dark:hover:bg-sprout-medium/20 text-sprout-white font-medium shadow-sm"
                 data-testid="nav-sign-in-button"
               >
                 Sign In
@@ -182,81 +188,62 @@ const Navigation = () => {
             )}
           </div>
 
-          {/* Mobile Hamburger Menu */}
-          <div className="md:hidden flex items-center space-x-2">
-            <SimpleThemeToggle />
+          {/* Mobile Nav */}
+          <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  aria-label="Open menu"
-                  className="w-12 h-12 text-foreground hover:bg-plant-secondary/20 dark:hover:bg-plant-secondary/30"
-                >
-                  <Menu className="w-8 h-8" />
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-6 w-6" />
+                  <span className="sr-only">Toggle navigation menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="p-0 w-64">
+              <SheetContent
+                side="right"
+                className="w-80 bg-background dark:bg-sprout-dark p-0"
+              >
                 <div className="flex flex-col h-full">
-                  <div className="flex items-center justify-between px-4 py-4 border-b">
-                    <Link
-                      to="/"
-                      onClick={() => document.body.click() /* closes sheet */}
-                      className="group"
-                    >
-                      <SproutHubLogo size="md" />
-                    </Link>
-                    <SimpleThemeToggle />
+                  <div className="flex items-center justify-between p-4 border-b">
+                    <span className="text-lg font-semibold text-foreground dark:text-sprout-cream">
+                      Menu
+                    </span>
+                    <SheetClose asChild>
+                      <Button variant="ghost" size="icon">
+                        <X className="h-5 w-5" />
+                        <span className="sr-only">Close menu</span>
+                      </Button>
+                    </SheetClose>
                   </div>
                   <div className="flex flex-col gap-2 px-4 py-4 border-b">
                     {user ? (
                       <>
                         <SheetClose asChild>
-                          <Button
-                            variant="ghost"
-                            className="w-full justify-start flex items-center space-x-3 pl-2"
-                            onClick={() => navigate("/profile")}
-                            style={{
-                              paddingTop: 0,
-                              paddingBottom: 0,
-                              height: "48px",
-                            }}
-                          >
-                            <span className="flex items-center">
-                              <Avatar className="w-6 h-6">
-                                <AvatarImage
-                                  src={profileData.avatar_url}
-                                  alt="User avatar"
-                                />
-                                <AvatarFallback className="text-xs font-medium bg-plant-secondary/20 dark:bg-plant-secondary/30 text-plant-primary dark:text-white transition-colors">
-                                  {getInitials()}
-                                </AvatarFallback>
-                              </Avatar>
-                            </span>
-                            <span className="text-base">Profile</span>
-                          </Button>
+                          <Link to="/profile">
+                            <Button
+                              variant="ghost"
+                              className="w-full justify-start text-foreground hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                            >
+                              <User className="w-4 h-4 mr-2" />
+                              <span>Profile</span>
+                            </Button>
+                          </Link>
                         </SheetClose>
-                        <SheetClose asChild>
-                          <Button
-                            variant="ghost"
-                            className="w-full justify-start flex items-center space-x-2 text-red-600 dark:text-red-400"
-                            onClick={(event) => handleSignOut(event)}
-                          >
-                            <LogOut className="w-4 h-4 mr-2" />
-                            <span>Sign Out</span>
-                          </Button>
-                        </SheetClose>
+                        <Button
+                          onClick={(event) => handleSignOut(event)}
+                          variant="ghost"
+                          className="w-full justify-start text-sprout-warning dark:text-sprout-warning hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                        >
+                          <LogOut className="w-4 h-4 mr-2" />
+                          <span>Sign Out</span>
+                        </Button>
                       </>
                     ) : (
-                      <SheetClose asChild>
-                        <Button
-                          onClick={handleSignIn}
-                          className="w-full justify-start bg-green-800 hover:bg-green-700 text-white font-medium"
-                          data-testid="mobile-nav-sign-in-button"
-                        >
-                          Sign In
-                        </Button>
-                      </SheetClose>
+                      <Button
+                        onClick={handleSignIn}
+                        className="w-full bg-sprout-dark hover:bg-sprout-primary dark:hover:bg-sprout-medium/20 text-sprout-white font-medium"
+                        data-testid="mobile-nav-sign-in-button"
+                      >
+                        Sign In
+                      </Button>
                     )}
                   </div>
                   <div className="flex flex-col gap-2 px-4 py-6">
@@ -265,7 +252,7 @@ const Navigation = () => {
                         <Link to="/">
                           <Button
                             variant="ghost"
-                            className="w-full justify-start text-foreground hover:text-white hover:bg-plant-primary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                            className="w-full justify-start text-foreground hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
                           >
                             <Home className="w-4 h-4 mr-2" />
                             <span>Dashboard</span>
@@ -277,7 +264,7 @@ const Navigation = () => {
                       <Link to="/plant-catalog">
                         <Button
                           variant="ghost"
-                          className="w-full justify-start text-foreground hover:text-white hover:bg-plant-primary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                          className="w-full justify-start text-foreground hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
                           data-testid="mobile-nav-plant-catalog-button"
                         >
                           <BookOpen className="w-4 h-4 mr-2" />
@@ -290,7 +277,7 @@ const Navigation = () => {
                         <Link to="/my-plants">
                           <Button
                             variant="ghost"
-                            className="w-full justify-start text-foreground hover:text-white hover:bg-plant-primary dark:hover:bg-plant-secondary/90 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                            className="w-full justify-start text-foreground hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
                           >
                             <Flower2 className="w-4 h-4 mr-2" />
                             <span>My Plants</span>
@@ -298,6 +285,9 @@ const Navigation = () => {
                         </Link>
                       </SheetClose>
                     )}
+                    <div className="mt-6 pt-4 border-t">
+                      <SimpleThemeToggle />
+                    </div>
                   </div>
                 </div>
               </SheetContent>

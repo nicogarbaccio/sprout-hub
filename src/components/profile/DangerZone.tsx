@@ -22,8 +22,8 @@ const DangerZone: React.FC<DangerZoneProps> = ({
     <Card className="border-red-200 dark:border-red-800/50">
       <CardHeader>
         <div className="flex items-center space-x-2">
-          <Trash2 className="w-5 h-5 text-red-600 dark:text-red-400" />
-          <CardTitle className="text-red-600 dark:text-red-400">
+          <Trash2 className="w-5 h-5 text-sprout-warning dark:text-sprout-warning" />
+          <CardTitle className="text-sprout-warning dark:text-sprout-warning">
             Danger Zone
           </CardTitle>
         </div>
@@ -36,7 +36,7 @@ const DangerZone: React.FC<DangerZoneProps> = ({
           onClick={handleDeleteAccount}
           disabled={isLoading}
           variant="destructive"
-          className="w-full bg-red-600 hover:bg-red-700 dark:bg-red-700/80 dark:hover:bg-red-600/80"
+          className="w-full bg-sprout-warning hover:bg-sprout-warning/90 dark:bg-sprout-warning/80 dark:hover:bg-sprout-warning/70"
         >
           {isLoading ? "Deleting..." : "Delete Account"}
         </Button>

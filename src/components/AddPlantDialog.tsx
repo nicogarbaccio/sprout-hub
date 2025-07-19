@@ -501,9 +501,9 @@ const AddPlantDialog = ({
               </PopoverContent>
             </Popover>
             {!lastWateredDate && (
-              <div className="flex items-center gap-2 p-2 bg-yellow-50 border border-yellow-200 rounded-md">
-                <AlertTriangle className="h-4 w-4 text-yellow-600" />
-                <p className="text-sm text-yellow-700">
+              <div className="flex items-center gap-2 p-2 bg-sprout-warning/10 border border-sprout-warning/30 rounded-md">
+                <AlertTriangle className="h-4 w-4 text-sprout-warning" />
+                <p className="text-sm text-sprout-warning">
                   No last watering date set - watering schedule calculations may
                   be inaccurate
                 </p>

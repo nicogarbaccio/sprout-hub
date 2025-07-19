@@ -30,70 +30,70 @@ export const ROOM_OPTIONS: RoomOption[] = [
 // Room themes for enhanced visual design with dark mode support
 export const ROOM_THEMES: Record<string, RoomTheme> = {
   'living-room': {
-    background: 'bg-orange-50 dark:bg-orange-600/20',
-    border: 'border-orange-200 dark:border-orange-300/30',
-    iconBg: 'bg-orange-100 dark:bg-orange-500/25',
-    accent: 'text-orange-600 dark:text-orange-200'
+    background: 'bg-sprout-cream/20 dark:bg-sprout-cream/10',
+    border: 'border-sprout-cream/40 dark:border-sprout-cream/20',
+    iconBg: 'bg-sprout-cream/30 dark:bg-sprout-cream/15',
+    accent: 'text-sprout-dark dark:text-sprout-light'
   },
   'bedroom': {
-    background: 'bg-purple-50 dark:bg-purple-600/20',
-    border: 'border-purple-200 dark:border-purple-300/30',
-    iconBg: 'bg-purple-100 dark:bg-purple-500/25',
-    accent: 'text-purple-600 dark:text-purple-200'
+    background: 'bg-sprout-pale dark:bg-sprout-medium/10',
+    border: 'border-sprout-light/40 dark:border-sprout-medium/20',
+    iconBg: 'bg-sprout-light/30 dark:bg-sprout-medium/15',
+    accent: 'text-sprout-dark dark:text-sprout-light'
   },
   'kitchen': {
-    background: 'bg-red-50 dark:bg-red-600/20',
-    border: 'border-red-200 dark:border-red-300/30',
-    iconBg: 'bg-red-100 dark:bg-red-500/25',
-    accent: 'text-red-600 dark:text-red-200'
+    background: 'bg-sprout-warning/10 dark:bg-sprout-warning/5',
+    border: 'border-sprout-warning/30 dark:border-sprout-warning/15',
+    iconBg: 'bg-sprout-warning/20 dark:bg-sprout-warning/10',
+    accent: 'text-sprout-dark dark:text-sprout-cream'
   },
   'bathroom': {
-    background: 'bg-blue-50 dark:bg-blue-600/20',
-    border: 'border-blue-200 dark:border-blue-300/30',
-    iconBg: 'bg-blue-100 dark:bg-blue-500/25',
-    accent: 'text-blue-600 dark:text-blue-200'
+    background: 'bg-sprout-water/10 dark:bg-sprout-water/5',
+    border: 'border-sprout-water/30 dark:border-sprout-water/15',
+    iconBg: 'bg-sprout-water/20 dark:bg-sprout-water/10',
+    accent: 'text-sprout-dark dark:text-sprout-water'
   },
   'office': {
-    background: 'bg-slate-50 dark:bg-slate-600/20',
-    border: 'border-slate-200 dark:border-slate-300/30',
-    iconBg: 'bg-slate-100 dark:bg-slate-500/25',
-    accent: 'text-slate-600 dark:text-slate-200'
+    background: 'bg-neutral-light dark:bg-sprout-dark/30',
+    border: 'border-neutral-medium/40 dark:border-sprout-medium/20',
+    iconBg: 'bg-neutral-medium/20 dark:bg-sprout-medium/15',
+    accent: 'text-neutral-dark dark:text-neutral-light'
   },
   'dining-room': {
-    background: 'bg-amber-50 dark:bg-amber-600/20',
-    border: 'border-amber-200 dark:border-amber-300/30',
-    iconBg: 'bg-amber-100 dark:bg-amber-500/25',
-    accent: 'text-amber-600 dark:text-amber-200'
+    background: 'bg-sprout-cream/15 dark:bg-sprout-cream/8',
+    border: 'border-sprout-cream/35 dark:border-sprout-cream/18',
+    iconBg: 'bg-sprout-cream/25 dark:bg-sprout-cream/12',
+    accent: 'text-sprout-dark dark:text-sprout-cream'
   },
   'balcony': {
-    background: 'bg-sky-50 dark:bg-sky-600/20',
-    border: 'border-sky-200 dark:border-sky-300/30',
-    iconBg: 'bg-sky-100 dark:bg-sky-500/25',
-    accent: 'text-sky-600 dark:text-sky-200'
+    background: 'bg-sprout-water/15 dark:bg-sprout-water/8',
+    border: 'border-sprout-water/35 dark:border-sprout-water/18',
+    iconBg: 'bg-sprout-water/25 dark:bg-sprout-water/12',
+    accent: 'text-sprout-dark dark:text-sprout-water'
   },
   'garden': {
-    background: 'bg-green-50 dark:bg-green-600/20',
-    border: 'border-green-200 dark:border-green-300/30',
-    iconBg: 'bg-green-800 border-2 border-white/60 dark:bg-green-700 dark:border-white/20',
-    accent: 'text-green-600 dark:text-green-200'
+    background: 'bg-sprout-success/10 dark:bg-sprout-success/5',
+    border: 'border-sprout-success/30 dark:border-sprout-success/15',
+    iconBg: 'bg-sprout-success/20 dark:bg-sprout-success/10',
+    accent: 'text-sprout-dark dark:text-sprout-success'
   },
   'greenhouse': {
-    background: 'bg-emerald-50 dark:bg-emerald-600/20',
-    border: 'border-emerald-200 dark:border-emerald-300/30',
-    iconBg: 'bg-emerald-100 dark:bg-emerald-500/25',
-    accent: 'text-emerald-600 dark:text-emerald-200'
+    background: 'bg-sprout-light/20 dark:bg-sprout-primary/10',
+    border: 'border-sprout-light/40 dark:border-sprout-primary/20',
+    iconBg: 'bg-sprout-light/30 dark:bg-sprout-primary/15',
+    accent: 'text-sprout-dark dark:text-sprout-light'
   },
   'study': {
-    background: 'bg-indigo-50 dark:bg-indigo-600/20',
-    border: 'border-indigo-200 dark:border-indigo-300/30',
-    iconBg: 'bg-indigo-100 dark:bg-indigo-500/25',
-    accent: 'text-indigo-600 dark:text-indigo-200'
+    background: 'bg-sprout-medium/10 dark:bg-sprout-medium/5',
+    border: 'border-sprout-medium/30 dark:border-sprout-medium/15',
+    iconBg: 'bg-sprout-medium/20 dark:bg-sprout-medium/10',
+    accent: 'text-sprout-dark dark:text-sprout-light'
   },
   'unassigned': {
-    background: 'bg-gray-50 dark:bg-gray-600/20',
-    border: 'border-gray-200 dark:border-gray-300/30',
-    iconBg: 'bg-gray-100 dark:bg-gray-500/25',
-    accent: 'text-gray-600 dark:text-gray-200'
+    background: 'bg-neutral-light dark:bg-neutral-dark/20',
+    border: 'border-neutral-medium/40 dark:border-neutral-medium/20',
+    iconBg: 'bg-neutral-medium/20 dark:bg-neutral-medium/10',
+    accent: 'text-neutral-dark dark:text-neutral-light'
   }
 };
 
@@ -117,10 +117,10 @@ export const getRoomTheme = (roomValue?: string | null): RoomTheme => {
   if (!roomValue) return ROOM_THEMES.unassigned;
   
   return ROOM_THEMES[roomValue] || {
-    background: 'bg-neutral-50 dark:bg-neutral-600/20',
-    border: 'border-neutral-200 dark:border-neutral-300/30',
-    iconBg: 'bg-neutral-100 dark:bg-neutral-500/25',
-    accent: 'text-neutral-600 dark:text-neutral-200'
+    background: 'bg-neutral-light dark:bg-neutral-dark/20',
+    border: 'border-neutral-medium/40 dark:border-neutral-medium/20',
+    iconBg: 'bg-neutral-medium/20 dark:bg-neutral-medium/10',
+    accent: 'text-neutral-dark dark:text-neutral-light'
   };
 };
 

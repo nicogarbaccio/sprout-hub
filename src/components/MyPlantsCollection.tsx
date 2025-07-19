@@ -174,7 +174,7 @@ const MyPlantsCollection = () => {
                   {plants.length} plants total
                 </span>
                 {roomCount > 0 && (
-                  <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full">
+                  <span className="bg-sprout-water/20 text-sprout-water px-3 py-1 rounded-full">
                     {roomCount} room{roomCount !== 1 ? "s" : ""}
                   </span>
                 )}
@@ -184,12 +184,12 @@ const MyPlantsCollection = () => {
                   </span>
                 )}
                 {dueToday > 0 && (
-                  <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">
+                  <span className="bg-sprout-warning/20 text-sprout-warning px-3 py-1 rounded-full">
                     {dueToday} due today
                   </span>
                 )}
                 {unknownWateringCount > 0 && (
-                  <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
+                  <span className="bg-neutral-light text-neutral-dark px-3 py-1 rounded-full">
                     {unknownWateringCount} unknown schedule
                   </span>
                 )}
@@ -198,7 +198,7 @@ const MyPlantsCollection = () => {
 
             <Button
               onClick={handleAddPlant}
-              className="bg-green-600 hover:bg-green-500 text-white rounded-xl mt-4 md:mt-0 font-medium"
+              className="bg-sprout-primary hover:bg-sprout-secondary text-sprout-white rounded-xl mt-4 md:mt-0 font-medium"
             >
               <Plus className="w-4 h-4 mr-2" />
               Add New Plant
@@ -223,8 +223,8 @@ const MyPlantsCollection = () => {
               {/* Benefits */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                 <div className="flex flex-col items-center p-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3">
-                    <Droplets className="w-6 h-6 text-blue-600" />
+                  <div className="w-12 h-12 bg-sprout-water/20 rounded-full flex items-center justify-center mb-3">
+                    <Droplets className="w-6 h-6 text-sprout-water" />
                   </div>
                   <h4 className="font-semibold text-foreground mb-2">
                     Smart Watering
@@ -234,7 +234,7 @@ const MyPlantsCollection = () => {
                   </p>
                 </div>
                 <div className="flex flex-col items-center p-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-3">
+                  <div className="w-12 h-12 bg-sprout-neutral-light rounded-full flex items-center justify-center mb-3">
                     <span className="text-lg">🏠</span>
                   </div>
                   <h4 className="font-semibold text-foreground mb-2">

@@ -334,7 +334,7 @@ const Dashboard = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             <Button
               onClick={() => setIsAddDialogOpen(true)}
-              className="h-16 bg-green-600 hover:bg-green-500 text-white rounded-xl font-medium text-lg"
+              className="h-16 bg-sprout-success hover:bg-sprout-success/90 text-white rounded-xl font-medium text-lg"
               size="lg"
             >
               <Plus className="w-6 h-6 mr-3" />
@@ -397,12 +397,12 @@ const Dashboard = () => {
                     <p className="text-sm text-muted-foreground mb-1">
                       Need Water Today
                     </p>
-                    <p className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">
+                    <p className="text-3xl font-bold text-sprout-warning">
                       {plantsNeedingWaterToday}
                     </p>
                   </div>
-                  <div className="w-12 h-12 bg-yellow-100 dark:bg-yellow-500/20 rounded-full flex items-center justify-center">
-                    <Droplets className="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
+                  <div className="w-12 h-12 bg-sprout-warning/20 rounded-full flex items-center justify-center">
+                    <Droplets className="w-6 h-6 text-sprout-warning" />
                   </div>
                 </div>
               </CardContent>
@@ -643,18 +643,18 @@ const Dashboard = () => {
                   </h4>
                   <div className="space-y-2">
                     {overduePlants > 0 && (
-                      <div className="flex items-start space-x-2 p-3 bg-red-50 dark:bg-red-500/10 rounded-lg border border-red-200 dark:border-red-500/30">
-                        <AlertTriangle className="w-4 h-4 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
-                        <p className="text-sm text-red-700 dark:text-red-300">
+                      <div className="flex items-start space-x-2 p-3 bg-sprout-warning/10 rounded-lg border border-sprout-warning/30">
+                        <AlertTriangle className="w-4 h-4 text-sprout-warning mt-0.5 flex-shrink-0" />
+                        <p className="text-sm text-sprout-warning">
                           {overduePlants} plant{overduePlants > 1 ? "s" : ""}{" "}
                           overdue for watering - check them soon!
                         </p>
                       </div>
                     )}
                     {plantsWithoutWateringData > 0 && (
-                      <div className="flex items-start space-x-2 p-3 bg-yellow-50 dark:bg-yellow-500/10 rounded-lg border border-yellow-200 dark:border-yellow-500/30">
-                        <Clock className="w-4 h-4 text-yellow-600 dark:text-yellow-400 mt-0.5 flex-shrink-0" />
-                        <p className="text-sm text-yellow-700 dark:text-yellow-300">
+                      <div className="flex items-start space-x-2 p-3 bg-sprout-cream/15 rounded-lg border border-sprout-cream/40">
+                        <Clock className="w-4 h-4 text-sprout-dark mt-0.5 flex-shrink-0" />
+                        <p className="text-sm text-sprout-dark">
                           {plantsWithoutWateringData} plant
                           {plantsWithoutWateringData > 1 ? "s" : ""} need
                           initial watering data
@@ -679,7 +679,7 @@ const Dashboard = () => {
                         </p>
                         <Button
                           onClick={() => setIsAddDialogOpen(true)}
-                          className="bg-green-600 hover:bg-green-500 text-white"
+                          className="bg-sprout-success hover:bg-sprout-success/90 text-white"
                           size="sm"
                         >
                           <Plus className="w-4 h-4 mr-2" />

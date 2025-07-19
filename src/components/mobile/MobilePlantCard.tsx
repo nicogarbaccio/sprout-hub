@@ -182,8 +182,10 @@ export function MobilePlantCard({
           showActions &&
             swipeDirection === "right" &&
             "transform translate-x-[80px]",
-          wateringStatus === "overdue" && "border-red-200 bg-red-50/50",
-          wateringStatus === "due" && "border-yellow-200 bg-yellow-50/50",
+          wateringStatus === "overdue" &&
+            "border-sprout-warning/50 bg-sprout-warning/10",
+          wateringStatus === "due" &&
+            "border-sprout-cream/60 bg-sprout-cream/15",
           "hover:shadow-md active:shadow-lg"
         )}
         {...swipeHandlers}
@@ -235,11 +237,11 @@ export function MobilePlantCard({
                     className={cn(
                       "text-xs px-2 py-0.5",
                       plant.care_difficulty === "easy" &&
-                        "border-green-200 text-green-700 bg-green-50",
+                        "border-sprout-success/30 text-sprout-success bg-sprout-success/20",
                       plant.care_difficulty === "medium" &&
-                        "border-yellow-200 text-yellow-700 bg-yellow-50",
+                        "border-sprout-warning/30 text-sprout-warning bg-sprout-warning/20",
                       plant.care_difficulty === "hard" &&
-                        "border-red-200 text-red-700 bg-red-50"
+                        "border-sprout-warning/50 text-sprout-dark bg-sprout-warning/40"
                     )}
                   >
                     {plant.care_difficulty}
@@ -249,7 +251,7 @@ export function MobilePlantCard({
                 {plant.light_requirement && (
                   <Badge
                     variant="outline"
-                    className="text-xs px-2 py-0.5 border-blue-200 text-blue-700 bg-blue-50"
+                    className="text-xs px-2 py-0.5 border-sprout-water/30 text-sprout-water bg-sprout-water/20"
                   >
                     <Sun className="w-3 h-3 mr-1" />
                     {plant.light_requirement}
@@ -263,19 +265,19 @@ export function MobilePlantCard({
                   <Droplets
                     className={cn(
                       "w-4 h-4",
-                      wateringStatus === "good" && "text-green-500",
-                      wateringStatus === "due" && "text-yellow-500",
-                      wateringStatus === "overdue" && "text-red-500",
-                      wateringStatus === "unknown" && "text-gray-400"
+                      wateringStatus === "good" && "text-sprout-success",
+                      wateringStatus === "due" && "text-sprout-cream",
+                      wateringStatus === "overdue" && "text-sprout-warning",
+                      wateringStatus === "unknown" && "text-neutral-medium"
                     )}
                   />
                   <span
                     className={cn(
                       "text-sm",
-                      wateringStatus === "good" && "text-green-700",
-                      wateringStatus === "due" && "text-yellow-700",
-                      wateringStatus === "overdue" && "text-red-700",
-                      wateringStatus === "unknown" && "text-gray-500"
+                      wateringStatus === "good" && "text-sprout-success",
+                      wateringStatus === "due" && "text-sprout-dark",
+                      wateringStatus === "overdue" && "text-sprout-warning",
+                      wateringStatus === "unknown" && "text-neutral-medium"
                     )}
                   >
                     {daysSinceWatered

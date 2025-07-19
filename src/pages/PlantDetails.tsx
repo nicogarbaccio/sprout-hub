@@ -31,8 +31,8 @@ const PlantDetails = () => {
   }, [plantName]);
 
   const { showLoading, isReady } = useGracefulLoading(isLoading, {
-    minLoadingTime: 300,
-    staggerDelay: 150,
+    minLoadingTime: 0,
+    staggerDelay: 0,
   });
 
   // Find the plant in the plant data by matching the name

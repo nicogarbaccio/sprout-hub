@@ -25,8 +25,8 @@ const Profile = () => {
   } = useProfile();
 
   const { showLoading, isReady } = useGracefulLoading(isLoadingProfile, {
-    minLoadingTime: 400,
-    staggerDelay: 150,
+    minLoadingTime: 0,
+    staggerDelay: 0,
   });
 
   if (showLoading) {

@@ -17,7 +17,7 @@ export function useCapacitor() {
     // Set up status bar for iOS
     if (Capacitor.isNativePlatform() && Capacitor.getPlatform() === "ios") {
       StatusBar.setStyle({ style: Style.Default });
-      StatusBar.setBackgroundColor({ color: "#10b981" });
+      StatusBar.setBackgroundColor({ color: "#4a6741" });
     }
   }, []);
 

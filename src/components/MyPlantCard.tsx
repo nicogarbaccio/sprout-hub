@@ -35,9 +35,11 @@ const MyPlantCard = ({
   onPostpone,
 }: MyPlantCardProps) => {
   const getStatusColor = () => {
-    if (hasUnknownWateringDate) return "bg-gray-100 text-gray-700";
-    if (isPostponed) return "bg-blue-100 text-blue-700";
-    if (isOverdue) return "bg-plant-warning text-white";
+    if (hasUnknownWateringDate) return "bg-neutral-light text-neutral-dark";
+    if (isPostponed)
+      return "bg-sprout-water/20 text-sprout-water border-sprout-water/30";
+    if (isOverdue)
+      return "bg-sprout-warning text-sprout-white border-sprout-warning";
 
     if (daysUntilWatering === 0) {
       // Check if truly just watered vs due today
@@ -49,16 +51,17 @@ const MyPlantCard = ({
 
         // If watered within the last 12 hours, show green (just watered)
         if (hoursDiff <= 12) {
-          return "bg-green-100 text-green-700";
+          return "bg-sprout-success/20 text-sprout-success border-sprout-success/30";
         }
       }
 
-      // Otherwise it's due today, show yellow
-      return "bg-yellow-100 text-yellow-700";
+      // Otherwise it's due today, show cream
+      return "bg-sprout-cream/30 text-sprout-dark border-sprout-cream/50";
     }
 
-    if (daysUntilWatering <= 1) return "bg-yellow-100 text-yellow-700";
-    return "bg-green-100 text-green-700";
+    if (daysUntilWatering <= 1)
+      return "bg-sprout-cream/30 text-sprout-dark border-sprout-cream/50";
+    return "bg-sprout-success/20 text-sprout-success border-sprout-success/30";
   };
 
   const getStatusText = () => {
@@ -123,9 +126,9 @@ const MyPlantCard = ({
         <p className="text-sm text-muted-foreground mb-4">{plantType}</p>
 
         {hasUnknownWateringDate && (
-          <div className="flex items-center gap-2 p-2 bg-yellow-50 border border-yellow-200 rounded-md mb-4">
-            <AlertTriangle className="h-4 w-4 text-yellow-600" />
-            <p className="text-xs text-yellow-700">
+          <div className="flex items-center gap-2 p-2 bg-sprout-cream/20 border border-sprout-cream/40 rounded-md mb-4">
+            <AlertTriangle className="h-4 w-4 text-sprout-dark" />
+            <p className="text-xs text-sprout-dark">
               Last watering date unknown - please water and record or edit the
               plant details
             </p>
@@ -153,7 +156,7 @@ const MyPlantCard = ({
           <div className="space-y-2">
             <Button
               onClick={onWater}
-              className="w-full bg-plant-water text-white rounded-xl font-medium hover:bg-plant-water/90 hover:text-white"
+              className="w-full bg-sprout-water hover:bg-sprout-water/90 text-sprout-white rounded-xl font-medium"
             >
               <Droplets className="w-4 h-4 mr-2" />
               Water Now
@@ -161,7 +164,7 @@ const MyPlantCard = ({
             <Button
               onClick={onPostpone}
               variant="outline"
-              className="w-full rounded-xl font-medium border-blue-200 text-blue-700 hover:bg-blue-50"
+              className="w-full rounded-xl font-medium border-sprout-water/30 text-sprout-water hover:bg-sprout-water/10"
             >
               <Clock className="w-4 h-4 mr-2" />
               Push to Tomorrow
@@ -170,7 +173,7 @@ const MyPlantCard = ({
         ) : (
           <Button
             onClick={onWater}
-            className="w-full bg-plant-water text-white rounded-xl font-medium hover:bg-plant-water/90 hover:text-white"
+            className="w-full bg-sprout-water hover:bg-sprout-water/90 text-sprout-white rounded-xl font-medium"
           >
             <Droplets className="w-4 h-4 mr-2" />
             Water Now

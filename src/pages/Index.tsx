@@ -89,7 +89,7 @@ const Index = () => {
   const { user, loading: authLoading } = useAuth();
   const { showDebugPanel } = usePWADebug();
 
-  // Show skeleton only during auth loading
+  // Show skeleton only during initial auth loading (reduced timeout)
   if (authLoading) {
     return <MarketingPageSkeleton />;
   }
@@ -113,11 +113,11 @@ const Index = () => {
             <HeroSection />
           </CascadingContainer>
 
-          <CascadingContainer delay={100}>
+          <CascadingContainer delay={50}>
             <FeaturesSection />
           </CascadingContainer>
 
-          <CascadingContainer delay={200}>
+          <CascadingContainer delay={100}>
             <PlantCatalog isHomepage={true} />
           </CascadingContainer>
         </>

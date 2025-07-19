@@ -4,92 +4,85 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Light mode - using new SproutHub palette colors */
+    --background: 0 0% 100%; /* sprout-white #ffffff */
+    --foreground: 120 8% 24%; /* neutral-dark #3a423a converted to HSL */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%; /* sprout-white */
+    --card-foreground: 120 8% 24%; /* neutral-dark */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%; /* sprout-white */
+    --popover-foreground: 120 8% 24%; /* neutral-dark */
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 142 30% 28%; /* sprout-primary #2d5a3a converted to HSL */
+    --primary-foreground: 0 0% 100%; /* sprout-white */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 120 20% 95%; /* sprout-pale #f0f4f1 converted to HSL */
+    --secondary-foreground: 120 8% 24%; /* neutral-dark */
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 120 20% 95%; /* sprout-pale */
+    --muted-foreground: 120 4% 62%; /* neutral-medium #9ca39c converted to HSL */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 120 20% 95%; /* sprout-pale */
+    --accent-foreground: 120 8% 24%; /* neutral-dark */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 16 100% 64%; /* sprout-warning #ff8b47 converted to HSL */
+    --destructive-foreground: 0 0% 100%; /* sprout-white */
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 120 8% 91%; /* neutral-light #e8ebe8 */
+    --input: 120 20% 95%; /* sprout-pale */
+    --ring: 142 30% 28%; /* sprout-primary */
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 120 20% 95%; /* sprout-pale */
+    --sidebar-foreground: 120 8% 24%; /* neutral-dark */
+    --sidebar-primary: 142 30% 28%; /* sprout-primary */
+    --sidebar-primary-foreground: 0 0% 100%; /* sprout-white */
+    --sidebar-accent: 0 0% 100%; /* sprout-white */
+    --sidebar-accent-foreground: 120 8% 24%; /* neutral-dark */
+    --sidebar-border: 120 8% 91%; /* neutral-light */
+    --sidebar-ring: 142 30% 28%; /* sprout-primary */
   }
 
   .dark {
-    /* Forest green theme matching Smart Watering Wizard */
-    --background: 140 60% 6%; /* Deep forest green equivalent to bg-green-950 */
-    --foreground: 140 15% 95%; /* Very light text for good contrast */
+    /* Dark mode - using new SproutHub palette colors */
+    --background: 142 33% 18%; /* sprout-dark #1d3c28 converted to HSL */
+    --foreground: 120 8% 91%; /* neutral-light #e8ebe8 */
 
-    --card: 140 50% 10%; /* Slightly lighter forest green for cards */
-    --card-foreground: 140 15% 95%;
+    --card: 142 30% 28%; /* sprout-primary #2d5a3a */
+    --card-foreground: 120 8% 91%; /* neutral-light */
 
-    --popover: 140 50% 10%;
-    --popover-foreground: 140 15% 95%;
+    --popover: 142 30% 28%; /* sprout-primary */
+    --popover-foreground: 120 8% 91%; /* neutral-light */
 
-    /* Use the lighter green as primary in dark mode */
-    --primary: 140 25% 65%; /* plant-secondary equivalent (#85B09A) */
-    --primary-foreground: 140 30% 15%;
+    --primary: 142 20% 56%; /* sprout-light #7ba987 converted to HSL */
+    --primary-foreground: 142 33% 18%; /* sprout-dark */
 
-    --secondary: 140 45% 15%;
-    --secondary-foreground: 140 15% 90%;
+    --secondary: 142 30% 28%; /* sprout-primary */
+    --secondary-foreground: 120 8% 91%; /* neutral-light */
 
-    --muted: 140 45% 15%;
-    --muted-foreground: 140 15% 75%;
+    --muted: 142 30% 28%; /* sprout-primary */
+    --muted-foreground: 120 8% 91%; /* neutral-light */
 
-    --accent: 140 40% 20%;
-    --accent-foreground: 140 15% 95%;
+    --accent: 142 33% 18%; /* sprout-dark */
+    --accent-foreground: 120 8% 91%; /* neutral-light */
 
-    --destructive: 0 75% 55%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 16 100% 64%; /* sprout-warning */
+    --destructive-foreground: 0 0% 100%; /* sprout-white */
 
-    --border: 140 30% 25%;
-    --input: 140 45% 15%;
-    --ring: 140 25% 65%;
+    --border: 142 25% 39%; /* sprout-medium #4a7c59 */
+    --input: 142 30% 28%; /* sprout-primary */
+    --ring: 142 20% 56%; /* sprout-light */
     
-    --sidebar-background: 140 55% 8%;
-    --sidebar-foreground: 140 15% 90%;
-    --sidebar-primary: 140 25% 65%;
-    --sidebar-primary-foreground: 140 30% 15%;
-    --sidebar-accent: 140 45% 12%;
-    --sidebar-accent-foreground: 140 15% 95%;
-    --sidebar-border: 140 30% 20%;
-    --sidebar-ring: 140 25% 65%;
+    --sidebar-background: 142 33% 18%; /* sprout-dark */
+    --sidebar-foreground: 120 8% 91%; /* neutral-light */
+    --sidebar-primary: 142 20% 56%; /* sprout-light */
+    --sidebar-primary-foreground: 142 33% 18%; /* sprout-dark */
+    --sidebar-accent: 142 30% 28%; /* sprout-primary */
+    --sidebar-accent-foreground: 120 8% 91%; /* neutral-light */
+    --sidebar-border: 142 25% 39%; /* sprout-medium */
+    --sidebar-ring: 142 20% 56%; /* sprout-light */
   }
 }
 

@@ -132,7 +132,7 @@ const ProfileInformation: React.FC<ProfileInformationProps> = ({
         <Button
           onClick={handleUpdateProfile}
           disabled={isLoading}
-          className="w-full bg-green-600 hover:bg-green-500 text-white font-medium"
+          className="w-full bg-sprout-success hover:bg-sprout-success/90 text-white font-medium"
         >
           {isLoading ? "Updating..." : "Update Profile"}
         </Button>

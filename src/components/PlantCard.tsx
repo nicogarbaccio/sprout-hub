@@ -32,13 +32,13 @@ const PlantCard = ({
   const getCareColor = (level: string) => {
     switch (level) {
       case "Easy":
-        return "bg-green-100 text-green-700";
+        return "bg-sprout-success/20 text-sprout-success border-sprout-success/30";
       case "Medium":
-        return "bg-yellow-100 text-yellow-700";
+        return "bg-sprout-warning/20 text-sprout-warning border-sprout-warning/30";
       case "Hard":
-        return "bg-red-100 text-red-700";
+        return "bg-sprout-warning/40 text-sprout-dark border-sprout-warning/50";
       default:
-        return "bg-gray-100 text-gray-700";
+        return "bg-neutral-light text-neutral-dark border-neutral-medium/30";
     }
   };
 
@@ -95,8 +95,7 @@ const PlantCard = ({
         <div className="space-y-2">
           <Button
             onClick={onViewDetails}
-            variant="outline"
-            className="w-full border-plant-secondary text-plant-secondary hover:bg-plant-secondary hover:text-white rounded-xl font-medium"
+            className="w-full bg-sprout-cream hover:bg-sprout-cream/90 text-sprout-dark rounded-xl font-medium"
           >
             <Eye className="w-4 h-4 mr-2" />
             View Details
@@ -105,7 +104,7 @@ const PlantCard = ({
           {isAuthenticated ? (
             <Button
               onClick={onAddToCollection}
-              className="w-full bg-green-600 hover:bg-green-500 text-white rounded-xl font-medium"
+              className="w-full bg-sprout-success hover:bg-sprout-success/90 text-sprout-white rounded-xl font-medium"
             >
               <Plus className="w-4 h-4 mr-2" />
               Add to Collection
@@ -113,7 +112,7 @@ const PlantCard = ({
           ) : (
             <Button
               onClick={onSignInToAdd}
-              className="w-full bg-green-600 hover:bg-green-500 text-white rounded-xl font-medium"
+              className="w-full bg-sprout-light hover:bg-sprout-medium text-sprout-white rounded-xl font-medium"
             >
               <LogIn className="w-4 h-4 mr-2" />
               Sign in to Add

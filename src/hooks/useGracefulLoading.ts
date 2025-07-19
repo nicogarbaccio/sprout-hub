@@ -11,9 +11,9 @@ export const useGracefulLoading = (
   options: UseGracefulLoadingOptions = {}
 ) => {
   const {
-    minLoadingTime = 500,
-    enableStaggeredLoad = true,
-    staggerDelay = 200
+    minLoadingTime = 100, // Reduced from 500ms to 100ms
+    enableStaggeredLoad = false, // Disabled by default for faster loading
+    staggerDelay = 50 // Reduced from 200ms to 50ms
   } = options;
 
   const [showLoading, setShowLoading] = useState(true);

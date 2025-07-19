@@ -23,25 +23,32 @@ export default {
 				'poppins': ['Poppins', 'sans-serif'],
 			},
 			colors: {
-				// PlantPal Brand Colors with dark mode support
-				'plant-primary': {
-					DEFAULT: '#4a6741', // Forest green for light mode
-					dark: '#85B09A', // Lighter green for dark mode
+				// SproutHub Brand Palette
+				'sprout': {
+					// Primary Green Spectrum
+					'dark': '#1d3c28',      // Dark forest green for headers, navigation, primary text
+					'primary': '#2d5a3a',   // Main forest green for card sections, primary backgrounds
+					'medium': '#4a7c59',    // Medium forest green for hover states, secondary elements
+					'light': '#7ba987',     // Sage green for borders, subtle accents
+					'pale': '#f0f4f1',      // Soft mint for card backgrounds, page sections
+					
+					// Accent & Functional Colors
+					'success': '#00a643',   // Bright green for success states, "Easy" difficulty tags
+					'cream': '#dfc490',     // Warm cream for CTAs, highlights, adding warmth
+					'warning': '#ff8b47',   // Terracotta orange for warnings, "Medium" difficulty tags
+					'water': '#0fa3b1',     // Water blue for watering reminders, info states
+					
+					// Base colors
+					'white': '#ffffff',     // Pure white for text backgrounds, clean spaces
+					'black': '#000000'      // Pure black (use sparingly, prefer neutral-dark)
 				},
-				'plant-secondary': {
-					DEFAULT: '#85B09A', // Light green for light mode  
-					dark: '#4a6741', // Forest green for dark mode (inverted)
+
+				// Neutrals (with green undertones)
+				'neutral': {
+					'light': '#e8ebe8',     // Warm light gray for page backgrounds, dividers
+					'medium': '#9ca39c',    // Sage gray for secondary text, icons
+					'dark': '#3a423a',      // Charcoal green for body text, strong accents
 				},
-				'plant-neutral': {
-					DEFAULT: '#F5F7F5', // Very light green for light mode
-					dark: '#2a3f2a', // Dark forest green for dark mode
-				},
-				'plant-warning': '#FF9F43',
-				'plant-text': {
-					DEFAULT: '#2D3436', // Dark text for light mode
-					dark: '#D1D5D1', // Light text for dark mode
-				},
-				'plant-water': '#0FA3B1',
 
 				// Keep existing shadcn colors
 				border: 'hsl(var(--border))',

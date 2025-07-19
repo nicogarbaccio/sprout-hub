@@ -15,7 +15,6 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SignInForm from "@/components/auth/SignInForm";
 import SignUpForm from "@/components/auth/SignUpForm";
-import SproutHubLogo from "@/components/SproutHubLogo";
 
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -58,8 +57,15 @@ const Auth = () => {
       <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-plant-primary/10 to-plant-secondary/10 dark:bg-background flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
-            <div className="flex items-center justify-center space-x-2 mb-4">
-              <SproutHubLogo size="md" />
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <img
+                src="/Logo.svg"
+                alt="SproutHub Logo"
+                className="h-12 w-auto"
+              />
+              <span className="text-3xl font-bold text-plant-primary dark:text-green-600">
+                SproutHub
+              </span>
             </div>
             <CardDescription>
               Your personal plant care assistant

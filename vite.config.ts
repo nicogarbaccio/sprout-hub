@@ -21,14 +21,19 @@ export default defineConfig(({ mode }) => ({
         globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg,webp,woff,woff2,ttf,eot}'],
         runtimeCaching: [
           {
+            urlPattern: /^https:\/\/.*\.supabase\.co\/auth\/.*/i,
+            handler: 'NetworkOnly', // Never cache auth requests
+          },
+          {
             urlPattern: /^https:\/\/.*\.supabase\.co\/.*/i,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'supabase-api-cache',
               expiration: {
-                maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24, // 24 hours
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 5, // 5 minutes instead of 24 hours
               },
+              networkTimeoutSeconds: 3, // Faster timeout
             },
           },
           {
@@ -58,7 +63,7 @@ export default defineConfig(({ mode }) => ({
         name: 'SproutHub - Plant Care Tracker',
         short_name: 'SproutHub',
         description: 'Track, care for, and grow your plant collection with intelligent reminders and insights',
-        theme_color: '#10b981',
+        theme_color: '#4a6741',
         background_color: '#ffffff',
         display: 'standalone',
         orientation: 'portrait',

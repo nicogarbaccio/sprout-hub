@@ -25,13 +25,13 @@ const PlantInfoSection = ({
   const getCareColor = (level: string) => {
     switch (level) {
       case "Easy":
-        return "bg-green-100 text-green-700";
+        return "bg-sprout-success/20 text-sprout-success border-sprout-success/30";
       case "Medium":
-        return "bg-yellow-100 text-yellow-700";
+        return "bg-sprout-warning/20 text-sprout-warning border-sprout-warning/30";
       case "Hard":
-        return "bg-red-100 text-red-700";
+        return "bg-sprout-warning/40 text-sprout-dark border-sprout-warning/50";
       default:
-        return "bg-gray-100 text-gray-700";
+        return "bg-neutral-light text-neutral-dark border-neutral-medium/30";
     }
   };
 
@@ -59,7 +59,7 @@ const PlantInfoSection = ({
       {isAuthenticated ? (
         <Button
           onClick={onAddToCollection}
-          className="w-full bg-green-600 hover:bg-green-500 text-white rounded-xl font-medium py-3"
+          className="w-full bg-sprout-success hover:bg-sprout-success/90 text-white rounded-xl font-medium py-3"
           size="lg"
         >
           <Plus className="w-5 h-5 mr-2" />
@@ -68,7 +68,7 @@ const PlantInfoSection = ({
       ) : (
         <Button
           onClick={onSignInToAdd}
-          className="w-full bg-green-600 hover:bg-green-500 text-white rounded-xl font-medium py-3"
+          className="w-full bg-sprout-success hover:bg-sprout-success/90 text-white rounded-xl font-medium py-3"
           size="lg"
         >
           <LogIn className="w-5 h-5 mr-2" />
@@ -76,8 +76,8 @@ const PlantInfoSection = ({
         </Button>
       )}
 
-      <div className="p-3 bg-red-50 rounded-lg border border-red-200">
-        <p className="text-sm text-red-700">
+      <div className="p-3 bg-sprout-warning/10 rounded-lg border border-sprout-warning/30">
+        <p className="text-sm text-sprout-warning">
           <strong>Pet Safety:</strong> {toxicity}
         </p>
       </div>

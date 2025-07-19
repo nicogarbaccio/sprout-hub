@@ -68,7 +68,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({
             !passwordData.newPassword ||
             !passwordData.confirmPassword
           }
-          className="w-full bg-green-600 hover:bg-green-500 text-white"
+          className="w-full bg-sprout-success hover:bg-sprout-success/90 text-white"
         >
           {isLoading ? "Updating..." : "Change Password"}
         </Button>

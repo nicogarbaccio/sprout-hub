@@ -46,13 +46,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setLoading(false);
     });
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
+    // Set a fallback timeout to prevent hanging on slow networks
+    const timeoutId = setTimeout(() => {
+      console.warn("Auth loading timeout - proceeding without auth");
       setLoading(false);
-    });
+    }, 3000);
 
-    return () => subscription.unsubscribe();
+    supabase.auth
+      .getSession()
+      .then(({ data: { session } }) => {
+        setSession(session);
+        setUser(session?.user ?? null);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.warn("Auth session error:", error);
+        setLoading(false);
+      });
+
+    return () => {
+      subscription.unsubscribe();
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   const signUp = async (
