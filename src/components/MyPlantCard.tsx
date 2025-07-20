@@ -51,7 +51,7 @@ const MyPlantCard = ({
 
         // If watered within the last 12 hours, show green (just watered)
         if (hoursDiff <= 12) {
-          return "bg-sprout-success/20 text-sprout-success border-sprout-success/30";
+          return "bg-sprout-success text-white border-sprout-success";
         }
       }
 

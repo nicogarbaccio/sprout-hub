@@ -343,7 +343,7 @@ const Dashboard = () => {
 
             <Button
               variant="outline"
-              className="h-16 bg-plant-water text-white rounded-xl font-medium text-lg hover:bg-plant-water/90 hover:text-white border-plant-water"
+              className="h-16 bg-sprout-water text-white rounded-xl font-medium text-lg hover:bg-sprout-water/90 hover:text-white border-sprout-water"
               size="lg"
               onClick={() => {
                 if (plantsNeedingWater.length > 0) {
@@ -498,7 +498,7 @@ const Dashboard = () => {
                           </div>
                           <div className="flex items-center space-x-2">
                             {isOverdue ? (
-                              <Badge variant="destructive" className="text-xs">
+                              <Badge className="text-xs bg-sprout-error text-white">
                                 {plant.days_since_watering} days overdue
                               </Badge>
                             ) : (
@@ -511,7 +511,7 @@ const Dashboard = () => {
                               onClick={() =>
                                 handleQuickWater(plant.id, plant.nickname)
                               }
-                              className="bg-plant-water text-white hover:bg-plant-water/90 hover:text-white"
+                              className="bg-sprout-water text-white hover:bg-sprout-water/90 hover:text-white"
                             >
                               <Droplets className="w-4 h-4" />
                             </Button>
@@ -747,7 +747,7 @@ const Dashboard = () => {
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle className="flex items-center">
-                <Droplets className="w-5 h-5 mr-2 text-plant-water" />
+                <Droplets className="w-5 h-5 mr-2 text-sprout-water" />
                 Water Multiple Plants
               </AlertDialogTitle>
               <AlertDialogDescription>
@@ -780,13 +780,12 @@ const Dashboard = () => {
                     </p>
                   </div>
                   <Badge
-                    variant={
+                    className={`text-xs ${
                       plant.days_since_watering! >
                       (plant.suggested_watering_days || 7)
-                        ? "destructive"
-                        : "secondary"
-                    }
-                    className="text-xs"
+                        ? "bg-sprout-error text-white"
+                        : "bg-secondary text-secondary-foreground"
+                    }`}
                   >
                     {plant.days_since_watering! >
                     (plant.suggested_watering_days || 7)
@@ -801,7 +800,7 @@ const Dashboard = () => {
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
                 onClick={handleBulkWater}
-                className="bg-plant-water hover:bg-plant-water/90 text-white"
+                className="bg-sprout-water hover:bg-sprout-water/90 text-white"
               >
                 <CheckCircle2 className="w-4 h-4 mr-2" />
                 Water All Plants

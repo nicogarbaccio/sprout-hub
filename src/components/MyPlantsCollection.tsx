@@ -170,21 +170,21 @@ const MyPlantsCollection = () => {
                 My Plant Collection
               </h2>
               <div className="flex flex-wrap gap-4 text-sm">
-                <span className="bg-plant-secondary/20 text-plant-primary dark:text-plant-secondary px-3 py-1 rounded-full">
+                <span className="bg-sprout-medium text-white px-3 py-1 rounded-full">
                   {plants.length} plants total
                 </span>
                 {roomCount > 0 && (
-                  <span className="bg-sprout-water/20 text-sprout-water px-3 py-1 rounded-full">
+                  <span className="bg-sprout-water text-white px-3 py-1 rounded-full">
                     {roomCount} room{roomCount !== 1 ? "s" : ""}
                   </span>
                 )}
                 {overdueCount > 0 && (
-                  <span className="bg-plant-warning/20 text-plant-warning px-3 py-1 rounded-full">
+                  <span className="bg-sprout-error text-white px-3 py-1 rounded-full">
                     {overdueCount} overdue
                   </span>
                 )}
                 {dueToday > 0 && (
-                  <span className="bg-sprout-warning/20 text-sprout-warning px-3 py-1 rounded-full">
+                  <span className="bg-sprout-warning text-white px-3 py-1 rounded-full">
                     {dueToday} due today
                   </span>
                 )}
@@ -198,7 +198,7 @@ const MyPlantsCollection = () => {
 
             <Button
               onClick={handleAddPlant}
-              className="bg-sprout-primary hover:bg-sprout-secondary text-sprout-white rounded-xl mt-4 md:mt-0 font-medium"
+              className="bg-sprout-success hover:bg-sprout-success/90 text-white rounded-xl mt-4 md:mt-0 font-medium"
             >
               <Plus className="w-4 h-4 mr-2" />
               Add New Plant
