@@ -223,7 +223,7 @@ const EditPlantDialog = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-        <DialogHeader>
+        <DialogHeader className="border-b border-sprout-cream/30 dark:border-sprout-cream/20 pb-4 mb-6">
           <DialogTitle>Edit Plant Details</DialogTitle>
         </DialogHeader>
 
@@ -274,7 +274,7 @@ const EditPlantDialog = ({
               <AlertDialogTrigger asChild>
                 <Button
                   type="button"
-                  variant="destructive"
+                  className="bg-sprout-error hover:bg-sprout-error/90 text-sprout-white"
                   onClick={() => setIsDeleteDialogOpen(true)}
                   disabled={isLoading || isDeleting}
                 >
@@ -294,7 +294,7 @@ const EditPlantDialog = ({
                     Cancel
                   </AlertDialogCancel>
                   <AlertDialogAction
-                    className="bg-red-600 hover:bg-red-700 text-white"
+                    className="bg-sprout-error hover:bg-sprout-error/90 text-white"
                     onClick={handleDeletePlant}
                     disabled={isDeleting}
                   >

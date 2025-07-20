@@ -1,11 +1,10 @@
-
-import { useState, useRef } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Upload, X, Loader2 } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
+import { useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Upload, X, Loader2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface ImageUploadProps {
   value: string;
@@ -14,42 +13,49 @@ interface ImageUploadProps {
   placeholder?: string;
 }
 
-const ImageUpload = ({ value, onChange, label = "Image", placeholder = "Enter image URL or upload" }: ImageUploadProps) => {
+const ImageUpload = ({
+  value,
+  onChange,
+  label = "Image",
+  placeholder = "Enter image URL or upload",
+}: ImageUploadProps) => {
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
   const uploadToCloudinary = async (file: File) => {
     const formData = new FormData();
-    formData.append('file', file);
-    
+    formData.append("file", file);
+
     try {
-      const { data, error } = await supabase.functions.invoke('upload-image', {
+      const { data, error } = await supabase.functions.invoke("upload-image", {
         body: formData,
       });
 
       if (error) {
-        console.error('Supabase function error:', error);
-        throw new Error('Upload failed');
+        console.error("Supabase function error:", error);
+        throw new Error("Upload failed");
       }
 
       return data.secure_url;
     } catch (error) {
-      console.error('Cloudinary upload error:', error);
+      console.error("Cloudinary upload error:", error);
       throw error;
     }
   };
 
-  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     // Validate file type
-    if (!file.type.startsWith('image/')) {
+    if (!file.type.startsWith("image/")) {
       toast({
-        title: 'Invalid file type',
-        description: 'Please select an image file',
-        variant: 'destructive',
+        title: "Invalid file type",
+        description: "Please select an image file",
+        variant: "destructive",
       });
       return;
     }
@@ -57,9 +63,9 @@ const ImageUpload = ({ value, onChange, label = "Image", placeholder = "Enter im
     // Validate file size (5MB limit)
     if (file.size > 5 * 1024 * 1024) {
       toast({
-        title: 'File too large',
-        description: 'Please select an image smaller than 5MB',
-        variant: 'destructive',
+        title: "File too large",
+        description: "Please select an image smaller than 5MB",
+        variant: "destructive",
       });
       return;
     }
@@ -69,20 +75,20 @@ const ImageUpload = ({ value, onChange, label = "Image", placeholder = "Enter im
       const imageUrl = await uploadToCloudinary(file);
       onChange(imageUrl);
       toast({
-        title: 'Upload successful',
-        description: 'Image uploaded successfully',
+        title: "Upload successful",
+        description: "Image uploaded successfully",
       });
     } catch (error) {
       toast({
-        title: 'Upload failed',
-        description: 'Failed to upload image. Please try again.',
-        variant: 'destructive',
+        title: "Upload failed",
+        description: "Failed to upload image. Please try again.",
+        variant: "destructive",
       });
     } finally {
       setIsUploading(false);
       // Reset file input
       if (fileInputRef.current) {
-        fileInputRef.current.value = '';
+        fileInputRef.current.value = "";
       }
     }
   };
@@ -92,13 +98,13 @@ const ImageUpload = ({ value, onChange, label = "Image", placeholder = "Enter im
   };
 
   const handleRemoveImage = () => {
-    onChange('');
+    onChange("");
   };
 
   return (
     <div className="space-y-2">
       <Label htmlFor="image">{label}</Label>
-      
+
       <div className="space-y-3">
         {/* URL Input */}
         <Input
@@ -108,7 +114,7 @@ const ImageUpload = ({ value, onChange, label = "Image", placeholder = "Enter im
           placeholder={placeholder}
           className="border-plant-secondary/30 focus:border-plant-primary"
         />
-        
+
         {/* Upload Button */}
         <div className="flex gap-2">
           <Button
@@ -116,7 +122,7 @@ const ImageUpload = ({ value, onChange, label = "Image", placeholder = "Enter im
             variant="outline"
             onClick={handleUploadClick}
             disabled={isUploading}
-            className="flex-1"
+            className="flex-1 bg-sprout-light hover:bg-sprout-light/90 text-white border-sprout-light"
           >
             {isUploading ? (
               <>
@@ -130,7 +136,7 @@ const ImageUpload = ({ value, onChange, label = "Image", placeholder = "Enter im
               </>
             )}
           </Button>
-          
+
           {value && (
             <Button
               type="button"
@@ -152,16 +158,16 @@ const ImageUpload = ({ value, onChange, label = "Image", placeholder = "Enter im
           onChange={handleFileSelect}
           className="hidden"
         />
-        
+
         {/* Image Preview */}
         {value && (
           <div className="mt-2">
-            <img 
-              src={value} 
-              alt="Preview" 
+            <img
+              src={value}
+              alt="Preview"
               className="w-20 h-20 object-cover rounded-lg border"
               onError={(e) => {
-                e.currentTarget.style.display = 'none';
+                e.currentTarget.style.display = "none";
               }}
             />
           </div>

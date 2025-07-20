@@ -54,9 +54,14 @@ const ProfileInformation: React.FC<ProfileInformationProps> = ({
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex flex-col items-center space-y-4">
-          <Avatar className="w-24 h-24">
-            <AvatarImage src={profileData.avatar_url} />
-            <AvatarFallback className="text-lg">{getInitials()}</AvatarFallback>
+          <Avatar className="w-24 h-24 border-2 border-border shadow-lg">
+            <AvatarImage
+              src={profileData.avatar_url}
+              className="rounded-full"
+            />
+            <AvatarFallback className="text-lg font-semibold bg-sprout-pale dark:bg-sprout-medium text-sprout-primary dark:text-white rounded-full">
+              {getInitials()}
+            </AvatarFallback>
           </Avatar>
 
           <ImageUpload

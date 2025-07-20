@@ -36,8 +36,7 @@ const MyPlantCard = ({
 }: MyPlantCardProps) => {
   const getStatusColor = () => {
     if (hasUnknownWateringDate) return "bg-neutral-light text-neutral-dark";
-    if (isPostponed)
-      return "bg-sprout-water/20 text-sprout-water border-sprout-water/30";
+    if (isPostponed) return "bg-sprout-water text-white border-sprout-water";
     if (isOverdue)
       return "bg-sprout-warning text-sprout-white border-sprout-warning";
 
