@@ -92,7 +92,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
       </div>
       <Button
         type="submit"
-        className="w-full bg-sprout-primary hover:bg-sprout-secondary text-sprout-white"
+        className="w-full bg-sprout-light hover:bg-sprout-medium text-sprout-white"
         disabled={isLoading}
         data-testid="sign-in-button"
       >

@@ -48,7 +48,7 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-sprout-dark">
+    <section className="py-20 bg-sprout-primary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-sprout-white mb-4 font-poppins">
@@ -63,8 +63,8 @@ const FeaturesSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <div key={index} className="group">
-              <div className="bg-sprout-dark border border-sprout-cream/30 rounded-2xl p-8 h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-sprout-cream/50">
-                <div className="w-12 h-12 bg-sprout-dark border-2 border-sprout-cream rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 p-2">
+              <div className="bg-sprout-primary border border-sprout-cream/30 rounded-2xl p-8 h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-sprout-cream/50">
+                <div className="w-12 h-12 bg-sprout-primary border-2 border-sprout-cream rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 p-2">
                   <feature.icon className="w-6 h-6 text-sprout-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-sprout-white mb-3 font-poppins">

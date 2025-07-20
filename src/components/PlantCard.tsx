@@ -32,11 +32,11 @@ const PlantCard = ({
   const getCareColor = (level: string) => {
     switch (level) {
       case "Easy":
-        return "bg-sprout-success/20 text-sprout-success border-sprout-success/30";
+        return "bg-sprout-success text-sprout-white border-sprout-success";
       case "Medium":
-        return "bg-sprout-warning/20 text-sprout-warning border-sprout-warning/30";
+        return "bg-sprout-warning text-sprout-white border-sprout-warning";
       case "Hard":
-        return "bg-sprout-warning/40 text-sprout-dark border-sprout-warning/50";
+        return "bg-sprout-error text-sprout-white border-sprout-error";
       default:
         return "bg-neutral-light text-neutral-dark border-neutral-medium/30";
     }
@@ -95,7 +95,7 @@ const PlantCard = ({
         <div className="space-y-2">
           <Button
             onClick={onViewDetails}
-            className="w-full bg-sprout-cream hover:bg-sprout-cream/90 text-sprout-dark rounded-xl font-medium"
+            className="w-full bg-sprout-primary hover:bg-sprout-primary/90 text-sprout-white rounded-xl font-medium border border-sprout-light/30 hover:border-sprout-light/50"
           >
             <Eye className="w-4 h-4 mr-2" />
             View Details

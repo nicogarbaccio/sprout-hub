@@ -63,8 +63,8 @@ const Auth = () => {
                 alt="SproutHub Logo"
                 className="h-12 w-auto"
               />
-              <span className="text-3xl font-bold text-plant-primary dark:text-green-600">
-                SproutHub
+              <span className="text-3xl font-bold text-sprout-dark dark:text-sprout-cream ">
+                sprouthub
               </span>
             </div>
             <CardDescription>

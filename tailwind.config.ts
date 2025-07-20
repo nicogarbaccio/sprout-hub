@@ -37,6 +37,7 @@ export default {
 					'cream': '#dfc490',     // Warm cream for CTAs, highlights, adding warmth
 					'warning': '#ff8b47',   // Terracotta orange for warnings, "Medium" difficulty tags
 					'water': '#0fa3b1',     // Water blue for watering reminders, info states
+					'error': '#ff0000',     // Red for error states, "Hard" difficulty tags
 					
 					// Base colors
 					'white': '#ffffff',     // Pure white for text backgrounds, clean spaces
