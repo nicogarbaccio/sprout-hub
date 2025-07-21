@@ -48,9 +48,9 @@ const MyPlantCard = ({
         const timeDiff = today.getTime() - lastWateredDateObj.getTime();
         const hoursDiff = timeDiff / (1000 * 60 * 60);
 
-        // If watered within the last 12 hours, show blue (just watered)
+        // If watered within the last 12 hours, show success green (watered today)
         if (hoursDiff <= 12) {
-          return "bg-sprout-success text-white border-sprout-success";
+          return "bg-green-600 text-white border-green-600";
         }
       }
 
@@ -71,9 +71,9 @@ const MyPlantCard = ({
     if (isPostponed) return "Postponed until tomorrow";
     if (isOverdue) return `Overdue by ${Math.abs(daysUntilWatering)} days`;
 
-    // Check if plant was watered within the last day (truly just watered)
+    // Check if plant was watered within the last day (show "Watered today")
     if (daysUntilWatering === 0) {
-      // Additional check: if last watered was very recent (same day), show "Just watered"
+      // Additional check: if last watered was very recent (same day), show "Watered today"
       // Otherwise, it means it's exactly on schedule and due today
       if (lastWateredDate) {
         const today = new Date();
@@ -81,9 +81,9 @@ const MyPlantCard = ({
         const timeDiff = today.getTime() - lastWateredDateObj.getTime();
         const hoursDiff = timeDiff / (1000 * 60 * 60);
 
-        // If watered within the last 12 hours, consider it "just watered"
+        // If watered within the last 12 hours, show "Watered today"
         if (hoursDiff <= 12) {
-          return "Just watered";
+          return "Watered today";
         }
       }
 
