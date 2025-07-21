@@ -228,9 +228,12 @@ const RoomSection = ({
             const hasLastWatered = !!plant.latest_watering;
 
             // Check if this plant's watering was postponed (watering date is in the future)
-            const isPostponed =
-              plant.latest_watering &&
-              new Date(plant.latest_watering) > new Date();
+            // Since waterPlant now cleans up postponement records, any future date is a valid postponement
+            const latestWateringDate = plant.latest_watering
+              ? new Date(plant.latest_watering)
+              : null;
+            const now = new Date();
+            const isPostponed = latestWateringDate && latestWateringDate > now;
 
             return (
               <MyPlantCard
@@ -259,9 +262,10 @@ const RoomSection = ({
                   hasLastWatered
                 )}
                 daysUntilWatering={
-                  plant.days_since_watering
+                  plant.days_since_watering !== null &&
+                  plant.days_since_watering !== undefined
                     ? wateringSchedule - plant.days_since_watering
-                    : 0
+                    : 999 // Large number = not due for a long time when no watering data
                 }
                 hasUnknownWateringDate={!hasLastWatered}
                 isPostponed={isPostponed}

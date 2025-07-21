@@ -114,6 +114,19 @@ export const useUserPlants = () => {
 
   const waterPlant = async (plantId: string, notes?: string) => {
     try {
+      // First, delete any existing postponement records for this plant
+      const { error: deleteError } = await supabase
+        .from('watering_records')
+        .delete()
+        .eq('plant_id', plantId)
+        .like('notes', '%POSTPONEMENT:%');
+
+      if (deleteError) {
+        console.warn('Could not delete postponement records:', deleteError);
+        // Don't fail the watering if postponement cleanup fails
+      }
+
+      // Create the actual watering record
       const { error } = await supabase
         .from('watering_records')
         .insert({
@@ -144,6 +157,25 @@ export const useUserPlants = () => {
 
   const postponeWatering = async (plantId: string) => {
     try {
+      // First, check if there's already a postponement record for this plant
+      const { data: existingPostponements, error: fetchError } = await supabase
+        .from('watering_records')
+        .select('*')
+        .eq('plant_id', plantId)
+        .like('notes', '%Watering postponed%')
+        .gt('watered_at', new Date().toISOString());
+
+      if (fetchError) throw fetchError;
+
+      // If there's already a future postponement, don't create another one
+      if (existingPostponements && existingPostponements.length > 0) {
+        toast({
+          title: 'Already Postponed',
+          description: 'This plant\'s watering is already postponed',
+        });
+        return true;
+      }
+
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
       tomorrow.setHours(9, 0, 0, 0); // Set to 9 AM tomorrow for consistency
@@ -153,7 +185,7 @@ export const useUserPlants = () => {
         .insert({
           plant_id: plantId,
           watered_at: tomorrow.toISOString(),
-          notes: 'Watering postponed - plant didn\'t need water yet',
+          notes: 'POSTPONEMENT: Watering postponed - plant didn\'t need water yet',
         });
 
       if (error) throw error;

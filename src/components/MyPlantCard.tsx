@@ -35,10 +35,10 @@ const MyPlantCard = ({
   onPostpone,
 }: MyPlantCardProps) => {
   const getStatusColor = () => {
-    if (hasUnknownWateringDate) return "bg-neutral-light text-neutral-dark";
+    if (hasUnknownWateringDate)
+      return "bg-neutral-500 text-white border-neutral-500";
     if (isPostponed) return "bg-sprout-water text-white border-sprout-water";
-    if (isOverdue)
-      return "bg-sprout-warning text-sprout-white border-sprout-warning";
+    if (isOverdue) return "bg-red-500 text-white border-red-500";
 
     if (daysUntilWatering === 0) {
       // Check if truly just watered vs due today
@@ -48,19 +48,22 @@ const MyPlantCard = ({
         const timeDiff = today.getTime() - lastWateredDateObj.getTime();
         const hoursDiff = timeDiff / (1000 * 60 * 60);
 
-        // If watered within the last 12 hours, show green (just watered)
+        // If watered within the last 12 hours, show blue (just watered)
         if (hoursDiff <= 12) {
           return "bg-sprout-success text-white border-sprout-success";
         }
       }
 
-      // Otherwise it's due today, show cream
-      return "bg-sprout-cream/30 text-sprout-dark border-sprout-cream/50";
+      // Due today - show orange
+      return "bg-orange-500 text-white border-orange-500";
     }
 
-    if (daysUntilWatering <= 1)
-      return "bg-sprout-cream/30 text-sprout-dark border-sprout-cream/50";
-    return "bg-sprout-success/20 text-sprout-success border-sprout-success/30";
+    // Due in 1-2 days - show orange
+    if (daysUntilWatering <= 2)
+      return "bg-orange-500 text-white border-orange-500";
+
+    // Not due for 3+ days - show green
+    return "bg-green-500 text-white border-green-500";
   };
 
   const getStatusText = () => {
@@ -147,10 +150,11 @@ const MyPlantCard = ({
           </div>
         </div>
 
-        {/* Show postpone option for overdue/due plants that aren't already postponed */}
-        {(isOverdue || daysUntilWatering <= 0) &&
+        {/* Show postpone option only when plant is due/overdue AND has watering history */}
+        {daysUntilWatering <= 0 &&
         !isPostponed &&
         !hasUnknownWateringDate &&
+        lastWateredDate &&
         onPostpone ? (
           <div className="space-y-2">
             <Button
