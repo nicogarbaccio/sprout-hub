@@ -201,27 +201,23 @@ export const SmartWateringWizard = ({
   ) => (
     <Card
       className={cn(
-        "cursor-pointer transition-all hover:shadow-md border-2 bg-white text-foreground dark:bg-green-900 dark:text-white border-zinc-300 dark:border-green-800",
+        "cursor-pointer transition-all hover:shadow-md border-2 bg-sprout-primary text-sprout-white border-sprout-medium",
         currentValue === value
-          ? "border-plant-primary bg-plant-primary/5 dark:bg-green-800/60 dark:border-green-400"
-          : "border-zinc-300 dark:border-green-800 hover:border-plant-primary/50 dark:hover:border-green-400"
+          ? "border-sprout-success bg-sprout-success/20"
+          : "border-sprout-medium hover:border-sprout-success/50"
       )}
       onClick={() => onClick(value)}
     >
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div className="flex-1">
-            <h4 className="font-medium text-plant-text dark:text-zinc-100">
-              {label}
-            </h4>
+            <h4 className="font-medium text-sprout-white">{label}</h4>
             {description && (
-              <p className="text-sm text-muted-foreground dark:text-zinc-300 mt-1">
-                {description}
-              </p>
+              <p className="text-sm text-sprout-light mt-1">{description}</p>
             )}
           </div>
           {currentValue === value && (
-            <CheckCircle className="w-5 h-5 text-plant-primary flex-shrink-0 ml-2" />
+            <CheckCircle className="w-5 h-5 text-sprout-success flex-shrink-0 ml-2" />
           )}
         </div>
       </CardContent>
@@ -231,11 +227,11 @@ export const SmartWateringWizard = ({
   const renderStep1 = () => (
     <div className="space-y-4">
       <div className="text-center mb-6">
-        <Lightbulb className="w-12 h-12 text-plant-primary dark:text-green-400 mx-auto mb-2" />
-        <h3 className="text-lg font-semibold text-plant-text dark:text-white">
+        <Lightbulb className="w-12 h-12 text-sprout-light mx-auto mb-2" />
+        <h3 className="text-lg font-semibold text-sprout-white">
           How big is your {plantName}?
         </h3>
-        <p className="text-muted-foreground dark:text-zinc-300">
+        <p className="text-sprout-light">
           Plant size affects how much water the soil can hold
         </p>
       </div>
@@ -258,18 +254,18 @@ export const SmartWateringWizard = ({
   const renderStep2 = () => (
     <div className="space-y-6">
       <div className="text-center mb-6">
-        <Thermometer className="w-12 h-12 text-plant-primary dark:text-green-400 mx-auto mb-2" />
-        <h3 className="text-lg font-semibold text-plant-text dark:text-white">
+        <Thermometer className="w-12 h-12 text-sprout-light mx-auto mb-2" />
+        <h3 className="text-lg font-semibold text-sprout-white">
           Environmental Conditions
         </h3>
-        <p className="text-muted-foreground dark:text-zinc-300">
+        <p className="text-sprout-light">
           These factors affect how quickly your plant uses water
         </p>
       </div>
 
       {/* Light Level */}
       <div className="space-y-3">
-        <Label className="text-base font-medium flex items-center gap-2 dark:text-zinc-200">
+        <Label className="text-base font-medium flex items-center gap-2 text-sprout-white">
           <Lightbulb className="w-4 h-4" />
           Light Conditions
         </Label>
@@ -292,7 +288,7 @@ export const SmartWateringWizard = ({
 
       {/* Temperature */}
       <div className="space-y-3">
-        <Label className="text-base font-medium flex items-center gap-2 dark:text-zinc-200">
+        <Label className="text-base font-medium flex items-center gap-2 text-sprout-white">
           <Thermometer className="w-4 h-4" />
           Room Temperature
         </Label>
@@ -315,7 +311,7 @@ export const SmartWateringWizard = ({
 
       {/* Humidity */}
       <div className="space-y-3">
-        <Label className="text-base font-medium flex items-center gap-2 dark:text-zinc-200">
+        <Label className="text-base font-medium flex items-center gap-2 text-sprout-white">
           <Droplets className="w-4 h-4" />
           Air Humidity
         </Label>
@@ -339,18 +335,18 @@ export const SmartWateringWizard = ({
   const renderStep3 = () => (
     <div className="space-y-6">
       <div className="text-center mb-6">
-        <Heart className="w-12 h-12 text-plant-primary dark:text-green-400 mx-auto mb-2" />
-        <h3 className="text-lg font-semibold text-plant-text dark:text-white">
+        <Heart className="w-12 h-12 text-sprout-light mx-auto mb-2" />
+        <h3 className="text-lg font-semibold text-sprout-white">
           Personal Preferences
         </h3>
-        <p className="text-muted-foreground dark:text-zinc-300">
+        <p className="text-sprout-light">
           Let's personalize the schedule to your care style
         </p>
       </div>
 
       {/* Care Style */}
       <div className="space-y-3">
-        <Label className="text-base font-medium flex items-center gap-2 dark:text-zinc-200">
+        <Label className="text-base font-medium flex items-center gap-2 text-sprout-white">
           <Heart className="w-4 h-4" />
           Care Style
         </Label>
@@ -372,7 +368,7 @@ export const SmartWateringWizard = ({
 
       {/* Soil Type */}
       <div className="space-y-3">
-        <Label className="text-base font-medium flex items-center gap-2 dark:text-zinc-200">
+        <Label className="text-base font-medium flex items-center gap-2 text-sprout-white">
           <Shovel className="w-4 h-4" />
           Soil Type
         </Label>
@@ -391,12 +387,12 @@ export const SmartWateringWizard = ({
       </div>
 
       {/* Season Info */}
-      <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+      <div className="p-4 bg-sprout-medium/20 rounded-lg border border-sprout-medium">
         <div className="flex items-center gap-2 mb-2">
-          <Calendar className="w-4 h-4 text-blue-600" />
-          <span className="font-medium text-blue-900">Current Season</span>
+          <Calendar className="w-4 h-4 text-sprout-light" />
+          <span className="font-medium text-sprout-white">Current Season</span>
         </div>
-        <p className="text-sm text-blue-700">
+        <p className="text-sm text-sprout-light">
           We've automatically set this to{" "}
           <span className="font-medium">
             {labels.season[factors.season as keyof typeof labels.season]}
@@ -417,38 +413,38 @@ export const SmartWateringWizard = ({
     return (
       <div className="space-y-6">
         <div className="text-center mb-6">
-          <CheckCircle className="w-12 h-12 text-plant-primary dark:text-green-400 mx-auto mb-2" />
-          <h3 className="text-lg font-semibold text-plant-text dark:text-white">
+          <CheckCircle className="w-12 h-12 text-sprout-light mx-auto mb-2" />
+          <h3 className="text-lg font-semibold text-sprout-white">
             Your Personalized Schedule
           </h3>
-          <p className="text-muted-foreground dark:text-zinc-300">
+          <p className="text-sprout-light">
             Based on your inputs, here's the optimal watering schedule
           </p>
         </div>
 
         {/* Main Result */}
-        <Card className="border-plant-primary dark:bg-green-900/50 dark:border-green-400">
+        <Card className="border-sprout-success bg-sprout-primary/50">
           <CardContent className="p-6 text-center">
             <div className="space-y-4">
               <div>
-                <p className="text-sm text-muted-foreground dark:text-zinc-300 mb-1">
+                <p className="text-sm text-sprout-light mb-1">
                   Recommended Schedule
                 </p>
-                <p className="text-3xl font-bold text-plant-primary dark:text-green-400">
+                <p className="text-3xl font-bold text-sprout-success">
                   Every {result.recommendedDays} days
                 </p>
               </div>
 
               <div className="flex justify-center items-center gap-4 text-sm">
-                <div className="text-muted-foreground dark:text-zinc-300">
+                <div className="text-sprout-light">
                   Base: {result.baseDays} days
                 </div>
                 <div
                   className={cn(
                     "font-medium",
-                    isIncrease && "text-orange-600",
-                    isDecrease && "text-blue-600",
-                    noChange && "text-green-600"
+                    isIncrease && "text-sprout-warning",
+                    isDecrease && "text-sprout-water",
+                    noChange && "text-sprout-success"
                   )}
                 >
                   {noChange
@@ -475,20 +471,17 @@ export const SmartWateringWizard = ({
 
         {/* Explanation */}
         {result.adjustmentReasons.length > 0 && (
-          <Card className="dark:bg-green-900/30 dark:border-green-700">
+          <Card className="bg-sprout-primary/30 border-sprout-medium">
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-3">
-                <AlertCircle className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                <h4 className="font-medium text-plant-text dark:text-white">
+                <AlertCircle className="w-4 h-4 text-sprout-water" />
+                <h4 className="font-medium text-sprout-white">
                   Why this schedule?
                 </h4>
               </div>
               <ul className="space-y-2">
                 {result.adjustmentReasons.map((reason, index) => (
-                  <li
-                    key={index}
-                    className="text-sm text-muted-foreground dark:text-zinc-300"
-                  >
+                  <li key={index} className="text-sm text-sprout-light">
                     • {reason}
                   </li>
                 ))}
@@ -502,13 +495,13 @@ export const SmartWateringWizard = ({
           <Button
             variant="outline"
             onClick={handleStartOver}
-            className="flex-1 dark:border-green-400 dark:text-green-400 dark:hover:bg-green-400 dark:hover:text-green-900"
+            className="flex-1 border-sprout-light text-sprout-light hover:bg-sprout-light hover:text-sprout-dark"
           >
             Adjust Settings
           </Button>
           <Button
             onClick={handleApplySchedule}
-            className="flex-1 bg-plant-primary hover:bg-plant-primary/90 dark:bg-green-400 dark:text-green-900 dark:hover:bg-green-300"
+            className="flex-1 bg-sprout-success hover:bg-sprout-success/90 text-sprout-white"
           >
             Use This Schedule
           </Button>
@@ -534,17 +527,17 @@ export const SmartWateringWizard = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto bg-background text-foreground dark:bg-green-950 dark:text-white">
+      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto bg-sprout-dark text-sprout-white">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-plant-text dark:text-white">
-            <Brain className="w-5 h-5 text-plant-primary" />
+          <DialogTitle className="flex items-center gap-2 text-sprout-white">
+            <Brain className="w-5 h-5 text-sprout-light" />
             Smart Watering Schedule
           </DialogTitle>
         </DialogHeader>
 
         {/* Progress Bar */}
         <div className="space-y-2">
-          <div className="flex justify-between text-sm text-muted-foreground dark:text-zinc-300">
+          <div className="flex justify-between text-sm text-sprout-light">
             <span>
               Step {currentStep} of {STEPS.length}
             </span>
@@ -566,18 +559,18 @@ export const SmartWateringWizard = ({
               className={cn(
                 "flex flex-col items-center text-center flex-1",
                 step.id <= currentStep
-                  ? "text-plant-primary dark:text-green-400"
-                  : "text-muted-foreground dark:text-zinc-400"
+                  ? "text-sprout-success"
+                  : "text-sprout-medium"
               )}
             >
               <div
                 className={cn(
                   "w-8 h-8 rounded-full flex items-center justify-center mb-1 border-2",
                   step.id < currentStep
-                    ? "bg-plant-primary border-plant-primary text-white dark:bg-green-400 dark:border-green-400"
+                    ? "bg-sprout-success border-sprout-success text-sprout-white"
                     : step.id === currentStep
-                    ? "border-plant-primary bg-plant-primary/10 dark:border-green-400 dark:bg-green-400/20"
-                    : "border-gray-300 dark:border-zinc-600"
+                    ? "border-sprout-success bg-sprout-success/20"
+                    : "border-sprout-medium"
                 )}
               >
                 {step.id < currentStep ? (
@@ -586,7 +579,7 @@ export const SmartWateringWizard = ({
                   step.icon
                 )}
               </div>
-              <span className="text-xs font-medium dark:text-zinc-200">
+              <span className="text-xs font-medium text-sprout-white">
                 {step.title}
               </span>
             </div>
@@ -603,7 +596,7 @@ export const SmartWateringWizard = ({
               variant="outline"
               onClick={goToPreviousStep}
               disabled={currentStep === 1}
-              className="flex items-center gap-2 dark:border-green-400 dark:text-green-400 dark:hover:bg-green-400 dark:hover:text-green-900"
+              className="flex items-center gap-2 border-sprout-light text-sprout-light hover:bg-sprout-light hover:text-sprout-dark"
             >
               <ChevronLeft className="w-4 h-4" />
               Previous
@@ -611,7 +604,7 @@ export const SmartWateringWizard = ({
             <Button
               onClick={goToNextStep}
               disabled={!canProceedToNextStep()}
-              className="flex items-center gap-2 bg-plant-primary hover:bg-plant-primary/90 dark:bg-green-400 dark:text-green-900 dark:hover:bg-green-300"
+              className="flex items-center gap-2 bg-sprout-success hover:bg-sprout-success/90 text-sprout-white"
             >
               {currentStep === 3 ? "Calculate Schedule" : "Continue"}
               <ChevronRight className="w-4 h-4" />
