@@ -50,7 +50,7 @@ const MyPlantCard = ({
 
         // If watered within the last 12 hours, show success green (watered today)
         if (hoursDiff <= 12) {
-          return "bg-green-600 text-white border-green-600";
+          return "bg-sprout-success text-white border-sprout-success";
         }
       }
 
@@ -62,8 +62,8 @@ const MyPlantCard = ({
     if (daysUntilWatering <= 2)
       return "bg-orange-500 text-white border-orange-500";
 
-    // Not due for 3+ days - show green
-    return "bg-green-500 text-white border-green-500";
+    // Not due for 3+ days - show sprout-success green
+    return "bg-sprout-success text-white border-sprout-success";
   };
 
   const getStatusText = () => {
