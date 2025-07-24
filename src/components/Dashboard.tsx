@@ -47,7 +47,7 @@ import PlantImage from "@/components/ui/plant-image";
 import { format, formatDistanceToNow } from "date-fns";
 
 const Dashboard = () => {
-  const { plants, loading, waterPlant } = useUserPlants();
+  const { plants, loading, waterPlant, fetchPlants } = useUserPlants();
   const { profileData, isLoadingProfile } = useProfile();
   const navigate = useNavigate();
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -718,7 +718,7 @@ const Dashboard = () => {
                             "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=200&h=200&fit=crop"
                           }
                           alt={plant.nickname}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="w-full h-full object-cover transition-transform duration-300"
                         />
                       </div>
                       <p className="text-sm font-medium text-foreground text-center">
@@ -738,6 +738,7 @@ const Dashboard = () => {
         <AddPlantDialog
           isOpen={isAddDialogOpen}
           onClose={() => setIsAddDialogOpen(false)}
+          onPlantAdded={fetchPlants}
         />
 
         <AlertDialog

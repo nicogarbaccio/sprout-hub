@@ -174,7 +174,7 @@ const PaginationControls = ({
               onClick={() => onPageChange(page)}
               disabled={isChangingPage}
               className={cn(
-                "w-8 h-8 p-0 transition-all duration-200 transform hover:scale-105",
+                "w-8 h-8 p-0 transition-all duration-200 transform",
                 isCurrentPage
                   ? "bg-plant-primary hover:bg-plant-primary/90 text-white border-plant-primary shadow-sm"
                   : "bg-card border-border hover:bg-muted text-foreground hover:border-border",

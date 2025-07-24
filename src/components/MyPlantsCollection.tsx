@@ -9,6 +9,7 @@ import MyPlantCard from "./MyPlantCard";
 import RoomSection from "./RoomSection";
 import EditPlantDialog from "./EditPlantDialog";
 import AddPlantDialog from "./AddPlantDialog";
+import WateringHistoryDialog from "./WateringHistoryDialog";
 import { useUserPlants, UserPlant } from "@/hooks/useUserPlants";
 import { useAuth } from "@/contexts/AuthContext";
 import { groupPlantsByRoom } from "@/utils/rooms";
@@ -20,6 +21,8 @@ const MyPlantsCollection = () => {
   const [editingPlant, setEditingPlant] = useState<UserPlant | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [historyPlant, setHistoryPlant] = useState<UserPlant | null>(null);
+  const [isHistoryDialogOpen, setIsHistoryDialogOpen] = useState(false);
 
   const { showLoading, isReady } = useGracefulLoading(loading, {
     minLoadingTime: 0,
@@ -124,6 +127,16 @@ const MyPlantsCollection = () => {
 
   const handleCloseAddDialog = () => {
     setIsAddDialogOpen(false);
+  };
+
+  const handleViewHistory = (plant: UserPlant) => {
+    setHistoryPlant(plant);
+    setIsHistoryDialogOpen(true);
+  };
+
+  const handleCloseHistoryDialog = () => {
+    setIsHistoryDialogOpen(false);
+    setHistoryPlant(null);
   };
 
   const formatDate = (dateString: string) => {
@@ -280,6 +293,7 @@ const MyPlantsCollection = () => {
                   onEditPlant={handleEditPlant}
                   onAddPlant={handleAddPlant}
                   onPostponeWatering={postponeWatering}
+                  onViewHistory={handleViewHistory}
                   formatDate={formatDate}
                   getNextWateringDate={getNextWateringDate}
                   isOverdue={isOverdue}
@@ -300,6 +314,13 @@ const MyPlantsCollection = () => {
         <AddPlantDialog
           isOpen={isAddDialogOpen}
           onClose={handleCloseAddDialog}
+          onPlantAdded={fetchPlants}
+        />
+
+        <WateringHistoryDialog
+          plant={historyPlant}
+          isOpen={isHistoryDialogOpen}
+          onClose={handleCloseHistoryDialog}
         />
       </div>
     </section>

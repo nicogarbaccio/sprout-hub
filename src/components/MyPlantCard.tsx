@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Droplets, AlertTriangle, Edit, Clock } from "lucide-react";
+import { Droplets, AlertTriangle, Edit, Clock, History } from "lucide-react";
 import PlantImage from "@/components/ui/plant-image";
 
 interface MyPlantCardProps {
@@ -17,6 +17,7 @@ interface MyPlantCardProps {
   onWater: () => void;
   onEdit: () => void;
   onPostpone?: () => void;
+  onViewHistory?: () => void;
 }
 
 const MyPlantCard = ({
@@ -33,6 +34,7 @@ const MyPlantCard = ({
   onWater,
   onEdit,
   onPostpone,
+  onViewHistory,
 }: MyPlantCardProps) => {
   const getStatusColor = () => {
     if (hasUnknownWateringDate)
@@ -114,7 +116,7 @@ const MyPlantCard = ({
         <Button
           size="sm"
           variant="secondary"
-          className="absolute bottom-3 right-3 bg-card/90 hover:bg-card border border-border shadow-sm"
+          className="absolute bottom-3 right-3 bg-card hover:bg-card/80 border border-border shadow-sm transition-all duration-200"
           onClick={onEdit}
         >
           <Edit className="w-4 h-4" />
@@ -148,6 +150,21 @@ const MyPlantCard = ({
               {nextWateringDue}
             </span>
           </div>
+
+          {/* View History Button */}
+          {onViewHistory && (
+            <div className="pt-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onViewHistory}
+                className="w-full text-xs text-sprout-cream hover:text-sprout-white hover:bg-sprout-medium/20 dark:text-sprout-cream dark:hover:text-sprout-white dark:hover:bg-sprout-light/10 font-medium border border-sprout-cream/20 hover:border-sprout-cream/40"
+              >
+                <History className="w-3 h-3 mr-1" />
+                View Watering History
+              </Button>
+            </div>
+          )}
         </div>
 
         {/* Show postpone option only when plant is due/overdue AND has watering history */}

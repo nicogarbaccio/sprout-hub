@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Moon, Sun, Monitor } from "lucide-react";
+import { Moon, Sun, Monitor, Check } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -35,21 +35,30 @@ export function ThemeToggle() {
           className="hover:bg-sprout-light/20 dark:hover:bg-sprout-medium/20 text-foreground dark:text-sprout-cream"
         >
           <Sun className="mr-2 h-4 w-4 text-sprout-primary dark:text-sprout-warning" />
-          <span>Light</span>
+          <span className="flex-1">Light</span>
+          {theme === "light" && (
+            <Check className="ml-2 h-4 w-4 text-sprout-primary dark:text-sprout-warning" />
+          )}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme("dark")}
           className="hover:bg-sprout-light/20 dark:hover:bg-sprout-medium/20 text-foreground dark:text-sprout-cream"
         >
           <Moon className="mr-2 h-4 w-4 text-sprout-primary dark:text-sprout-white" />
-          <span>Dark</span>
+          <span className="flex-1">Dark</span>
+          {theme === "dark" && (
+            <Check className="ml-2 h-4 w-4 text-sprout-primary dark:text-sprout-white" />
+          )}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme("system")}
           className="hover:bg-sprout-light/20 dark:hover:bg-sprout-medium/20 text-foreground dark:text-sprout-cream"
         >
           <Monitor className="mr-2 h-4 w-4 text-sprout-medium dark:text-sprout-light" />
-          <span>System</span>
+          <span className="flex-1">System</span>
+          {theme === "system" && (
+            <Check className="ml-2 h-4 w-4 text-sprout-medium dark:text-sprout-light" />
+          )}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

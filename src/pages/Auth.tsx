@@ -15,6 +15,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SignInForm from "@/components/auth/SignInForm";
 import SignUpForm from "@/components/auth/SignUpForm";
+import { ThemeAwareLogo } from "@/components/ui/theme-aware-logo";
 
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -58,11 +59,7 @@ const Auth = () => {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <img
-                src="/Logo.svg"
-                alt="SproutHub Logo"
-                className="h-12 w-auto"
-              />
+              <ThemeAwareLogo className="h-12 w-auto" />
               <span className="text-3xl font-bold text-sprout-dark dark:text-sprout-cream ">
                 sprouthub
               </span>

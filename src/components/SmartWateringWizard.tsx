@@ -542,11 +542,11 @@ export const SmartWateringWizard = ({
               Step {currentStep} of {STEPS.length}
             </span>
             <span>
-              {Math.round((currentStep / STEPS.length) * 100)}% complete
+              {Math.round(((currentStep - 1) / STEPS.length) * 100)}% complete
             </span>
           </div>
           <Progress
-            value={(currentStep / STEPS.length) * 100}
+            value={((currentStep - 1) / STEPS.length) * 100}
             className="h-2"
           />
         </div>

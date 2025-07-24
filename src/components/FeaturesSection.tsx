@@ -64,7 +64,7 @@ const FeaturesSection = () => {
           {features.map((feature, index) => (
             <div key={index} className="group">
               <div className="bg-sprout-primary border border-sprout-cream/30 rounded-2xl p-8 h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-sprout-cream/50">
-                <div className="w-12 h-12 bg-sprout-primary border-2 border-sprout-cream rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 p-2">
+                <div className="w-12 h-12 bg-sprout-primary border-2 border-sprout-cream rounded-xl flex items-center justify-center mb-6 transition-transform duration-300 p-2">
                   <feature.icon className="w-6 h-6 text-sprout-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-sprout-white mb-3 font-poppins">

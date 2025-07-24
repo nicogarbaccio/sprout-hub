@@ -23,7 +23,7 @@ export default {
 				'poppins': ['Poppins', 'sans-serif'],
 			},
 			colors: {
-				// SproutHub Brand Palette
+				// Brand Palette
 				'sprout': {
 					// Primary Green Spectrum
 					'dark': '#1d3c28',      // Dark forest green for headers, navigation, primary text

@@ -59,12 +59,14 @@ interface AddPlantDialogProps {
   isOpen: boolean;
   onClose: () => void;
   plantData?: PlantData | null;
+  onPlantAdded?: () => void; // Optional callback to refresh parent's plant list
 }
 
 const AddPlantDialog = ({
   isOpen,
   onClose,
   plantData,
+  onPlantAdded,
 }: AddPlantDialogProps) => {
   const { addPlant } = useUserPlants();
   const [formData, setFormData] = useState({
@@ -178,6 +180,7 @@ const AddPlantDialog = ({
     });
 
     if (success) {
+      onPlantAdded?.(); // Refresh parent's plant list if callback provided
       onClose();
     }
 
@@ -246,6 +249,95 @@ const AddPlantDialog = ({
     { value: 21, label: "Every 3 weeks" },
     { value: 30, label: "Monthly (30 days)" },
   ];
+
+  // Enhanced plant matching function
+  const findPlantInCatalog = (searchName: string) => {
+    const normalizedSearch = searchName.toLowerCase().trim();
+
+    // Exact match first
+    let plant = allPlants.find(
+      (p) => p.name.toLowerCase() === normalizedSearch
+    );
+
+    // Fuzzy match if no exact match (for slight variations like "Snake Man" vs "Snake Plant")
+    if (!plant) {
+      plant = allPlants.find(
+        (p) =>
+          p.name.toLowerCase().includes(normalizedSearch) ||
+          normalizedSearch.includes(p.name.toLowerCase()) ||
+          // Handle common variations
+          (normalizedSearch.includes("snake") &&
+            p.name.toLowerCase().includes("snake")) ||
+          (normalizedSearch.includes("peace") &&
+            p.name.toLowerCase().includes("peace"))
+      );
+    }
+
+    return plant;
+  };
+
+  // Helper function to handle plant selection and update watering frequency
+  const handlePlantSelection = (selectedPlantName: string) => {
+    // Find the plant data in the catalog with enhanced matching
+    const selectedPlant = findPlantInCatalog(selectedPlantName);
+
+    // Update form data with plant type and image if available
+    setFormData((prev) => ({
+      ...prev,
+      plant_type: selectedPlantName,
+      image: selectedPlant?.image || prev.image, // Auto-assign catalog image if available
+    }));
+
+    // If plant found in catalog, update watering frequency
+    if (selectedPlant && selectedPlant.suggestedWateringDays) {
+      const suggestedDays = selectedPlant.suggestedWateringDays;
+
+      // Update watering schedule days
+      setFormData((prev) => ({
+        ...prev,
+        watering_schedule_days: suggestedDays,
+      }));
+
+      // Check if the suggested days match any preset option
+      const presetOptions = [3, 7, 10, 14, 21, 30];
+      if (presetOptions.includes(suggestedDays)) {
+        // Use preset option - show in dropdown
+        setIsCustomSelected(false);
+        setCustomDays("");
+      } else {
+        // Use custom value - show in custom input
+        setIsCustomSelected(true);
+        setCustomDays(suggestedDays.toString());
+      }
+    }
+
+    // Reset other plant type related states
+    setIsCustomPlantType(false);
+    setCustomPlantType("");
+    setPlantTypeSearch("");
+    setIsPlantTypePopoverOpen(false);
+  };
+
+  // Helper function to handle custom plant type selection
+  const handleCustomPlantSelection = (customPlantName: string) => {
+    // Check if this "custom" plant actually exists in catalog (fuzzy match)
+    const catalogPlant = findPlantInCatalog(customPlantName);
+
+    if (catalogPlant) {
+      // If found in catalog, treat as regular plant selection
+      handlePlantSelection(catalogPlant.name);
+    } else {
+      // True custom plant - no catalog data available
+      setFormData((prev) => ({
+        ...prev,
+        plant_type: customPlantName,
+      }));
+      setIsCustomPlantType(true);
+      setCustomPlantType(customPlantName);
+      setPlantTypeSearch("");
+      setIsPlantTypePopoverOpen(false);
+    }
+  };
 
   // Determine the current select value
   const getCurrentSelectValue = () => {
@@ -331,16 +423,7 @@ const AddPlantDialog = ({
                         <div
                           key={type}
                           className="flex items-center px-2 py-2 text-sm cursor-pointer hover:bg-gray-100 rounded-sm"
-                          onClick={() => {
-                            setFormData((prev) => ({
-                              ...prev,
-                              plant_type: type,
-                            }));
-                            setIsCustomPlantType(false);
-                            setCustomPlantType("");
-                            setPlantTypeSearch("");
-                            setIsPlantTypePopoverOpen(false);
-                          }}
+                          onClick={() => handlePlantSelection(type)}
                         >
                           <Check
                             className={cn(
@@ -361,16 +444,9 @@ const AddPlantDialog = ({
                       ) && (
                         <div
                           className="flex items-center px-2 py-2 text-sm cursor-pointer hover:bg-gray-100 rounded-sm"
-                          onClick={() => {
-                            setFormData((prev) => ({
-                              ...prev,
-                              plant_type: plantTypeSearch,
-                            }));
-                            setIsCustomPlantType(true);
-                            setCustomPlantType(plantTypeSearch);
-                            setPlantTypeSearch("");
-                            setIsPlantTypePopoverOpen(false);
-                          }}
+                          onClick={() =>
+                            handleCustomPlantSelection(plantTypeSearch)
+                          }
                         >
                           <Check className="mr-2 h-4 w-4 opacity-0" />
                           Add "{plantTypeSearch}" as custom
@@ -541,7 +617,7 @@ const AddPlantDialog = ({
             <Button
               type="button"
               variant="outline"
-              className="w-full mt-2 text-sm border-plant-primary/30 hover:bg-plant-primary/5 hover:border-plant-primary"
+              className="w-full mt-2 text-sm border-plant-primary/30 hover:bg-plant-primary/5 hover:border-plant-primary dark:bg-sprout-success dark:hover:bg-sprout-success/90 dark:border-sprout-success dark:text-white"
               onClick={() => setIsSmartWizardOpen(true)}
             >
               <Brain className="w-4 h-4 mr-2" />
@@ -613,7 +689,7 @@ const AddPlantDialog = ({
                 !formData.plant_type.trim() ||
                 isSubmitting
               }
-              className="flex-1 bg-plant-primary hover:bg-plant-primary/90 text-white"
+              className="flex-1 bg-plant-primary hover:bg-plant-primary/90 text-white dark:bg-sprout-medium dark:hover:bg-sprout-medium/90 dark:text-white"
             >
               {isSubmitting ? "Adding..." : "Add Plant"}
             </Button>

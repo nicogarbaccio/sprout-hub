@@ -14,6 +14,7 @@ interface RoomSectionProps {
   onEditPlant: (plant: UserPlant) => void;
   onAddPlant: () => void;
   onPostponeWatering?: (plantId: string) => void;
+  onViewHistory?: (plant: UserPlant) => void;
   formatDate: (dateString: string) => string;
   getNextWateringDate: (
     lastWatered: string | undefined,
@@ -35,6 +36,7 @@ const RoomSection = ({
   onEditPlant,
   onAddPlant,
   onPostponeWatering,
+  onViewHistory,
   formatDate,
   getNextWateringDate,
   isOverdue,
@@ -275,6 +277,9 @@ const RoomSection = ({
                   onPostponeWatering
                     ? () => onPostponeWatering(plant.id)
                     : undefined
+                }
+                onViewHistory={
+                  onViewHistory ? () => onViewHistory(plant) : undefined
                 }
               />
             );

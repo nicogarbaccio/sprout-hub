@@ -30,6 +30,7 @@ import { useNavigate, Link } from "react-router-dom";
 import * as React from "react";
 import { ThemeToggle, SimpleThemeToggle } from "@/components/ui/theme-toggle";
 import { toast } from "@/hooks/use-toast";
+import { ThemeAwareLogo } from "@/components/ui/theme-aware-logo";
 
 const Navigation = () => {
   const { user, signOut } = useAuth();
@@ -84,7 +85,7 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center gap-3 group">
-            <img src="/Logo.svg" alt="SproutHub Logo" className="h-8 w-auto" />
+            <ThemeAwareLogo className="h-8 w-auto" />
             <span className="text-2xl font-bold text-sprout-primary dark:text-sprout-cream transition-colors duration-200">
               sprouthub
             </span>
@@ -142,7 +143,7 @@ const Navigation = () => {
                     }}
                   >
                     <Avatar
-                      className="w-10 h-10 transition-all duration-200 hover:ring-4 hover:ring-sprout-primary dark:hover:ring-white hover:ring-offset-2 dark:hover:ring-offset-background hover:scale-105 hover:shadow-lg"
+                      className="w-10 h-10 transition-all duration-200 hover:ring-4 hover:ring-sprout-primary dark:hover:ring-white hover:ring-offset-2 dark:hover:ring-offset-background hover:shadow-lg"
                       style={{
                         border: "none",
                         outline: "none",

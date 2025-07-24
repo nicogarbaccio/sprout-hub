@@ -63,16 +63,55 @@ const EditPlantDialog = ({
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // Store original values to track changes
+  const [originalValues, setOriginalValues] = useState({
+    nickname: "",
+    plantType: "",
+    image: "",
+    room: "",
+    suggestedWateringDays: 7,
+  });
+
   useEffect(() => {
     if (plant) {
-      setNickname(plant.nickname);
-      setPlantType(plant.plant_type);
-      setImage(plant.image || "");
-      setRoom(plant.room || NO_ROOM_VALUE);
-      setSuggestedWateringDays(plant.suggested_watering_days || 7);
+      const initialNickname = plant.nickname;
+      const initialPlantType = plant.plant_type;
+      const initialImage = plant.image || "";
+      const initialRoom = plant.room || NO_ROOM_VALUE;
+      const initialWateringDays = plant.suggested_watering_days || 7;
+
+      // Set current values
+      setNickname(initialNickname);
+      setPlantType(initialPlantType);
+      setImage(initialImage);
+      setRoom(initialRoom);
+      setSuggestedWateringDays(initialWateringDays);
+
+      // Store original values for comparison
+      setOriginalValues({
+        nickname: initialNickname,
+        plantType: initialPlantType,
+        image: initialImage,
+        room: initialRoom,
+        suggestedWateringDays: initialWateringDays,
+      });
+
       loadWateringRecords(plant.id);
     }
   }, [plant]);
+
+  // Function to check if any changes have been made
+  const hasChanges = () => {
+    if (!plant) return false;
+
+    return (
+      nickname !== originalValues.nickname ||
+      plantType !== originalValues.plantType ||
+      image !== originalValues.image ||
+      room !== originalValues.room ||
+      suggestedWateringDays !== originalValues.suggestedWateringDays
+    );
+  };
 
   const loadWateringRecords = async (plantId: string) => {
     try {
@@ -255,7 +294,15 @@ const EditPlantDialog = ({
             <Button variant="outline" onClick={onClose}>
               Cancel
             </Button>
-            <Button onClick={handleSave} disabled={isLoading}>
+            <Button
+              onClick={handleSave}
+              disabled={isLoading || !hasChanges()}
+              className={`${
+                hasChanges()
+                  ? "bg-sprout-primary hover:bg-sprout-primary/90 text-white dark:bg-sprout-medium dark:hover:bg-sprout-medium/90"
+                  : "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed hover:bg-gray-300 dark:hover:bg-gray-600"
+              }`}
+            >
               {isLoading ? "Saving..." : "Save Changes"}
             </Button>
           </div>

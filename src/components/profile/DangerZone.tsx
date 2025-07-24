@@ -19,7 +19,7 @@ const DangerZone: React.FC<DangerZoneProps> = ({
   isLoading,
 }) => {
   return (
-    <Card className="border-red-200 dark:border-red-800/50">
+    <Card>
       <CardHeader>
         <div className="flex items-center space-x-2">
           <Trash2 className="w-5 h-5 text-sprout-error dark:text-sprout-error" />
