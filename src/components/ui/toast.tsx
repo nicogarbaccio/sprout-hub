@@ -29,17 +29,17 @@ const toastVariants = cva(
       variant: {
         default: "border-border bg-background text-foreground shadow-sm",
         success:
-          "border-sprout-success/40 bg-sprout-success/90 text-white shadow-sm dark:border-sprout-success/60 dark:bg-sprout-success/85 dark:text-white",
+          "border-sprout-success bg-sprout-success text-white shadow-sm dark:border-sprout-success dark:bg-sprout-success dark:text-white",
         warning:
-          "border-sprout-warning/40 bg-sprout-warning/90 text-white shadow-sm dark:border-sprout-warning/60 dark:bg-sprout-warning/85 dark:text-white",
+          "border-sprout-warning bg-sprout-warning text-white shadow-sm dark:border-sprout-warning dark:bg-sprout-warning dark:text-white",
         error:
-          "border-sprout-error/40 bg-sprout-error/90 text-white shadow-sm dark:border-sprout-error/60 dark:bg-sprout-error/85 dark:text-white",
-        info: "border-sprout-water/40 bg-sprout-water/90 text-white shadow-sm dark:border-sprout-water/60 dark:bg-sprout-water/85 dark:text-white",
+          "border-sprout-error bg-sprout-error text-white shadow-sm dark:border-sprout-error dark:bg-sprout-error dark:text-white",
+        info: "border-sprout-water bg-sprout-water text-white shadow-sm dark:border-sprout-water dark:bg-sprout-water dark:text-white",
         watering:
-          "border-sprout-water/50 bg-gradient-to-r from-sprout-water/90 to-sprout-success/85 text-white shadow-sm dark:border-sprout-water/70 dark:from-sprout-water/85 dark:to-sprout-success/80 dark:text-white",
+          "border-sprout-water bg-gradient-to-r from-sprout-water to-sprout-success text-white shadow-sm dark:border-sprout-water dark:from-sprout-water dark:to-sprout-success dark:text-white",
         // Keep legacy destructive for backward compatibility
         destructive:
-          "border-sprout-error/40 bg-sprout-error/90 text-white shadow-sm dark:border-sprout-error/60 dark:bg-sprout-error/85 dark:text-white",
+          "border-sprout-error bg-sprout-error text-white shadow-sm dark:border-sprout-error dark:bg-sprout-error dark:text-white",
       },
     },
     defaultVariants: {
@@ -85,7 +85,7 @@ const ToastClose = React.forwardRef<
   <ToastPrimitives.Close
     ref={ref}
     className={cn(
-      "absolute right-2 top-2 rounded-md p-1 text-foreground/50 opacity-0 transition-all duration-200 hover:text-foreground hover:scale-110 focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-sprout-error/70 group-[.destructive]:hover:text-sprout-error group-[.destructive]:focus:ring-sprout-error/50 group-[.error]:text-sprout-error/70 group-[.error]:hover:text-sprout-error group-[.error]:focus:ring-sprout-error/50",
+      "absolute right-2 top-2 rounded-md p-1 text-white/70 opacity-0 transition-all duration-200 hover:text-white hover:scale-110 focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.default]:text-foreground/50 group-[.default]:hover:text-foreground group-[.destructive]:text-white/70 group-[.destructive]:hover:text-white group-[.destructive]:focus:ring-white/30 group-[.error]:text-white/70 group-[.error]:hover:text-white group-[.error]:focus:ring-white/30 group-[.success]:text-white/70 group-[.success]:hover:text-white group-[.warning]:text-white/70 group-[.warning]:hover:text-white group-[.info]:text-white/70 group-[.info]:hover:text-white group-[.watering]:text-white/70 group-[.watering]:hover:text-white",
       className
     )}
     toast-close=""
