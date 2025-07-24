@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { plantToast, wateringToast, utilityToast } from "@/utils/toast-helpers";
 import { NO_ROOM_VALUE } from "@/utils/rooms";
 import PlantDetailsForm from "./edit-plant/PlantDetailsForm";
 import WateringRecordForm from "./edit-plant/WateringRecordForm";
@@ -52,7 +52,7 @@ const EditPlantDialog = ({
   onClose,
   onUpdate,
 }: EditPlantDialogProps) => {
-  const { toast } = useToast();
+  // Using enhanced toast helpers for better UX
   const [nickname, setNickname] = useState("");
   const [plantType, setPlantType] = useState("");
   const [image, setImage] = useState("");
@@ -125,11 +125,7 @@ const EditPlantDialog = ({
       setWateringRecords(data || []);
     } catch (error) {
       console.error("Error loading watering records:", error);
-      toast({
-        title: "Error",
-        description: "Failed to load watering records",
-        variant: "destructive",
-      });
+      wateringToast.error("loading");
     }
   };
 
@@ -213,10 +209,7 @@ const EditPlantDialog = ({
 
       if (error) throw error;
 
-      toast({
-        title: "Success",
-        description: "Watering record deleted",
-      });
+      wateringToast.deleted();
 
       if (plant) {
         loadWateringRecords(plant.id);
@@ -240,10 +233,7 @@ const EditPlantDialog = ({
         .delete()
         .eq("id", plant.id);
       if (error) throw error;
-      toast({
-        title: "Plant deleted",
-        description: "The plant has been removed from your collection.",
-      });
+      plantToast.deleted(nickname || plantType);
       setIsDeleteDialogOpen(false);
       onUpdate();
       onClose();

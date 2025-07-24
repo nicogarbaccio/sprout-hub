@@ -13,6 +13,7 @@ import PlantDetails from "./pages/PlantDetails";
 import MyPlants from "./pages/MyPlants";
 import Profile from "./pages/Profile";
 import SkeletonDemo from "./pages/SkeletonDemo";
+import ToastDemo from "./components/ToastDemo";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ const App = () => (
                 <Route path="/my-plants" element={<MyPlants />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/skeleton-demo" element={<SkeletonDemo />} />
+                <Route path="/toast-demo" element={<ToastDemo />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

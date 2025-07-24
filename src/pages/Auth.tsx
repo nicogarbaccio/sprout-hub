@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Droplets } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
-import { useToast } from "@/hooks/use-toast";
+import { authToast } from "@/utils/toast-helpers";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import {
@@ -22,15 +22,21 @@ const Auth = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { signUp, signIn, user } = useAuth();
-  const { toast } = useToast();
+  const [hasShownSuccessToast, setHasShownSuccessToast] = useState(false);
 
   useEffect(() => {
-    if (user) {
-      // Get the redirect URL from search params
-      const redirectTo = searchParams.get("redirect") || "/";
-      navigate(redirectTo);
+    if (user && !hasShownSuccessToast) {
+      // Show success toast when user signs in
+      authToast.signInSuccess();
+      setHasShownSuccessToast(true);
+
+      // Navigate after a short delay to let user see the toast
+      setTimeout(() => {
+        const redirectTo = searchParams.get("redirect") || "/";
+        navigate(redirectTo);
+      }, 1000);
     }
-  }, [user, navigate, searchParams]);
+  }, [user, navigate, searchParams, hasShownSuccessToast]);
 
   const handleSignIn = async (emailOrUsername: string, password: string) => {
     setIsLoading(true);
@@ -79,18 +85,10 @@ const Auth = () => {
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="signin">
-                <SignInForm
-                  isLoading={isLoading}
-                  onSignIn={handleSignIn}
-                  toast={toast}
-                />
+                <SignInForm isLoading={isLoading} onSignIn={handleSignIn} />
               </TabsContent>
               <TabsContent value="signup">
-                <SignUpForm
-                  isLoading={isLoading}
-                  onSignUp={handleSignUp}
-                  toast={toast}
-                />
+                <SignUpForm isLoading={isLoading} onSignUp={handleSignUp} />
               </TabsContent>
             </Tabs>
           </CardContent>

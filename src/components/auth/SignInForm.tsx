@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
+import { authToast } from "@/utils/toast-helpers";
 import type { ToastProps } from "@/components/ui/toast";
 
 /**
@@ -14,11 +15,6 @@ export interface SignInFormProps {
     email: string,
     password: string
   ) => Promise<{ error?: { message: string } } | void>;
-  toast: (args: {
-    title?: React.ReactNode;
-    description?: React.ReactNode;
-    variant?: "default" | "destructive";
-  }) => void;
 }
 
 /**
@@ -27,7 +23,6 @@ export interface SignInFormProps {
 export const SignInForm: React.FC<SignInFormProps> = ({
   isLoading,
   onSignIn,
-  toast,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -39,11 +34,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
     e.preventDefault();
     const { error } = (await onSignIn(formData.email, formData.password)) || {};
     if (error) {
-      toast({
-        title: "Sign in failed",
-        description: error.message,
-        variant: "destructive",
-      });
+      authToast.signInError(error.message);
     }
   };
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SignUpFormFields } from "./SignUpFormFields";
+import { authToast } from "@/utils/toast-helpers";
 import {
   validateSignUpForm,
   hasValidationErrors,
@@ -20,11 +21,6 @@ export interface SignUpFormProps {
     lastName: string,
     username: string
   ) => Promise<{ error?: { message: string } } | void>;
-  toast: (args: {
-    title?: React.ReactNode;
-    description?: React.ReactNode;
-    variant?: "default" | "destructive";
-  }) => void;
 }
 
 /**
@@ -33,7 +29,6 @@ export interface SignUpFormProps {
 export const SignUpForm: React.FC<SignUpFormProps> = ({
   isLoading,
   onSignUp,
-  toast,
 }) => {
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
@@ -70,16 +65,9 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
       )) || {};
 
     if (error) {
-      toast({
-        title: "Sign up failed",
-        description: error.message,
-        variant: "destructive",
-      });
+      authToast.signUpError(error.message);
     } else {
-      toast({
-        title: "Sign up successful!",
-        description: "Please check your email to verify your account",
-      });
+      authToast.signUpSuccess();
     }
   };
 
