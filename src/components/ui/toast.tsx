@@ -23,23 +23,23 @@ const ToastViewport = React.forwardRef<
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
 
 const toastVariants = cva(
-  "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-lg border-2 p-4 pr-8 shadow-lg backdrop-blur-sm transition-all duration-300 data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full data-[state=open]:toast-bounce-in",
+  "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-lg border-2 p-4 pr-8 shadow-sm transition-all duration-300 data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full data-[state=open]:toast-bounce-in",
   {
     variants: {
       variant: {
-        default: "border-border bg-background/95 text-foreground shadow-md",
+        default: "border-border bg-background text-foreground shadow-sm",
         success:
-          "border-sprout-success/30 bg-sprout-success/10 text-sprout-success shadow-sprout-success/20 dark:border-sprout-success/50 dark:bg-sprout-success/20 dark:text-sprout-success dark:shadow-sprout-success/30",
+          "border-sprout-success/40 bg-sprout-success/90 text-white shadow-sm dark:border-sprout-success/60 dark:bg-sprout-success/85 dark:text-white",
         warning:
-          "border-sprout-warning/30 bg-sprout-warning/10 text-sprout-warning shadow-sprout-warning/20 dark:border-sprout-warning/50 dark:bg-sprout-warning/20 dark:text-sprout-warning dark:shadow-sprout-warning/30",
+          "border-sprout-warning/40 bg-sprout-warning/90 text-white shadow-sm dark:border-sprout-warning/60 dark:bg-sprout-warning/85 dark:text-white",
         error:
-          "border-sprout-error/30 bg-sprout-error/10 text-sprout-error shadow-sprout-error/20 dark:border-sprout-error/50 dark:bg-sprout-error/20 dark:text-sprout-error dark:shadow-sprout-error/30",
-        info: "border-sprout-water/30 bg-sprout-water/10 text-sprout-water shadow-sprout-water/20 dark:border-sprout-water/50 dark:bg-sprout-water/20 dark:text-sprout-water dark:shadow-sprout-water/30",
+          "border-sprout-error/40 bg-sprout-error/90 text-white shadow-sm dark:border-sprout-error/60 dark:bg-sprout-error/85 dark:text-white",
+        info: "border-sprout-water/40 bg-sprout-water/90 text-white shadow-sm dark:border-sprout-water/60 dark:bg-sprout-water/85 dark:text-white",
         watering:
-          "border-sprout-water/40 bg-gradient-to-r from-sprout-water/15 to-sprout-success/10 text-sprout-water shadow-sprout-water/25 dark:border-sprout-water/60 dark:from-sprout-water/25 dark:to-sprout-success/15 dark:text-sprout-water dark:shadow-sprout-water/35",
+          "border-sprout-water/50 bg-gradient-to-r from-sprout-water/90 to-sprout-success/85 text-white shadow-sm dark:border-sprout-water/70 dark:from-sprout-water/85 dark:to-sprout-success/80 dark:text-white",
         // Keep legacy destructive for backward compatibility
         destructive:
-          "border-sprout-error/30 bg-sprout-error/10 text-sprout-error shadow-sprout-error/20 dark:border-sprout-error/50 dark:bg-sprout-error/20 dark:text-sprout-error dark:shadow-sprout-error/30",
+          "border-sprout-error/40 bg-sprout-error/90 text-white shadow-sm dark:border-sprout-error/60 dark:bg-sprout-error/85 dark:text-white",
       },
     },
     defaultVariants: {
