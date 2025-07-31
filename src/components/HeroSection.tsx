@@ -8,9 +8,9 @@ const HeroSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start">
           <div className="mb-6 sm:mb-8 lg:mb-0 lg:pt-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-sprout-white mb-6 font-poppins leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground dark:text-sprout-white mb-6 font-poppins leading-tight">
               Your plants deserve the
-              <span className="text-sprout-secondary dark:text-sprout-cream">
+              <span className="text-sprout-success dark:text-sprout-cream">
                 {" "}
                 best care
               </span>
@@ -42,7 +42,7 @@ const HeroSection = () => {
                 />
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-sprout-dark border-2 border-sprout-cream rounded-xl flex items-center justify-center">
+                    <div className="w-10 h-10 bg-sprout-dark rounded-xl flex items-center justify-center">
                       <Droplets className="w-5 h-5 text-sprout-white" />
                     </div>
                     <div>
@@ -55,7 +55,7 @@ const HeroSection = () => {
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-sprout-dark border-2 border-sprout-cream rounded-xl flex items-center justify-center">
+                    <div className="w-10 h-10 bg-sprout-dark rounded-xl flex items-center justify-center">
                       <Calendar className="w-5 h-5 text-sprout-white" />
                     </div>
                     <div>
@@ -68,7 +68,7 @@ const HeroSection = () => {
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-sprout-dark border-2 border-sprout-cream rounded-xl flex items-center justify-center">
+                    <div className="w-10 h-10 bg-sprout-dark rounded-xl flex items-center justify-center">
                       <Camera className="w-5 h-5 text-sprout-white" />
                     </div>
                     <div>

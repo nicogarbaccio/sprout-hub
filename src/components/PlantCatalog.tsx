@@ -303,7 +303,7 @@ const PlantCatalog = ({
           <div className="flex justify-center mt-12">
             <Button
               onClick={handleViewAllPlants}
-              className="bg-sprout-cream hover:bg-sprout-cream/90 text-sprout-dark px-8 py-3 rounded-xl font-medium text-lg"
+              className="bg-sprout-dark hover:bg-sprout-dark/90 dark:bg-sprout-cream dark:hover:bg-sprout-cream/90 text-sprout-white dark:text-sprout-dark px-8 py-3 rounded-xl font-medium text-lg"
             >
               View All Plants
               <ArrowRight className="ml-2 w-5 h-5" />

@@ -8,6 +8,9 @@ import {
   Menu,
   X,
   Flower2,
+  LogIn,
+  Moon,
+  Sun,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,12 +32,14 @@ import { useProfileData } from "@/contexts/ProfileDataContext";
 import { useNavigate, Link } from "react-router-dom";
 import * as React from "react";
 import { ThemeToggle, SimpleThemeToggle } from "@/components/ui/theme-toggle";
+import { useTheme } from "@/contexts/ThemeContext";
 import { authToast } from "@/utils/toast-helpers";
 import { ThemeAwareLogo } from "@/components/ui/theme-aware-logo";
 
 const Navigation = () => {
   const { user, signOut } = useAuth();
   const { profileData } = useProfileData();
+  const { actualTheme, setTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleSignIn = () => {
@@ -195,51 +200,23 @@ const Navigation = () => {
                 className="w-80 bg-background dark:bg-sprout-dark p-0"
               >
                 <div className="flex flex-col h-full">
-                  <div className="flex items-center justify-between p-4 border-b">
+                  <div className="flex items-center justify-start p-4 border-b">
                     <span className="text-lg font-semibold text-foreground dark:text-sprout-cream">
                       Menu
                     </span>
-                    <SheetClose asChild>
-                      <Button variant="ghost" size="icon">
-                        <X className="h-5 w-5" />
-                        <span className="sr-only">Close menu</span>
-                      </Button>
-                    </SheetClose>
                   </div>
-                  <div className="flex flex-col gap-2 px-4 py-4 border-b">
-                    {user ? (
-                      <>
-                        <SheetClose asChild>
-                          <Link to="/profile">
-                            <Button
-                              variant="ghost"
-                              className="w-full justify-start text-foreground hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
-                            >
-                              <User className="w-4 h-4 mr-2" />
-                              <span>Profile</span>
-                            </Button>
-                          </Link>
-                        </SheetClose>
-                        <Button
-                          onClick={(event) => handleSignOut(event)}
-                          variant="ghost"
-                          className="w-full justify-start text-sprout-warning dark:text-sprout-warning hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
-                        >
-                          <LogOut className="w-4 h-4 mr-2" />
-                          <span>Sign Out</span>
-                        </Button>
-                      </>
-                    ) : (
+                  <div className="flex flex-col gap-2 px-4 py-6">
+                    {!user && (
                       <Button
                         onClick={handleSignIn}
-                        className="w-full bg-sprout-dark hover:bg-sprout-primary dark:hover:bg-sprout-medium/20 text-sprout-white font-medium"
+                        variant="ghost"
+                        className="w-full justify-start text-foreground hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
                         data-testid="mobile-nav-sign-in-button"
                       >
+                        <LogIn className="w-4 h-4 mr-2" />
                         Sign In
                       </Button>
                     )}
-                  </div>
-                  <div className="flex flex-col gap-2 px-4 py-6">
                     {user && (
                       <SheetClose asChild>
                         <Link to="/">
@@ -278,9 +255,69 @@ const Navigation = () => {
                         </Link>
                       </SheetClose>
                     )}
-                    <div className="mt-6 pt-4 border-t">
-                      <SimpleThemeToggle />
-                    </div>
+                    {user && (
+                      <div className="mt-6 pt-4 border-t">
+                        <SheetClose asChild>
+                          <Link to="/profile">
+                            <Button
+                              variant="ghost"
+                              className="w-full justify-start text-foreground hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                            >
+                              <User className="w-4 h-4 mr-2" />
+                              <span>Profile</span>
+                            </Button>
+                          </Link>
+                        </SheetClose>
+                        <Button
+                          variant="ghost"
+                          onClick={() =>
+                            setTheme(actualTheme === "dark" ? "light" : "dark")
+                          }
+                          className="w-full justify-start text-foreground hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                        >
+                          {actualTheme === "dark" ? (
+                            <Sun className="w-4 h-4 mr-2" />
+                          ) : (
+                            <Moon className="w-4 h-4 mr-2" />
+                          )}
+                          <span>
+                            {actualTheme === "dark"
+                              ? "Switch to Light Mode"
+                              : "Switch to Dark Mode"}
+                          </span>
+                        </Button>
+                        <Button
+                          onClick={(event) => handleSignOut(event)}
+                          variant="ghost"
+                          className="w-full justify-start text-sprout-warning dark:text-sprout-warning hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                        >
+                          <LogOut className="w-4 h-4 mr-2" />
+                          <span>Sign Out</span>
+                        </Button>
+                      </div>
+                    )}
+                    {!user && (
+                      <div className="mt-6 pt-4 border-t">
+                        <Button
+                          variant="ghost"
+                          onClick={() =>
+                            setTheme(actualTheme === "dark" ? "light" : "dark")
+                          }
+                          className="w-full justify-start text-foreground hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                        >
+                          {actualTheme === "dark" ? (
+                            <Sun className="w-4 h-4 mr-2" />
+                          ) : (
+                            <Moon className="w-4 h-4 mr-2" />
+                          )}
+                          <span>
+                            {actualTheme === "dark"
+                              ? "Switch to Light Mode"
+                              : "Switch to Dark Mode"}
+                          </span>
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </SheetContent>

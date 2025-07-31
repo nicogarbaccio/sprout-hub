@@ -32,7 +32,7 @@ export function ThemeToggle() {
       >
         <DropdownMenuItem
           onClick={() => setTheme("light")}
-          className="hover:bg-sprout-light/20 dark:hover:bg-sprout-medium/20 text-foreground dark:text-sprout-cream"
+          className="hover:bg-sprout-light/20 dark:hover:bg-sprout-medium/20 text-foreground dark:text-sprout-cream cursor-pointer"
         >
           <Sun className="mr-2 h-4 w-4 text-sprout-primary dark:text-sprout-warning" />
           <span className="flex-1">Light</span>
@@ -42,7 +42,7 @@ export function ThemeToggle() {
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme("dark")}
-          className="hover:bg-sprout-light/20 dark:hover:bg-sprout-medium/20 text-foreground dark:text-sprout-cream"
+          className="hover:bg-sprout-light/20 dark:hover:bg-sprout-medium/20 text-foreground dark:text-sprout-cream cursor-pointer"
         >
           <Moon className="mr-2 h-4 w-4 text-sprout-primary dark:text-sprout-white" />
           <span className="flex-1">Dark</span>
@@ -52,7 +52,7 @@ export function ThemeToggle() {
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme("system")}
-          className="hover:bg-sprout-light/20 dark:hover:bg-sprout-medium/20 text-foreground dark:text-sprout-cream"
+          className="hover:bg-sprout-light/20 dark:hover:bg-sprout-medium/20 text-foreground dark:text-sprout-cream cursor-pointer"
         >
           <Monitor className="mr-2 h-4 w-4 text-sprout-medium dark:text-sprout-light" />
           <span className="flex-1">System</span>

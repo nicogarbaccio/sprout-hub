@@ -54,7 +54,7 @@ const FeaturesSection = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-sprout-white mb-4 font-poppins">
             Everything you need to grow
           </h2>
-          <p className="text-lg text-sprout-neutral max-w-2xl mx-auto font-poppins">
+          <p className="text-lg text-white max-w-2xl mx-auto font-poppins">
             From beginners to expert gardeners, SproutHub provides all the tools
             and knowledge you need to keep your plants thriving.
           </p>
