@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Edit, Droplets } from "lucide-react";
+import { Plus, Edit, Droplets, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MyPlantCardSkeleton, Skeleton } from "@/components/ui/skeleton";
 import { CascadingContainer } from "@/components/ui/cascading-container";
@@ -223,7 +223,11 @@ const MyPlantsCollection = () => {
           <CascadingContainer delay={200}>
             <div className="bg-gradient-to-br from-plant-secondary/10 to-plant-primary/5 rounded-3xl p-12 text-center">
               <div className="w-32 h-32 bg-gradient-to-br from-plant-primary to-plant-secondary rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg">
-                <span className="text-6xl">🌱</span>
+                <img
+                  src="/LogoDark.svg"
+                  alt="SproutHub Logo"
+                  className="w-20 h-20"
+                />
               </div>
               <h3 className="text-3xl font-bold text-foreground mb-4 font-poppins">
                 Welcome to Your Plant Collection
@@ -247,8 +251,8 @@ const MyPlantsCollection = () => {
                   </p>
                 </div>
                 <div className="flex flex-col items-center p-4">
-                  <div className="w-12 h-12 bg-sprout-neutral-light rounded-full flex items-center justify-center mb-3">
-                    <span className="text-lg">🏠</span>
+                  <div className="w-12 h-12 bg-sprout-light/20 rounded-full flex items-center justify-center mb-3">
+                    <Home className="w-6 h-6 text-amber-100" />
                   </div>
                   <h4 className="font-semibold text-foreground mb-2">
                     Room Organization
@@ -273,7 +277,7 @@ const MyPlantsCollection = () => {
               <Button
                 onClick={handleAddPlant}
                 size="lg"
-                className="bg-plant-secondary hover:bg-plant-secondary/90 text-plant-primary dark:text-white rounded-xl px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
+                className="bg-sprout-success hover:bg-sprout-success/90 text-plant-primary dark:text-white rounded-xl px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
               >
                 <Plus className="w-5 h-5 mr-2" />
                 Add Your First Plant
