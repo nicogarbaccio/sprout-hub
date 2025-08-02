@@ -22,6 +22,8 @@ const Profile = () => {
     handleUpdateProfile,
     handleChangePassword,
     handleDeleteAccount,
+    hasProfileChanges,
+    hasValidPasswordChanges,
   } = useProfile();
 
   const { showLoading, isReady } = useGracefulLoading(isLoadingProfile, {
@@ -185,6 +187,7 @@ const Profile = () => {
                 setProfileData={setProfileData}
                 handleUpdateProfile={handleUpdateProfile}
                 isLoading={isLoading}
+                hasProfileChanges={hasProfileChanges}
               />
             </CascadingContainer>
 
@@ -195,6 +198,7 @@ const Profile = () => {
                   setPasswordData={setPasswordData}
                   handleChangePassword={handleChangePassword}
                   isLoading={isLoading}
+                  hasValidPasswordChanges={hasValidPasswordChanges}
                 />
               </CascadingContainer>
 

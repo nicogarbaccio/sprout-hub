@@ -176,7 +176,7 @@ const PaginationControls = ({
               className={cn(
                 "w-8 h-8 p-0 transition-all duration-200 transform",
                 isCurrentPage
-                  ? "bg-plant-primary hover:bg-plant-primary/90 text-white border-plant-primary shadow-sm"
+                  ? "bg-sprout-primary hover:bg-sprout-primary/90 text-white border-sprout-primary shadow-sm dark:bg-sprout-light dark:hover:bg-sprout-light/90 dark:text-sprout-dark dark:border-sprout-light"
                   : "bg-card border-border hover:bg-muted text-foreground hover:border-border",
                 isChangingPage && "opacity-60"
               )}

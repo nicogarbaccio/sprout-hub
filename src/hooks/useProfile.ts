@@ -20,12 +20,21 @@ interface PasswordData {
 }
 
 export const useProfile = () => {
-  const { user, signOut } = useAuth();
+  const { user, loading: authLoading, signOut } = useAuth();
   const { updateProfileData } = useProfileData();
   const navigate = useNavigate();
   const { toast } = useToast();
   
   const [profileData, setProfileData] = useState<ProfileData>({
+    first_name: "",
+    last_name: "",
+    username: "",
+    email: "",
+    avatar_url: "",
+  });
+
+  // Track original profile data for change detection
+  const [originalProfileData, setOriginalProfileData] = useState<ProfileData>({
     first_name: "",
     last_name: "",
     username: "",
@@ -43,6 +52,11 @@ export const useProfile = () => {
   const [isLoadingProfile, setIsLoadingProfile] = useState(true);
 
   useEffect(() => {
+    // Don't make auth decisions while auth is still loading
+    if (authLoading) {
+      return;
+    }
+
     if (!user) {
       toast({
         title: "Authentication Required",
@@ -53,7 +67,7 @@ export const useProfile = () => {
       return;
     }
     fetchProfile();
-  }, [user, navigate]);
+  }, [user, authLoading, navigate]);
 
   const fetchProfile = async () => {
     if (!user) return;
@@ -67,13 +81,16 @@ export const useProfile = () => {
 
       if (error) throw error;
 
-      setProfileData({
+      const fetchedProfileData = {
         first_name: data.first_name || "",
         last_name: data.last_name || "",
         username: data.username || "",
         email: data.email || user.email || "",
         avatar_url: data.avatar_url || "",
-      });
+      };
+
+      setProfileData(fetchedProfileData);
+      setOriginalProfileData(fetchedProfileData);
     } catch (error) {
       console.error("Error fetching profile:", error);
       toast({
@@ -127,6 +144,9 @@ export const useProfile = () => {
         username: profileData.username,
         avatar_url: profileData.avatar_url,
       });
+
+      // Update original data to reflect the saved state
+      setOriginalProfileData(profileData);
 
       toast({
         title: "Success",
@@ -232,6 +252,25 @@ export const useProfile = () => {
     }
   };
 
+  // Check if profile data has changed from original values
+  const hasProfileChanges = () => {
+    return (
+      profileData.first_name !== originalProfileData.first_name ||
+      profileData.last_name !== originalProfileData.last_name ||
+      profileData.username !== originalProfileData.username ||
+      profileData.avatar_url !== originalProfileData.avatar_url
+    );
+  };
+
+  // Check if password data is valid for submission
+  const hasValidPasswordChanges = () => {
+    return (
+      passwordData.newPassword.length >= 6 &&
+      passwordData.confirmPassword.length >= 6 &&
+      passwordData.newPassword === passwordData.confirmPassword
+    );
+  };
+
   return {
     profileData,
     setProfileData,
@@ -242,5 +281,7 @@ export const useProfile = () => {
     handleUpdateProfile,
     handleChangePassword,
     handleDeleteAccount,
+    hasProfileChanges,
+    hasValidPasswordChanges,
   };
 };

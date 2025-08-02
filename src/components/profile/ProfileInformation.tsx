@@ -27,6 +27,7 @@ interface ProfileInformationProps {
   setProfileData: React.Dispatch<React.SetStateAction<ProfileData>>;
   handleUpdateProfile: () => Promise<void>;
   isLoading: boolean;
+  hasProfileChanges: () => boolean;
 }
 
 const ProfileInformation: React.FC<ProfileInformationProps> = ({
@@ -34,6 +35,7 @@ const ProfileInformation: React.FC<ProfileInformationProps> = ({
   setProfileData,
   handleUpdateProfile,
   isLoading,
+  hasProfileChanges,
 }) => {
   const getInitials = () => {
     return `${profileData.first_name.charAt(0)}${profileData.last_name.charAt(
@@ -53,16 +55,18 @@ const ProfileInformation: React.FC<ProfileInformationProps> = ({
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex flex-col items-center space-y-4">
-          <Avatar className="w-24 h-24 border-2 border-border shadow-lg">
-            <AvatarImage
-              src={profileData.avatar_url}
-              className="rounded-full"
-            />
-            <AvatarFallback className="text-lg font-semibold bg-sprout-pale dark:bg-sprout-medium text-sprout-primary dark:text-white rounded-full">
-              {getInitials()}
-            </AvatarFallback>
-          </Avatar>
+        <div className="space-y-4">
+          <div className="flex justify-center">
+            <Avatar className="w-24 h-24 border-2 border-border shadow-lg">
+              <AvatarImage
+                src={profileData.avatar_url}
+                className="rounded-full"
+              />
+              <AvatarFallback className="text-lg font-semibold bg-sprout-pale dark:bg-sprout-medium text-sprout-primary dark:text-white rounded-full">
+                {getInitials()}
+              </AvatarFallback>
+            </Avatar>
+          </div>
 
           <ImageUpload
             value={profileData.avatar_url || ""}
@@ -71,6 +75,7 @@ const ProfileInformation: React.FC<ProfileInformationProps> = ({
             }
             label="Profile Picture"
             placeholder="Upload or enter avatar URL"
+            showPreview={false}
           />
         </div>
 
@@ -136,8 +141,12 @@ const ProfileInformation: React.FC<ProfileInformationProps> = ({
 
         <Button
           onClick={handleUpdateProfile}
-          disabled={isLoading}
-          className="w-full bg-sprout-success hover:bg-sprout-success/90 text-white font-medium"
+          disabled={isLoading || !hasProfileChanges()}
+          className={`w-full font-medium ${
+            hasProfileChanges() && !isLoading
+              ? "bg-sprout-success hover:bg-sprout-success/90 text-white"
+              : "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-600 cursor-not-allowed"
+          }`}
         >
           {isLoading ? "Updating..." : "Update Profile"}
         </Button>

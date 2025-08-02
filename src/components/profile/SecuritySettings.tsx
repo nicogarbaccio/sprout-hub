@@ -21,6 +21,7 @@ interface SecuritySettingsProps {
   setPasswordData: React.Dispatch<React.SetStateAction<PasswordData>>;
   handleChangePassword: () => Promise<void>;
   isLoading: boolean;
+  hasValidPasswordChanges: () => boolean;
 }
 
 const SecuritySettings: React.FC<SecuritySettingsProps> = ({
@@ -28,6 +29,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({
   setPasswordData,
   handleChangePassword,
   isLoading,
+  hasValidPasswordChanges,
 }) => {
   return (
     <Card>
@@ -63,12 +65,12 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({
 
         <Button
           onClick={handleChangePassword}
-          disabled={
-            isLoading ||
-            !passwordData.newPassword ||
-            !passwordData.confirmPassword
-          }
-          className="w-full bg-sprout-success hover:bg-sprout-success/90 text-white"
+          disabled={isLoading || !hasValidPasswordChanges()}
+          className={`w-full font-medium ${
+            hasValidPasswordChanges() && !isLoading
+              ? "bg-sprout-success hover:bg-sprout-success/90 text-white"
+              : "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-600 cursor-not-allowed"
+          }`}
         >
           {isLoading ? "Updating..." : "Change Password"}
         </Button>

@@ -11,6 +11,7 @@ interface ImageUploadProps {
   onChange: (url: string) => void;
   label?: string;
   placeholder?: string;
+  showPreview?: boolean;
 }
 
 const ImageUpload = ({
@@ -18,6 +19,7 @@ const ImageUpload = ({
   onChange,
   label = "Image",
   placeholder = "Enter image URL or upload",
+  showPreview = true,
 }: ImageUploadProps) => {
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -102,7 +104,7 @@ const ImageUpload = ({
   };
 
   return (
-    <div className="space-y-2">
+    <div className="w-full space-y-2">
       <Label htmlFor="image">{label}</Label>
 
       <div className="space-y-3">
@@ -112,11 +114,11 @@ const ImageUpload = ({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className="border-plant-secondary/30 focus:border-plant-primary"
+          className="w-full border-sprout-medium/30 focus:border-sprout-primary"
         />
 
         {/* Upload Button */}
-        <div className="flex gap-2">
+        <div className="flex gap-2 w-full">
           <Button
             type="button"
             variant="outline"
@@ -160,7 +162,7 @@ const ImageUpload = ({
         />
 
         {/* Image Preview */}
-        {value && (
+        {value && showPreview && (
           <div className="mt-2">
             <img
               src={value}

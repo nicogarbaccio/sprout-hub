@@ -154,19 +154,12 @@ const EditPlantDialog = ({
 
       if (error) throw error;
 
-      toast({
-        title: "Success",
-        description: "Plant updated successfully",
-      });
+      plantToast.updated(nickname || plantType);
       onUpdate();
       onClose();
     } catch (error) {
       console.error("Error updating plant:", error);
-      toast({
-        title: "Error",
-        description: "Failed to update plant",
-        variant: "destructive",
-      });
+      plantToast.error("update");
     } finally {
       setIsLoading(false);
     }
@@ -184,19 +177,12 @@ const EditPlantDialog = ({
 
       if (error) throw error;
 
-      toast({
-        title: "Success",
-        description: "Watering record added",
-      });
+      wateringToast.recorded(nickname || plantType);
 
       loadWateringRecords(plant.id);
     } catch (error) {
       console.error("Error adding watering record:", error);
-      toast({
-        title: "Error",
-        description: "Failed to add watering record",
-        variant: "destructive",
-      });
+      wateringToast.error("add");
     }
   };
 
@@ -216,11 +202,7 @@ const EditPlantDialog = ({
       }
     } catch (error) {
       console.error("Error deleting watering record:", error);
-      toast({
-        title: "Error",
-        description: "Failed to delete watering record",
-        variant: "destructive",
-      });
+      wateringToast.error("delete");
     }
   };
 
@@ -239,11 +221,7 @@ const EditPlantDialog = ({
       onClose();
     } catch (error) {
       console.error("Error deleting plant:", error);
-      toast({
-        title: "Error",
-        description: "Failed to delete plant",
-        variant: "destructive",
-      });
+      plantToast.error("delete");
     } finally {
       setIsDeleting(false);
     }
