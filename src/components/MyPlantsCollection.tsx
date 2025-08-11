@@ -16,7 +16,7 @@ import { groupPlantsByRoom } from "@/utils/rooms";
 
 const MyPlantsCollection = () => {
   const { user } = useAuth();
-  const { plants, loading, fetchPlants, waterPlant, postponeWatering } =
+  const { plants, loading, fetchPlants, waterPlant, postponeWatering, overwateringByPlantId } =
     useUserPlants();
   const [editingPlant, setEditingPlant] = useState<UserPlant | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -102,6 +102,11 @@ const MyPlantsCollection = () => {
   const unknownWateringCount = plants.filter(
     (plant) => !plant.latest_watering
   ).length;
+
+  const overwateringCount = plants.filter((p) => {
+    const risk = overwateringByPlantId[p.id];
+    return risk && risk.level !== 'none';
+  }).length;
 
   // Room statistics
   const roomGroups = groupPlantsByRoom(plants);
@@ -206,6 +211,11 @@ const MyPlantsCollection = () => {
                     {unknownWateringCount} unknown schedule
                   </span>
                 )}
+                {overwateringCount > 0 && (
+                  <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full">
+                    {overwateringCount} overwatering risk
+                  </span>
+                )}
               </div>
             </div>
 
@@ -302,6 +312,7 @@ const MyPlantsCollection = () => {
                   getNextWateringDate={getNextWateringDate}
                   isOverdue={isOverdue}
                   delay={200 + index * 100}
+                  overwateringByPlantId={overwateringByPlantId}
                 />
               )
             )}

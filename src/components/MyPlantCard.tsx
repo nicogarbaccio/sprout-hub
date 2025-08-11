@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Droplets, AlertTriangle, Edit, Clock, History } from "lucide-react";
+import type { OverwateringRisk } from "@/utils/overwatering";
 import PlantImage from "@/components/ui/plant-image";
 
 interface MyPlantCardProps {
@@ -18,6 +19,7 @@ interface MyPlantCardProps {
   onEdit: () => void;
   onPostpone?: () => void;
   onViewHistory?: () => void;
+  overwatering?: OverwateringRisk;
 }
 
 const MyPlantCard = ({
@@ -35,6 +37,7 @@ const MyPlantCard = ({
   onEdit,
   onPostpone,
   onViewHistory,
+  overwatering,
 }: MyPlantCardProps) => {
   const getStatusColor = () => {
     if (hasUnknownWateringDate)
@@ -113,6 +116,18 @@ const MyPlantCard = ({
             {getStatusText()}
           </span>
         </div>
+        {overwatering && overwatering.level !== 'none' && (
+          <div className="absolute top-3 left-3">
+            <span className={`px-3 py-1 rounded-full text-xs font-medium border ${
+              overwatering.level === 'high'
+                ? 'bg-red-600 text-white border-red-600'
+                : 'bg-orange-500 text-white border-orange-500'
+            }`}>
+              <AlertTriangle className="w-3 h-3 inline mr-1" />
+              {overwatering.level === 'high' ? 'Possible overwatering' : 'Watch watering'}
+            </span>
+          </div>
+        )}
         <Button
           size="sm"
           variant="secondary"
@@ -150,6 +165,15 @@ const MyPlantCard = ({
               {nextWateringDue}
             </span>
           </div>
+          {overwatering && overwatering.level !== 'none' && (
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-muted-foreground">Frequency</span>
+              <span className="text-foreground">
+                {overwatering.count} in {overwatering.windowDays}d
+                {overwatering.avgIntervalDays ? ` • avg ${overwatering.avgIntervalDays}d` : ''}
+              </span>
+            </div>
+          )}
 
           {/* View History Button */}
           {onViewHistory && (
