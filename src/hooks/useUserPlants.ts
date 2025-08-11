@@ -284,10 +284,18 @@ export const useUserPlants = () => {
       setOverwateringByPlantId((prev) => ({ ...prev, [plantId]: risk }));
 
       if (risk.level !== 'none') {
-        const levelLabel = risk.level === 'high' ? 'Possible Overwatering' : 'Watch Watering Frequency';
-        const detail = `${risk.count} time${risk.count === 1 ? '' : 's'} in last ${risk.windowDays} days`;
-        const avg = risk.avgIntervalDays ? ` • Avg ${risk.avgIntervalDays}d vs ${suggestedDays}d` : '';
-        utilityToast.warning(levelLabel, `${detail}${avg}`);
+        const throttleKey = `sprouthub:overwatering:warned:${plantId}`;
+        const lastWarned = localStorage.getItem(throttleKey);
+        const nowMs = Date.now();
+        const lastMs = lastWarned ? parseInt(lastWarned, 10) : 0;
+        const dayMs = 24 * 60 * 60 * 1000;
+        if (!lastWarned || nowMs - lastMs > dayMs) {
+          const levelLabel = risk.level === 'high' ? 'Possible Overwatering' : 'Watch Watering Frequency';
+          const detail = `${risk.count} time${risk.count === 1 ? '' : 's'} in last ${risk.windowDays} days`;
+          const avg = risk.avgIntervalDays ? ` • Avg ${risk.avgIntervalDays}d vs ${suggestedDays}d` : '';
+          utilityToast.warning(levelLabel, `${detail}${avg}`);
+          try { localStorage.setItem(throttleKey, String(nowMs)); } catch {}
+        }
       }
     } catch (err) {
       console.warn('checkOverwatering failed:', err);
