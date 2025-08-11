@@ -20,7 +20,7 @@ function PlantCardSkeleton({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "bg-sprout-primary rounded-2xl shadow-md overflow-hidden border border-sprout-cream/30",
+        "bg-card rounded-2xl shadow-md overflow-hidden border border-border",
         className
       )}
     >
@@ -63,7 +63,7 @@ function MyPlantCardSkeleton({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "bg-sprout-primary rounded-2xl shadow-md overflow-hidden border border-sprout-cream/30",
+        "bg-card rounded-2xl shadow-md overflow-hidden border border-border",
         className
       )}
     >
