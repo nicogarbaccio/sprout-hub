@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Droplets, AlertTriangle, Edit, Clock, History } from "lucide-react";
+import type { OverwateringRisk } from "@/utils/overwatering";
 import PlantImage from "@/components/ui/plant-image";
 
 interface MyPlantCardProps {
@@ -18,6 +19,7 @@ interface MyPlantCardProps {
   onEdit: () => void;
   onPostpone?: () => void;
   onViewHistory?: () => void;
+  overwatering?: OverwateringRisk;
 }
 
 const MyPlantCard = ({
@@ -35,7 +37,11 @@ const MyPlantCard = ({
   onEdit,
   onPostpone,
   onViewHistory,
+  overwatering,
 }: MyPlantCardProps) => {
+  const isOverwateringActive = !!(
+    overwatering && overwatering.level !== "none"
+  );
   const getStatusColor = () => {
     if (hasUnknownWateringDate)
       return "bg-neutral-500 text-white border-neutral-500";
@@ -102,7 +108,14 @@ const MyPlantCard = ({
     <div className="bg-card rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-border">
       <div className="relative">
         <PlantImage src={image} alt={name} className="w-full h-40" />
-        <div className="absolute top-3 right-3">
+        <div
+          className={`absolute top-3 right-3 transition-opacity duration-200 ${
+            isOverwateringActive
+              ? "opacity-0 pointer-events-none"
+              : "opacity-100"
+          }`}
+          aria-hidden={isOverwateringActive}
+        >
           <span
             className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor()}`}
           >
@@ -111,6 +124,27 @@ const MyPlantCard = ({
               <AlertTriangle className="w-3 h-3 inline mr-1" />
             )}
             {getStatusText()}
+          </span>
+        </div>
+        <div
+          className={`absolute top-3 left-3 transition-opacity duration-200 ${
+            isOverwateringActive
+              ? "opacity-100"
+              : "opacity-0 pointer-events-none"
+          }`}
+          aria-hidden={!isOverwateringActive}
+        >
+          <span
+            className={`px-3 py-1 rounded-full text-xs font-medium border ${
+              overwatering?.level === "high"
+                ? "bg-red-600 text-white border-red-600"
+                : "bg-orange-500 text-white border-orange-500"
+            }`}
+          >
+            <AlertTriangle className="w-3 h-3 inline mr-1" />
+            {overwatering?.level === "high"
+              ? "Possible overwatering"
+              : "Watch watering"}
           </span>
         </div>
         <Button
@@ -150,6 +184,17 @@ const MyPlantCard = ({
               {nextWateringDue}
             </span>
           </div>
+          {overwatering && overwatering.level !== "none" && (
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-muted-foreground">Frequency</span>
+              <span className="text-foreground">
+                {overwatering.count} in {overwatering.windowDays}d
+                {overwatering.avgIntervalDays
+                  ? ` • avg ${overwatering.avgIntervalDays}d`
+                  : ""}
+              </span>
+            </div>
+          )}
 
           {/* View History Button */}
           {onViewHistory && (

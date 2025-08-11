@@ -13,10 +13,11 @@ import WateringHistoryDialog from "./WateringHistoryDialog";
 import { useUserPlants, UserPlant } from "@/hooks/useUserPlants";
 import { useAuth } from "@/contexts/AuthContext";
 import { groupPlantsByRoom } from "@/utils/rooms";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const MyPlantsCollection = () => {
   const { user } = useAuth();
-  const { plants, loading, fetchPlants, waterPlant, postponeWatering } =
+  const { plants, loading, fetchPlants, waterPlant, postponeWatering, overwateringByPlantId } =
     useUserPlants();
   const [editingPlant, setEditingPlant] = useState<UserPlant | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -102,6 +103,11 @@ const MyPlantsCollection = () => {
   const unknownWateringCount = plants.filter(
     (plant) => !plant.latest_watering
   ).length;
+
+  const overwateringCount = plants.filter((p) => {
+    const risk = overwateringByPlantId[p.id];
+    return risk && risk.level !== 'none';
+  }).length;
 
   // Room statistics
   const roomGroups = groupPlantsByRoom(plants);
@@ -206,6 +212,22 @@ const MyPlantsCollection = () => {
                     {unknownWateringCount} unknown schedule
                   </span>
                 )}
+                {overwateringCount > 0 && (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full cursor-help">
+                          {overwateringCount} overwatering risk
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="max-w-xs">
+                          We flag possible overwatering when a plant is watered 2+ times within its suggested window (e.g., 7 days), or when the average interval is less than half the suggested days.
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
               </div>
             </div>
 
@@ -302,6 +324,7 @@ const MyPlantsCollection = () => {
                   getNextWateringDate={getNextWateringDate}
                   isOverdue={isOverdue}
                   delay={200 + index * 100}
+                  overwateringByPlantId={overwateringByPlantId}
                 />
               )
             )}

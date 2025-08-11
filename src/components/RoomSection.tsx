@@ -6,6 +6,7 @@ import MyPlantCard from "./MyPlantCard";
 import EmptyRoomState from "./EmptyRoomState";
 import { UserPlant } from "@/hooks/useUserPlants";
 import { getRoomIcon, getRoomLabel, getRoomTheme } from "@/utils/rooms";
+import type { OverwateringRisk } from "@/utils/overwatering";
 
 interface RoomSectionProps {
   roomKey: string;
@@ -27,6 +28,7 @@ interface RoomSectionProps {
     hasLastWatered: boolean
   ) => boolean;
   delay: number;
+  overwateringByPlantId?: Record<string, OverwateringRisk>;
 }
 
 const RoomSection = ({
@@ -41,6 +43,7 @@ const RoomSection = ({
   getNextWateringDate,
   isOverdue,
   delay,
+  overwateringByPlantId,
 }: RoomSectionProps) => {
   const roomLabel = getRoomLabel(roomKey);
   const roomIcon = getRoomIcon(roomKey);
@@ -271,6 +274,7 @@ const RoomSection = ({
                 }
                 hasUnknownWateringDate={!hasLastWatered}
                 isPostponed={isPostponed}
+                overwatering={overwateringByPlantId ? overwateringByPlantId[plant.id] : undefined}
                 onWater={() => onWaterPlant(plant.id)}
                 onEdit={() => onEditPlant(plant)}
                 onPostpone={

@@ -6,7 +6,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Calendar, Droplets, FileText } from "lucide-react";
+import { Calendar, Droplets, FileText, AlertTriangle } from "lucide-react";
+import { computeOverwateringRisk } from "@/utils/overwatering";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
@@ -120,6 +121,10 @@ const WateringHistoryDialog = ({
   };
 
   const stats = getWateringStats();
+  const risk = computeOverwateringRisk({
+    records: wateringRecords.map((r) => ({ watered_at: r.watered_at, notes: r.notes })),
+    suggestedDays: plant?.suggested_watering_days || 7,
+  });
 
   if (!plant) return null;
 
@@ -179,6 +184,22 @@ const WateringHistoryDialog = ({
                       Avg Days Between
                     </div>
                   </div>
+                </div>
+              )}
+
+              {risk.level !== 'none' && (
+                <div className={`rounded-lg p-4 border ${
+                  risk.level === 'high' ? 'bg-red-600/10 border-red-600/30' : 'bg-orange-500/10 border-orange-500/30'
+                }`}>
+                  <div className="flex items-center justify-center gap-2 text-sm">
+                    <AlertTriangle className={`w-4 h-4 ${risk.level === 'high' ? 'text-red-600' : 'text-orange-500'}`} />
+                    <span className="font-medium">
+                      {risk.level === 'high' ? 'Possible overwatering' : 'Watch watering frequency'}
+                    </span>
+                  </div>
+                  <p className="text-center text-xs text-muted-foreground mt-1">
+                    {risk.count} in last {risk.windowDays} days{risk.avgIntervalDays ? ` • avg ${risk.avgIntervalDays}d vs ${plant?.suggested_watering_days || 7}d` : ''}
+                  </p>
                 </div>
               )}
 

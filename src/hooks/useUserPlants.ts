@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import { computeOverwateringRisk, OverwateringRisk } from '@/utils/overwatering';
+import { utilityToast } from '@/utils/toast-helpers';
 
 export interface UserPlant {
   id: string;
@@ -22,6 +24,7 @@ export const useUserPlants = () => {
   const { toast } = useToast();
   const [plants, setPlants] = useState<UserPlant[]>([]);
   const [loading, setLoading] = useState(true);
+  const [overwateringByPlantId, setOverwateringByPlantId] = useState<Record<string, OverwateringRisk>>({});
 
   const fetchPlants = async () => {
     if (!user) {
@@ -38,7 +41,50 @@ export const useUserPlants = () => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setPlants(data || []);
+      const result = data || [];
+      setPlants(result);
+
+      // After plants load, fetch recent watering records once and compute risk per plant
+      try {
+        const plantIds = result.map((p) => p.id);
+        if (plantIds.length === 0) {
+          setOverwateringByPlantId({});
+        } else {
+          const suggestedDaysList = result.map((p) => p.suggested_watering_days ?? 7);
+          const maxWindowDays = Math.min(30, Math.max(...suggestedDaysList, 7));
+          const now = new Date();
+          const start = new Date(now.getTime() - maxWindowDays * 24 * 60 * 60 * 1000).toISOString();
+          const end = now.toISOString();
+
+          const { data: records, error: recordsError } = await supabase
+            .from('watering_records')
+            .select('plant_id, watered_at, notes')
+            .in('plant_id', plantIds)
+            .gte('watered_at', start)
+            .lte('watered_at', end);
+
+          if (recordsError) throw recordsError;
+
+          const byPlant: Record<string, { watered_at: string; notes?: string | null }[]> = {};
+          (records || []).forEach((r: any) => {
+            if (!byPlant[r.plant_id]) byPlant[r.plant_id] = [];
+            byPlant[r.plant_id].push({ watered_at: r.watered_at, notes: r.notes });
+          });
+
+          const riskMap: Record<string, OverwateringRisk> = {};
+          result.forEach((p) => {
+            const recs = byPlant[p.id] || [];
+            riskMap[p.id] = computeOverwateringRisk({
+              records: recs,
+              suggestedDays: p.suggested_watering_days ?? 7,
+              now,
+            });
+          });
+          setOverwateringByPlantId(riskMap);
+        }
+      } catch (riskError) {
+        console.warn('Failed to compute overwatering risk:', riskError);
+      }
     } catch (error) {
       console.error('Error fetching plants:', error);
       toast({
@@ -141,7 +187,10 @@ export const useUserPlants = () => {
         title: 'Success',
         description: 'Plant watered successfully',
       });
-      
+
+      // Check overwatering risk for this plant and notify if needed
+      await checkOverwatering(plantId);
+
       fetchPlants();
       return true;
     } catch (error) {
@@ -208,6 +257,51 @@ export const useUserPlants = () => {
     }
   };
 
+  const checkOverwatering = async (plantId: string) => {
+    try {
+      const plant = plants.find((p) => p.id === plantId);
+      const suggestedDays = plant?.suggested_watering_days ?? 7;
+      const windowDays = Math.min(30, Math.max(suggestedDays, 2));
+      const now = new Date();
+      const start = new Date(now.getTime() - windowDays * 24 * 60 * 60 * 1000).toISOString();
+      const end = now.toISOString();
+
+      const { data: records, error } = await supabase
+        .from('watering_records')
+        .select('watered_at, notes')
+        .eq('plant_id', plantId)
+        .gte('watered_at', start)
+        .lte('watered_at', end);
+
+      if (error) throw error;
+
+      const risk = computeOverwateringRisk({
+        records: (records || []).map((r: any) => ({ watered_at: r.watered_at, notes: r.notes })),
+        suggestedDays,
+        now,
+      });
+
+      setOverwateringByPlantId((prev) => ({ ...prev, [plantId]: risk }));
+
+      if (risk.level !== 'none') {
+        const throttleKey = `sprouthub:overwatering:warned:${plantId}`;
+        const lastWarned = localStorage.getItem(throttleKey);
+        const nowMs = Date.now();
+        const lastMs = lastWarned ? parseInt(lastWarned, 10) : 0;
+        const dayMs = 24 * 60 * 60 * 1000;
+        if (!lastWarned || nowMs - lastMs > dayMs) {
+          const levelLabel = risk.level === 'high' ? 'Possible Overwatering' : 'Watch Watering Frequency';
+          const detail = `${risk.count} time${risk.count === 1 ? '' : 's'} in last ${risk.windowDays} days`;
+          const avg = risk.avgIntervalDays ? ` • Avg ${risk.avgIntervalDays}d vs ${suggestedDays}d` : '';
+          utilityToast.warning(levelLabel, `${detail}${avg}`);
+          try { localStorage.setItem(throttleKey, String(nowMs)); } catch {}
+        }
+      }
+    } catch (err) {
+      console.warn('checkOverwatering failed:', err);
+    }
+  };
+
   useEffect(() => {
     fetchPlants();
   }, [user]);
@@ -215,9 +309,11 @@ export const useUserPlants = () => {
   return {
     plants,
     loading,
+    overwateringByPlantId,
     fetchPlants,
     addPlant,
     waterPlant,
     postponeWatering,
+    checkOverwatering,
   };
 };
