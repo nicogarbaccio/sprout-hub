@@ -19,7 +19,7 @@ export function Toaster() {
             <div className="grid gap-1">
               {title && (
                 <ToastTitle
-                  {...(title === "Sign in failed"
+                  {...(title.toLowerCase().includes("sign in failed")
                     ? { "data-testid": "sign-in-error-toast" }
                     : {})}
                 >
