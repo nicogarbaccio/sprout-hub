@@ -13,6 +13,7 @@ import WateringHistoryDialog from "./WateringHistoryDialog";
 import { useUserPlants, UserPlant } from "@/hooks/useUserPlants";
 import { useAuth } from "@/contexts/AuthContext";
 import { groupPlantsByRoom } from "@/utils/rooms";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const MyPlantsCollection = () => {
   const { user } = useAuth();
@@ -212,9 +213,20 @@ const MyPlantsCollection = () => {
                   </span>
                 )}
                 {overwateringCount > 0 && (
-                  <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full">
-                    {overwateringCount} overwatering risk
-                  </span>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full cursor-help">
+                          {overwateringCount} overwatering risk
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="max-w-xs">
+                          We flag possible overwatering when a plant is watered 2+ times within its suggested window (e.g., 7 days), or when the average interval is less than half the suggested days.
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 )}
               </div>
             </div>
