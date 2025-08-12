@@ -6,7 +6,7 @@ const HeroSection = () => {
   return (
     <section className="bg-background dark:bg-sprout-dark py-16 md:py-20 lg:py-24 dark:shadow-lg dark:shadow-sprout-cream/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 md:gap-8 md:items-center lg:grid-cols-2 lg:gap-12 lg:items-center">
+        <div className="grid grid-cols-1 md:grid-cols-12 md:gap-8 md:items-center lg:grid-cols-2 lg:gap-8 xl:gap-10 lg:items-center">
           <div className="mb-6 sm:mb-8 md:col-span-7 lg:col-span-6 lg:mb-0 text-center md:text-left max-w-xl md:max-w-2xl lg:max-w-[720px] mx-auto md:mx-0">
             <h1 className="text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold text-foreground dark:text-sprout-white mb-5 md:mb-6 font-poppins leading-tight">
               <span className="block">Your plants deserve the</span>
@@ -28,7 +28,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className="relative md:col-span-5 lg:col-span-6 md:mx-0 lg:flex lg:justify-end">
+          <div className="relative md:col-span-5 lg:col-span-6 md:mx-0 lg:flex lg:justify-start">
             <div className="bg-card/80 dark:bg-sprout-dark rounded-3xl ring-1 ring-white/10 shadow-2xl p-4 md:p-5 lg:p-8 relative overflow-hidden w-full lg:w-auto max-w-sm sm:max-w-md md:max-w-md lg:min-w-[400px] lg:max-w-[640px] xl:max-w-[720px] mx-auto lg:mx-0">
               <div className="absolute inset-0 bg-gradient-to-br from-plant-secondary/5 to-plant-primary/5 rounded-3xl"></div>
               <div className="relative">
