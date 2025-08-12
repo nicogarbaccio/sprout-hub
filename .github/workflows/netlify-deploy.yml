@@ -24,10 +24,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to Netlify
-        uses: netlify/actions/cli@v4
-        with:
-          args: deploy --dir=dist --prod --message "GitHub Actions deploy"
+      - name: Deploy to Netlify (CLI)
+        run: npx --yes netlify-cli deploy --dir=dist --prod --message "GitHub Actions deploy"
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: 2e1340e1-a896-4fa3-98a6-fe2df3136ef4
