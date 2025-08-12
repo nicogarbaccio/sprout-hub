@@ -146,20 +146,22 @@ const PlantCatalog = ({
     currentPage: currentPage,
     onPageChange: handlePageChange,
     resetToFirstPage: () => setCurrentPage(1),
+    enabled: !!user && !isHomepage,
   });
 
   // Use URL-aware handlers for non-homepage
-  const paginationHandlers = isHomepage
-    ? {
-        onPageChange: handlePageChange,
-        onNextPage: handleNextPage,
-        onPreviousPage: handlePreviousPage,
-      }
-    : {
-        onPageChange: urlPagination.handlePageChange,
-        onNextPage: urlPagination.handleNextPage,
-        onPreviousPage: urlPagination.handlePreviousPage,
-      };
+  const paginationHandlers =
+    isHomepage || !user
+      ? {
+          onPageChange: handlePageChange,
+          onNextPage: handleNextPage,
+          onPreviousPage: handlePreviousPage,
+        }
+      : {
+          onPageChange: urlPagination.handlePageChange,
+          onNextPage: urlPagination.handleNextPage,
+          onPreviousPage: urlPagination.handlePreviousPage,
+        };
 
   // Add keyboard navigation for non-homepage
   useKeyboardNavigation({
@@ -244,23 +246,25 @@ const PlantCatalog = ({
 
         {!isHomepage && (
           <>
-            <PlantSearchFilters
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-              isFilterOpen={isFilterOpen}
-              setIsFilterOpen={setIsFilterOpen}
-              selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
-              selectedCareLevel={selectedCareLevel}
-              setSelectedCareLevel={setSelectedCareLevel}
-              selectedLightRequirement={selectedLightRequirement}
-              setSelectedLightRequirement={setSelectedLightRequirement}
-              categories={categories}
-              careLevels={careLevels}
-              lightRequirements={lightRequirements}
-              hasActiveFilters={hasActiveFilters}
-              clearAllFilters={clearAllFilters}
-            />
+            {user && (
+              <PlantSearchFilters
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                isFilterOpen={isFilterOpen}
+                setIsFilterOpen={setIsFilterOpen}
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+                selectedCareLevel={selectedCareLevel}
+                setSelectedCareLevel={setSelectedCareLevel}
+                selectedLightRequirement={selectedLightRequirement}
+                setSelectedLightRequirement={setSelectedLightRequirement}
+                categories={categories}
+                careLevels={careLevels}
+                lightRequirements={lightRequirements}
+                hasActiveFilters={hasActiveFilters}
+                clearAllFilters={clearAllFilters}
+              />
+            )}
 
             <PlantResultsSummary
               filteredCount={filteredPlants.length}
@@ -286,8 +290,9 @@ const PlantCatalog = ({
         />
 
         {/* Pagination Controls - Only show on full catalog page */}
-        {!isHomepage && totalPages > 1 && (
-          user ? (
+        {!isHomepage &&
+          totalPages > 1 &&
+          (user ? (
             <PaginationControls
               currentPage={currentPage}
               totalPages={totalPages}
@@ -303,11 +308,10 @@ const PlantCatalog = ({
             <div className="mt-12">
               <AuthUpsell variant="card" source="catalog" />
             </div>
-          )
-        )}
+          ))}
 
         {isHomepage && (
-          <div className="flex justify-center mt-12">
+          <div className="mt-12">
             {user ? (
               <Button
                 onClick={handleViewAllPlants}
@@ -318,9 +322,7 @@ const PlantCatalog = ({
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             ) : (
-              <div className="w-full max-w-3xl">
-                <AuthUpsell variant="card" source="homepage" />
-              </div>
+              <AuthUpsell variant="card" source="homepage" />
             )}
           </div>
         )}

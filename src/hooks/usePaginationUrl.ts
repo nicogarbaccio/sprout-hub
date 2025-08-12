@@ -5,6 +5,7 @@ interface UsePaginationUrlProps {
   currentPage: number;
   onPageChange: (page: number) => void;
   resetToFirstPage: () => void;
+  enabled?: boolean;
 }
 
 /**
@@ -15,11 +16,13 @@ export const usePaginationUrl = ({
   currentPage,
   onPageChange,
   resetToFirstPage,
+  enabled = true,
 }: UsePaginationUrlProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Read page from URL on mount and when URL changes
   useEffect(() => {
+    if (!enabled) return;
     const pageFromUrl = searchParams.get('page');
     if (pageFromUrl) {
       const pageNumber = parseInt(pageFromUrl, 10);
@@ -30,10 +33,11 @@ export const usePaginationUrl = ({
       // If no page in URL but currentPage is not 1, reset to 1
       resetToFirstPage();
     }
-  }, [searchParams]);
+  }, [searchParams, enabled, currentPage]);
 
   // Update URL when page changes
   const updateUrl = (page: number) => {
+    if (!enabled) return;
     const newSearchParams = new URLSearchParams(searchParams);
     
     if (page === 1) {
