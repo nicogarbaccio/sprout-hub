@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { AuthUpsell } from "./auth/AuthUpsell";
 import PlantCatalogHeader from "./catalog/PlantCatalogHeader";
 import PlantSearchFilters from "./catalog/PlantSearchFilters";
 import PlantResultsSummary from "./catalog/PlantResultsSummary";
@@ -286,28 +287,41 @@ const PlantCatalog = ({
 
         {/* Pagination Controls - Only show on full catalog page */}
         {!isHomepage && totalPages > 1 && (
-          <PaginationControls
-            currentPage={currentPage}
-            totalPages={totalPages}
-            hasNextPage={currentPage < totalPages}
-            hasPreviousPage={currentPage > 1}
-            isChangingPage={isChangingPage}
-            onPageChange={paginationHandlers.onPageChange}
-            onNextPage={paginationHandlers.onNextPage}
-            onPreviousPage={paginationHandlers.onPreviousPage}
-            className="mt-12"
-          />
+          user ? (
+            <PaginationControls
+              currentPage={currentPage}
+              totalPages={totalPages}
+              hasNextPage={currentPage < totalPages}
+              hasPreviousPage={currentPage > 1}
+              isChangingPage={isChangingPage}
+              onPageChange={paginationHandlers.onPageChange}
+              onNextPage={paginationHandlers.onNextPage}
+              onPreviousPage={paginationHandlers.onPreviousPage}
+              className="mt-12"
+            />
+          ) : (
+            <div className="mt-12">
+              <AuthUpsell variant="card" source="catalog" />
+            </div>
+          )
         )}
 
         {isHomepage && (
           <div className="flex justify-center mt-12">
-            <Button
-              onClick={handleViewAllPlants}
-              className="bg-sprout-dark hover:bg-sprout-dark/90 dark:bg-sprout-cream dark:hover:bg-sprout-cream/90 text-sprout-white dark:text-sprout-dark px-8 py-3 rounded-xl font-medium text-lg"
-            >
-              View All Plants
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
+            {user ? (
+              <Button
+                onClick={handleViewAllPlants}
+                className="bg-sprout-dark hover:bg-sprout-dark/90 dark:bg-sprout-cream dark:hover:bg-sprout-cream/90 text-sprout-white dark:text-sprout-dark px-8 py-3 rounded-xl font-medium text-lg"
+                data-testid="view-all-plants"
+              >
+                View All Plants
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            ) : (
+              <div className="w-full max-w-3xl">
+                <AuthUpsell variant="card" source="homepage" />
+              </div>
+            )}
           </div>
         )}
 

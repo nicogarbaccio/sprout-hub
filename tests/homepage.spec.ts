@@ -46,11 +46,13 @@ test('features section displays all feature cards', async ({ page }) => {
   }
 });
 
-test('plant catalog preview displays section and view all plants button', async ({ page }) => {
+test('plant catalog preview displays section and unauthenticated upsell or view all button', async ({ page }) => {
   await setupCleanTest(page);
   await expect(page.getByRole('heading', { name: /find your next green companion/i })).toBeVisible();
-  const viewAll = page.getByRole('button', { name: /view all plants/i });
-  await expect(viewAll).toBeVisible();
+  // Show upsell when logged out
+  await expect(page.getByTestId('auth-upsell')).toBeVisible();
+  await expect(page.getByTestId('upsell-sign-up')).toBeVisible();
+  await expect(page.getByTestId('upsell-sign-in')).toBeVisible();
   // At least one plant card
   await expect(page.locator('[data-testid="plant-card"]').first()).toBeVisible();
 });
