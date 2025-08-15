@@ -17,8 +17,11 @@ const HeroSection = () => {
             </h1>
             <p className="text-lg text-sprout-neutral-dark/80 dark:text-sprout-neutral mb-8 font-poppins">
               Never forget to water your plants again. Track care schedules,
-              browse plant guides, and build your perfect indoor garden with
-              SproutHub.
+              browse plant guides, and build your perfect indoor garden with{" "}
+              <span className="text-sprout-success dark:text-sprout-cream font-bold">
+                sprouthub
+              </span>
+              .
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/plant-catalog">

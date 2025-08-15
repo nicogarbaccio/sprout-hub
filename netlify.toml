@@ -1,0 +1,14 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[dev]
+  command = "npm run dev"
+  framework = "vite"
+  port = 5173
+  targetPort = 5173
+  autoLaunch = false
+
+# Using public/_redirects for SPA routing
+
+
