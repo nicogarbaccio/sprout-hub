@@ -27,19 +27,22 @@ export class SeleniumTestSetup {
     if (this.config.browser === 'chrome') {
       const chromeOptions = new ChromeOptions();
       if (this.config.headless) {
-        chromeOptions.headless();
+        chromeOptions.addArguments('--headless');
       }
       if (this.config.windowSize) {
-        chromeOptions.windowSize(this.config.windowSize);
+        chromeOptions.addArguments(`--window-size=${this.config.windowSize.width},${this.config.windowSize.height}`);
       }
+      chromeOptions.addArguments('--no-sandbox');
+      chromeOptions.addArguments('--disable-dev-shm-usage');
       builder = builder.forBrowser('chrome').setChromeOptions(chromeOptions);
     } else if (this.config.browser === 'firefox') {
       const firefoxOptions = new FirefoxOptions();
       if (this.config.headless) {
-        firefoxOptions.headless();
+        firefoxOptions.addArguments('--headless');
       }
       if (this.config.windowSize) {
-        firefoxOptions.windowSize(this.config.windowSize);
+        firefoxOptions.addArguments(`--width=${this.config.windowSize.width}`);
+        firefoxOptions.addArguments(`--height=${this.config.windowSize.height}`);
       }
       builder = builder.forBrowser('firefox').setFirefoxOptions(firefoxOptions);
     }
@@ -130,5 +133,5 @@ export const defaultConfig: SeleniumTestConfig = {
   browser: 'chrome',
   headless: true,
   windowSize: { width: 1920, height: 1080 },
-  baseUrl: 'http://localhost:5173' // Vite dev server default
+  baseUrl: 'http://localhost:8080' // Vite dev server actual port
 };

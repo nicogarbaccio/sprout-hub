@@ -21,6 +21,7 @@
     "test:selenium:auth": "vitest run tests/selenium/auth.spec.ts",
     "test:selenium:catalog": "vitest run tests/selenium/plant-catalog.spec.ts",
     "test:selenium:manual": "tsx tests/selenium/run-tests.ts",
+    "test:selenium:basic": "vitest run tests/selenium/basic.spec.ts",
     "ios:build": "npm run build && npx cap sync ios",
     "ios:open": "npx cap open ios",
     "ios:run": "npm run ios:build && npx cap run ios",

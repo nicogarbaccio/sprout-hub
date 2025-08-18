@@ -14,10 +14,16 @@ async function runSeleniumTests() {
     await selenium.navigateTo('/');
     console.log('✅ Navigated to homepage');
     
-    // Test element presence
+    // Test element presence with wait
     console.log('🧪 Testing element presence...');
-    const mainElement = await selenium.isElementPresent('main');
-    console.log(`✅ Main element present: ${mainElement}`);
+    try {
+      await selenium.waitForElementVisible('main', 10000);
+      console.log('✅ Main element found and visible');
+    } catch (error) {
+      console.log('⚠️ Main element not found, checking for alternative elements...');
+      const bodyElement = await selenium.isElementPresent('body');
+      console.log(`✅ Body element present: ${bodyElement}`);
+    }
     
     // Test screenshot capability
     console.log('🧪 Testing screenshot capability...');

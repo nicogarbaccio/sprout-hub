@@ -7,11 +7,12 @@ export default defineConfig({
       'src/**/*.{test,spec}.tsx',
       'src/**/__tests__/*.{test,spec}.ts',
       'src/**/__tests__/*.{test,spec}.tsx',
+      'tests/selenium/**/*.{test,spec}.ts', // include Selenium tests
     ],
     exclude: [
       'node_modules',
       'dist',
-      'tests/**', // exclude Playwright E2E
+      'tests/playwright/**', // exclude only Playwright E2E tests
     ],
     environment: 'node',
     coverage: {

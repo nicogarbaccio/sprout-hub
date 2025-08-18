@@ -1,3 +1,4 @@
+import { describe, test, expect, beforeAll, afterAll, beforeEach } from 'vitest';
 import { SeleniumTestSetup, defaultConfig } from './selenium.config';
 
 describe('Authentication Selenium Tests', () => {
