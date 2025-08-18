@@ -4,11 +4,17 @@ import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
-    <section className="bg-background dark:bg-sprout-dark py-12 sm:py-16 lg:py-20 dark:shadow-lg dark:shadow-sprout-cream/20">
+    <section
+      className="bg-background dark:bg-sprout-dark py-12 sm:py-16 lg:py-20 dark:shadow-lg dark:shadow-sprout-cream/20"
+      data-testid="hero-section"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start">
           <div className="text-center lg:text-left mb-6 sm:mb-8 lg:mb-0 lg:pt-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground dark:text-sprout-white mb-6 font-poppins leading-tight">
+            <h1
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground dark:text-sprout-white mb-6 font-poppins leading-tight"
+              data-testid="hero-title"
+            >
               Your plants deserve the
               <span className="text-sprout-success dark:text-sprout-cream">
                 {" "}
@@ -25,7 +31,10 @@ const HeroSection = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Link to="/plant-catalog">
-                <Button className="bg-sprout-dark hover:bg-sprout-primary dark:bg-sprout-cream dark:hover:bg-sprout-cream/90 text-sprout-white dark:text-sprout-dark px-8 py-3 rounded-xl font-medium text-lg">
+                <Button
+                  className="bg-sprout-dark hover:bg-sprout-primary dark:bg-sprout-cream dark:hover:bg-sprout-cream/90 text-sprout-white dark:text-sprout-dark px-8 py-3 rounded-xl font-medium text-lg"
+                  data-testid="start-growing-button"
+                >
                   Start Growing
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
