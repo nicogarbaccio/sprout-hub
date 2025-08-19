@@ -78,10 +78,10 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="bg-background dark:bg-sprout-dark shadow-sm border-b border-sprout-cream/30 dark:border-sprout-cream/20 transition-colors backdrop-blur-sm">
+    <nav className="bg-background dark:bg-sprout-dark shadow-sm border-b border-sprout-cream/30 dark:border-sprout-cream/20 transition-colors backdrop-blur-sm" data-testid="navigation">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center gap-3 group" data-testid="logo">
             <ThemeAwareLogo className="h-8 w-auto" />
             <span className="text-2xl font-bold text-sprout-primary dark:text-sprout-cream transition-colors duration-200">
               sprouthub
@@ -96,6 +96,7 @@ const Navigation = () => {
                 <Button
                   variant="ghost"
                   className="text-foreground hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                  data-testid="nav-dashboard-button"
                 >
                   <Home className="w-4 h-4" />
                   <span>Dashboard</span>
@@ -117,6 +118,7 @@ const Navigation = () => {
                 <Button
                   variant="ghost"
                   className="text-foreground hover:text-white hover:bg-sprout-medium dark:hover:bg-sprout-medium/20 dark:hover:text-white flex items-center space-x-2 transition-all duration-200 rounded-lg font-medium"
+                  data-testid="nav-my-plants-button"
                 >
                   <Flower2 className="w-4 h-4" />
                   <span>My Plants</span>
@@ -131,6 +133,7 @@ const Navigation = () => {
                     variant="ghost"
                     size="icon"
                     className="text-neutral-medium hover:text-sprout-primary p-0 !border-none !ring-0 !outline-none !focus:outline-none !focus-visible:outline-none focus:shadow-none focus-visible:shadow-none rounded-full data-[state=open]:outline-none data-[state=open]:ring-0 data-[state=open]:shadow-none group"
+                    data-testid="user-dropdown-trigger"
                     style={{
                       background: "none",
                       border: "none",
@@ -190,7 +193,7 @@ const Navigation = () => {
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button variant="ghost" size="icon" data-testid="mobile-menu-trigger">
                   <Menu className="h-6 w-6" />
                   <span className="sr-only">Toggle navigation menu</span>
                 </Button>
@@ -198,6 +201,7 @@ const Navigation = () => {
               <SheetContent
                 side="right"
                 className="w-80 bg-background dark:bg-sprout-dark p-0"
+                data-testid="mobile-menu"
               >
                 <div className="flex flex-col h-full">
                   <div className="flex items-center justify-start p-4 border-b">

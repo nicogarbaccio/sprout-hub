@@ -20,6 +20,7 @@ export function ThemeToggle() {
           variant="ghost"
           size="icon"
           className="relative h-9 w-9 rounded-full bg-transparent dark:bg-transparent border border-sprout-light/40 dark:border-sprout-cream hover:bg-sprout-light/20 dark:hover:bg-sprout-medium/20 transition-all duration-200"
+          data-testid="theme-toggle"
         >
           <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-sprout-primary dark:text-sprout-warning" />
           <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-sprout-primary dark:text-sprout-white" />
@@ -78,6 +79,7 @@ export function SimpleThemeToggle() {
       size="icon"
       onClick={toggleTheme}
       className="relative h-9 w-9 rounded-full bg-transparent dark:bg-transparent border border-sprout-light/40 dark:border-sprout-cream hover:bg-sprout-light/20 dark:hover:bg-sprout-medium/20 transition-all duration-200"
+      data-testid="simple-theme-toggle"
     >
       <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-sprout-primary dark:text-sprout-warning" />
       <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-sprout-primary dark:text-sprout-white" />

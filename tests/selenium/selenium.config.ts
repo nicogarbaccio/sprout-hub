@@ -10,7 +10,7 @@ export interface SeleniumTestConfig {
 }
 
 export class SeleniumTestSetup {
-  private driver: WebDriver | null = null;
+  public driver: WebDriver | null = null;
   private config: SeleniumTestConfig;
 
   constructor(config: SeleniumTestConfig) {

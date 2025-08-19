@@ -23,7 +23,7 @@ const PlantResultsSummary = ({
       : `Showing ${filteredCount} of ${totalCount} plants`;
 
   return (
-    <div className="mb-6 text-center">
+    <div className="mb-6 text-center" data-testid="results-summary">
       <p className="text-muted-foreground">
         {displayText}
         {hasActiveFilters && (

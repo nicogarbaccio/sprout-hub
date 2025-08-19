@@ -229,6 +229,7 @@ const PlantCatalog = ({
       className={`py-20 ${
         isDashboard ? "bg-background" : "bg-plant-neutral dark:bg-background"
       }`}
+      data-testid="plant-catalog"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {isDashboard ? (

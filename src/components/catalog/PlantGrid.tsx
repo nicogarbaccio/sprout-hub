@@ -40,7 +40,7 @@ const PlantGrid = ({
 
   if (plants.length === 0) {
     return (
-      <div className="text-center py-12 animate-fade-in">
+      <div className="text-center py-12 animate-fade-in" data-testid="no-results">
         <div className="mb-4">
           <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-plant-secondary/20 flex items-center justify-center">
             <span className="text-2xl">🌱</span>
@@ -70,6 +70,7 @@ const PlantGrid = ({
       className={cn(
         "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 transition-all duration-300"
       )}
+      data-testid="plant-grid"
     >
       {plants.map((plant, index) => (
         <div

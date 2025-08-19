@@ -95,6 +95,7 @@ const PaginationControls = ({
         isChangingPage && "opacity-60",
         className
       )}
+      data-testid="pagination-controls"
     >
       {/* Mobile: Simple Previous/Next */}
       <div className="flex sm:hidden items-center gap-2">
@@ -104,6 +105,7 @@ const PaginationControls = ({
           onClick={onPreviousPage}
           disabled={!hasPreviousPage || isChangingPage}
           className="bg-card border-border hover:bg-muted text-foreground disabled:opacity-50 transition-all duration-200"
+          data-testid="previous-page"
         >
           {isChangingPage ? (
             <Loader2 className="w-4 h-4 mr-1 animate-spin" />
@@ -123,6 +125,7 @@ const PaginationControls = ({
           onClick={onNextPage}
           disabled={!hasNextPage || isChangingPage}
           className="bg-card border-border hover:bg-muted text-foreground disabled:opacity-50 transition-all duration-200"
+          data-testid="next-page"
         >
           Next
           {isChangingPage ? (

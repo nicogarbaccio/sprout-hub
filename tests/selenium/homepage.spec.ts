@@ -18,17 +18,21 @@ describe('Homepage Selenium Tests', () => {
   });
 
   test('should load homepage successfully', async () => {
-    // Wait for the main content to load
-    await selenium.waitForElementVisible('main', 10000);
+    // Wait for the hero section to load
+    await selenium.waitForElementVisible('[data-testid="hero-section"]', 10000);
     
     // Check if the hero section is present
     const heroSection = await selenium.isElementPresent('[data-testid="hero-section"]');
     expect(heroSection).toBe(true);
+    
+    // Check if the hero title is present
+    const heroTitle = await selenium.isElementPresent('[data-testid="hero-title"]');
+    expect(heroTitle).toBe(true);
   });
 
   test('should display navigation menu', async () => {
     // Check if navigation is present
-    const nav = await selenium.isElementPresent('nav');
+    const nav = await selenium.isElementPresent('[data-testid="navigation"]');
     expect(nav).toBe(true);
 
     // Check if logo is visible
@@ -56,22 +60,26 @@ describe('Homepage Selenium Tests', () => {
     // Check if plant catalog section exists
     const catalogSection = await selenium.isElementPresent('[data-testid="plant-catalog"]');
     expect(catalogSection).toBe(true);
+    
+    // Check if start growing button is present
+    const startGrowingButton = await selenium.isElementPresent('[data-testid="start-growing-button"]');
+    expect(startGrowingButton).toBe(true);
   });
 
-  test('should have working search functionality', async () => {
-    // Check if search input is present
-    const searchInput = await selenium.isElementPresent('[data-testid="search-input"]');
-    expect(searchInput).toBe(true);
+  test('should be able to click start growing button', async () => {
+    // Check if start growing button is present
+    const startGrowingButton = await selenium.isElementPresent('[data-testid="start-growing-button"]');
+    expect(startGrowingButton).toBe(true);
 
-    // Type in search
-    await selenium.typeText('[data-testid="search-input"]', 'monstera');
+    // Click the start growing button
+    await selenium.clickElement('[data-testid="start-growing-button"]');
     
-    // Wait for search results
+    // Wait for navigation
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Verify search input contains the text
-    const searchText = await selenium.getText('[data-testid="search-input"]');
-    expect(searchText).toContain('monstera');
+    // Verify we navigated (button should take us to catalog)
+    const currentUrl = await selenium.driver?.getCurrentUrl();
+    expect(currentUrl).toContain('/plant-catalog');
   });
 
   test('should display footer with links', async () => {
@@ -83,9 +91,12 @@ describe('Homepage Selenium Tests', () => {
   });
 
   test('should be responsive on different screen sizes', async () => {
-    // This test would resize the browser window and verify responsive behavior
-    // For now, we'll just verify the page loads correctly
-    const mainContent = await selenium.isElementPresent('main');
-    expect(mainContent).toBe(true);
+    // Check basic elements are present on load
+    const heroSection = await selenium.isElementPresent('[data-testid="hero-section"]');
+    expect(heroSection).toBe(true);
+    
+    // Check navigation is responsive-friendly
+    const navigation = await selenium.isElementPresent('[data-testid="navigation"]');
+    expect(navigation).toBe(true);
   });
 });
