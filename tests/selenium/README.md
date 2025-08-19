@@ -1,6 +1,6 @@
 # Selenium WebDriver Test Suite
 
-A comprehensive end-to-end testing framework built with Selenium WebDriver, TypeScript, and Vitest. This test suite demonstrates advanced browser automation patterns, robust element selection strategies, and scalable test architecture for modern web applications.
+A comprehensive end-to-end testing framework built with Selenium WebDriver, TypeScript, and Vitest. This test suite provides robust browser automation for modern web applications with advanced patterns, reliable element selection strategies, and scalable test architecture.
 
 ## Architecture Overview
 
@@ -42,16 +42,20 @@ The tests use a configuration file (`selenium.config.ts`) that supports:
 ### Available Commands
 
 ```bash
-# Production Commands
-npm run test:selenium              # Execute full test suite
-npm run test:selenium:basic        # Core functionality validation
-npm run test:selenium:homepage     # Landing page and navigation tests  
-npm run test:selenium:auth         # Authentication flow testing
-npm run test:selenium:catalog      # Catalog and search functionality
+# Primary Commands
+npm run test                       # Execute full test suite (default: E2E)
+npm run test:e2e                   # Execute all E2E tests
+npm run test:watch                 # Watch mode for active development
+
+# Individual Test Suites
+npm run test:basic                 # Core functionality validation
+npm run test:homepage              # Landing page and navigation tests  
+npm run test:auth                  # Authentication flow testing
+npm run test:catalog               # Catalog and search functionality
 
 # Development Commands  
-npm run test:selenium:watch        # Watch mode for active development
-npm run test:selenium:manual       # Manual execution with detailed logging
+npm run test:e2e:watch             # E2E watch mode for active development
+npm run test:manual                # Manual execution with detailed logging
 
 # Advanced Execution
 npx vitest tests/selenium/ --reporter=verbose    # Detailed test output
@@ -290,8 +294,8 @@ jobs:
       - name: Wait for application
         run: npx wait-on http://localhost:8080
         
-      - name: Run Selenium tests
-        run: npm run test:selenium
+      - name: Run E2E tests
+        run: npm run test:e2e
         env:
           CI: true
 ```

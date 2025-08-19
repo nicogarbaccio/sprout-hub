@@ -41,7 +41,7 @@ SproutHub is a comprehensive plant care tracker that helps you manage your indoo
 
 ### 🛠️ Developer Experience
 - **Type Safety:** Full TypeScript implementation with strict type checking
-- **Modern Testing:** E2E testing with Playwright for reliable quality assurance
+- **Modern Testing:** E2E testing with Selenium WebDriver for reliable quality assurance
 - **Component Library:** Consistent UI with shadcn/ui and Radix UI primitives
 - **Code Quality:** ESLint, Prettier, and automated formatting
 - **Performance Optimized:** Code splitting, lazy loading, and optimized bundles
@@ -83,7 +83,8 @@ SproutHub is a comprehensive plant care tracker that helps you manage your indoo
 - **Image Optimization** - WebP format and responsive images
 
 ### Testing & Quality
-- **[Playwright](https://playwright.dev/)** - End-to-end testing across browsers
+- **[Selenium WebDriver](https://selenium.dev/)** - End-to-end testing across browsers
+- **[Vitest](https://vitest.dev/)** - Fast unit and integration testing
 - **[ESLint](https://eslint.org/)** - Code linting and quality enforcement
 - **[TypeScript ESLint](https://typescript-eslint.io/)** - TypeScript-specific linting rules
 
@@ -166,20 +167,22 @@ Database migrations are located in the `supabase/migrations/` directory.
 
 ### End-to-End Testing
 ```bash
-# Run Playwright tests
+# Run all E2E tests
+npm run test
+# or
 npm run test:e2e
-# or
-yarn test:e2e
-# or
-bun run test:e2e
 
-# Run tests in headed mode (with browser UI)
-npx playwright test --headed
+# Run tests in watch mode
+npm run test:watch
 
-# Run specific test file
-npx playwright test tests/homepage.spec.ts
-npx playwright test tests/auth.spec.ts
-npx playwright test tests/catalog.spec.ts
+# Run specific test suites
+npm run test:basic       # Core functionality
+npm run test:homepage    # Landing page tests
+npm run test:auth        # Authentication tests  
+npm run test:catalog     # Catalog functionality
+
+# Run with manual debugging
+npm run test:manual
 ```
 
 ### Test Coverage
@@ -256,9 +259,13 @@ supabase/
 └── migrations/        # Database migrations
 
 tests/                 # End-to-end tests
-├── auth.spec.ts      # Authentication tests
-├── catalog.spec.ts   # Catalog and search tests
-└── homepage.spec.ts  # Homepage tests
+└── selenium/         # Selenium WebDriver tests
+    ├── auth.spec.ts      # Authentication tests
+    ├── basic.spec.ts     # Core functionality tests
+    ├── homepage.spec.ts  # Homepage tests
+    ├── plant-catalog.spec.ts  # Catalog and search tests
+    ├── selenium.config.ts     # Test configuration
+    └── README.md         # Testing documentation
 ```
 
 ## 🌍 Deployment
