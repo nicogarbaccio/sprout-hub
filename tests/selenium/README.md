@@ -1,10 +1,10 @@
-# SproutHub Selenium WebDriver Test Suite
+# sprouthub Selenium WebDriver Test Suite
 
-A comprehensive end-to-end testing framework for **SproutHub**, the modern plant care tracking Progressive Web App. Built with Selenium WebDriver, TypeScript, and Vitest, this test suite validates critical plant management workflows, user authentication, catalog browsing, and smart watering features across multiple browsers and devices.
+A comprehensive end-to-end testing framework for **sprouthub**. Built with Selenium WebDriver, TypeScript, and Vitest, this test suite validates critical plant management workflows, user authentication, catalog browsing, and smart watering features across multiple browsers and devices.
 
-## SproutHub Application Overview
+## sprouthub Application Overview
 
-**SproutHub** is a full-stack plant care tracker that helps users manage their indoor gardens with intelligent features:
+**sprouthub** is a full-stack plant care tracker that helps users manage their indoor gardens with intelligent features:
 
 - **Plant Collection Management**: Add, organize, and track personal plant collections by rooms
 - **Smart Watering System**: AI-powered watering recommendations based on environmental factors
@@ -14,7 +14,7 @@ A comprehensive end-to-end testing framework for **SproutHub**, the modern plant
 
 ## Test Architecture Overview
 
-This testing framework implements a **Page Object Model (POM) variant** specifically designed for SproutHub's plant care workflows. The architecture separates test logic from browser automation details, ensuring maintainable validation of:
+This testing framework implements a **Page Object Model (POM) variant** specifically designed for sprouthub's plant care workflows. The architecture separates test logic from browser automation details, ensuring maintainable validation of:
 
 - **Authentication flows** (sign-up, sign-in, user sessions)
 - **Plant management workflows** (adding plants, room organization, care tracking)
@@ -95,11 +95,12 @@ const debugConfig: SeleniumTestConfig = {
 
 ## Test Suite Architecture
 
-### SproutHub Test Organization
+### sprouthub
+ Test Organization
 
 | Test File | Coverage | Test Count | Plant Care Focus Area |
 |-----------|----------|------------|----------------------|
-| `basic.spec.ts` | Core plant care functionality | 4 tests | SproutHub loading, plant management elements, core navigation |
+| `basic.spec.ts` | Core plant care functionality | 4 tests | sprouthub loading, plant management elements, core navigation |
 | `homepage.spec.ts` | Plant care onboarding | 7 tests | Plant care hero section, garden navigation, "Start Growing" CTA |
 | `auth.spec.ts` | Plant enthusiast authentication | 6 tests | User profiles, plant care preferences, secure garden access |
 | `plant-catalog.spec.ts` | Plant discovery & selection | 10 tests | Species search, care guide filtering, plant collection building |
@@ -107,7 +108,7 @@ const debugConfig: SeleniumTestConfig = {
 ### Test Architecture Pattern
 
 ```typescript
-describe('SproutHub Plant Care Tests', () => {
+describe('sprouthub Plant Care Tests', () => {
   let selenium: SeleniumTestSetup;
 
   beforeAll(async () => {
@@ -122,12 +123,12 @@ describe('SproutHub Plant Care Tests', () => {
   });
 
   beforeEach(async () => {
-    // Start fresh on SproutHub homepage for each test
+    // Start fresh on sprouthub homepage for each test
     await selenium.navigateTo('/');
   });
 
   test('should allow user to start their plant care journey', async () => {
-    // Arrange: Wait for SproutHub hero section to load
+    // Arrange: Wait for sprouthub hero section to load
     await selenium.waitForElementVisible('[data-testid="hero-section"]', 10000);
     
     // Act: Click "Start Growing" to begin plant care onboarding
@@ -186,7 +187,7 @@ await selenium.clickElement('[data-testid="submit"]');
 await selenium.waitForElementVisible('[data-testid="success"]', 5000);
 ```
 
-## SproutHub Element Selection Strategy
+## sprouthub Element Selection Strategy
 
 ### Plant Care data-testid Approach
 This framework implements **data-testid** attributes specifically designed for SproutHub's plant care workflows, following testing best practices for:
@@ -195,7 +196,7 @@ This framework implements **data-testid** attributes specifically designed for S
 - **Care Performance**: Efficient selectors for large plant collections
 
 ```tsx
-// SproutHub Plant Care Component Examples
+// sprouthub Plant Care Component Examples
 <button data-testid="add-plant-button" className="btn-primary">
   Add Plant to Collection
 </button>
@@ -210,13 +211,13 @@ This framework implements **data-testid** attributes specifically designed for S
 </section>
 ```
 
-### SproutHub Selection Hierarchy
+### sprouthub Selection Hierarchy
 1. **Primary**: `[data-testid="plant-specific-element"]` (plant care features)
 2. **Fallback**: Semantic HTML elements (`nav`, `main`, `section`)
 3. **Plant Care**: Plant-specific classes (`.plant-card`, `.watering-button`)
 4. **Last Resort**: Generic CSS classes (structural elements only)
 
-### SproutHub Implemented Test IDs
+### sprouthub Implemented Test IDs
 | Plant Care Feature | Test IDs | Plant Management Purpose |
 |-------------------|----------|--------------------------|
 | Plant Navigation | `navigation`, `logo`, `start-growing-button` | Garden app navigation |
@@ -226,7 +227,7 @@ This framework implements **data-testid** attributes specifically designed for S
 | Care Features | `water-plant-button`, `watering-schedule` | Smart watering system |
 | UI Controls | `theme-toggle`, `pagination-controls` | Garden app preferences |
 
-## SproutHub Plant Care Testing Scenarios
+## sprouthub Plant Care Testing Scenarios
 
 ### Core Plant Management Workflows
 
@@ -370,10 +371,10 @@ const debugConfig: SeleniumTestConfig = {
 
 ## CI/CD Integration
 
-### SproutHub CI/CD Pipeline Configuration
+### sprouthub CI/CD Pipeline Configuration
 ```yaml
-# SproutHub Plant Care Testing Pipeline
-name: SproutHub E2E Plant Care Tests
+# sprouthub Plant Care Testing Pipeline
+name: sprouthub E2E Plant Care Tests
 on: [push, pull_request]
 
 jobs:
@@ -388,10 +389,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: Start SproutHub application
+      - name: Start sprouthub application
         run: npm run dev &
         
-      - name: Wait for SproutHub to be ready
+      - name: Wait for sprouthub to be ready
         run: npx wait-on http://localhost:8080
         
       - name: Run plant care E2E tests
