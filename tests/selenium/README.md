@@ -1,10 +1,26 @@
-# Selenium WebDriver Test Suite
+# SproutHub Selenium WebDriver Test Suite
 
-A comprehensive end-to-end testing framework built with Selenium WebDriver, TypeScript, and Vitest. This test suite provides robust browser automation for modern web applications with advanced patterns, reliable element selection strategies, and scalable test architecture.
+A comprehensive end-to-end testing framework for **SproutHub**, the modern plant care tracking Progressive Web App. Built with Selenium WebDriver, TypeScript, and Vitest, this test suite validates critical plant management workflows, user authentication, catalog browsing, and smart watering features across multiple browsers and devices.
 
-## Architecture Overview
+## SproutHub Application Overview
 
-This testing framework implements a **Page Object Model (POM) variant** with centralized configuration and utility classes. The architecture separates test logic from browser automation details, ensuring maintainable and reliable test execution across different environments.
+**SproutHub** is a full-stack plant care tracker that helps users manage their indoor gardens with intelligent features:
+
+- **Plant Collection Management**: Add, organize, and track personal plant collections by rooms
+- **Smart Watering System**: AI-powered watering recommendations based on environmental factors
+- **Plant Catalog**: Browse and search a curated library of plants with detailed care guides
+- **Care Activity Tracking**: Log watering, fertilizing, and other care activities with timestamps
+- **PWA Features**: Offline support, mobile-first design, and native iOS app capabilities
+
+## Test Architecture Overview
+
+This testing framework implements a **Page Object Model (POM) variant** specifically designed for SproutHub's plant care workflows. The architecture separates test logic from browser automation details, ensuring maintainable validation of:
+
+- **Authentication flows** (sign-up, sign-in, user sessions)
+- **Plant management workflows** (adding plants, room organization, care tracking)
+- **Search and filtering functionality** (plant catalog, care history)
+- **Smart watering interactions** (preferences, scheduling, postpone features)
+- **Responsive design patterns** (mobile-first UI, PWA features)
 
 ## Prerequisites & Setup
 
@@ -79,48 +95,48 @@ const debugConfig: SeleniumTestConfig = {
 
 ## Test Suite Architecture
 
-### Test Organization
+### SproutHub Test Organization
 
-| Test File | Coverage | Test Count | Focus Area |
-|-----------|----------|------------|------------|
-| `basic.spec.ts` | Core functionality | 4 tests | Page loading, element presence, basic interactions |
-| `homepage.spec.ts` | Landing page | 7 tests | Hero section, navigation, CTAs, responsive design |
-| `auth.spec.ts` | Authentication | 6 tests | Form validation, input handling, theme integration |
-| `catalog.spec.ts` | Product catalog | 10 tests | Search, filtering, pagination, card interactions |
+| Test File | Coverage | Test Count | Plant Care Focus Area |
+|-----------|----------|------------|----------------------|
+| `basic.spec.ts` | Core plant care functionality | 4 tests | SproutHub loading, plant management elements, core navigation |
+| `homepage.spec.ts` | Plant care onboarding | 7 tests | Plant care hero section, garden navigation, "Start Growing" CTA |
+| `auth.spec.ts` | Plant enthusiast authentication | 6 tests | User profiles, plant care preferences, secure garden access |
+| `plant-catalog.spec.ts` | Plant discovery & selection | 10 tests | Species search, care guide filtering, plant collection building |
 
 ### Test Architecture Pattern
 
 ```typescript
-describe('Feature Test Suite', () => {
+describe('SproutHub Plant Care Tests', () => {
   let selenium: SeleniumTestSetup;
 
   beforeAll(async () => {
-    // Driver initialization with configuration
+    // Initialize WebDriver for plant care testing
     selenium = new SeleniumTestSetup(defaultConfig);
     await selenium.setupDriver();
   });
 
   afterAll(async () => {
-    // Cleanup and resource management
+    // Cleanup and close browser session
     await selenium.teardownDriver();
   });
 
   beforeEach(async () => {
-    // Fresh page state for each test
-    await selenium.navigateTo('/target-route');
+    // Start fresh on SproutHub homepage for each test
+    await selenium.navigateTo('/');
   });
 
-  test('should validate specific behavior', async () => {
-    // Arrange: Setup test conditions
-    await selenium.waitForElementVisible('[data-testid="target"]', 10000);
+  test('should allow user to start their plant care journey', async () => {
+    // Arrange: Wait for SproutHub hero section to load
+    await selenium.waitForElementVisible('[data-testid="hero-section"]', 10000);
     
-    // Act: Perform user actions
-    await selenium.clickElement('[data-testid="action-button"]');
+    // Act: Click "Start Growing" to begin plant care onboarding
+    await selenium.clickElement('[data-testid="start-growing-button"]');
     
-    // Assert: Verify expected outcomes
-    const result = await selenium.isElementPresent('[data-testid="success"]');
-    expect(result).toBe(true);
-  }, 15000); // Custom timeout for complex operations
+    // Assert: Verify navigation to plant catalog for species selection
+    const catalogVisible = await selenium.isElementPresent('[data-testid="plant-catalog"]');
+    expect(catalogVisible).toBe(true);
+  }, 15000); // Extended timeout for plant data loading
 });
 ```
 
@@ -170,38 +186,122 @@ await selenium.clickElement('[data-testid="submit"]');
 await selenium.waitForElementVisible('[data-testid="success"]', 5000);
 ```
 
-## Element Selection Strategy
+## SproutHub Element Selection Strategy
 
-### data-testid Approach
-This framework implements **data-testid** attributes as the primary element selection strategy, following testing best practices for:
-- **Stability**: Independent of UI changes and CSS modifications
-- **Clarity**: Self-documenting test intent
-- **Performance**: Efficient CSS selector performance
+### Plant Care data-testid Approach
+This framework implements **data-testid** attributes specifically designed for SproutHub's plant care workflows, following testing best practices for:
+- **Plant Care Stability**: Independent of UI themes and seasonal design changes
+- **Garden Clarity**: Self-documenting plant management test intent
+- **Care Performance**: Efficient selectors for large plant collections
 
 ```tsx
-// Component implementation
-<button data-testid="submit-button" className="btn-primary">
-  Submit Form
+// SproutHub Plant Care Component Examples
+<button data-testid="add-plant-button" className="btn-primary">
+  Add Plant to Collection
 </button>
-<input data-testid="email-input" type="email" placeholder="Enter email" />
-<div data-testid="plant-card" className="card-container">
-  <img data-testid="plant-image" src="..." alt="Plant" />
+<input data-testid="search-input" type="search" placeholder="Search plants..." />
+<div data-testid="plant-card" className="plant-card-container">
+  <img data-testid="plant-image" src="..." alt="Monstera Deliciosa" />
   <h3 data-testid="plant-name">Monstera Deliciosa</h3>
+  <button data-testid="water-plant-button">Water Plant</button>
 </div>
+<section data-testid="watering-schedule" className="care-schedule">
+  <button data-testid="postpone-watering">Postpone Watering</button>
+</section>
 ```
 
-### Selection Hierarchy
-1. **Primary**: `[data-testid="specific-element"]`
-2. **Fallback**: Semantic HTML elements (`nav`, `main`, `footer`)
-3. **Last Resort**: CSS classes (only for structural elements)
+### SproutHub Selection Hierarchy
+1. **Primary**: `[data-testid="plant-specific-element"]` (plant care features)
+2. **Fallback**: Semantic HTML elements (`nav`, `main`, `section`)
+3. **Plant Care**: Plant-specific classes (`.plant-card`, `.watering-button`)
+4. **Last Resort**: Generic CSS classes (structural elements only)
 
-### Implemented Test IDs
-| Component | Test IDs | Purpose |
-|-----------|----------|---------|
-| Navigation | `navigation`, `logo`, `mobile-menu-trigger` | App navigation |
-| Authentication | `sign-in-email`, `sign-in-password` | Form validation |
-| Plant Catalog | `plant-grid`, `plant-card`, `search-input` | Product interaction |
-| UI Controls | `theme-toggle`, `pagination-controls` | User preferences |
+### SproutHub Implemented Test IDs
+| Plant Care Feature | Test IDs | Plant Management Purpose |
+|-------------------|----------|--------------------------|
+| Plant Navigation | `navigation`, `logo`, `start-growing-button` | Garden app navigation |
+| Authentication | `sign-in-email`, `sign-in-password` | Plant enthusiast profiles |
+| Plant Discovery | `plant-grid`, `plant-card`, `search-input` | Species browsing & selection |
+| Plant Collection | `my-plants-collection`, `add-plant-button` | Personal garden management |
+| Care Features | `water-plant-button`, `watering-schedule` | Smart watering system |
+| UI Controls | `theme-toggle`, `pagination-controls` | Garden app preferences |
+
+## SproutHub Plant Care Testing Scenarios
+
+### Core Plant Management Workflows
+
+#### Plant Collection Management
+```typescript
+test('should allow user to build their plant collection', async () => {
+  // Navigate to plant catalog for species discovery
+  await selenium.navigateTo('/catalog');
+  await selenium.waitForElementVisible('[data-testid="plant-grid"]', 10000);
+  
+  // Select a plant species (e.g., Monstera Deliciosa)
+  await selenium.clickElement('[data-testid="plant-card"]');
+  await selenium.waitForElementVisible('[data-testid="add-plant-button"]', 5000);
+  
+  // Add plant to personal collection
+  await selenium.clickElement('[data-testid="add-plant-button"]');
+  await selenium.waitForElementVisible('[data-testid="plant-added-success"]', 3000);
+});
+```
+
+#### Smart Watering System Validation
+```typescript
+test('should handle smart watering recommendations', async () => {
+  // Access plant collection
+  await selenium.navigateTo('/my-plants');
+  await selenium.waitForElementVisible('[data-testid="my-plants-collection"]', 8000);
+  
+  // Check watering schedule for a plant
+  await selenium.clickElement('[data-testid="plant-card"]');
+  await selenium.waitForElementVisible('[data-testid="watering-schedule"]', 5000);
+  
+  // Test postpone watering functionality
+  const postponeButton = await selenium.isElementPresent('[data-testid="postpone-watering"]');
+  if (postponeButton) {
+    await selenium.clickElement('[data-testid="postpone-watering"]');
+    await selenium.waitForElementVisible('[data-testid="watering-postponed"]', 3000);
+  }
+});
+```
+
+#### Plant Discovery & Search
+```typescript
+test('should enable effective plant species discovery', async () => {
+  // Search for specific plant categories
+  await selenium.navigateTo('/catalog');
+  await selenium.waitForElementVisible('[data-testid="search-input"]', 5000);
+  
+  // Test plant search functionality
+  await selenium.typeText('[data-testid="search-input"]', 'succulent');
+  await selenium.waitForElementVisible('[data-testid="plant-grid"]', 8000);
+  
+  // Verify filtered results show relevant plants
+  const plantCards = await selenium.isElementPresent('[data-testid="plant-card"]');
+  expect(plantCards).toBe(true);
+});
+```
+
+### Plant Care User Experience Testing
+
+#### Responsive Plant Care Interface
+```typescript
+test('should provide optimal plant care experience on mobile', async () => {
+  // Test mobile-first plant management interface
+  await selenium.navigateTo('/');
+  await selenium.waitForElementVisible('[data-testid="hero-section"]', 5000);
+  
+  // Verify mobile navigation works for plant features
+  await selenium.clickElement('[data-testid="mobile-menu-trigger"]');
+  await selenium.waitForElementVisible('[data-testid="mobile-menu"]', 3000);
+  
+  // Test plant care theme toggle (light/dark for day/night gardening)
+  await selenium.clickElement('[data-testid="theme-toggle"]');
+  // Theme change validation would depend on implementation
+});
+```
 
 ## Testing Best Practices
 
@@ -270,14 +370,14 @@ const debugConfig: SeleniumTestConfig = {
 
 ## CI/CD Integration
 
-### Pipeline Configuration
+### SproutHub CI/CD Pipeline Configuration
 ```yaml
-# Example GitHub Actions workflow
-name: Selenium Tests
+# SproutHub Plant Care Testing Pipeline
+name: SproutHub E2E Plant Care Tests
 on: [push, pull_request]
 
 jobs:
-  selenium-tests:
+  sprouthub-plant-care-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -288,16 +388,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: Start application
+      - name: Start SproutHub application
         run: npm run dev &
         
-      - name: Wait for application
+      - name: Wait for SproutHub to be ready
         run: npx wait-on http://localhost:8080
         
-      - name: Run E2E tests
+      - name: Run plant care E2E tests
         run: npm run test:e2e
         env:
           CI: true
+          SPROUTHUB_ENV: test
 ```
 
 ### Environment Variables
