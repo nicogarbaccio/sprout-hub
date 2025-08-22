@@ -36,7 +36,7 @@ const MyPlantsCollection = () => {
 
   if (showLoading) {
     return (
-      <section className="py-20 bg-background min-h-[calc(100vh-4rem)]">
+      <section className="py-8 bg-background min-h-[calc(100vh-4rem)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header Skeleton */}
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">
@@ -64,7 +64,7 @@ const MyPlantsCollection = () => {
 
   if (!isReady) {
     return (
-      <section className="py-20 bg-background min-h-[calc(100vh-4rem)]">
+      <section className="py-8 bg-background min-h-[calc(100vh-4rem)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 opacity-0">
           {/* Invisible content to maintain height */}
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">
@@ -180,7 +180,7 @@ const MyPlantsCollection = () => {
   };
 
   return (
-    <section className="py-20 bg-background min-h-[calc(100vh-4rem)]">
+    <section className="py-8 bg-background min-h-[calc(100vh-4rem)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <CascadingContainer delay={0}>
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">

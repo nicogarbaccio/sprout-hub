@@ -26,8 +26,8 @@ const MyPlants = () => {
     return (
       <div className="min-h-screen bg-background font-poppins">
         <Navigation />
-        <div className="pt-16">
-          <section className="py-20 bg-background">
+        <main className="pt-20">
+          <section className="py-8 bg-background">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               {/* Header Skeleton */}
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-12">
@@ -50,7 +50,7 @@ const MyPlants = () => {
               </div>
             </div>
           </section>
-        </div>
+        </main>
         <Footer />
       </div>
     );
@@ -63,9 +63,9 @@ const MyPlants = () => {
   return (
     <div className="min-h-screen bg-background font-poppins">
       <Navigation />
-      <div className="pt-16">
+      <main className="pt-20">
         <MyPlantsCollection />
-      </div>
+      </main>
       <Footer />
     </div>
   );

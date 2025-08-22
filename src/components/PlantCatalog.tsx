@@ -226,7 +226,7 @@ const PlantCatalog = ({
 
   return (
     <section
-      className={`py-20 ${
+      className={`py-8 ${
         isDashboard ? "bg-background" : "bg-plant-neutral dark:bg-background"
       }`}
       data-testid="plant-catalog"

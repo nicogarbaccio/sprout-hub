@@ -1,9 +1,7 @@
-# SproutHub - Plant Care Tracker
-
-A modern, full-stack Progressive Web App (PWA) for plant care and collection management built with cutting-edge technologies and best practices.
+# sprouthub
 
 ## 🌱 Project Overview
-SproutHub is a comprehensive plant care tracker that helps you manage your indoor garden, track plant care schedules, browse a rich plant catalog, and build your personal collection. Designed for plant lovers who want a beautiful, responsive, and intelligent plant management experience that works seamlessly across all devices including native iOS support.
+sprouthub is a comprehensive plant care tracker that helps you manage your indoor garden, track plant care schedules, browse a rich plant catalog, and build your personal collection. Designed for plant lovers who want a beautiful, responsive, and intelligent plant management experience that works seamlessly across all devices including native iOS support.
 
 ## ✨ Key Features
 
@@ -375,6 +373,6 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-*Happy growing with SproutHub!* 🌿✨
+*Happy growing with sprouthub!* 🌿✨
 
 > Built with ❤️ for plant lovers everywhere

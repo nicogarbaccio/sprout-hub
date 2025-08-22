@@ -35,7 +35,7 @@ const Profile = () => {
     return (
       <div className="min-h-screen bg-background font-poppins">
         <Navigation />
-        <div className="min-h-[calc(100vh-4rem)] bg-plant-neutral dark:bg-background p-4">
+        <main className="pt-20 min-h-[calc(100vh-4rem)] bg-plant-neutral dark:bg-background py-8 px-4">
           <div className="max-w-4xl mx-auto space-y-6">
             {/* Profile Header Skeleton */}
             <Card>
@@ -117,7 +117,7 @@ const Profile = () => {
               </div>
             </div>
           </div>
-        </div>
+        </main>
         <Footer />
       </div>
     );
@@ -127,7 +127,7 @@ const Profile = () => {
     return (
       <div className="min-h-screen bg-background font-poppins">
         <Navigation />
-        <div className="min-h-[calc(100vh-4rem)] bg-plant-neutral dark:bg-background p-4">
+        <main className="pt-20 min-h-[calc(100vh-4rem)] bg-plant-neutral dark:bg-background py-8 px-4">
           <div className="max-w-4xl mx-auto space-y-6 opacity-0">
             {/* Invisible content to maintain height */}
             <Card>
@@ -165,7 +165,7 @@ const Profile = () => {
               </div>
             </div>
           </div>
-        </div>
+        </main>
         <Footer />
       </div>
     );
@@ -174,7 +174,7 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-background font-poppins">
       <Navigation />
-      <div className="min-h-[calc(100vh-4rem)] bg-plant-neutral dark:bg-background p-4">
+      <main className="pt-20 min-h-[calc(100vh-4rem)] bg-plant-neutral dark:bg-background py-8 px-4">
         <div className="max-w-4xl mx-auto space-y-6">
           <CascadingContainer delay={0}>
             <ProfileHeader />
@@ -211,7 +211,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
-      </div>
+      </main>
       <Footer />
     </div>
   );
