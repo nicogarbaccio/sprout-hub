@@ -213,6 +213,7 @@ npm run lint:fix
 - **Mobile-First** - Responsive design starting from mobile
 - **Accessibility** - WCAG 2.1 AA compliance with semantic HTML
 - **Performance** - Optimized rendering and minimal re-renders
+- **Layout Consistency** - Standardized spacing (6rem top margin) and semantic structure across all authenticated pages
 
 ## 🏗️ Project Structure
 ```
